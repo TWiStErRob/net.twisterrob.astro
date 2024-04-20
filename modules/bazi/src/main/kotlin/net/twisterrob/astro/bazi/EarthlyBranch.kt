@@ -83,4 +83,8 @@ public enum class EarthlyBranch(
 	 * 21-23
 	 */
 	Hai(12, Zodiac.Pig),
+
+	;
+
+	public companion object;
 }
