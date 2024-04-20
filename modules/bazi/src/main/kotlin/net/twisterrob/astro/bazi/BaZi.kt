@@ -29,6 +29,8 @@ public class BaZi(
 	public val hour: Pillar,
 ) {
 
+	public companion object;
+
 	public data class Pillar(
 		public val heavenlyStem: HeavenlyStem,
 		public val earthlyBranch: EarthlyBranch,
@@ -36,5 +38,7 @@ public class BaZi(
 
 		override fun toString(): String =
 			"${heavenlyStem} ${earthlyBranch}"
+
+		public companion object;
 	}
 }

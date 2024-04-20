@@ -9,4 +9,8 @@ public enum class YinYang {
 
 	Yang,
 	Yin,
+
+	;
+
+	public companion object;
 }
