@@ -90,5 +90,10 @@ public enum class EarthlyBranch(
 
 		internal fun at(position: Int): EarthlyBranch =
 			EarthlyBranch.entries.single { it.order == position }
+		
+		internal fun atHour(hour: Int): EarthlyBranch {
+			val rounded = ((hour + 1) % 24 + 24) % 24
+			return EarthlyBranch.entries[rounded / 2]
+		}
 	}
 }

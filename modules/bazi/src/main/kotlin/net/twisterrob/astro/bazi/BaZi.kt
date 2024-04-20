@@ -7,7 +7,7 @@ package net.twisterrob.astro.bazi
  *
  * https://en.wikipedia.org/wiki/Four_Pillars_of_Destiny
  */
-public class BaZi(
+public data class BaZi(
 	/**
 	 * The Year Pillar / Nia Zhu (年柱).
 	 */

@@ -7,6 +7,8 @@ package net.twisterrob.astro.bazi
  */
 @Suppress("UNINITIALIZED_ENUM_ENTRY", "SelfReferenceConstructorParameter")
 public enum class Phase(
+	public val order: Int,
+
 	public val planet: Planet,
 
 	/**
@@ -24,6 +26,7 @@ public enum class Phase(
 	 * 木: Wood.
 	 */
 	Mu(
+		1,
 		Planet.Jupiter,
 		Huo, // Used to generate Fire.
 		Tu, // Wood grows on Earth and held it with its roots.
@@ -33,6 +36,7 @@ public enum class Phase(
 	 * 火: Fire.
 	 */
 	Huo(
+		2,
 		Planet.Mars,
 		Tu, // Produces ashes that is returned to the Earth.
 		Jin, // Fire will melt the Metal.
@@ -42,6 +46,7 @@ public enum class Phase(
 	 * 土: Earth.
 	 */
 	Tu(
+		3,
 		Planet.Saturn,
 		Jin, // From the Earth, mines enable us to retrieve Metal.
 		Shui, // Earth absorbs the Water and thus stops the water flow.
@@ -51,6 +56,7 @@ public enum class Phase(
 	 * 金: Metal.
 	 */
 	Jin(
+		4,
 		Planet.Venus,
 		Shui, // Melts down to produce Water.
 		Mu, // Metal tools are used to cut Wood.
@@ -60,6 +66,7 @@ public enum class Phase(
 	 * 水: Water.
 	 */
 	Shui(
+		5,
 		Planet.Mercury,
 		Mu, // Provides water for the Wood.
 		Huo, // Water is used to put out Fire.
