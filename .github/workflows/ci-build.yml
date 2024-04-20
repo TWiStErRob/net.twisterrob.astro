@@ -12,6 +12,10 @@ jobs:
     permissions:
       # actions/checkout
       contents: read
+      # EnricoMi/publish-unit-test-result-action
+      checks: write
+      # github/codeql-action/upload-sarif
+      security-events: write
 
     runs-on: ubuntu-latest
     defaults:
