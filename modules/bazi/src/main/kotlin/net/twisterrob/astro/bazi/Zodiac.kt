@@ -70,4 +70,8 @@ public enum class Zodiac(
 	 * 猪: Pig / Boar.
 	 */
 	Pig,
+
+	;
+
+	public companion object;
 }

@@ -8,7 +8,7 @@ package net.twisterrob.astro.bazi
 @Suppress("UNINITIALIZED_ENUM_ENTRY", "SelfReferenceConstructorParameter")
 public enum class Phase(
 	public val planet: Planet,
-	
+
 	/**
 	 * Inter-livening: Generating / Producing / Enhancing / Strengthening / Nurturing / Supporting.
 	 */
@@ -67,11 +67,17 @@ public enum class Phase(
 
 	;
 
+	public companion object;
+
 	public enum class Planet {
 		Venus,
 		Jupiter,
 		Mars,
 		Mercury,
 		Saturn,
+
+		;
+
+		public companion object;
 	}
 }

@@ -60,4 +60,8 @@ public enum class HeavenlyStem(
 	 * 癸: 阴水 (yin water).
 	 */
 	Gui(10, YinYang.Yin, Phase.Shui),
+
+	;
+
+	public companion object;
 }
