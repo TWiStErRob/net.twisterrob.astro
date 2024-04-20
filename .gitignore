@@ -1,0 +1,7 @@
+/.idea/
+!/.idea/runConfigurations/
+/build/
+/gradle/plugins/build/
+/modules/*/build/
+.gradle/
+/temp/
