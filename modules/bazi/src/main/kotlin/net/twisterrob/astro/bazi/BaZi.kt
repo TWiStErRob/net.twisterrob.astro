@@ -39,6 +39,13 @@ public class BaZi(
 		override fun toString(): String =
 			"${heavenlyStem} ${earthlyBranch}"
 
-		public companion object;
+		public companion object {
+
+			internal fun at(position: Int): Pillar {
+				val heavenlyStem = HeavenlyStem.at((position - 1) % 10 + 1)
+				val earthlyBranch = EarthlyBranch.at((position - 1) % 12 + 1)
+				return Pillar(heavenlyStem, earthlyBranch)
+			}
+		}
 	}
 }
