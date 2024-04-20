@@ -86,5 +86,9 @@ public enum class EarthlyBranch(
 
 	;
 
-	public companion object;
+	public companion object {
+
+		internal fun at(position: Int): EarthlyBranch =
+			EarthlyBranch.entries.single { it.order == position }
+	}
 }

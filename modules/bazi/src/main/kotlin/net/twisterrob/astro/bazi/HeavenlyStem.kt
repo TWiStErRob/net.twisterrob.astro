@@ -63,5 +63,9 @@ public enum class HeavenlyStem(
 
 	;
 
-	public companion object;
+	public companion object {
+
+		internal fun at(position: Int): HeavenlyStem =
+			entries.single { it.order == position }
+	}
 }
