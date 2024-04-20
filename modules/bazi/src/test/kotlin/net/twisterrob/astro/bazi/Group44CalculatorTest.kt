@@ -17,6 +17,8 @@ import net.twisterrob.astro.bazi.HeavenlyStem.Jia
 import net.twisterrob.astro.bazi.HeavenlyStem.Ren
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDate
 import java.time.LocalDateTime
 import net.twisterrob.astro.bazi.EarthlyBranch.Wu as WuEB
@@ -127,6 +129,165 @@ class Group44CalculatorTest {
 				BaZi.Pillar(Ding, You),
 				BaZi.Pillar(Jia, Chen)
 			)
+		}
+	}
+
+	@Nested
+	inner class ChineseZodiacYears {
+
+		@CsvSource(
+			"1912, Zi",
+			"1913, Chou",
+			"1914, Yin",
+			"1915, Mao",
+			"1916, Chen",
+			"1917, Si",
+			"1918, Wu",
+			"1919, Wei",
+			"1920, Shen",
+			"1921, You",
+			"1922, Xu",
+			"1923, Hai",
+
+			"1924, Zi",
+			"1925, Chou",
+			"1926, Yin",
+			"1927, Mao",
+			"1928, Chen",
+			"1929, Si",
+			"1930, Wu",
+			"1931, Wei",
+			"1932, Shen",
+			"1933, You",
+			"1934, Xu",
+			"1935, Hai",
+
+			"1936, Zi",
+			"1937, Chou",
+			"1938, Yin",
+			"1939, Mao",
+			"1940, Chen",
+			"1941, Si",
+			"1942, Wu",
+			"1943, Wei",
+			"1944, Shen",
+			"1945, You",
+			"1946, Xu",
+			"1947, Hai",
+
+			"1948, Zi",
+			"1949, Chou",
+			"1950, Yin",
+			"1951, Mao",
+			"1952, Chen",
+			"1953, Si",
+			"1954, Wu",
+			"1955, Wei",
+			"1956, Shen",
+			"1957, You",
+			"1958, Xu",
+			"1959, Hai",
+
+			"1960, Zi",
+			"1961, Chou",
+			"1962, Yin",
+			"1963, Mao",
+			"1964, Chen",
+			"1965, Si",
+			"1966, Wu",
+			"1967, Wei",
+			"1968, Shen",
+			"1969, You",
+			"1970, Xu",
+			"1971, Hai",
+
+			"1972, Zi",
+			"1973, Chou",
+			"1974, Yin",
+			"1975, Mao",
+			"1976, Chen",
+			"1977, Si",
+			"1978, Wu",
+			"1979, Wei",
+			"1980, Shen",
+			"1981, You",
+			"1982, Xu",
+			"1983, Hai",
+
+			"1984, Zi",
+			"1985, Chou",
+			"1986, Yin",
+			"1987, Mao",
+			"1988, Chen",
+			"1989, Si",
+			"1990, Wu",
+			"1991, Wei",
+			"1992, Shen",
+			"1993, You",
+			"1994, Xu",
+			"1995, Hai",
+
+			"1996, Zi",
+			"1997, Chou",
+			"1998, Yin",
+			"1999, Mao",
+			"2000, Chen",
+			"2001, Si",
+			"2002, Wu",
+			"2003, Wei",
+			"2004, Shen",
+			"2005, You",
+			"2006, Xu",
+			"2007, Hai",
+
+			"2008, Zi",
+			"2009, Chou",
+			"2010, Yin",
+			"2011, Mao",
+			"2012, Chen",
+			"2013, Si",
+			"2014, Wu",
+			"2015, Wei",
+			"2016, Shen",
+			"2017, You",
+			"2018, Xu",
+			"2019, Hai",
+
+			"2020, Zi",
+			"2021, Chou",
+			"2022, Yin",
+			"2023, Mao",
+			"2024, Chen",
+			"2025, Si",
+			"2026, Wu",
+			"2027, Wei",
+			"2028, Shen",
+			"2029, You",
+			"2030, Xu",
+			"2031, Hai",
+
+			"2032, Zi",
+			"2033, Chou",
+			"2034, Yin",
+			"2035, Mao",
+			"2036, Chen",
+			"2037, Si",
+			"2038, Wu",
+			"2039, Wei",
+			"2040, Shen",
+			"2041, You",
+			"2042, Xu",
+			"2043, Hai",
+		)
+		// Source: https://www.travelchinaguide.com/intro/chinese-zodiac-years-chart.htm
+		// https://www.travelchinaguide.com/images/photogallery/2019/zodiac-year-chart.jpg
+		@ParameterizedTest fun `chinese zodiac years`(
+			year: Int,
+			earthlyBranch: EarthlyBranch,
+		) {
+			val result = subject.calculate(LocalDate.of(year, 7, 1).atStartOfDay())
+
+			result.year.earthlyBranch shouldBe earthlyBranch
 		}
 	}
 }
