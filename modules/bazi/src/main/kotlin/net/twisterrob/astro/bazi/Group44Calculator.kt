@@ -25,6 +25,7 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
+import net.twisterrob.astro.bazi.model.Zodiac
 import java.time.LocalDateTime
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
@@ -62,12 +63,10 @@ public class Group44Calculator : BaZiCalculator {
 	}
 
 	internal fun calculateMonth(date: LocalDateTime): BaZi.Pillar {
-		// 年干
-		val yearlyStem = calculateYear(date).heavenlyStem
+		val /*年干*/ yearlyStem = calculateYear(date).heavenlyStem
 		val yearlyStemLabel = monthHeavenlyStemNumbers.getValue(yearlyStem)
 
-		// 月支
-		val monthlyBranch = months[date.monthValue - 1]
+		val /*月支*/ monthlyBranch = months[date.monthValue - 1]
 		val monthlyBranchLabel = monthEarthlyBranchNumbers.getValue(monthlyBranch)
 
 		val offset = heavenlyStemOffsets.getValue(yearlyStem)

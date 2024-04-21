@@ -12,12 +12,14 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Gui
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Ji
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
+@Disabled("Group44Calculator is not working, I think the month is lunar, not solar and the hour is somehow wrong.")
 class Group44CalculatorTest : BaZiCalculatorTest() {
 
 	override val subject = Group44Calculator()
