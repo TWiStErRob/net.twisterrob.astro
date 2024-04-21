@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 class BaZiTest {
 
-	@Test fun `day master represents the day's heavenly stem`() {
+	@Test fun `self element represents the day's heavenly stem`() {
 		val subject = BaZi(
 			Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
 			Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
@@ -14,7 +14,7 @@ class BaZiTest {
 			Pillar(HeavenlyStem.Geng, EarthlyBranch.Si),
 		)
 
-		subject.dayMaster shouldBe subject.day.heavenlyStem
-		subject.dayMaster shouldBe HeavenlyStem.Wu
+		subject.selfElement shouldBe subject.day.heavenlyStem
+		subject.selfElement shouldBe HeavenlyStem.Wu
 	}
 }

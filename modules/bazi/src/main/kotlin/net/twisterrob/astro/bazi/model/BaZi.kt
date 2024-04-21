@@ -31,7 +31,10 @@ public data class BaZi(
 
 	public companion object;
 
-	public val dayMaster: HeavenlyStem = day.heavenlyStem
+	/**
+	 * Self element / birth element / day master.
+	 */
+	public val selfElement: HeavenlyStem = day.heavenlyStem
 
 	public data class Pillar(
 		public val heavenlyStem: HeavenlyStem,
