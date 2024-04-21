@@ -33,13 +33,13 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
  * Based on the Group 44 PDF (bazi-knowledge-manual-calculation-pdf-free.pdf).
  * Ten Thousand Year Calendar / Wan Nian Li (万年历).
  */
-public class Group44Calculator {
+public class Group44Calculator : BaZiCalculator {
 
-	public fun calculate(date: LocalDateTime): BaZi {
-		val year = calculateYear(date)
-		val month = calculateMonth(date)
-		val day = calculateDay(date)
-		val hour = calculateHour(date)
+	override fun calculate(dateTime: LocalDateTime): BaZi {
+		val year = calculateYear(dateTime)
+		val month = calculateMonth(dateTime)
+		val day = calculateDay(dateTime)
+		val hour = calculateHour(dateTime)
 		return BaZi(year, month, day, hour)
 	}
 
