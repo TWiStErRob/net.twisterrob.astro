@@ -47,7 +47,6 @@ public class Group44Calculator : BaZiCalculator {
 	/**
 	 * Solve `2637 + x = 60 y`, for `x` is the year and `y` is the cycle count.
 	 */
-
 	internal fun calculateYear(date: LocalDateTime): BaZi.Pillar {
 		//val cycles = (2637 + date.year) / 60
 		val remainder = (2637 + date.year) % 60
@@ -89,7 +88,7 @@ public class Group44Calculator : BaZiCalculator {
 					(date.year - 1944) * 365 + leapYearsBetween(1944, date.year) + (date.dayOfYear - 1)
 				val position = (daysSinceReference % 60).let { if (it == 0) 60 else it }
 
-				return BaZi.Pillar.sexagenaryCycle(position - 1)
+				return BaZi.Pillar.sexagenaryCycle(position % 60)
 			}
 
 			else -> {
