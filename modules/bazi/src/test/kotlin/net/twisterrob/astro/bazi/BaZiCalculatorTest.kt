@@ -6,19 +6,24 @@ import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Chen
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Chou
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Hai
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Mao
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Shen
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Si
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Wei
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Xu
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Yin
 import net.twisterrob.astro.bazi.model.EarthlyBranch.You
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Bing
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Ding
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Geng
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Gui
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Ji
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -26,7 +31,9 @@ import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Month
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 
+@Suppress("unused", "ClassName")
 abstract class BaZiCalculatorTest {
 
 	abstract val subject: BaZiCalculator
@@ -278,6 +285,183 @@ abstract class BaZiCalculatorTest {
 
 
 			result.day shouldBe BaZi.Pillar(Jia, Zi) // 甲子
+		}
+	}
+
+	@Nested
+	inner class `edge cases` {
+
+		@Test fun `previous solar year`() {
+			val result = subject.calculate(LocalDate.of(1948, Month.JANUARY, 21))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Ding, Hai), // 丁亥
+				BaZi.Pillar(Gui, Chou), // 癸丑
+				BaZi.Pillar(Yi, Si), // 乙巳
+				null,
+			)
+		}
+	}
+
+	@Nested
+	inner class `gregorian year transition` {
+
+		@Test fun `before new year`() {
+			val result = subject.calculate(LocalDate.of(1947, Month.DECEMBER, 31))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Ding, Hai),
+				BaZi.Pillar(Ren, Zi),
+				BaZi.Pillar(Jia, Shen),
+				null,
+			)
+		}
+
+		@Test fun `after new year`() {
+			val result = subject.calculate(LocalDate.of(1948, Month.JANUARY, 1))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Ding, Hai),
+				BaZi.Pillar(Ren, Zi),
+				BaZi.Pillar(Yi, You),
+				null,
+			)
+		}
+	}
+
+	@Nested
+	inner class `solar year transition` {
+
+		@Test fun `solar year transition 1947-48 - before`() {
+			val result = subject.calculate(LocalDate.of(1948, Month.FEBRUARY, 4))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Ding, Hai),
+				BaZi.Pillar(Gui, Chou),
+				BaZi.Pillar(Ji, Wei),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1947-48 - after`() {
+			val result = subject.calculate(LocalDate.of(1948, Month.FEBRUARY, 5))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Wu, Zi), // 戊子
+				BaZi.Pillar(Jia, Yin), // 甲寅
+				BaZi.Pillar(Geng, Shen), // 庚申
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1948-49 - before`() {
+			val result = subject.calculate(LocalDate.of(1949, Month.FEBRUARY, 3))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Wu, Zi),
+				BaZi.Pillar(Yi, Chou),
+				BaZi.Pillar(Jia, Zi),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1948-49 - after`() {
+			val result = subject.calculate(LocalDate.of(1949, Month.FEBRUARY, 4))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Ji, Chou),
+				BaZi.Pillar(Bing, Yin),
+				BaZi.Pillar(Yi, Chou),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1949-50 - before`() {
+			val result = subject.calculate(LocalDate.of(1950, Month.FEBRUARY, 4))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Ji, Chou),
+				BaZi.Pillar(Ding, Chou),
+				BaZi.Pillar(Geng, WuEB),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1949-50 - after`() {
+			val result = subject.calculate(LocalDate.of(1950, Month.FEBRUARY, 5))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Geng, Yin),
+				BaZi.Pillar(Wu, Yin),
+				BaZi.Pillar(Xin, Wei),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1950-51 - before`() {
+			val result = subject.calculate(LocalDate.of(1951, Month.FEBRUARY, 4))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Geng, Yin),
+				BaZi.Pillar(Ji, Chou),
+				BaZi.Pillar(Yi, Hai),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1950-51 - after`() {
+			val result = subject.calculate(LocalDate.of(1951, Month.FEBRUARY, 5))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Xin, Mao),
+				BaZi.Pillar(Geng, Yin),
+				BaZi.Pillar(Bing, Zi),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1951-52 - before`() {
+			val result = subject.calculate(LocalDate.of(1952, Month.FEBRUARY, 4))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Xin, Mao),
+				BaZi.Pillar(Xin, Chou),
+				BaZi.Pillar(Geng, Chen),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1951-52 - after`() {
+			val result = subject.calculate(LocalDate.of(1952, Month.FEBRUARY, 5))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Ren, Chen),
+				BaZi.Pillar(Ren, Yin),
+				BaZi.Pillar(Xin, Si),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1952-53 - before`() {
+			val result = subject.calculate(LocalDate.of(1953, Month.FEBRUARY, 3))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Ren, Chen),
+				BaZi.Pillar(Gui, Chou),
+				BaZi.Pillar(Yi, You),
+				null,
+			)
+		}
+
+		@Test fun `solar year transition 1952-53 - after`() {
+			val result = subject.calculate(LocalDate.of(1953, Month.FEBRUARY, 4))
+
+			result shouldBe BaZi(
+				BaZi.Pillar(Gui, Si),
+				BaZi.Pillar(Jia, Yin),
+				BaZi.Pillar(Bing, Xu),
+				null,
+			)
 		}
 	}
 }
