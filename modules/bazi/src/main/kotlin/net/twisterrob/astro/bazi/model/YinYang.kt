@@ -1,4 +1,4 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.bazi.model
 
 /**
  * Yin and yang / Yīnyáng (陰陽 / 阴阳).

@@ -1,4 +1,4 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.bazi.model
 
 /**
  * Five Phases, Five Elements, or Five Agents / Wuxing (五行 / 五行).

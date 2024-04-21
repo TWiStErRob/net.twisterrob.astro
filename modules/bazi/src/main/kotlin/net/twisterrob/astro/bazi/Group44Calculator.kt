@@ -1,28 +1,33 @@
 package net.twisterrob.astro.bazi
 
-import net.twisterrob.astro.bazi.EarthlyBranch.Chen
-import net.twisterrob.astro.bazi.EarthlyBranch.Chou
-import net.twisterrob.astro.bazi.EarthlyBranch.Hai
-import net.twisterrob.astro.bazi.EarthlyBranch.Mao
-import net.twisterrob.astro.bazi.EarthlyBranch.Shen
-import net.twisterrob.astro.bazi.EarthlyBranch.Si
-import net.twisterrob.astro.bazi.EarthlyBranch.Wei
-import net.twisterrob.astro.bazi.EarthlyBranch.Xu
-import net.twisterrob.astro.bazi.EarthlyBranch.Yin
-import net.twisterrob.astro.bazi.EarthlyBranch.You
-import net.twisterrob.astro.bazi.EarthlyBranch.Zi
-import net.twisterrob.astro.bazi.HeavenlyStem.Bing
-import net.twisterrob.astro.bazi.HeavenlyStem.Ding
-import net.twisterrob.astro.bazi.HeavenlyStem.Geng
-import net.twisterrob.astro.bazi.HeavenlyStem.Gui
-import net.twisterrob.astro.bazi.HeavenlyStem.Ji
-import net.twisterrob.astro.bazi.HeavenlyStem.Jia
-import net.twisterrob.astro.bazi.HeavenlyStem.Ren
-import net.twisterrob.astro.bazi.HeavenlyStem.Xin
-import net.twisterrob.astro.bazi.HeavenlyStem.Yi
+import net.twisterrob.astro.bazi.lookup.atHour
+import net.twisterrob.astro.bazi.lookup.sexagenaryCycle
+import net.twisterrob.astro.bazi.model.BaZi
+import net.twisterrob.astro.bazi.model.EarthlyBranch
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Chen
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Chou
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Hai
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Mao
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Shen
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Si
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Wei
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Xu
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Yin
+import net.twisterrob.astro.bazi.model.EarthlyBranch.You
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
+import net.twisterrob.astro.bazi.model.HeavenlyStem
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Bing
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ding
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Geng
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Gui
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ji
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
 import java.time.LocalDateTime
-import net.twisterrob.astro.bazi.EarthlyBranch.Wu as WuEB
-import net.twisterrob.astro.bazi.HeavenlyStem.Wu as WuHS
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
 /**
  * Based on the Group 44 PDF (bazi-knowledge-manual-calculation-pdf-free.pdf).
@@ -46,7 +51,7 @@ public class Group44Calculator {
 		//val cycles = (2637 + date.year) / 60
 		val remainder = (2637 + date.year) % 60
 		val adjusted = remainder.let { if (it == 0) 60 else it }
-		return BaZi.Pillar.at(adjusted)
+		return BaZi.Pillar.sexagenaryCycle(adjusted - 1)
 	}
 
 	internal fun calculateMonthTable(date: LocalDateTime): BaZi.Pillar {
@@ -83,14 +88,14 @@ public class Group44Calculator {
 					(date.year - 1944) * 365 + leapYearsBetween(1944, date.year) + (date.dayOfYear - 1)
 				val position = (daysSinceReference % 60).let { if (it == 0) 60 else it }
 
-				return BaZi.Pillar.at(position + 1)
+				return BaZi.Pillar.sexagenaryCycle(position - 1)
 			}
 
 			else -> {
 				val daysUntilReference =
 					(date.year - 1944) * 365 - leapYearsBetween(date.year, 1944) + (date.dayOfYear - 1)
 				val position = 60 + (daysUntilReference + 1) % 60
-				return BaZi.Pillar.at(position)
+				return BaZi.Pillar.sexagenaryCycle(position - 1)
 			}
 		}
 	}
@@ -132,7 +137,6 @@ public class Group44Calculator {
 			Yin, Mao, Chen, Si, WuEB, Wei, Shen, You, Xu, Hai, Zi, Chou
 		)
 
-		// Values indexed by index of month in `months`.
 		private val tableMonth: Map<HeavenlyStem, List<HeavenlyStem>> = mapOf(
 			Jia to listOf(Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding),
 			Yi to listOf(Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding),
@@ -146,7 +150,6 @@ public class Group44Calculator {
 			Gui to listOf(Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi),
 		)
 
-		// Values indexed by index of month in `months`.
 		private val tableHour: Map<HeavenlyStem, List<HeavenlyStem>> = mapOf(
 			Jia to listOf(Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi),
 			Yi to listOf(Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding),

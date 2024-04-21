@@ -1,9 +1,9 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.bazi.model
 
 /**
  * Earthly Branches, or Terrestrial Branches / Dìzhī (地支).
  *
- * 12 revolutionary points of [net.twisterrob.astro.bazi.Phase.Planet.Jupiter] (11.8 years).
+ * 12 revolutionary points of [Phase.Planet.Jupiter] (11.8 years).
  *
  * https://en.wikipedia.org/wiki/Earthly_Branch
  */
@@ -90,10 +90,5 @@ public enum class EarthlyBranch(
 
 		internal fun at(position: Int): EarthlyBranch =
 			EarthlyBranch.entries.single { it.order == position }
-		
-		internal fun atHour(hour: Int): EarthlyBranch {
-			val rounded = ((hour + 1) % 24 + 24) % 24
-			return EarthlyBranch.entries[rounded / 2]
-		}
 	}
 }

@@ -1,4 +1,4 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.bazi.model
 
 /**
  * The Eight Characters / "Ba Zi" (ُ八字).
@@ -31,6 +31,8 @@ public data class BaZi(
 
 	public companion object;
 
+	public val dayMaster: HeavenlyStem = day.heavenlyStem
+
 	public data class Pillar(
 		public val heavenlyStem: HeavenlyStem,
 		public val earthlyBranch: EarthlyBranch,
@@ -39,13 +41,6 @@ public data class BaZi(
 		override fun toString(): String =
 			"${heavenlyStem} ${earthlyBranch}"
 
-		public companion object {
-
-			internal fun at(position: Int): Pillar {
-				val heavenlyStem = HeavenlyStem.at((position - 1) % 10 + 1)
-				val earthlyBranch = EarthlyBranch.at((position - 1) % 12 + 1)
-				return Pillar(heavenlyStem, earthlyBranch)
-			}
-		}
+		public companion object;
 	}
 }
