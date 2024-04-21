@@ -31,7 +31,8 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
 /**
  * Based on the Group 44 PDF (bazi-knowledge-manual-calculation-pdf-free.pdf).
- * Ten Thousand Year Calendar / Wan Nian Li (万年历).
+ * Ten Thousand (10000) Year Calendar / Wan Nian Li (万年历).
+ * Hsia Calendar (夏历)
  */
 public class Group44Calculator : BaZiCalculator {
 
