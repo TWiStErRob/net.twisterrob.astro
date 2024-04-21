@@ -119,15 +119,6 @@ public class Group44Calculator : BaZiCalculator {
 		return BaZi.Pillar(HeavenlyStem.at(adjusted), hourlyBranch)
 	}
 
-	internal fun calculateHourTable(date: LocalDateTime): BaZi.Pillar {
-		// 时支
-		val hourlyBranch = EarthlyBranch.atHour(date.hour)
-		// 日干
-		val dayStem = calculateDay(date).heavenlyStem
-
-		return BaZi.Pillar(tableHour.getValue(dayStem)[hourlyBranch.order - 1], hourlyBranch)
-	}
-
 	public companion object {
 
 		/**
@@ -148,19 +139,6 @@ public class Group44Calculator : BaZiCalculator {
 			Xin to listOf(Ren, Gui, Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui),
 			Ren to listOf(Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi),
 			Gui to listOf(Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi),
-		)
-
-		private val tableHour: Map<HeavenlyStem, List<HeavenlyStem>> = mapOf(
-			Jia to listOf(Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi),
-			Yi to listOf(Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding),
-			Bing to listOf(WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding, WuHS, Ji),
-			Ding to listOf(Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin),
-			WuHS to listOf(Ren, Gui, Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui),
-			Ji to listOf(Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi),
-			Geng to listOf(Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding),
-			Xin to listOf(WuHS, Ji, Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding, WuHS, Ji),
-			Ren to listOf(Geng, Xin, Ren, Gui, Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin),
-			Gui to listOf(Ren, Gui, Jia, Yi, Bing, Ding, WuHS, Ji, Geng, Xin, Ren, Gui),
 		)
 
 		@Suppress("RemoveRedundantQualifierName")
