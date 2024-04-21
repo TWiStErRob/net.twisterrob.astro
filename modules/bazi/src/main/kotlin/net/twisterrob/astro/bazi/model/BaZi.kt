@@ -26,7 +26,7 @@ public data class BaZi(
 	/**
 	 * The Hour Pillar / Shi Zhu (时柱).
 	 */
-	public val hour: Pillar,
+	public val hour: Pillar?,
 ) {
 
 	public companion object;
