@@ -66,6 +66,7 @@ public enum class HeavenlyStem(
 	public companion object {
 
 		internal fun at(position: Int): HeavenlyStem =
-			entries.single { it.order == position }
+			entries.singleOrNull { it.order == position }
+				?: error("No Heavenly Stem at position ${position}.")
 	}
 }
