@@ -1,10 +1,12 @@
 package net.twisterrob.astro.bazi
 
 import net.twisterrob.astro.bazi.lookup.atHour
+import net.twisterrob.astro.bazi.lookup.isLeapYear
 import net.twisterrob.astro.bazi.lookup.lookupHour
 import net.twisterrob.astro.bazi.lookup.lookupSolarMonth
 import net.twisterrob.astro.bazi.lookup.monthAtSolarDay
 import net.twisterrob.astro.bazi.lookup.sexagenaryCycle
+import net.twisterrob.astro.bazi.lookup.solarYearStart
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
@@ -28,8 +30,13 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 	}
 
 	private fun calculateYear(date: LocalDateTime): BaZi.Pillar {
+		fun LocalDateTime.isInSameSolarYear(): Boolean =
+			this.toLocalDate().let { solarYearStart(it.year) <= it }
+
 		val yearsSinceBeginning = date.year - BASE_YEAR
-		val yearInCycle = yearsSinceBeginning % 60
+		val newYearAdjustment = if (!date.isInSameSolarYear()) 1 else 0
+
+		val yearInCycle = (yearsSinceBeginning - newYearAdjustment) % 60
 		return BaZi.Pillar.sexagenaryCycle(yearInCycle)
 	}
 
@@ -51,8 +58,8 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 
 		@Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
 		val month = when (date.month) {
-			Month.JANUARY -> if (date.isLeapYear()) 7 else 8
-			Month.FEBRUARY -> if (date.isLeapYear()) 8 else 9
+			Month.JANUARY -> if (date.year.isLeapYear()) 7 else 8
+			Month.FEBRUARY -> if (date.year.isLeapYear()) 8 else 9
 			Month.MARCH -> 7
 			Month.APRIL -> 8
 			Month.MAY -> 8
@@ -89,8 +96,8 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 
 		@Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
 		val month = when (date.month) {
-			Month.JANUARY -> if (date.isLeapYear()) 7 else 8
-			Month.FEBRUARY -> if (date.isLeapYear()) 2 else 3
+			Month.JANUARY -> if (date.year.isLeapYear()) 7 else 8
+			Month.FEBRUARY -> if (date.year.isLeapYear()) 2 else 3
 			Month.MARCH -> 7
 			Month.APRIL -> 2
 			Month.MAY -> 8
@@ -146,9 +153,6 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 
 		private val GREGORIAN_START: LocalDate = LocalDate.of(1582, Month.OCTOBER, 15)
 
-		private fun LocalDateTime.isLeapYear(): Boolean =
-			(year % 4 == 0 && year % 100 != 0) || year % 400 == 0
-
 		// https://en.wikipedia.org/wiki/Sexagenary_cycle#Examples_2
 		// Hidden in "More detailed examples", there's an "Algorithm for mental calculation", this is a draft impl of that.
 		// Theoretically it might be used as `BaZi.Pillar.sexagenaryCycle(pillarIndex(date))`
@@ -165,13 +169,12 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 				8
 			}
 			val i = if (date.month == Month.JANUARY || date.month == Month.FEBRUARY) {
-				if (date.isLeapYear()) 6 else 5
+				if (date.year.isLeapYear()) 6 else 5
 			} else {
 				0
 			}
 			val m = (date.monthValue + 1) % 2 * 30 + Math.round(floor(0.6 * date.dayOfMonth + 1)).toInt() - 3 - i
 			return (y + c + m + date.dayOfMonth) % 60
 		}
-
 	}
 }
