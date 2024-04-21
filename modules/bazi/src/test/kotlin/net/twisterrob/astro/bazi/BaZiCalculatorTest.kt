@@ -4,22 +4,28 @@ import io.kotest.matchers.shouldBe
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Chen
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Chou
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Hai
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Shen
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Si
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Xu
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Yin
 import net.twisterrob.astro.bazi.model.EarthlyBranch.You
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Ding
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Geng
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Gui
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ji
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.Month
 
 abstract class BaZiCalculatorTest {
 
@@ -213,6 +219,65 @@ abstract class BaZiCalculatorTest {
 				BaZi.Pillar(Ding, You),
 				BaZi.Pillar(Jia, Chen)
 			)
+		}
+	}
+
+	@Nested
+	inner class WikipediaSexagenaryExamples {
+
+		@Test fun `sexagenary day example 1`() {
+			val result = subject.calculate(LocalDate.of(1949, Month.OCTOBER, 1))
+
+			result.day shouldBe BaZi.Pillar(Jia, Zi) // 甲子
+		}
+
+		@Test fun `sexagenary day detailed example 1`() {
+			val result = subject.calculate(LocalDate.of(1592, Month.DECEMBER, 31))
+
+
+			result.day shouldBe BaZi.Pillar(Jia, Shen) // 甲申
+		}
+
+		@Test fun `sexagenary day detailed example 2`() {
+			val result = subject.calculate(LocalDate.of(1338, Month.AUGUST, 4))
+
+
+			result.day shouldBe BaZi.Pillar(Xin, Hai) // 辛亥
+		}
+
+		@Test fun `sexagenary day detailed example 3`() {
+			val result = subject.calculate(LocalDate.of(-104, Month.MAY, 25))
+
+
+			result.day shouldBe BaZi.Pillar(Geng, Yin) // 庚寅
+		}
+
+		@Test fun `sexagenary day mental example 1`() {
+			val result = subject.calculate(LocalDate.of(-719, Month.FEBRUARY, 22))
+
+
+			result.day shouldBe BaZi.Pillar(Ji, Si) // 己巳
+		}
+
+		@Test fun `sexagenary day mental example 2`() {
+			val result = subject.calculate(LocalDate.of(-210, Month.NOVEMBER, 1))
+
+
+			result.day shouldBe BaZi.Pillar(Gui, Chou) // 癸丑
+		}
+
+		@Test fun `sexagenary day mental example 3`() {
+			val result = subject.calculate(LocalDate.of(1912, Month.FEBRUARY, 18))
+
+
+			result.day shouldBe BaZi.Pillar(Jia, Zi) // 甲子
+		}
+
+		@Test fun `sexagenary day mental example 4`() {
+			val result = subject.calculate(LocalDate.of(1949, Month.OCTOBER, 1))
+
+
+			result.day shouldBe BaZi.Pillar(Jia, Zi) // 甲子
 		}
 	}
 }
