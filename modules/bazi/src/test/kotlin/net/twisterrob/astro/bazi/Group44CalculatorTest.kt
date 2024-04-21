@@ -1,28 +1,30 @@
 package net.twisterrob.astro.bazi
 
 import io.kotest.matchers.shouldBe
-import net.twisterrob.astro.bazi.EarthlyBranch.Chen
-import net.twisterrob.astro.bazi.EarthlyBranch.Chou
-import net.twisterrob.astro.bazi.EarthlyBranch.Hai
-import net.twisterrob.astro.bazi.EarthlyBranch.Si
-import net.twisterrob.astro.bazi.EarthlyBranch.Xu
-import net.twisterrob.astro.bazi.EarthlyBranch.You
-import net.twisterrob.astro.bazi.EarthlyBranch.Zi
-import net.twisterrob.astro.bazi.HeavenlyStem.Bing
-import net.twisterrob.astro.bazi.HeavenlyStem.Ding
-import net.twisterrob.astro.bazi.HeavenlyStem.Geng
-import net.twisterrob.astro.bazi.HeavenlyStem.Gui
-import net.twisterrob.astro.bazi.HeavenlyStem.Ji
-import net.twisterrob.astro.bazi.HeavenlyStem.Jia
-import net.twisterrob.astro.bazi.HeavenlyStem.Ren
+import net.twisterrob.astro.bazi.model.BaZi
+import net.twisterrob.astro.bazi.model.EarthlyBranch
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Chen
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Chou
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Hai
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Si
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Xu
+import net.twisterrob.astro.bazi.model.EarthlyBranch.You
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Bing
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ding
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Geng
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Gui
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ji
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDate
 import java.time.LocalDateTime
-import net.twisterrob.astro.bazi.EarthlyBranch.Wu as WuEB
-import net.twisterrob.astro.bazi.HeavenlyStem.Wu as WuHS
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
 class Group44CalculatorTest {
 

@@ -1,4 +1,4 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.bazi.model
 
 /**
  * Heavenly Stems, or Celestial Stems / Tiāngān (天幹 / 天干).
