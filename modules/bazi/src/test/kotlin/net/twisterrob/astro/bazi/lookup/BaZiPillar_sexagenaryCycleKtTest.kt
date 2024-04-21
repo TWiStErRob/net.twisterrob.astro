@@ -1,10 +1,15 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.bazi.lookup
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import net.twisterrob.astro.bazi.model.BaZi
+import net.twisterrob.astro.bazi.model.EarthlyBranch
+import net.twisterrob.astro.bazi.model.HeavenlyStem
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.ValueSource
 
-class BaZiPillarTest {
+class BaZiPillar_sexagenaryCycleKtTest {
 
 	@CsvSource(
 		"1, Jia, Zi",
@@ -73,9 +78,16 @@ class BaZiPillarTest {
 		heavenlyStem: HeavenlyStem,
 		earthlyBranch: EarthlyBranch
 	) {
-		val subject = BaZi.Pillar.at(position)
+		val subject = BaZi.Pillar.sexagenaryCycle(position - 1)
 
 		subject.heavenlyStem shouldBe heavenlyStem
 		subject.earthlyBranch shouldBe earthlyBranch
+	}
+
+	@ValueSource(ints = [-100, -60, -59, -1 /*, 0..59*/, 60, 61, 100])
+	@ParameterizedTest fun `sexagenary cycle is invalid`(index: Int) {
+		shouldThrow<IllegalArgumentException> {
+			BaZi.Pillar.sexagenaryCycle(index)
+		}
 	}
 }

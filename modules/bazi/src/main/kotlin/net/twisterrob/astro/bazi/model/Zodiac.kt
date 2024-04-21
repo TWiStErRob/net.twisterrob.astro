@@ -1,4 +1,4 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.bazi.model
 
 /**
  * Chinese Zodiac / shēngxiào (生肖 / 生肖).
