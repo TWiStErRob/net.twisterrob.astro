@@ -6,7 +6,7 @@ import net.twisterrob.astro.bazi.lookup.lookupHour
 import net.twisterrob.astro.bazi.lookup.lookupSolarMonth
 import net.twisterrob.astro.bazi.lookup.monthAtSolarDay
 import net.twisterrob.astro.bazi.lookup.sexagenaryCycle
-import net.twisterrob.astro.bazi.lookup.solarYearStart
+import net.twisterrob.astro.bazi.lookup.solarYear
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
@@ -31,7 +31,7 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 
 	private fun calculateYear(date: LocalDateTime): BaZi.Pillar {
 		fun LocalDateTime.isInSameSolarYear(): Boolean =
-			this.toLocalDate().let { solarYearStart(it.year) <= it }
+			this.toLocalDate().let { it.year == it.solarYear }
 
 		val yearsSinceBeginning = date.year - BASE_YEAR
 		val newYearAdjustment = if (!date.isInSameSolarYear()) 1 else 0
