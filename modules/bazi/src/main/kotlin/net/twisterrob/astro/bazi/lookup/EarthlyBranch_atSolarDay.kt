@@ -17,15 +17,18 @@ import java.time.Month.SEPTEMBER
 import java.time.chrono.IsoChronology
 
 /**
+ * Calculates the Solar Month which contains this day.
+ *
  * References:
  *  * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months
  */
+@Suppress("detekt.MagicNumber", "detekt.CyclomaticComplexMethod")
 public fun EarthlyBranch.Companion.monthAtSolarDay(date: LocalDate): EarthlyBranch {
 	val year = date.year
 	return if (date.solarYear.isLeapYear()) {
 		when (date) {
-			in LocalDate.of(year - 1, DECEMBER, 7)..<LocalDate.of(year, JANUARY, 6) -> EarthlyBranch.Zi
-			in LocalDate.of(year, JANUARY, 6)..<LocalDate.of(year, FEBRUARY, 4) -> EarthlyBranch.Chou
+			in LocalDate.of(year - 1, DECEMBER, 6)..<LocalDate.of(year, JANUARY, 5) -> EarthlyBranch.Zi
+			in LocalDate.of(year, JANUARY, 5)..<LocalDate.of(year, FEBRUARY, 4) -> EarthlyBranch.Chou
 			// --- Solar Year boundary.
 			in LocalDate.of(year, FEBRUARY, 4)..<LocalDate.of(year, MARCH, 5) -> EarthlyBranch.Yin
 			in LocalDate.of(year, MARCH, 5)..<LocalDate.of(year, APRIL, 5) -> EarthlyBranch.Mao
@@ -66,6 +69,10 @@ public fun EarthlyBranch.Companion.monthAtSolarDay(date: LocalDate): EarthlyBran
 	}
 }
 
+/**
+ * Beginning of the solar year, which starts around beginning of February.
+ */
+@Suppress("detekt.MagicNumber")
 public fun solarYearStart(year: Int): LocalDate {
 	return if (IsoChronology.INSTANCE.isLeapYear((year - 1).toLong())) {
 		LocalDate.of(year, FEBRUARY, 4)
@@ -74,6 +81,9 @@ public fun solarYearStart(year: Int): LocalDate {
 	}
 }
 
+/**
+ * Solar year for a Gregorian date.
+ */
 public val LocalDate.solarYear: Int
 	get() {
 		val start = solarYearStart(this.year)

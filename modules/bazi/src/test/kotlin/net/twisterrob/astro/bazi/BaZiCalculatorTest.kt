@@ -597,7 +597,7 @@ abstract class BaZiCalculatorTest {
 				)
 			}
 
-			@Disabled("This needs solar calculations!")
+			@Disabled("This needs solar calculations?")
 			@Test fun `after leap year - after`() {
 				val result = subject.calculate(LocalDate.of(2005, Month.MAY, 5))
 

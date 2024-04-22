@@ -19,15 +19,16 @@ import kotlin.math.floor
  * Mostly based on:
  *  * https://en.wikipedia.org/wiki/Sexagenary_cycle
  */
+@Suppress("detekt.MagicNumber")
 public class SexagenaryWikiCalculator : BaZiCalculator {
 
-	override fun calculate(dateTime: LocalDateTime): BaZi {
-		val year = calculateYear(dateTime)
-		val month = calculateMonth(dateTime)
-		val day = calculateDay(dateTime)
-		val hour = calculateHour(dateTime)
-		return BaZi(year, month, day, hour)
-	}
+	override fun calculate(dateTime: LocalDateTime): BaZi =
+		BaZi(
+			year = calculateYear(dateTime),
+			month = calculateMonth(dateTime),
+			day = calculateDay(dateTime),
+			hour = calculateHour(dateTime),
+		)
 
 	private fun calculateYear(date: LocalDateTime): BaZi.Pillar {
 		fun LocalDateTime.isInSameSolarYear(): Boolean =
@@ -53,8 +54,9 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 		return BaZi.Pillar(stem, branch)
 	}
 
+	@Suppress("detekt.CyclomaticComplexMethod", "detekt.UnnecessaryParentheses")
 	private fun stemIndex(date: LocalDateTime): Int {
-		val day = date.dayOfMonth % 10
+		val day = date.dayOfMonth % HeavenlyStem.COUNT
 
 		@Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
 		val month = when (date.month) {
@@ -74,23 +76,24 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 		// mod (%) has multiple solutions, to definitely get the smallest positive one:
 		// add `3 * 40 = 120 > 100`, which is the least to account for maximum of 100 years' modulus.
 		val y = (date.year % 100 + 3 * 40) % 40
-		val year = (5 * y + y / 4) % 10
+		val year = (5 * y + y / 4) % HeavenlyStem.COUNT
 		val century = if (GREGORIAN_START < date.toLocalDate()) {
 			val c = date.year / 100
-			(4 * c + c / 4 + 2) % 10
+			(4 * c + c / 4 + 2) % HeavenlyStem.COUNT
 		} else { // Julian
 			// mod (%) has multiple solutions, to definitely get the smallest positive one:
 			// add `14 * 2 = 28 > 26` to account for -2600 (start of calendar) worth of centuries.
 			val c = (date.year / 100 + 14 * 2) % 2
-			(5 * c) % 10
+			(5 * c) % HeavenlyStem.COUNT
 		}
 		var sum = day + month + year + century
-		while (sum > 10) {
-			sum -= 10
+		while (sum > HeavenlyStem.COUNT) {
+			sum -= HeavenlyStem.COUNT
 		}
 		return sum
 	}
 
+	@Suppress("detekt.CyclomaticComplexMethod", "detekt.UnnecessaryParentheses")
 	private fun branchIndex(date: LocalDateTime): Int {
 		val day = date.dayOfMonth % 12
 
@@ -115,16 +118,16 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 		val year = (5 * y + y / 4) % 12
 		val century = if (GREGORIAN_START < date.toLocalDate()) {
 			val c = date.year / 100
-			(8 * c + c / 4 + 2) % 12
+			(8 * c + c / 4 + 2) % EarthlyBranch.COUNT
 		} else {
 			// mod (%) has multiple solutions, to definitely get the smallest positive one:
 			// add `7 * 4 = 28 > 26` to account for -2600 (start of calendar) worth of centuries.
 			val c = (date.year / 100 + 7 * 4) % 4
-			(9 * c) % 12
+			(9 * c) % EarthlyBranch.COUNT
 		}
 		var sum = day + month + year + century
-		while (sum > 12) {
-			sum -= 12
+		while (sum > EarthlyBranch.COUNT) {
+			sum -= EarthlyBranch.COUNT
 		}
 		return sum
 	}
@@ -159,12 +162,16 @@ public class SexagenaryWikiCalculator : BaZiCalculator {
 		// Added by https://en.wikipedia.org/wiki/User_talk:Q5968661
 		// Added in https://en.wikipedia.org/w/index.php?title=Sexagenary_cycle&diff=prev&oldid=857987234
 		// Another version: https://en.wikipedia.org/wiki/Talk:Sexagenary_cycle#New_sexagenary_day_chart
-		@Suppress("unused") // Abandoned, because can't figure out what `year( mod 400) mod 80( mod 12) x 5` means. 
+		@Suppress(
+			// TODO maybe the Chinese Wiki has it?
+			"unused", // Abandoned, because can't figure out what `year( mod 400) mod 80( mod 12) x 5` means.
+			"detekt.CyclomaticComplexMethod", "detekt.UnnecessaryParentheses",
+		)
 		private fun pillarIndex(date: LocalDateTime): Int {
 			val year = date.year
 			val y = (year % 400 % 80 % 12 * 5 + (year % 400 % 80) / 4) % 60
 			val c = if (GREGORIAN_START < date.toLocalDate()) {
-				year / 400 - year / 100 + 10
+				year / 400 - year / 100 + HeavenlyStem.COUNT
 			} else {
 				8
 			}
