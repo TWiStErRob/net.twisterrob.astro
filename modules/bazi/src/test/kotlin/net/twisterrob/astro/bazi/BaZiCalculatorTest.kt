@@ -34,7 +34,7 @@ import java.time.LocalDateTime
 import java.time.Month
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 
-@Suppress("unused", "ClassName")
+@Suppress("unused", "detekt.UnnecessaryAbstractClass")
 abstract class BaZiCalculatorTest {
 
 	abstract val subject: BaZiCalculator
@@ -208,10 +208,10 @@ abstract class BaZiCalculatorTest {
 			// From: Group44, kinaiasztrologia.com confirmed.
 			// https://kinaiasztrologia.com/kalkulator/kinai_horoszkop_kalkulator.html?id=1&YE=1940&MO=11&DA=27&HO=8&MI=0&CI=San%20Francisco%2C%20CA%2C%20USA&NA=BL&GE=1&TU=false&CST=1
 			result shouldBe BaZi(
-				BaZi.Pillar(Geng, Chen),
-				BaZi.Pillar(Ding, Hai),
-				BaZi.Pillar(Jia, Xu),
-				BaZi.Pillar(Wu, Chen)
+				year = BaZi.Pillar(Geng, Chen),
+				month = BaZi.Pillar(Ding, Hai),
+				day = BaZi.Pillar(Jia, Xu),
+				hour = BaZi.Pillar(Wu, Chen)
 			)
 		}
 
@@ -222,10 +222,10 @@ abstract class BaZiCalculatorTest {
 			// From: Group44, kinaiasztrologia.com confirmed.
 			// https://kinaiasztrologia.com/kalkulator/kinai_horoszkop_kalkulator.html?id=1&YE=1893&MO=12&DA=26&HO=8&MI=0&CI=Shaoshan%2C%20Xiangtan%2C%20Hunan%2C%20China&NA=MZ&GE=1&TU=false&CST=1
 			result shouldBe BaZi(
-				BaZi.Pillar(Gui, Si),
-				BaZi.Pillar(Jia, Zi),
-				BaZi.Pillar(Ding, You),
-				BaZi.Pillar(Jia, Chen)
+				year = BaZi.Pillar(Gui, Si),
+				month = BaZi.Pillar(Jia, Zi),
+				day = BaZi.Pillar(Ding, You),
+				hour = BaZi.Pillar(Jia, Chen)
 			)
 		}
 	}
@@ -296,10 +296,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1948, Month.JANUARY, 21))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Ding, Hai), // 丁亥
-				BaZi.Pillar(Gui, Chou), // 癸丑
-				BaZi.Pillar(Yi, Si), // 乙巳
-				null,
+				year = BaZi.Pillar(Ding, Hai), // 丁亥
+				month = BaZi.Pillar(Gui, Chou), // 癸丑
+				day = BaZi.Pillar(Yi, Si), // 乙巳
+				hour = null,
 			)
 		}
 	}
@@ -311,10 +311,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1947, Month.DECEMBER, 31))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Ding, Hai),
-				BaZi.Pillar(Ren, Zi),
-				BaZi.Pillar(Jia, Shen),
-				null,
+				year = BaZi.Pillar(Ding, Hai),
+				month = BaZi.Pillar(Ren, Zi),
+				day = BaZi.Pillar(Jia, Shen),
+				hour = null,
 			)
 		}
 
@@ -322,10 +322,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1948, Month.JANUARY, 1))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Ding, Hai),
-				BaZi.Pillar(Ren, Zi),
-				BaZi.Pillar(Yi, You),
-				null,
+				year = BaZi.Pillar(Ding, Hai),
+				month = BaZi.Pillar(Ren, Zi),
+				day = BaZi.Pillar(Yi, You),
+				hour = null,
 			)
 		}
 	}
@@ -337,10 +337,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1948, Month.FEBRUARY, 4))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Ding, Hai),
-				BaZi.Pillar(Gui, Chou),
-				BaZi.Pillar(Ji, Wei),
-				null,
+				year = BaZi.Pillar(Ding, Hai),
+				month = BaZi.Pillar(Gui, Chou),
+				day = BaZi.Pillar(Ji, Wei),
+				hour = null,
 			)
 		}
 
@@ -348,10 +348,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1948, Month.FEBRUARY, 5))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Wu, Zi), // 戊子
-				BaZi.Pillar(Jia, Yin), // 甲寅
-				BaZi.Pillar(Geng, Shen), // 庚申
-				null,
+				year = BaZi.Pillar(Wu, Zi), // 戊子
+				month = BaZi.Pillar(Jia, Yin), // 甲寅
+				day = BaZi.Pillar(Geng, Shen), // 庚申
+				hour = null,
 			)
 		}
 
@@ -359,10 +359,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1949, Month.FEBRUARY, 3))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Wu, Zi),
-				BaZi.Pillar(Yi, Chou),
-				BaZi.Pillar(Jia, Zi),
-				null,
+				year = BaZi.Pillar(Wu, Zi),
+				month = BaZi.Pillar(Yi, Chou),
+				day = BaZi.Pillar(Jia, Zi),
+				hour = null,
 			)
 		}
 
@@ -370,10 +370,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1949, Month.FEBRUARY, 4))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Ji, Chou),
-				BaZi.Pillar(Bing, Yin),
-				BaZi.Pillar(Yi, Chou),
-				null,
+				year = BaZi.Pillar(Ji, Chou),
+				month = BaZi.Pillar(Bing, Yin),
+				day = BaZi.Pillar(Yi, Chou),
+				hour = null,
 			)
 		}
 
@@ -381,10 +381,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1950, Month.FEBRUARY, 4))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Ji, Chou),
-				BaZi.Pillar(Ding, Chou),
-				BaZi.Pillar(Geng, WuEB),
-				null,
+				year = BaZi.Pillar(Ji, Chou),
+				month = BaZi.Pillar(Ding, Chou),
+				day = BaZi.Pillar(Geng, WuEB),
+				hour = null,
 			)
 		}
 
@@ -392,10 +392,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1950, Month.FEBRUARY, 5))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Geng, Yin),
-				BaZi.Pillar(Wu, Yin),
-				BaZi.Pillar(Xin, Wei),
-				null,
+				year = BaZi.Pillar(Geng, Yin),
+				month = BaZi.Pillar(Wu, Yin),
+				day = BaZi.Pillar(Xin, Wei),
+				hour = null,
 			)
 		}
 
@@ -403,10 +403,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1951, Month.FEBRUARY, 4))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Geng, Yin),
-				BaZi.Pillar(Ji, Chou),
-				BaZi.Pillar(Yi, Hai),
-				null,
+				year = BaZi.Pillar(Geng, Yin),
+				month = BaZi.Pillar(Ji, Chou),
+				day = BaZi.Pillar(Yi, Hai),
+				hour = null,
 			)
 		}
 
@@ -414,10 +414,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1951, Month.FEBRUARY, 5))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Xin, Mao),
-				BaZi.Pillar(Geng, Yin),
-				BaZi.Pillar(Bing, Zi),
-				null,
+				year = BaZi.Pillar(Xin, Mao),
+				month = BaZi.Pillar(Geng, Yin),
+				day = BaZi.Pillar(Bing, Zi),
+				hour = null,
 			)
 		}
 
@@ -425,10 +425,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1952, Month.FEBRUARY, 4))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Xin, Mao),
-				BaZi.Pillar(Xin, Chou),
-				BaZi.Pillar(Geng, Chen),
-				null,
+				year = BaZi.Pillar(Xin, Mao),
+				month = BaZi.Pillar(Xin, Chou),
+				day = BaZi.Pillar(Geng, Chen),
+				hour = null,
 			)
 		}
 
@@ -436,10 +436,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1952, Month.FEBRUARY, 5))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Ren, Chen),
-				BaZi.Pillar(Ren, Yin),
-				BaZi.Pillar(Xin, Si),
-				null,
+				year = BaZi.Pillar(Ren, Chen),
+				month = BaZi.Pillar(Ren, Yin),
+				day = BaZi.Pillar(Xin, Si),
+				hour = null,
 			)
 		}
 
@@ -447,10 +447,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1953, Month.FEBRUARY, 3))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Ren, Chen),
-				BaZi.Pillar(Gui, Chou),
-				BaZi.Pillar(Yi, You),
-				null,
+				year = BaZi.Pillar(Ren, Chen),
+				month = BaZi.Pillar(Gui, Chou),
+				day = BaZi.Pillar(Yi, You),
+				hour = null,
 			)
 		}
 
@@ -458,10 +458,10 @@ abstract class BaZiCalculatorTest {
 			val result = subject.calculate(LocalDate.of(1953, Month.FEBRUARY, 4))
 
 			result shouldBe BaZi(
-				BaZi.Pillar(Gui, Si),
-				BaZi.Pillar(Jia, Yin),
-				BaZi.Pillar(Bing, Xu),
-				null,
+				year = BaZi.Pillar(Gui, Si),
+				month = BaZi.Pillar(Jia, Yin),
+				day = BaZi.Pillar(Bing, Xu),
+				hour = null,
 			)
 		}
 	}
@@ -470,16 +470,16 @@ abstract class BaZiCalculatorTest {
 	inner class `solar month transitions` {
 
 		@Nested
-		inner class `april` {
+		inner class april {
 
 			@Test fun `before leap year - before`() {
 				val result = subject.calculate(LocalDate.of(1947, Month.APRIL, 5))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Ding, Hai),
-					BaZi.Pillar(Gui, Mao),
-					BaZi.Pillar(Jia, Yin),
-					null,
+					year = BaZi.Pillar(Ding, Hai),
+					month = BaZi.Pillar(Gui, Mao),
+					day = BaZi.Pillar(Jia, Yin),
+					hour = null,
 				)
 			}
 
@@ -487,10 +487,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(1947, Month.APRIL, 6))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Ding, Hai),
-					BaZi.Pillar(Jia, Chen),
-					BaZi.Pillar(Yi, Mao),
-					null,
+					year = BaZi.Pillar(Ding, Hai),
+					month = BaZi.Pillar(Jia, Chen),
+					day = BaZi.Pillar(Yi, Mao),
+					hour = null,
 				)
 			}
 
@@ -498,10 +498,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(1948, Month.APRIL, 4))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Wu, Zi),
-					BaZi.Pillar(Yi, Mao),
-					BaZi.Pillar(Ji, Wei),
-					null,
+					year = BaZi.Pillar(Wu, Zi),
+					month = BaZi.Pillar(Yi, Mao),
+					day = BaZi.Pillar(Ji, Wei),
+					hour = null,
 				)
 			}
 
@@ -509,10 +509,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(1948, Month.APRIL, 5))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Wu, Zi),
-					BaZi.Pillar(Bing, Chen),
-					BaZi.Pillar(Geng, Shen),
-					null,
+					year = BaZi.Pillar(Wu, Zi),
+					month = BaZi.Pillar(Bing, Chen),
+					day = BaZi.Pillar(Geng, Shen),
+					hour = null,
 				)
 			}
 
@@ -520,10 +520,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(1949, Month.APRIL, 5))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Ji, Chou),
-					BaZi.Pillar(Ding, Mao),
-					BaZi.Pillar(Yi, Chou),
-					null,
+					year = BaZi.Pillar(Ji, Chou),
+					month = BaZi.Pillar(Ding, Mao),
+					day = BaZi.Pillar(Yi, Chou),
+					hour = null,
 				)
 			}
 
@@ -531,25 +531,25 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(1949, Month.APRIL, 6))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Ji, Chou),
-					BaZi.Pillar(Wu, Chen),
-					BaZi.Pillar(Bing, Yin),
-					null,
+					year = BaZi.Pillar(Ji, Chou),
+					month = BaZi.Pillar(Wu, Chen),
+					day = BaZi.Pillar(Bing, Yin),
+					hour = null,
 				)
 			}
 		}
 
 		@Nested
-		inner class `may` {
+		inner class may {
 
 			@Test fun `before leap year - before`() {
 				val result = subject.calculate(LocalDate.of(2003, Month.MAY, 5))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Gui, Wei),
-					BaZi.Pillar(Bing, Chen),
-					BaZi.Pillar(Wu, Yin),
-					null,
+					year = BaZi.Pillar(Gui, Wei),
+					month = BaZi.Pillar(Bing, Chen),
+					day = BaZi.Pillar(Wu, Yin),
+					hour = null,
 				)
 			}
 
@@ -557,10 +557,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(2003, Month.MAY, 6))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Gui, Wei),
-					BaZi.Pillar(Ding, Si),
-					BaZi.Pillar(Ji, Mao),
-					null,
+					year = BaZi.Pillar(Gui, Wei),
+					month = BaZi.Pillar(Ding, Si),
+					day = BaZi.Pillar(Ji, Mao),
+					hour = null,
 				)
 			}
 
@@ -568,10 +568,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(2004, Month.MAY, 4))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Jia, Shen),
-					BaZi.Pillar(Wu, Chen),
-					BaZi.Pillar(Gui, Wei),
-					null,
+					year = BaZi.Pillar(Jia, Shen),
+					month = BaZi.Pillar(Wu, Chen),
+					day = BaZi.Pillar(Gui, Wei),
+					hour = null,
 				)
 			}
 
@@ -579,10 +579,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(2004, Month.MAY, 5))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Jia, Shen),
-					BaZi.Pillar(Ji, Si),
-					BaZi.Pillar(Jia, Shen),
-					null,
+					year = BaZi.Pillar(Jia, Shen),
+					month = BaZi.Pillar(Ji, Si),
+					day = BaZi.Pillar(Jia, Shen),
+					hour = null,
 				)
 			}
 
@@ -590,10 +590,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(2005, Month.MAY, 4))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Yi, You),
-					BaZi.Pillar(Geng, Chen),
-					BaZi.Pillar(Wu, Zi),
-					null,
+					year = BaZi.Pillar(Yi, You),
+					month = BaZi.Pillar(Geng, Chen),
+					day = BaZi.Pillar(Wu, Zi),
+					hour = null,
 				)
 			}
 
@@ -602,10 +602,10 @@ abstract class BaZiCalculatorTest {
 				val result = subject.calculate(LocalDate.of(2005, Month.MAY, 5))
 
 				result shouldBe BaZi(
-					BaZi.Pillar(Yi, You),
-					BaZi.Pillar(Xin, Si),
-					BaZi.Pillar(Ji, Chou),
-					null,
+					year = BaZi.Pillar(Yi, You),
+					month = BaZi.Pillar(Xin, Si),
+					day = BaZi.Pillar(Ji, Chou),
+					hour = null,
 				)
 			}
 		}
