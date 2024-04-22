@@ -23,6 +23,9 @@ console-reports:
 
 naming:
 
+  ClassNaming: 
+    excludes: [ '**/src/test/kotlin/**' ]
+
   FunctionMaxLength:
     ignoreAnnotated:
       # Test names in JUnit 5 are ok to be long as they're likely sentences.
