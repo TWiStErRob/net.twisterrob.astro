@@ -24,6 +24,7 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -462,6 +463,151 @@ abstract class BaZiCalculatorTest {
 				BaZi.Pillar(Bing, Xu),
 				null,
 			)
+		}
+	}
+
+	@Nested
+	inner class `solar month transitions` {
+
+		@Nested
+		inner class `april` {
+
+			@Test fun `before leap year - before`() {
+				val result = subject.calculate(LocalDate.of(1947, Month.APRIL, 5))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Ding, Hai),
+					BaZi.Pillar(Gui, Mao),
+					BaZi.Pillar(Jia, Yin),
+					null,
+				)
+			}
+
+			@Test fun `before leap year - after`() {
+				val result = subject.calculate(LocalDate.of(1947, Month.APRIL, 6))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Ding, Hai),
+					BaZi.Pillar(Jia, Chen),
+					BaZi.Pillar(Yi, Mao),
+					null,
+				)
+			}
+
+			@Test fun `leap year - before`() {
+				val result = subject.calculate(LocalDate.of(1948, Month.APRIL, 4))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Wu, Zi),
+					BaZi.Pillar(Yi, Mao),
+					BaZi.Pillar(Ji, Wei),
+					null,
+				)
+			}
+
+			@Test fun `leap year - after`() {
+				val result = subject.calculate(LocalDate.of(1948, Month.APRIL, 5))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Wu, Zi),
+					BaZi.Pillar(Bing, Chen),
+					BaZi.Pillar(Geng, Shen),
+					null,
+				)
+			}
+
+			@Test fun `after leap year - before`() {
+				val result = subject.calculate(LocalDate.of(1949, Month.APRIL, 5))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Ji, Chou),
+					BaZi.Pillar(Ding, Mao),
+					BaZi.Pillar(Yi, Chou),
+					null,
+				)
+			}
+
+			@Test fun `after leap year - after`() {
+				val result = subject.calculate(LocalDate.of(1949, Month.APRIL, 6))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Ji, Chou),
+					BaZi.Pillar(Wu, Chen),
+					BaZi.Pillar(Bing, Yin),
+					null,
+				)
+			}
+		}
+
+		@Nested
+		inner class `may` {
+
+			@Test fun `before leap year - before`() {
+				val result = subject.calculate(LocalDate.of(2003, Month.MAY, 5))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Gui, Wei),
+					BaZi.Pillar(Bing, Chen),
+					BaZi.Pillar(Wu, Yin),
+					null,
+				)
+			}
+
+			@Test fun `before leap year - after`() {
+				val result = subject.calculate(LocalDate.of(2003, Month.MAY, 6))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Gui, Wei),
+					BaZi.Pillar(Ding, Si),
+					BaZi.Pillar(Ji, Mao),
+					null,
+				)
+			}
+
+			@Test fun `leap year - before`() {
+				val result = subject.calculate(LocalDate.of(2004, Month.MAY, 4))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Jia, Shen),
+					BaZi.Pillar(Wu, Chen),
+					BaZi.Pillar(Gui, Wei),
+					null,
+				)
+			}
+
+			@Test fun `leap year - after`() {
+				val result = subject.calculate(LocalDate.of(2004, Month.MAY, 5))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Jia, Shen),
+					BaZi.Pillar(Ji, Si),
+					BaZi.Pillar(Jia, Shen),
+					null,
+				)
+			}
+
+			@Test fun `after leap year - before`() {
+				val result = subject.calculate(LocalDate.of(2005, Month.MAY, 4))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Yi, You),
+					BaZi.Pillar(Geng, Chen),
+					BaZi.Pillar(Wu, Zi),
+					null,
+				)
+			}
+
+			@Disabled("This needs solar calculations!")
+			@Test fun `after leap year - after`() {
+				val result = subject.calculate(LocalDate.of(2005, Month.MAY, 5))
+
+				result shouldBe BaZi(
+					BaZi.Pillar(Yi, You),
+					BaZi.Pillar(Xin, Si),
+					BaZi.Pillar(Ji, Chou),
+					null,
+				)
+			}
 		}
 	}
 }
