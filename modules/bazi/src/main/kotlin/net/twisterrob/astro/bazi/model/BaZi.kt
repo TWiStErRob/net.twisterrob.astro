@@ -31,8 +31,6 @@ public data class BaZi(
 	public val hour: Pillar?,
 ) {
 
-	public companion object;
-
 	/**
 	 * Self element / birth element / day master.
 	 */

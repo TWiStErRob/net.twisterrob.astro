@@ -35,20 +35,21 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
  * Ten Thousand (10000) Year Calendar / Wan Nian Li (万年历).
  * Hsia Calendar (夏历)
  */
+@Suppress("detekt.MagicNumber")
 public class Group44Calculator : BaZiCalculator {
 
-	override fun calculate(dateTime: LocalDateTime): BaZi {
-		val year = calculateYear(dateTime)
-		val month = calculateMonth(dateTime)
-		val day = calculateDay(dateTime)
-		val hour = calculateHour(dateTime)
-		return BaZi(year, month, day, hour)
-	}
+	override fun calculate(dateTime: LocalDateTime): BaZi =
+		BaZi(
+			year = calculateYear(dateTime),
+			month = calculateMonth(dateTime),
+			day = calculateDay(dateTime),
+			hour = calculateHour(dateTime),
+		)
 
 	/**
 	 * Solve `2637 + x = 60 y`, for `x` is the year and `y` is the cycle count.
 	 */
-	internal fun calculateYear(date: LocalDateTime): BaZi.Pillar {
+	private fun calculateYear(date: LocalDateTime): BaZi.Pillar {
 		//val cycles = (2637 + date.year) / 60
 		val remainder = (2637 + date.year) % 60
 		val adjusted = remainder.let { if (it == 0) 60 else it }
@@ -62,7 +63,7 @@ public class Group44Calculator : BaZiCalculator {
 		return BaZi.Pillar(heavenlyStem, months[month])
 	}
 
-	internal fun calculateMonth(date: LocalDateTime): BaZi.Pillar {
+	private fun calculateMonth(date: LocalDateTime): BaZi.Pillar {
 		val /*年干*/ yearlyStem = calculateYear(date).heavenlyStem
 		val yearlyStemLabel = monthHeavenlyStemNumbers.getValue(yearlyStem)
 
@@ -80,24 +81,18 @@ public class Group44Calculator : BaZiCalculator {
 	/**
 	 * Using reference point 1944-01-01 as it is a Jia (1) Zi (1) day.
 	 */
-	internal fun calculateDay(date: LocalDateTime): BaZi.Pillar {
-		when {
-			date.year >= 1944 -> {
-				val daysSinceReference =
-					(date.year - 1944) * 365 + leapYearsBetween(1944, date.year) + (date.dayOfYear - 1)
-				val position = (daysSinceReference % 60).let { if (it == 0) 60 else it }
-
-				return BaZi.Pillar.sexagenaryCycle(position % 60)
-			}
-
-			else -> {
-				val daysUntilReference =
-					(date.year - 1944) * 365 - leapYearsBetween(date.year, 1944) + (date.dayOfYear - 1)
-				val position = 60 + (daysUntilReference + 1) % 60
-				return BaZi.Pillar.sexagenaryCycle(position - 1)
-			}
+	private fun calculateDay(date: LocalDateTime): BaZi.Pillar =
+		if (date.year >= 1944) {
+			val daysSinceReference =
+				(date.year - 1944) * 365 + leapYearsBetween(1944, date.year) + (date.dayOfYear - 1)
+			val position = (daysSinceReference % 60).let { if (it == 0) 60 else it }
+			BaZi.Pillar.sexagenaryCycle(position % 60)
+		} else {
+			val daysUntilReference =
+				(date.year - 1944) * 365 - leapYearsBetween(date.year, 1944) + (date.dayOfYear - 1)
+			val position = 60 + (daysUntilReference + 1) % 60
+			BaZi.Pillar.sexagenaryCycle(position - 1)
 		}
-	}
 
 	internal fun leapYearsBetween(year1: Int, year2: Int): Int {
 		val leapYearsBeforeYear1 = (year1 - 1) / 4 - (year1 - 1) / 100 + (year1 - 1) / 400
@@ -105,7 +100,7 @@ public class Group44Calculator : BaZiCalculator {
 		return leapYearsBeforeYear2 - leapYearsBeforeYear1
 	}
 
-	internal fun calculateHour(date: LocalDateTime): BaZi.Pillar {
+	private fun calculateHour(date: LocalDateTime): BaZi.Pillar {
 		// 时支
 		val hourlyBranch = EarthlyBranch.atHour(date.hour)
 		// 日干
