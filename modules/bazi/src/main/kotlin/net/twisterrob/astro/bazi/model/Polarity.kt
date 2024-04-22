@@ -5,7 +5,7 @@ package net.twisterrob.astro.bazi.model
  *
  * https://en.wikipedia.org/wiki/Yin_and_yang
  */
-public enum class YinYang {
+public enum class Polarity {
 
 	Yang,
 	Yin,

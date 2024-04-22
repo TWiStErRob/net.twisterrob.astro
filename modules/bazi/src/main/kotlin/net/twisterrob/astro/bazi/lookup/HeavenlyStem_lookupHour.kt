@@ -13,9 +13,13 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
 
-public fun HeavenlyStem.Companion.lookupHour(dayStem: HeavenlyStem, hourBranch: EarthlyBranch): HeavenlyStem {
-	return table.getValue(dayStem)[hourBranch.order - 1]
-}
+/**
+ * Looks up the Heavenly Stem based on already calculated day stem and hour branch.
+ *
+ * @see [table] for more details.
+ */
+public fun HeavenlyStem.Companion.lookupHour(dayStem: HeavenlyStem, hourBranch: EarthlyBranch): HeavenlyStem =
+	table.getValue(dayStem)[hourBranch.order - 1]
 
 /**
  * Heavenly Stem table for hours.
