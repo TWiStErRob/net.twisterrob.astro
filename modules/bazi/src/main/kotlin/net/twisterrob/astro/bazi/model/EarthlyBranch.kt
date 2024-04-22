@@ -1,5 +1,18 @@
 package net.twisterrob.astro.bazi.model
 
+import net.twisterrob.astro.bazi.model.Zodiac.Dog
+import net.twisterrob.astro.bazi.model.Zodiac.Dragon
+import net.twisterrob.astro.bazi.model.Zodiac.Goat
+import net.twisterrob.astro.bazi.model.Zodiac.Horse
+import net.twisterrob.astro.bazi.model.Zodiac.Monkey
+import net.twisterrob.astro.bazi.model.Zodiac.Ox
+import net.twisterrob.astro.bazi.model.Zodiac.Pig
+import net.twisterrob.astro.bazi.model.Zodiac.Rabbit
+import net.twisterrob.astro.bazi.model.Zodiac.Rat
+import net.twisterrob.astro.bazi.model.Zodiac.Rooster
+import net.twisterrob.astro.bazi.model.Zodiac.Snake
+import net.twisterrob.astro.bazi.model.Zodiac.Tiger
+
 /**
  * Earthly Branches, or Terrestrial Branches / Dìzhī (地支).
  *
@@ -7,8 +20,17 @@ package net.twisterrob.astro.bazi.model
  *
  * https://en.wikipedia.org/wiki/Earthly_Branch
  */
+@Suppress("detekt.MagicNumber")
 public enum class EarthlyBranch(
+
+	/**
+	 * Numeric order when enumerated.
+	 */
 	public val order: Int,
+
+	/**
+	 * Associated zodiac.
+	 */
 	public val zodiac: Zodiac,
 ) {
 
@@ -16,78 +38,120 @@ public enum class EarthlyBranch(
 	 * 子: 鼠 (rat).
 	 * 23-01
 	 */
-	Zi(1, Zodiac.Rat),
+	Zi(
+		order = 1,
+		zodiac = Rat,
+	),
 
 	/**
 	 * 丑: 牛 (ox).
 	 * 01-03
 	 */
-	Chou(2, Zodiac.Ox),
+	Chou(
+		order = 2,
+		zodiac = Ox,
+	),
 
 	/**
 	 * 寅: 虎 (tiger).
 	 * 03-05
 	 */
-	Yin(3, Zodiac.Tiger),
+	Yin(
+		order = 3,
+		zodiac = Tiger,
+	),
 
 	/**
 	 * 卯: 兔 (rabbit).
 	 * 05-07
 	 */
-	Mao(4, Zodiac.Rabbit),
+	Mao(
+		order = 4,
+		zodiac = Rabbit,
+	),
 
 	/**
 	 * 辰: 龙 (dragon).
 	 * 07-09
 	 */
-	Chen(5, Zodiac.Dragon),
+	Chen(
+		order = 5,
+		zodiac = Dragon,
+	),
 
 	/**
 	 * 巳: 蛇 (snake).
 	 * 09-11
 	 */
-	Si(6, Zodiac.Snake),
+	Si(
+		order = 6,
+		zodiac = Snake,
+	),
 
 	/**
 	 * 午: 马 (horse).
 	 * 11-13
 	 */
-	Wu(7, Zodiac.Horse),
+	Wu(
+		order = 7,
+		zodiac = Horse,
+	),
 
 	/**
 	 * 未: 羊 (goat).
 	 * 13-15
 	 */
-	Wei(8, Zodiac.Goat),
+	Wei(
+		order = 8,
+		zodiac = Goat,
+	),
 
 	/**
 	 * 申: 猴 (monkey).
 	 * 15-17
 	 */
-	Shen(9, Zodiac.Monkey),
+	Shen(
+		order = 9,
+		zodiac = Monkey,
+	),
 
 	/**
 	 * 酉: 鸡 (rooster).
 	 * 17-19
 	 */
-	You(10, Zodiac.Rooster),
+	You(
+		order = 10,
+		zodiac = Rooster,
+	),
 
 	/**
 	 * 戌: 狗 (dog).
 	 * 19-21
 	 */
-	Xu(11, Zodiac.Dog),
+	Xu(
+		order = 11,
+		zodiac = Dog,
+	),
 
 	/**
 	 * 亥: 猪 (pig).
 	 * 21-23
 	 */
-	Hai(12, Zodiac.Pig),
+	Hai(
+		order = 12,
+		zodiac = Pig,
+	),
 
 	;
 
 	public companion object {
 
+		/**
+		 * Number of Earthly Branches.
+		 */
+		public val COUNT: Int = entries.size
+
+		@Suppress("detekt.FunctionMinLength")
 		internal fun at(position: Int): EarthlyBranch =
 			EarthlyBranch.entries.singleOrNull { it.order == position }
 				?: error("No Earthly Branch at position ${position}.")

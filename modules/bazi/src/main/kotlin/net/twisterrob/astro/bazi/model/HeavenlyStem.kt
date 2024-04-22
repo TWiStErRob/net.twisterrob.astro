@@ -1,70 +1,137 @@
 package net.twisterrob.astro.bazi.model
 
+import net.twisterrob.astro.bazi.model.Phase.Huo
+import net.twisterrob.astro.bazi.model.Phase.Jin
+import net.twisterrob.astro.bazi.model.Phase.Mu
+import net.twisterrob.astro.bazi.model.Phase.Shui
+import net.twisterrob.astro.bazi.model.Phase.Tu
+import net.twisterrob.astro.bazi.model.Polarity.Yang
+import net.twisterrob.astro.bazi.model.Polarity.Yin
+
 /**
- * Heavenly Stems, or Celestial Stems / Tiāngān (天幹 / 天干).
+ * Heavenly Stems, or Celestial Stems / Tiāngān (天干).
  *
  * https://en.wikipedia.org/wiki/Heavenly_Stem
  */
+@Suppress("detekt.MagicNumber")
 public enum class HeavenlyStem(
+
+	/**
+	 * Numeric order when enumerated.
+	 */
 	public val order: Int,
-	public val yinYang: YinYang,
+
+	/**
+	 * Associated polarity of the stem.
+	 */
+	public val polarity: Polarity,
+
+	/**
+	 * Associated phase of the stem.
+	 */
 	public val phase: Phase,
 ) {
 
 	/**
 	 * 甲: 阳木 (yang wood).
 	 */
-	Jia(1, YinYang.Yang, Phase.Mu),
+	Jia(
+		order = 1,
+		polarity = Yang,
+		phase = Mu
+	),
 
 	/**
 	 * 乙: 阴木 (yin wood).
 	 */
-	Yi(2, YinYang.Yin, Phase.Mu),
+	Yi(
+		order = 2,
+		polarity = Yin,
+		phase = Mu
+	),
 
 	/**
 	 * 丙: 阳火 (yang fire).
 	 */
-	Bing(3, YinYang.Yang, Phase.Huo),
+	Bing(
+		order = 3,
+		polarity = Yang,
+		phase = Huo
+	),
 
 	/**
 	 * 丁: 阴火 (yin fire).
 	 */
-	Ding(4, YinYang.Yin, Phase.Huo),
+	Ding(
+		order = 4,
+		polarity = Yin,
+		phase = Huo
+	),
 
 	/**
 	 * 戊: 阳土 (yang earth).
 	 */
-	Wu(5, YinYang.Yang, Phase.Tu),
+	Wu(
+		order = 5,
+		polarity = Yang,
+		phase = Tu
+	),
 
 	/**
 	 * 己: 阴土 (yin earth).
 	 */
-	Ji(6, YinYang.Yin, Phase.Tu),
+	Ji(
+		order = 6,
+		polarity = Yin,
+		phase = Tu
+	),
 
 	/**
 	 * 庚: 阳金 (yang metal).
 	 */
-	Geng(7, YinYang.Yang, Phase.Jin),
+	Geng(
+		order = 7,
+		polarity = Yang,
+		phase = Jin
+	),
 
 	/**
 	 * 辛: 阴金 (yin metal).
 	 */
-	Xin(8, YinYang.Yin, Phase.Jin),
+	Xin(
+		order = 8,
+		polarity = Yin,
+		phase = Jin
+	),
 
 	/**
 	 * 壬: 阳水 (yang water).
 	 */
-	Ren(9, YinYang.Yang, Phase.Shui),
+	Ren(
+		order = 9,
+		polarity = Yang,
+		phase = Shui
+	),
 
 	/**
 	 * 癸: 阴水 (yin water).
 	 */
-	Gui(10, YinYang.Yin, Phase.Shui),
+	Gui(
+		order = 10,
+		polarity = Yin,
+		phase = Shui
+	),
 
 	;
 
 	public companion object {
 
+		/**
+		 * Number of Heavenly Stems.
+		 */
+		public val COUNT: Int = HeavenlyStem.entries.size
+
+		@Suppress("detekt.FunctionMinLength")
 		internal fun at(position: Int): HeavenlyStem =
 			entries.singleOrNull { it.order == position }
 				?: error("No Heavenly Stem at position ${position}.")

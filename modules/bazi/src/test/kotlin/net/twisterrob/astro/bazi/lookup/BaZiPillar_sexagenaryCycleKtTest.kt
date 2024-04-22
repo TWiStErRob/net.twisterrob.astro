@@ -1,16 +1,22 @@
 package net.twisterrob.astro.bazi.lookup
 
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.collections.containDuplicates
+import io.kotest.matchers.sequences.containAllInAnyOrder
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNot
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 
 class BaZiPillar_sexagenaryCycleKtTest {
 
+	// https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_years
 	@CsvSource(
 		"1, Jia, Zi",
 		"2, Yi, Chou",
@@ -82,6 +88,18 @@ class BaZiPillar_sexagenaryCycleKtTest {
 
 		subject.heavenlyStem shouldBe heavenlyStem
 		subject.earthlyBranch shouldBe earthlyBranch
+	}
+
+	@Test fun `all combos exists`() {
+		val all = (0..59).map { BaZi.Pillar.sexagenaryCycle(it) }
+		val generated = HeavenlyStem.entries
+			.flatMap { hs -> EarthlyBranch.entries.map { eb -> BaZi.Pillar(hs, eb) } }
+			.filter { it.heavenlyStem.polarity == it.earthlyBranch.zodiac.charge.polarity }
+
+		all shouldNot containDuplicates()
+		generated shouldNot containDuplicates()
+
+		all.asSequence() should containAllInAnyOrder(generated.asSequence())
 	}
 
 	@ValueSource(ints = [-100, -60, -59, -1 /*, 0..59*/, 60, 61, 100])
