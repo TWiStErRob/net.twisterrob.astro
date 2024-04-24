@@ -41,17 +41,20 @@ public data class BaZi(
 	/**
 	 * A pillar of the Four Pillars of Destiny.
 	 * A combination of Heavenly Stem and Earthly Branch which forms the Hexagenary Cycle.
+	 *
+	 * Note: it's called Pillar, but that has meaning in Ba Zi,
+	 * generally in the Sexagenary calendar the combination is just called Gan Zhi (干支).
 	 */
 	@Suppress("detekt.ForbiddenPublicDataClass") // TODO PoKo
 	public data class Pillar(
 
 		/**
-		 * 天干.
+		 * Gan (干), or Heavenly Stem (天干).
 		 */
 		public val heavenlyStem: HeavenlyStem,
 
 		/**
-		 * 地支.
+		 * Zhi (支), or Earthly Branch (地支).
 		 */
 		public val earthlyBranch: EarthlyBranch,
 	) {

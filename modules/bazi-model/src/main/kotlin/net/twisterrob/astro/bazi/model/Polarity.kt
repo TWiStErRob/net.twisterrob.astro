@@ -7,7 +7,14 @@ package net.twisterrob.astro.bazi.model
  */
 public enum class Polarity {
 
+	/**
+	 * Positive charge.
+	 */
 	Yang,
+
+	/**
+	 * Negative charge.
+	 */
 	Yin,
 
 	;
