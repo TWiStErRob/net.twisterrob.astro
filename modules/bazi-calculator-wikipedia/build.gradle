@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-	implementation(projects.baziCalculator)
+	api(projects.baziCalculator)
 
 	testImplementation(testFixtures(projects.baziCalculator))
 }
