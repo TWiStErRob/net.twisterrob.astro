@@ -6,6 +6,7 @@ kotlin = "1.9.23"
 
 detekt = "1.23.6"
 jsr305 = "3.0.2"
+time4j = "5.9.1"
 
 junit-jupiter = "5.10.2"
 kotest = "5.8.1"
@@ -16,6 +17,7 @@ mockito-kotlin = "5.3.1"
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 jsr305 = { module = "com.google.code.findbugs:jsr305", version.ref = "jsr305" }
 detekt-rules-libraries = { module = "io.gitlab.arturbosch.detekt:detekt-rules-libraries", version.ref = "detekt" }
+time4j = { module = "net.time4j:time4j-base", version.ref = "time4j" }
 
 test-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
 test-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter" }

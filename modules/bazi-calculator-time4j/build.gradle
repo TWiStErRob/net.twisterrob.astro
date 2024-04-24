@@ -1,0 +1,12 @@
+
+plugins {
+	id("net.twisterrob.astro.library")
+}
+
+dependencies {
+	api(projects.baziCalculator)
+	implementation(projects.baziCalculatorWikipedia)
+	implementation(libs.time4j)
+
+	testImplementation(testFixtures(projects.baziCalculator))
+}
