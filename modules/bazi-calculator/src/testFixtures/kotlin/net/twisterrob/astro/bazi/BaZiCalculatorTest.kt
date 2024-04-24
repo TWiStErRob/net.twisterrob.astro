@@ -254,7 +254,7 @@ abstract class BaZiCalculatorTest {
 		@Test fun `Mao Zedong`() {
 			check(
 				// Location: Shaoshan, Xiangtan, Hunan, China
-				dateTime = LocalDateTime.of(1893, 12, 26, 8, 0),
+				dateTime = LocalDateTime.of(1893, 12, 26, 8 /*7-9*/, 0),
 				// From: Group44, kinaiasztrologia.com confirmed.
 				// https://kinaiasztrologia.com/kalkulator/kinai_horoszkop_kalkulator.html?id=1&YE=1893&MO=12&DA=26&HO=8&MI=0&CI=Shaoshan%2C%20Xiangtan%2C%20Hunan%2C%20China&NA=MZ&GE=1&TU=false&CST=1
 				expected = BaZi(
@@ -577,8 +577,8 @@ abstract class BaZiCalculatorTest {
 					date = LocalDate.of(1949, Month.APRIL, 5),
 					expected = BaZi(
 						year = BaZi.Pillar(Ji, Chou),
-						// month = BaZi.Pillar(Ding, Mao), is also valid if midnight, Wu, Chen is noon.
-						month = BaZi.Pillar(Wu, Chen),
+						month = BaZi.Pillar(Ding, Mao), // midnight
+						// month = BaZi.Pillar(Wu, Chen), // noon
 						day = BaZi.Pillar(Yi, Chou),
 						hour = null,
 					),
