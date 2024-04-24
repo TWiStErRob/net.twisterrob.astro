@@ -1,0 +1,9 @@
+plugins {
+	id("net.twisterrob.astro.library")
+}
+
+dependencies {
+	api(projects.baziModel)
+	
+	testFixturesImplementation(projects.testHelpers)
+}

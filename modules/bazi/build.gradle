@@ -1,7 +1,0 @@
-plugins {
-	id("net.twisterrob.astro.library")
-}
-
-dependencies {
-	testImplementation(projects.testHelpers)
-}

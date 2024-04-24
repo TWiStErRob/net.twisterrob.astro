@@ -22,7 +22,10 @@ dependencyResolutionManagement {
 
 enableFeaturePreviewQuietly("TYPESAFE_PROJECT_ACCESSORS", "Type-safe project accessors")
 
-includeModule(":bazi")
+includeModule(":bazi-model")
+includeModule(":bazi-calculator")
+includeModule(":bazi-calculator-group44")
+includeModule(":bazi-calculator-wikipedia")
 includeModule(":test-helpers")
 
 fun includeModule(path: String) {
