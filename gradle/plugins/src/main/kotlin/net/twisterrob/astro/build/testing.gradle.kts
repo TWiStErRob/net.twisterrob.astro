@@ -32,3 +32,7 @@ testing.suites.withType<JvmTestSuite>().configureEach {
 		}
 	}
 }
+
+dependencies {
+	testFixturesImplementation(project(":test-helpers"))
+}

@@ -4,6 +4,4 @@ plugins {
 
 dependencies {
 	api(projects.baziModel)
-	
-	testFixturesImplementation(projects.testHelpers)
 }
