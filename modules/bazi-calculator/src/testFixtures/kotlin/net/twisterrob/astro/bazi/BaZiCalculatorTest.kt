@@ -528,10 +528,10 @@ abstract class BaZiCalculatorTest {
 				check(
 					date = LocalDate.of(1947, Month.APRIL, 5),
 					expected = BaZi(
-						BaZi.Pillar(Ding, Hai),
-						BaZi.Pillar(Gui, Mao),
-						BaZi.Pillar(Jia, Yin),
-						null,
+						year = BaZi.Pillar(Ding, Hai),
+						month = BaZi.Pillar(Gui, Mao),
+						day = BaZi.Pillar(Jia, Yin),
+						hour = null,
 					),
 				)
 			}
