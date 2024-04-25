@@ -12,7 +12,7 @@ class LocalDateTime_julianDayKtTest {
 		// Generated via https://aa.usno.navy.mil/data/JulianDate
 		"2024-04-25T08:06:42, 2460425.837986",
 		"2024-04-24T22:06:42, 2460425.421319",
-		// Current value from https://en.wikipedia.org/wiki/Julian_day#Variants 
+		// Current value from https://en.wikipedia.org/wiki/Julian_day#Variants
 		"2024-04-25T08:09:00, 2460425.83958",
 		// Examples from https://en.wikipedia.org/wiki/Julian_day#Finding_Julian_date_given_Julian_day_number_and_time_of_day
 		"2000-01-01T00:00:00, 2451544.5",

@@ -12,7 +12,8 @@ internal class SolarCoordinateApproximator {
 	 * https://aa.usno.navy.mil/faq/sun_approx
 	 */
 	@Suppress(
-		"LocalVariableName", // Using names from math.
+		"LocalVariableName", "detekt.VariableNaming", // Using names from math.
+		"detekt.MagicNumber", // Tried to name what I can as a constant.
 	)
 	internal fun approximateSolarLongitude(dateTime: LocalDateTime): Double {
 		// Unit: Julian days
