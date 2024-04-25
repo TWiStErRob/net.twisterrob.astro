@@ -1,12 +1,55 @@
 package net.twisterrob.astro.bazi
 
+import net.twisterrob.astro.units.AU
+import net.twisterrob.astro.units.Deg
+import net.twisterrob.astro.units.JulianDay
+import net.twisterrob.astro.units.asin
+import net.twisterrob.astro.units.atan2
+import net.twisterrob.astro.units.au
+import net.twisterrob.astro.units.cos
+import net.twisterrob.astro.units.deg
+import net.twisterrob.astro.units.duration
+import net.twisterrob.astro.units.jd
+import net.twisterrob.astro.units.minus
+import net.twisterrob.astro.units.plus
+import net.twisterrob.astro.units.sin
+import net.twisterrob.astro.units.times
 import java.time.LocalDateTime
-import kotlin.math.asin
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.time.Duration
 
 internal class SolarCoordinateApproximator {
+
+	data class Results(
+
+		/**
+		 * Right ascension is the celestial equivalent of terrestrial longitude.
+		 */
+		val rightAscension: Deg,
+
+		/**
+		 * Declination is the celestial equivalent of terrestrial latitude.
+		 */
+		val declination: Deg,
+
+		/**
+		 * Distance of the Sun from the Earth.
+		 */
+		val distance: AU,
+
+		/**
+		 * Angular semi-diameter of the Sun.
+		 * It is a measure of the visible size of a celestial body as seen from a specific point.
+		 * In this case, it's the visible size of the Sun as seen from Earth.
+		 */
+		val semiDiameter: Deg,
+
+		/**
+		 * Equation of Time is the difference between apparent solar time and mean solar time.
+		 * It is the difference between the hour angle of the mean Sun and the hour angle of the true Sun.
+		 * It is a measure of the difference between time as read from a sundial and time as read from a clock.
+		 */
+		val equationOfTime: Duration,
+	)
 
 	/**
 	 * https://aa.usno.navy.mil/faq/sun_approx
@@ -15,44 +58,43 @@ internal class SolarCoordinateApproximator {
 		"LocalVariableName", "detekt.VariableNaming", // Using names from math.
 		"detekt.MagicNumber", // Tried to name what I can as a constant.
 	)
-	internal fun approximateSolarLongitude(dateTime: LocalDateTime): Double {
-		// Unit: Julian days
-		val JD = dateTime.julianDay
+	internal fun approximateSolarLongitude(dateTime: LocalDateTime): Results {
+		val JD: JulianDay = dateTime.julianDay.jd
 		// Elapsed since J2000 epoch.
-		// Unit: Julian days
-		val D = JD - J2000_0
+		val D: JulianDay = JD - J2000_0
 		// Mean anomaly of the Sun
-		// Unit: degrees; Range: might not be 0-360.
-		val g = 357.529 + 0.98560028 * D
+		// Range: might not be 0-360.
+		val g: Deg = 357.529.deg + (0.98560028 * D).deg
 		// Mean longitude of the Sun
-		// Unit: degrees; Range: might not be 0-360.
-		val q = 280.459 + 0.98564736 * D
+		// Range: might not be 0-360.
+		val q: Deg = 280.459.deg + (0.98564736 * D).deg
 		// Geocentric apparent ecliptic longitude of the Sun (adjusted for aberration)
-		// Unit: degrees; Range: might not be 0-360.
-		val L = q + 1.915 * sin(g) + 0.020 * sin(2 * g)
+		// Range: might not be 0-360.
+		val L: Deg = q + 1.915 * sin(g) + 0.020 * sin(2 * g)
 		// Sun's ecliptic latitude
-		val b = 0
+		val b: Deg = 0.deg
 		// The distance of the Sun from the Earth
-		// Unit: astronomical units (AU)
-		val R = 1.00014 - 0.01671 * cos(g) - 0.00014 * cos(2 * g)
+		val R: AU = 1.00014.au - 0.01671 * cos(g) - 0.00014 * cos(2 * g)
 		// Mean obliquity of the ecliptic
-		// Unit: degrees
-		val e = 23.439 - 0.00000036 * D
-		// Sun's right ascension (celestial equivalent of longitude) 
-		// tan(RA) = cos(e) * sin (L) / cos (L)
+		val e: Deg = 23.439.deg - (0.00000036 * D).deg
+		// Sun's right ascension (tan(RA) = cos(e) * sin (L) / cos (L))
 		// RA is always in the same quadrant as L.
-		// If RA is obtained in degrees, it can be converted to hours simply by dividing by 15.
-		// RA is conventionally reduced to the range 0h to 24h.
-		val RA = atan2(cos(e) * sin(L), cos(L))
-		// the Sun's declination 
-		// sin(d) = sin(e) * sin(L)
-		val d = asin(sin(e) * sin(L))
+		// RA is conventionally reduced to the range 0h to 24h, or 0 to 360 degrees.
+		val RA: Deg = atan2(cos(e) * sin(L) + sin(b) * sin(e), cos(L))
+		// the Sun's declination (sin(d) = sin(e) * sin(L))
+		// Range: -90..+90
+		val d: Deg = asin(sin(e) * sin(L) + sin(b) * sin(e))
 		// The Equation of Time, apparent solar time minus mean solar time
-		val EqT = q / 15 - RA
+		val EqT: Duration = q.duration - RA.duration
 		// angular semidiameter of the Sun
-		// Unit: degrees
-		val SD = 0.2666 / R
-		return RA
+		val SD: Deg = (0.2666 / R.value).deg
+		return Results(
+			rightAscension = RA,
+			declination = d,
+			distance = R,
+			semiDiameter = SD,
+			equationOfTime = EqT,
+		)
 	}
 
 	companion object {
@@ -60,6 +102,6 @@ internal class SolarCoordinateApproximator {
 		/**
 		 * Epoch referred to as "J2000.0", which is 2000 January 1.5, Julian date 2451545.0.
 		 */
-		private const val J2000_0 = 2451545.0
+		private val J2000_0 = 2_451_545.0.jd
 	}
 }

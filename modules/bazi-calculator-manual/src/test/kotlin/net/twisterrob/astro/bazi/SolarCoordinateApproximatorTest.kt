@@ -1,6 +1,10 @@
 package net.twisterrob.astro.bazi
 
+import io.kotest.matchers.doubles.ToleranceMatcher
+import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
+import net.twisterrob.astro.units.Deg
+import net.twisterrob.astro.units.deg
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDateTime
@@ -26,6 +30,9 @@ class SolarCoordinateApproximatorTest {
 	@ParameterizedTest fun `equinox should be the 0 point, every year`(dateTime: LocalDateTime) {
 		val result = subject.approximateSolarLongitude(dateTime)
 
-		result shouldBe 0.0
+		// 0.0° ± (0.008° = 0.48′ = 28.8″)
+		result.rightAscension.value shouldBe (0.0.deg plusOrMinus 0.008.deg)
 	}
 }
+
+private infix fun Deg.plusOrMinus(deg: Deg): ToleranceMatcher = this.value.plusOrMinus(deg.value)
