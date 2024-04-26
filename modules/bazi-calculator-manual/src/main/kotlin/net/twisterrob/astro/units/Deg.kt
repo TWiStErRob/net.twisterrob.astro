@@ -18,6 +18,7 @@ internal inline operator fun Int.times(other: Deg): Deg = Deg(this * other.value
 internal inline operator fun Long.times(other: Deg): Deg = Deg(this * other.value)
 internal inline operator fun Double.times(other: Deg): Deg = Deg(this * other.value)
 
+internal inline operator fun Deg.unaryMinus(): Deg = Deg(-this.value)
 internal inline operator fun Deg.times(other: Double): Deg = Deg(this.value * other)
 internal inline operator fun Deg.div(other: Double): Deg = Deg(this.value / other)
 
