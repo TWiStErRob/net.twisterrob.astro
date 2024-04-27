@@ -12,6 +12,7 @@ import net.twisterrob.astro.units.duration
 import net.twisterrob.astro.units.jd
 import net.twisterrob.astro.units.minus
 import net.twisterrob.astro.units.plus
+import net.twisterrob.astro.units.rem
 import net.twisterrob.astro.units.sin
 import net.twisterrob.astro.units.times
 import java.time.LocalDateTime
@@ -89,7 +90,7 @@ internal class SolarCoordinateApproximator {
 		// angular semidiameter of the Sun
 		val SD: Deg = (0.2666 / R.value).deg
 		return Results(
-			rightAscension = RA,
+			rightAscension = (RA + 360.deg) % 360.deg,
 			declination = d,
 			distance = R,
 			semiDiameter = SD,
