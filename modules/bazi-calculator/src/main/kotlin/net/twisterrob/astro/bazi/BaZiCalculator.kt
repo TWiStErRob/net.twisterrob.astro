@@ -23,6 +23,6 @@ public interface BaZiCalculator {
 
 	public companion object {
 
-		private val MIDDAY = LocalTime.of(12, 0, 0)
+		private val MIDDAY = LocalTime.of(0, 0, 0)
 	}
 }
