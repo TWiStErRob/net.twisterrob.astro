@@ -54,6 +54,8 @@ internal class SolarCoordinateApproximator {
 		val equationOfTime: Duration,
 	)
 
+	internal fun approximateSolarLongitude(dateTime: LocalDateTime): Results =
+		approximateSolarLongitude(dateTime.julianDay.jd)
 	/**
 	 * https://aa.usno.navy.mil/faq/sun_approx
 	 */
@@ -61,10 +63,9 @@ internal class SolarCoordinateApproximator {
 		"LocalVariableName", "detekt.VariableNaming", // Using names from math.
 		"detekt.MagicNumber", // Tried to name what I can as a constant.
 	)
-	internal fun approximateSolarLongitude(dateTime: LocalDateTime): Results {
-		val JD: JulianDay = dateTime.julianDay.jd
+	internal fun approximateSolarLongitude(jd: JulianDay): Results {
 		// Elapsed since J2000 epoch.
-		val D: JulianDay = JD - J2000_0
+		val D: JulianDay = jd - J2000_0
 		// Mean anomaly of the Sun
 		// Range: might not be 0-360.
 		val g: Deg = (357.529.deg + (0.98560028 * D).deg).lowestPositiveRem(360.deg)
