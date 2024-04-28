@@ -22,7 +22,7 @@ public class ManualCalculator : BaZiCalculator {
 	private fun calculateYear(dateTime: LocalDateTime): BaZi.Pillar {
 		val solar = SolarCoordinateApproximator().approximateSolarLongitude(dateTime)
 		val isPreviousYear = (dateTime.month == Month.JANUARY || dateTime.month == Month.FEBRUARY)
-				&& solar.rightAscension.value in 270.0..<315.0
+				&& solar.apparentSolarLongitude.value in 270.0..<315.0
 		val yearsSinceBeginning = dateTime.year - BASE_YEAR
 		val newYearAdjustment = if (isPreviousYear) 1 else 0
 
@@ -32,7 +32,7 @@ public class ManualCalculator : BaZiCalculator {
 
 	private fun calculateMonth(dateTime: LocalDateTime): BaZi.Pillar {
 		val solar = SolarCoordinateApproximator().approximateSolarLongitude(dateTime)
-		val monthBranch = when (val ra = solar.rightAscension.value) {
+		val monthBranch = when (val ra = solar.apparentSolarLongitude.value) {
 			in 315.0..<345.0 -> EarthlyBranch.Yin
 			in 345.0..<360.0 -> EarthlyBranch.Mao
 			in 0.0..<15.0 -> EarthlyBranch.Mao
