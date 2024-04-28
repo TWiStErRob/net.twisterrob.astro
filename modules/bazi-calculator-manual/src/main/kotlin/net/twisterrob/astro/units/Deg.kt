@@ -34,3 +34,6 @@ internal inline fun atan2(y: Double, x: Double): Deg = kotlin.math.atan2(y, x).r
 
 internal inline fun sin(x: Deg): Double = sin(x.rad)
 internal inline fun cos(x: Deg): Double = cos(x.rad)
+
+internal fun Deg.lowestPositiveRem(deg: Deg): Deg =
+	Deg(this.value.lowestPositiveRem(deg.value))

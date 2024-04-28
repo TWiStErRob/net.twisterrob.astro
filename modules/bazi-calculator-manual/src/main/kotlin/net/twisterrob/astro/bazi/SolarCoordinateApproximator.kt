@@ -10,9 +10,9 @@ import net.twisterrob.astro.units.cos
 import net.twisterrob.astro.units.deg
 import net.twisterrob.astro.units.duration
 import net.twisterrob.astro.units.jd
+import net.twisterrob.astro.units.lowestPositiveRem
 import net.twisterrob.astro.units.minus
 import net.twisterrob.astro.units.plus
-import net.twisterrob.astro.units.rem
 import net.twisterrob.astro.units.sin
 import net.twisterrob.astro.units.times
 import java.time.LocalDateTime
@@ -21,7 +21,7 @@ import kotlin.time.Duration
 internal class SolarCoordinateApproximator {
 
 	data class Results(
-		
+
 		val apparentSolarLongitude: Deg,
 
 		/**
@@ -56,6 +56,7 @@ internal class SolarCoordinateApproximator {
 
 	internal fun approximateSolarLongitude(dateTime: LocalDateTime): Results =
 		approximateSolarLongitude(dateTime.julianDay.jd)
+
 	/**
 	 * https://aa.usno.navy.mil/faq/sun_approx
 	 */
@@ -109,9 +110,4 @@ internal class SolarCoordinateApproximator {
 		 */
 		private val J2000_0 = 2_451_545.0.jd
 	}
-}
-
-private fun Deg.lowestPositiveRem(deg: Deg): Deg {
-	val mod = deg.value
-	return Deg(((this.value % mod) + mod) % mod)
 }
