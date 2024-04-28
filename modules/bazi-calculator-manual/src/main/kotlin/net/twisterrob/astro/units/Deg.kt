@@ -35,5 +35,8 @@ internal inline fun atan2(y: Double, x: Double): Deg = kotlin.math.atan2(y, x).r
 internal inline fun sin(x: Deg): Double = sin(x.rad)
 internal inline fun cos(x: Deg): Double = cos(x.rad)
 
-internal fun Deg.mod(deg: Deg): Deg =
-	Deg(this.value.mod(deg.value))
+/**
+ * @see canonicalMod(Int)
+ */
+internal inline fun Deg.canonicalMod(deg: Deg): Deg =
+	Deg(this.value.canonicalMod(deg.value))

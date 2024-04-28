@@ -39,7 +39,10 @@ class SolarCoordinateApproximatorTest {
 		val result = subject.approximateSolarLongitude(dateTime)
 
 		// 0.0° ± (0.008° = 0.48′ = 28.8″)
-		result.rightAscension.value shouldBe (0.0.deg plusOrMinus 0.008.deg)
+		result.rightAscension.value shouldBe Matcher.any(
+			0.0.deg plusOrMinus 0.008.deg,
+			360.0.deg plusOrMinus 0.008.deg,
+		)
 	}
 
 	@CsvSource(
@@ -81,11 +84,7 @@ class SolarCoordinateApproximatorTest {
 		val result = subject.approximateSolarLongitude(dateTime)
 
 		// ±180.0° ± (0.009° = 0.54′ = 32.4″)
-		@Suppress("WrapUnaryOperator")
-		result.rightAscension.value shouldBe Matcher.any(
-			180.0.deg plusOrMinus 0.009.deg,
-			-180.0.deg plusOrMinus 0.009.deg
-		)
+		result.rightAscension.value shouldBe (180.0.deg plusOrMinus 0.009.deg)
 	}
 
 	@CsvSource(
@@ -105,9 +104,8 @@ class SolarCoordinateApproximatorTest {
 	@ParameterizedTest fun `southern solstice should be the 0 point, every year`(dateTime: LocalDateTime) {
 		val result = subject.approximateSolarLongitude(dateTime)
 
-		// -90.0° ± (0.012° = 0.72′ = 43.2″)
-		@Suppress("WrapUnaryOperator")
-		result.rightAscension.value shouldBe (-90.0.deg plusOrMinus 0.012.deg)
+		// 270.0° ± (0.012° = 0.72′ = 43.2″)
+		result.rightAscension.value shouldBe (270.0.deg plusOrMinus 0.012.deg)
 	}
 
 	@Test fun test() {
