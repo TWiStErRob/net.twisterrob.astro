@@ -59,6 +59,31 @@ class ManualCalculatorTest : BaZiCalculatorTest() {
 	}
 
 	/**
+	 * @see SexagenaryYearTestCase.Companion
+	 */
+	@TestFactory fun `sexagenary years`(): Iterable<DynamicNode> {
+		return SexagenaryYearTestCase.CYCLES.map { cycle ->
+			dynamicContainer("cycle ${cycle[0].year}",
+				cycle.map { tc ->
+					dynamicContainer(
+						"${tc.year} year",
+						listOf(
+							dynamicTest("${tc.midDate} stem is ${tc.stem}") {
+								val result = subject.calculate(tc.midDate)
+								result.year.heavenlyStem shouldBe tc.stem
+							},
+							dynamicTest("${tc.midDate} branch is ${tc.branch}") {
+								val result = subject.calculate(tc.midDate)
+								result.year.earthlyBranch shouldBe tc.branch
+							},
+						)
+					)
+				}
+			)
+		}
+	}
+
+	/**
 	 * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months
 	 */
 	@TestFactory fun `branch of non-leap-year solar terms`(): Iterable<DynamicNode> {
