@@ -1,6 +1,7 @@
 package net.twisterrob.astro.bazi
 
 import io.kotest.matchers.shouldBe
+import net.twisterrob.astro.bazi.lookup.atHour
 import net.twisterrob.astro.bazi.lookup.lookupSolarMonth
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
@@ -16,10 +17,16 @@ import net.twisterrob.astro.bazi.model.EarthlyBranch.Yin
 import net.twisterrob.astro.bazi.model.EarthlyBranch.You
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
 import net.twisterrob.astro.bazi.model.HeavenlyStem
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ding
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
+import net.twisterrob.astro.units.canonicalMod
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest.dynamicTest
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -126,6 +133,67 @@ class ManualCalculatorTest : BaZiCalculatorTest() {
 		}
 	}
 
+	/**
+	 * @see SexagenaryHourTestCase.Companion
+	 */
+	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> {
+		return SexagenaryHourTestCase.CYCLES.map { cycle ->
+			dynamicContainer("${cycle[0].startTime.toLocalDate()} cycle",
+				cycle.map { tc ->
+					dynamicContainer(
+						"#${tc.cyclicOrdinal}: ${tc.dayStem} ${tc.branchOfHour} -> ${tc.hourPillar}",
+						listOf(
+							dynamicContainer(
+								"${tc.startTime}-${tc.endTime}",
+								(tc.startTime..<tc.endTime)
+									.map { time ->
+										dynamicTest("${time} is ${tc.hourPillar}") {
+											val result = subject.calculate(time)
+											result.hour shouldBe tc.hourPillar
+										}
+									}
+							),
+							dynamicTest("${tc.startTime} start's branch association") {
+								EarthlyBranch.atHour(tc.startTime.hour) shouldBe tc.branchOfHour
+							},
+							dynamicTest("${tc.midTime} middle's branch association") {
+								EarthlyBranch.atHour(tc.midTime.hour) shouldBe tc.branchOfHour
+							},
+							dynamicTest("${tc.endTime.minusMinutes(1)} end's branch association") {
+								EarthlyBranch.atHour(tc.endTime.minusMinutes(1).hour) shouldBe tc.branchOfHour
+							},
+							dynamicTest("${tc.startTime} day") {
+								val expected = if (tc.branchOfHour == Zi && tc.startTime.hour >= 23) {
+									HeavenlyStem.at((tc.dayStem.order - 1 - 1).canonicalMod(HeavenlyStem.COUNT) + 1)
+								} else {
+									tc.dayStem
+								}
+								val result = subject.calculate(tc.startTime)
+								result.day.heavenlyStem shouldBe expected
+							},
+							dynamicTest("${tc.midTime} day") {
+								val result = subject.calculate(tc.midTime)
+								result.day.heavenlyStem shouldBe tc.dayStem
+							},
+							dynamicTest("${tc.endTime.minusMinutes(1)} day") {
+								val result = subject.calculate(tc.endTime.minusMinutes(1))
+								result.day.heavenlyStem shouldBe tc.dayStem
+							},
+							dynamicTest("${tc.midTime} hour stem is ${tc.hourStem}") {
+								val result = subject.calculate(tc.midTime)
+								result.hour?.heavenlyStem shouldBe tc.hourStem
+							},
+							dynamicTest("${tc.midTime} hour branch is ${tc.hourBranch}") {
+								val result = subject.calculate(tc.midTime)
+								result.hour?.earthlyBranch shouldBe tc.hourBranch
+							},
+						)
+					)
+				}
+			)
+		}
+	}
+
 	data class SolarTermTestCase(
 		val expectedBranch: EarthlyBranch,
 		val startYear: Int,
@@ -156,8 +224,8 @@ class ManualCalculatorTest : BaZiCalculatorTest() {
 	}
 }
 
-private operator fun LocalDate.rangeTo(endDate: LocalDate): Iterable<LocalDate> =
-	generateSequence(this) { it.plusDays(1) }.takeWhile { it <= endDate }.asIterable()
-
 private operator fun LocalDate.rangeUntil(endDate: LocalDate): Iterable<LocalDate> =
 	generateSequence(this) { it.plusDays(1) }.takeWhile { it < endDate }.asIterable()
+
+private operator fun LocalDateTime.rangeUntil(endDate: LocalDateTime): Iterable<LocalDateTime> =
+	generateSequence(this) { it.plusMinutes(15) }.takeWhile { it < endDate }.asIterable()
