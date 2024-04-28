@@ -4,6 +4,7 @@ import net.twisterrob.astro.bazi.lookup.sexagenaryCycle
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
+import net.twisterrob.astro.units.mod
 import java.time.LocalDateTime
 import java.time.Month
 
@@ -48,7 +49,11 @@ public class ManualCalculator : BaZiCalculator {
 			in 285.0..<315.0 -> EarthlyBranch.Chou
 			else -> throw IllegalStateException("Invalid solar longitude: ${ra}")
 		}
-		return BaZi.Pillar(HeavenlyStem.Ren, monthBranch)
+		val yearStem = calculateYear(dateTime).heavenlyStem
+		// Only every 2nd combination exists in the sexagenary cycle, so order needs doubling.
+		// Month 1 is not Zi (1), but Yin (3) so subtract 3 to make it 0-based and cycle to ensure positive.
+		val monthStem = (yearStem.order * 2 + (monthBranch.order - 3).mod(12)) % 10
+		return BaZi.Pillar(HeavenlyStem.at(monthStem + 1), monthBranch)
 	}
 
 	private fun calculateDay(dateTime: LocalDateTime): BaZi.Pillar {

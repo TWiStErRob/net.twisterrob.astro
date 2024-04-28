@@ -1,7 +1,7 @@
 package net.twisterrob.astro.units
 
-internal fun Double.lowestPositiveRem(cycle: Double): Double =
+internal fun Double.mod(cycle: Double): Double =
 	((this % cycle) + cycle) % cycle
 
-internal fun Int.lowestPositiveRem(cycle: Int): Int =
+internal fun Int.mod(cycle: Int): Int =
 	((this % cycle) + cycle) % cycle

@@ -10,8 +10,8 @@ import net.twisterrob.astro.units.cos
 import net.twisterrob.astro.units.deg
 import net.twisterrob.astro.units.duration
 import net.twisterrob.astro.units.jd
-import net.twisterrob.astro.units.lowestPositiveRem
 import net.twisterrob.astro.units.minus
+import net.twisterrob.astro.units.mod
 import net.twisterrob.astro.units.plus
 import net.twisterrob.astro.units.sin
 import net.twisterrob.astro.units.times
@@ -69,13 +69,13 @@ internal class SolarCoordinateApproximator {
 		val D: JulianDay = jd - J2000_0
 		// Mean anomaly of the Sun
 		// Range: might not be 0-360.
-		val g: Deg = (357.529.deg + (0.98560028 * D).deg).lowestPositiveRem(360.deg)
+		val g: Deg = (357.529.deg + (0.98560028 * D).deg).mod(360.deg)
 		// Mean longitude of the Sun
 		// Range: might not be 0-360.
-		val q: Deg = (280.459.deg + (0.98564736 * D).deg).lowestPositiveRem(360.deg)
+		val q: Deg = (280.459.deg + (0.98564736 * D).deg).mod(360.deg)
 		// Geocentric apparent ecliptic longitude of the Sun (adjusted for aberration)
 		// Range: might not be 0-360.
-		val L: Deg = (q + 1.915 * sin(g) + 0.020 * sin(2 * g)).lowestPositiveRem(360.deg)
+		val L: Deg = (q + 1.915 * sin(g) + 0.020 * sin(2 * g)).mod(360.deg)
 		// Sun's ecliptic latitude
 		val b: Deg = 0.deg
 		// The distance of the Sun from the Earth
@@ -85,7 +85,7 @@ internal class SolarCoordinateApproximator {
 		// Sun's right ascension (tan(RA) = cos(e) * sin (L) / cos (L))
 		// RA is always in the same quadrant as L.
 		// RA is conventionally reduced to the range 0h to 24h, or 0 to 360 degrees.
-		val RA: Deg = atan2(cos(e) * sin(L) + sin(b) * sin(e), cos(L)).lowestPositiveRem(360.deg)
+		val RA: Deg = atan2(cos(e) * sin(L) + sin(b) * sin(e), cos(L)).mod(360.deg)
 		// the Sun's declination (sin(d) = sin(e) * sin(L))
 		// Range: -90..+90
 		val d: Deg = asin(sin(e) * sin(L) + sin(b) * sin(e))
