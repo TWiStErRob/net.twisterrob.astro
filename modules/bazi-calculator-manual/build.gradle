@@ -6,7 +6,6 @@ plugins {
 dependencies {
 	api(projects.baziCalculator)
 	implementation(projects.baziCalculatorWikipedia)
-	implementation(libs.threeten.extra)
 
 	testImplementation(testFixtures(projects.baziCalculator))
 }

@@ -1,20 +1,17 @@
 package net.twisterrob.astro.bazi
 
-import org.threeten.extra.chrono.JulianDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.JulianFields
 
 /**
  * Julian Day for a [LocalDateTime], takes into account the time of day.
- */
-internal val LocalDateTime.julianDay: Double
-	get() = this.toJulianDate().julianDay + this.toLocalTime().julianTimeFraction
-
-/**
  * https://en.wikipedia.org/wiki/Julian_day#Converting_Julian_calendar_date_to_Julian_Day_Number
  */
-private val JulianDate.julianDay: Long
+internal val LocalDateTime.julianDay: Double
+	get() = this.julianDayNumber + this.toLocalTime().julianTimeFraction
+
+private val LocalDateTime.julianDayNumber: Long
 	get() = this.getLong(JulianFields.JULIAN_DAY)
 
 /**
@@ -23,6 +20,3 @@ private val JulianDate.julianDay: Long
 @Suppress("detekt.MagicNumber")
 private val LocalTime.julianTimeFraction: Double
 	get() = (this.hour - 12) / 24.0 + this.minute / 1_444.0 + this.second / 86_400.0
-
-private fun LocalDateTime.toJulianDate(): JulianDate =
-	JulianDate.from(this.toLocalDate())
