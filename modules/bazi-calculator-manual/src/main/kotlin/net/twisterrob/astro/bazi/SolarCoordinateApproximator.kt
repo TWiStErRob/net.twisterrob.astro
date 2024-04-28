@@ -21,6 +21,8 @@ import kotlin.time.Duration
 internal class SolarCoordinateApproximator {
 
 	data class Results(
+		
+		val apparentSolarLongitude: Deg,
 
 		/**
 		 * Right ascension is the celestial equivalent of terrestrial longitude.
@@ -71,7 +73,7 @@ internal class SolarCoordinateApproximator {
 		val q: Deg = (280.459.deg + (0.98564736 * D).deg).lowestPositiveRem(360.deg)
 		// Geocentric apparent ecliptic longitude of the Sun (adjusted for aberration)
 		// Range: might not be 0-360.
-		val L: Deg = q + 1.915 * sin(g) + 0.020 * sin(2 * g)
+		val L: Deg = (q + 1.915 * sin(g) + 0.020 * sin(2 * g)).lowestPositiveRem(360.deg)
 		// Sun's ecliptic latitude
 		val b: Deg = 0.deg
 		// The distance of the Sun from the Earth
@@ -90,6 +92,7 @@ internal class SolarCoordinateApproximator {
 		// angular semidiameter of the Sun
 		val SD: Deg = (0.2666 / R.value).deg
 		return Results(
+			apparentSolarLongitude = L,
 			rightAscension = RA,
 			declination = d,
 			distance = R,
