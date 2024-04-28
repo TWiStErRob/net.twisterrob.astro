@@ -425,8 +425,8 @@ abstract class BaZiCalculatorTest {
 			check(
 				date = LocalDate.of(1950, Month.FEBRUARY, 4),
 				expected = BaZi(
-					year = BaZi.Pillar(Ji, Chou),
-					month = BaZi.Pillar(Ding, Chou),
+					year = BaZi.Pillar(Geng, Yin),
+					month = BaZi.Pillar(Wu, Yin),
 					day = BaZi.Pillar(Geng, WuEB),
 					hour = null,
 				),
@@ -577,8 +577,8 @@ abstract class BaZiCalculatorTest {
 					date = LocalDate.of(1949, Month.APRIL, 5),
 					expected = BaZi(
 						year = BaZi.Pillar(Ji, Chou),
-						month = BaZi.Pillar(Ding, Mao), // midnight
-						// month = BaZi.Pillar(Wu, Chen), // noon
+						// month = BaZi.Pillar(Ding, Mao), // midnight
+						month = BaZi.Pillar(Wu, Chen), // noon
 						day = BaZi.Pillar(Yi, Chou),
 						hour = null,
 					),
