@@ -2,6 +2,7 @@ package net.twisterrob.astro.bazi
 
 import io.kotest.matchers.shouldBe
 import net.twisterrob.astro.bazi.lookup.lookupSolarMonth
+import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Chen
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Chou
@@ -15,11 +16,13 @@ import net.twisterrob.astro.bazi.model.EarthlyBranch.Yin
 import net.twisterrob.astro.bazi.model.EarthlyBranch.You
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
 import net.twisterrob.astro.bazi.model.HeavenlyStem
+import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.Month
 import java.time.Month.APRIL
@@ -39,7 +42,21 @@ import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 
 class ManualCalculatorTest : BaZiCalculatorTest() {
 
-	override val subject: BaZiCalculator = ManualCalculator()
+	private val realSubject = ManualCalculator()
+	override val subject: BaZiCalculator = object : BaZiCalculator {
+		override fun calculate(dateTime: LocalDateTime): BaZi {
+			try {
+				return realSubject.calculate(dateTime)
+			} catch (e: Exception) {
+				if (e.message?.contains("is before the Gregorian Calendar begins at") == true) {
+					Assumptions.assumeTrue(false, e.message)
+					error("Unreachable")
+				} else {
+					throw e
+				}
+			}
+		}
+	}
 
 	/**
 	 * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months

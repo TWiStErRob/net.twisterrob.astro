@@ -5,13 +5,20 @@ import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
 import net.twisterrob.astro.units.canonicalMod
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.Month
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 @Suppress("UNUSED_PARAMETER")
 public class ManualCalculator : BaZiCalculator {
 
 	override fun calculate(dateTime: LocalDateTime): BaZi {
+		require(GREGORIAN_CUTOVER <= dateTime) {
+			"Date ${dateTime} is before the Gregorian Calendar begins at ${GREGORIAN_CUTOVER}."
+		}
 		return BaZi(
 			year = calculateYear(dateTime),
 			month = calculateMonth(dateTime),
@@ -78,5 +85,8 @@ public class ManualCalculator : BaZiCalculator {
 		 *  * https://en.wikipedia.org/wiki/Yellow_Emperor
 		 */
 		private const val BASE_YEAR: Int = -2696
+
+		private val GREGORIAN_CUTOVER: LocalDateTime =
+			ZonedDateTime.of(LocalDate.of(1582, 10, 15), LocalTime.MIDNIGHT, ZoneOffset.UTC).toLocalDateTime()
 	}
 }
