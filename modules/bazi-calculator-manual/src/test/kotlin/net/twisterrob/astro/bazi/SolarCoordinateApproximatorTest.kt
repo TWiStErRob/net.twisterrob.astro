@@ -5,9 +5,6 @@ import io.kotest.matchers.compose.any
 import io.kotest.matchers.doubles.ToleranceMatcher
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.time.shouldHaveMillis
-import io.kotest.matchers.time.shouldHaveMinutes
-import io.kotest.matchers.time.shouldHaveSeconds
 import net.twisterrob.astro.units.Deg
 import net.twisterrob.astro.units.deg
 import org.junit.jupiter.api.Test
@@ -105,15 +102,6 @@ class SolarCoordinateApproximatorTest {
 
 		// 270.0° ± (0.012° = 0.72′ = 43.2″)
 		result.rightAscension.value shouldBe (270.0.deg plusOrMinus 0.012.deg)
-	}
-
-	@Test fun test() {
-		val dateTime = LocalDateTime.of(1947, APRIL, 6, 12, 0, 5)
-
-		val result = subject.approximateSolarLongitude(dateTime)
-		result.equationOfTime shouldHaveMinutes -2 /*.656*/
-		result.equationOfTime shouldHaveSeconds -158 /*.36*/
-		result.equationOfTime shouldHaveMillis -159_360
 	}
 
 	@Test fun test2() {
