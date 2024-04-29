@@ -1,5 +1,7 @@
 package net.twisterrob.astro.bazi
 
+import net.twisterrob.astro.bazi.lookup.atHour
+import net.twisterrob.astro.bazi.lookup.lookupHour
 import net.twisterrob.astro.bazi.lookup.sexagenaryCycle
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
@@ -12,7 +14,10 @@ import java.time.Month
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
-@Suppress("UNUSED_PARAMETER")
+/**
+ * Calculator based on solar terms, and calculations from various sources.
+ * The goal was to make it as human-friendly as possible.
+ */
 public class ManualCalculator : BaZiCalculator {
 
 	override fun calculate(dateTime: LocalDateTime): BaZi {
@@ -29,18 +34,33 @@ public class ManualCalculator : BaZiCalculator {
 
 	private fun calculateYear(dateTime: LocalDateTime): BaZi.Pillar {
 		val solar = SolarCoordinateApproximator().approximateSolarLongitude(dateTime)
+
+		@Suppress("detekt.MagicNumber")
 		val isPreviousYear = (dateTime.month == Month.JANUARY || dateTime.month == Month.FEBRUARY)
 				&& solar.apparentSolarLongitude.value in 270.0..<315.0
 		val yearsSinceBeginning = dateTime.year - BASE_YEAR
 		val newYearAdjustment = if (isPreviousYear) 1 else 0
 
-		val yearInCycle = (yearsSinceBeginning - newYearAdjustment) % 60
+		val yearInCycle = (yearsSinceBeginning - newYearAdjustment) % BaZi.Pillar.SEXAGENARY_CYCLE
 		return BaZi.Pillar.sexagenaryCycle(yearInCycle)
 	}
 
 	private fun calculateMonth(dateTime: LocalDateTime): BaZi.Pillar {
 		val solar = SolarCoordinateApproximator().approximateSolarLongitude(dateTime)
-		val monthBranch = when (val ra = solar.apparentSolarLongitude.value) {
+		val monthBranch = solarTerm(solar.apparentSolarLongitude.value)
+		val yearStem = calculateYear(dateTime).heavenlyStem
+		// Only every 2nd combination exists in the sexagenary cycle, so order needs doubling.
+		// Month 1 is not Zi (1), but Yin (3) so subtract 3 to make it 0-based and cycle to ensure positive.
+		@Suppress("detekt.MagicNumber")
+		val cycle = (monthBranch.order - 3).canonicalMod(EarthlyBranch.COUNT)
+		val monthStem = (yearStem.order * 2 + cycle) % HeavenlyStem.COUNT
+		return BaZi.Pillar(HeavenlyStem.at(monthStem + 1), monthBranch)
+	}
+
+	@Suppress("detekt.CyclomaticComplexMethod")
+	private fun solarTerm(apprentSolarLongitude: Double): EarthlyBranch =
+		@Suppress("detekt.MagicNumber")
+		when (apprentSolarLongitude) {
 			in 315.0..<345.0 -> EarthlyBranch.Yin
 			in 345.0..<360.0 -> EarthlyBranch.Mao
 			in 0.0..<15.0 -> EarthlyBranch.Mao
@@ -54,21 +74,22 @@ public class ManualCalculator : BaZiCalculator {
 			in 225.0..<255.0 -> EarthlyBranch.Hai
 			in 255.0..<285.0 -> EarthlyBranch.Zi
 			in 285.0..<315.0 -> EarthlyBranch.Chou
-			else -> throw IllegalStateException("Invalid solar longitude: ${ra}")
+			else -> error("Invalid solar longitude: ${apprentSolarLongitude}")
 		}
-		val yearStem = calculateYear(dateTime).heavenlyStem
-		// Only every 2nd combination exists in the sexagenary cycle, so order needs doubling.
-		// Month 1 is not Zi (1), but Yin (3) so subtract 3 to make it 0-based and cycle to ensure positive.
-		val monthStem = (yearStem.order * 2 + (monthBranch.order - 3).canonicalMod(12)) % 10
-		return BaZi.Pillar(HeavenlyStem.at(monthStem + 1), monthBranch)
-	}
 
 	private fun calculateDay(dateTime: LocalDateTime): BaZi.Pillar {
-		return BaZi.Pillar.sexagenaryCycle(0)
+		val jd = Math.round(dateTime.julianDay)
+		// See https://ytliu0.github.io/ChineseCalendar/sexagenary.html
+		val dayStem = HeavenlyStem.at(((jd - 1) % HeavenlyStem.COUNT).toInt().canonicalMod(HeavenlyStem.COUNT) + 1)
+		val dayBranch = EarthlyBranch.at(((jd + 1) % EarthlyBranch.COUNT).toInt().canonicalMod(EarthlyBranch.COUNT) + 1)
+		return BaZi.Pillar(dayStem, dayBranch)
 	}
 
 	private fun calculateHour(dateTime: LocalDateTime): BaZi.Pillar {
-		return BaZi.Pillar.sexagenaryCycle(0)
+		val hourBranch = EarthlyBranch.atHour(dateTime.hour)
+		val dayStem = calculateDay(dateTime.sexagenaryDayBase).heavenlyStem
+		val hourStem = HeavenlyStem.lookupHour(dayStem, hourBranch)
+		return BaZi.Pillar(hourStem, hourBranch)
 	}
 
 	private companion object {
@@ -88,5 +109,14 @@ public class ManualCalculator : BaZiCalculator {
 
 		private val GREGORIAN_CUTOVER: LocalDateTime =
 			ZonedDateTime.of(LocalDate.of(1582, 10, 15), LocalTime.MIDNIGHT, ZoneOffset.UTC).toLocalDateTime()
+
+		private val LocalDateTime.sexagenaryDayBase: LocalDateTime
+			get() =
+				@Suppress("detekt.MagicNumber")
+				if (this.hour == 23) {
+					this.plusHours(1)
+				} else {
+					this
+				}
 	}
 }
