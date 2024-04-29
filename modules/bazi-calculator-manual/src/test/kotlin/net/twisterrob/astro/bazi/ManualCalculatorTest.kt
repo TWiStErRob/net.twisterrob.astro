@@ -134,6 +134,38 @@ class ManualCalculatorTest : BaZiCalculatorTest() {
 	}
 
 	/**
+	 * @see SexagenaryDayTestCase.Companion
+	 */
+	@TestFactory fun `sexagenary days`(): Iterable<DynamicNode> {
+		return SexagenaryDayTestCase.CYCLES.map { cycle ->
+			dynamicContainer("${cycle[0].date} cycle",
+				cycle.map { tc ->
+					dynamicContainer(
+						"#${tc.cyclicOrdinal}: ${tc.dayStem} ${tc.dayBranch}",
+						listOf(
+							dynamicContainer(
+								"${tc.date} all time",
+								(tc.date.atStartOfDay()..<tc.date.atStartOfDay().plusDays(1))
+									.filter { it.minute == 0 }
+									.map { time ->
+										dynamicTest("${time} is ${tc.dayPillar}") {
+											val result = subject.calculate(time)
+											result.day shouldBe tc.dayPillar
+										}
+									}
+							),
+							dynamicTest("${tc.date} day") {
+								val result = subject.calculate(tc.date)
+								result.day shouldBe tc.dayPillar
+							},
+						)
+					)
+				}
+			)
+		}
+	}
+
+	/**
 	 * @see SexagenaryHourTestCase.Companion
 	 */
 	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> {
