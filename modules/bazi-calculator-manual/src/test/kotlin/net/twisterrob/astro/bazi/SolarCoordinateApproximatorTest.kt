@@ -10,7 +10,6 @@ import io.kotest.matchers.time.shouldHaveMinutes
 import io.kotest.matchers.time.shouldHaveSeconds
 import net.twisterrob.astro.units.Deg
 import net.twisterrob.astro.units.deg
-import net.twisterrob.astro.units.unaryMinus
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -114,14 +113,14 @@ class SolarCoordinateApproximatorTest {
 		val result = subject.approximateSolarLongitude(dateTime)
 		result.equationOfTime shouldHaveMinutes -2 /*.656*/
 		result.equationOfTime shouldHaveSeconds -158 /*.36*/
-		result.equationOfTime shouldHaveMillis -159360
+		result.equationOfTime shouldHaveMillis -159_360
 	}
 
 	@Test fun test2() {
 		val dateTime = LocalDateTime.of(1947, APRIL, 6, 12, 0, 5)
 
 		val result = subject.approximateSolarLongitude(dateTime)
-		
+
 		// ± 0.0004° = 0.024′ = 1.44″
 		result.apparentSolarLongitude.value shouldBe (15.846941794266089.deg plusOrMinus 0.0004.deg)
 	}

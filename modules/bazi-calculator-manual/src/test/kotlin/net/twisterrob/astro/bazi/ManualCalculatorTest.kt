@@ -17,16 +17,11 @@ import net.twisterrob.astro.bazi.model.EarthlyBranch.Yin
 import net.twisterrob.astro.bazi.model.EarthlyBranch.You
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
 import net.twisterrob.astro.bazi.model.HeavenlyStem
-import net.twisterrob.astro.bazi.model.HeavenlyStem.Ding
-import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
-import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
-import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
 import net.twisterrob.astro.units.canonicalMod
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest.dynamicTest
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -226,7 +221,8 @@ class ManualCalculatorTest : BaZiCalculatorTest() {
 		}
 	}
 
-	data class SolarTermTestCase(
+	@Suppress("detekt.LongParameterList")
+	class SolarTermTestCase(
 		val expectedBranch: EarthlyBranch,
 		val startYear: Int,
 		val startMonth: Month,
@@ -238,6 +234,7 @@ class ManualCalculatorTest : BaZiCalculatorTest() {
 
 		companion object {
 
+			@Suppress("detekt.NamedArguments")
 			val NON_LEAP_YEAR = listOf(
 				SolarTermTestCase(Yin, 0, FEBRUARY, 4, 0, MARCH, 6),
 				SolarTermTestCase(Mao, 0, MARCH, 6, 0, APRIL, 5),

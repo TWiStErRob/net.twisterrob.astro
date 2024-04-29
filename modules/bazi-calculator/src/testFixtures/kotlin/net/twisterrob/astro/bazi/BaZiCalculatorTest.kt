@@ -27,7 +27,6 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
