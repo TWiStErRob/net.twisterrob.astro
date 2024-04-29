@@ -53,6 +53,10 @@ class SexagenaryYearTestCase(
 
 	/**
 	 * https://en.wikipedia.org/wiki/Sexagenary_cycle
+	 * Mostly the same as https://www.travelchinaguide.com/intro/chinese-zodiac-years-chart.htm,
+	 * but there are some discrepancies in some years.
+	 * 
+	 * Branches: https://www.travelchinaguide.com/images/photogallery/2019/zodiac-year-chart.jpg
 	 */
 	@Suppress("detekt.NamedArguments")
 	companion object {
