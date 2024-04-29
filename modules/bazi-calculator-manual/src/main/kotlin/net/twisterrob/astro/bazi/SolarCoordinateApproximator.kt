@@ -6,12 +6,12 @@ import net.twisterrob.astro.units.JulianDay
 import net.twisterrob.astro.units.asin
 import net.twisterrob.astro.units.atan2
 import net.twisterrob.astro.units.au
+import net.twisterrob.astro.units.canonicalMod
 import net.twisterrob.astro.units.cos
 import net.twisterrob.astro.units.deg
 import net.twisterrob.astro.units.duration
 import net.twisterrob.astro.units.jd
 import net.twisterrob.astro.units.minus
-import net.twisterrob.astro.units.canonicalMod
 import net.twisterrob.astro.units.plus
 import net.twisterrob.astro.units.sin
 import net.twisterrob.astro.units.times
@@ -20,42 +20,8 @@ import kotlin.time.Duration
 
 internal class SolarCoordinateApproximator {
 
-	data class Results(
-
-		val apparentSolarLongitude: Deg,
-
-		/**
-		 * Right ascension is the celestial equivalent of terrestrial longitude.
-		 */
-		val rightAscension: Deg,
-
-		/**
-		 * Declination is the celestial equivalent of terrestrial latitude.
-		 */
-		val declination: Deg,
-
-		/**
-		 * Distance of the Sun from the Earth.
-		 */
-		val distance: AU,
-
-		/**
-		 * Angular semi-diameter of the Sun.
-		 * It is a measure of the visible size of a celestial body as seen from a specific point.
-		 * In this case, it's the visible size of the Sun as seen from Earth.
-		 */
-		val semiDiameter: Deg,
-
-		/**
-		 * Equation of Time is the difference between apparent solar time and mean solar time.
-		 * It is the difference between the hour angle of the mean Sun and the hour angle of the true Sun.
-		 * It is a measure of the difference between time as read from a sundial and time as read from a clock.
-		 */
-		val equationOfTime: Duration,
-	)
-
-	internal fun approximateSolarLongitude(dateTime: LocalDateTime): Results =
-		approximateSolarLongitude(dateTime.julianDay.jd)
+	internal fun approximateSolarLongitude(dateTime: LocalDateTime): SolarCoordinates =
+		approximateSolarLongitude(dateTime.julianDayTime.jd)
 
 	/**
 	 * https://aa.usno.navy.mil/faq/sun_approx
@@ -64,7 +30,7 @@ internal class SolarCoordinateApproximator {
 		"LocalVariableName", "detekt.VariableNaming", // Using names from math.
 		"detekt.MagicNumber", // Tried to name what I can as a constant.
 	)
-	internal fun approximateSolarLongitude(jd: JulianDay): Results {
+	internal fun approximateSolarLongitude(jd: JulianDay): SolarCoordinates {
 		// Elapsed since J2000 epoch.
 		val D: JulianDay = jd - J2000_0
 		// Mean anomaly of the Sun
@@ -93,7 +59,7 @@ internal class SolarCoordinateApproximator {
 		val EqT: Duration = q.duration - RA.duration
 		// angular semidiameter of the Sun
 		val SD: Deg = (0.2666 / R.value).deg
-		return Results(
+		return SolarCoordinates(
 			apparentSolarLongitude = L,
 			rightAscension = RA,
 			declination = d,

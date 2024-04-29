@@ -1,11 +1,10 @@
-
 plugins {
 	id("net.twisterrob.astro.library")
 }
 
 dependencies {
 	api(projects.baziCalculator)
-	implementation(projects.baziCalculatorWikipedia)
+	implementation(projects.baziCalculatorWikipedia) // STOPSHIP
 
 	testImplementation(testFixtures(projects.baziCalculator))
 }

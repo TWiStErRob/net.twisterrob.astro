@@ -19,6 +19,7 @@ import java.time.ZonedDateTime
  * The goal was to make it as human-friendly as possible.
  */
 public class ManualCalculator : BaZiCalculator {
+	private val solar = SolarCoordinateApproximator()
 
 	override fun calculate(dateTime: LocalDateTime): BaZi {
 		require(GREGORIAN_CUTOVER <= dateTime) {
@@ -33,11 +34,11 @@ public class ManualCalculator : BaZiCalculator {
 	}
 
 	private fun calculateYear(dateTime: LocalDateTime): BaZi.Pillar {
-		val solar = SolarCoordinateApproximator().approximateSolarLongitude(dateTime)
+		val sun = solar.approximateSolarLongitude(dateTime)
 
 		@Suppress("detekt.MagicNumber")
 		val isPreviousYear = (dateTime.month == Month.JANUARY || dateTime.month == Month.FEBRUARY)
-				&& solar.apparentSolarLongitude.value in 270.0..<315.0
+				&& sun.apparentSolarLongitude.value in 270.0..<315.0
 		val yearsSinceBeginning = dateTime.year - BASE_YEAR
 		val newYearAdjustment = if (isPreviousYear) 1 else 0
 
@@ -46,8 +47,8 @@ public class ManualCalculator : BaZiCalculator {
 	}
 
 	private fun calculateMonth(dateTime: LocalDateTime): BaZi.Pillar {
-		val solar = SolarCoordinateApproximator().approximateSolarLongitude(dateTime)
-		val monthBranch = solarTerm(solar.apparentSolarLongitude.value)
+		val sun = solar.approximateSolarLongitude(dateTime)
+		val monthBranch = solarTerm(sun.apparentSolarLongitude.value)
 		val yearStem = calculateYear(dateTime).heavenlyStem
 		// Only every 2nd combination exists in the sexagenary cycle, so order needs doubling.
 		// Month 1 is not Zi (1), but Yin (3) so subtract 3 to make it 0-based and cycle to ensure positive.
@@ -78,7 +79,7 @@ public class ManualCalculator : BaZiCalculator {
 		}
 
 	private fun calculateDay(dateTime: LocalDateTime): BaZi.Pillar {
-		val jd = Math.round(dateTime.julianDay)
+		val jd = Math.round(dateTime.julianDayTime)
 		// See https://ytliu0.github.io/ChineseCalendar/sexagenary.html
 		val dayStem = HeavenlyStem.at(((jd - 1) % HeavenlyStem.COUNT).toInt().canonicalMod(HeavenlyStem.COUNT) + 1)
 		val dayBranch = EarthlyBranch.at(((jd + 1) % EarthlyBranch.COUNT).toInt().canonicalMod(EarthlyBranch.COUNT) + 1)
