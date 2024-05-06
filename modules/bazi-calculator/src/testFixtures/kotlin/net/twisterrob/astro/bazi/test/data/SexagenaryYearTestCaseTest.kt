@@ -35,10 +35,54 @@ class SexagenaryYearTestCaseTest {
 	}
 
 	@Test
-	fun `the test data is consistent with dates`() {
+	fun `the test data is self-consistent with lunar dates`() {
 		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.forEach { cycle ->
 			cycle.forEach { testCase ->
 				testCase.startDate shouldBeBefore testCase.endDate
+			}
+		}
+	}
+
+	@Test
+	fun `the test data is consistent with lunar dates`() {
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.forEach { cycle ->
+			cycle.take(59).zip(cycle.drop(1)).forEach { (testCase, nextTestCase) ->
+				testCase.endDate shouldBeBefore nextTestCase.startDate
+				nextTestCase.startDate shouldBe testCase.endDate.plusDays(1)
+			}
+		}
+	}
+
+	@Test
+	fun `the test data is self-consistent with solar dates`() {
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.forEach { cycle ->
+			cycle.forEach { testCase ->
+				if (testCase.solarStart != null && testCase.solarEnd != null) {
+					testCase.solarStart shouldBeBefore testCase.solarEnd
+				}
+			}
+		}
+	}
+
+	@Test
+	fun `the test data is consistent with solar dates`() {
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.forEach { cycle ->
+			cycle.take(59).zip(cycle.drop(1)).forEach { (testCase, nextTestCase) ->
+				testCase.solarEnd shouldBe nextTestCase.solarStart
+			}
+		}
+	}
+
+	@Test
+	fun `the test data is self-consistent with solar and lunar dates`() {
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.forEach { cycle ->
+			cycle.forEach { testCase ->
+				if (testCase.solarStart != null) {
+					testCase.startDate.year shouldBe testCase.solarStart.year
+				}
+				if (testCase.solarEnd != null) {
+					testCase.endDate.year shouldBe testCase.solarEnd.year
+				}
 			}
 		}
 	}

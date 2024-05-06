@@ -2,17 +2,22 @@ package net.twisterrob.astro.bazi.test.data
 
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Chen
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Chou
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Hai
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Mao
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Si
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Xu
+import net.twisterrob.astro.bazi.model.EarthlyBranch.Yin
 import net.twisterrob.astro.bazi.model.EarthlyBranch.You
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Ding
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Geng
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Gui
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
-import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import java.time.LocalDateTime
+import java.time.Month
+import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
 class BaZiTestCase(
 	val name: String,
@@ -38,7 +43,7 @@ class BaZiTestCase(
 					year = BaZi.Pillar(Geng, Chen),
 					month = BaZi.Pillar(Ding, Hai),
 					day = BaZi.Pillar(Jia, Xu),
-					hour = BaZi.Pillar(Wu, Chen)
+					hour = BaZi.Pillar(WuHS, Chen)
 				),
 			),
 			BaZiTestCase(
@@ -59,9 +64,39 @@ class BaZiTestCase(
 			),
 		)
 
+		val SOLAR_YEAR_TRANSITIONS: List<BaZiTestCase> = listOf(
+			BaZiTestCase(
+				// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
+				name = "2022/23 solar new year: before",
+				sources = emptyList(),
+				dateTime = LocalDateTime.of(2023, Month.FEBRUARY, 4, 2, 31, 0), // should be ~2:42
+				location = "UTC",
+				bazi = BaZi(
+					year = BaZi.Pillar(Ren, Yin),
+					month = BaZi.Pillar(Gui, Chou),
+					day = BaZi.Pillar(Gui, Si),
+					hour = BaZi.Pillar(Gui, Chou),
+				),
+			),
+			BaZiTestCase(
+				// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
+				name = "2022/23 solar new year: after",
+				sources = emptyList(),
+				dateTime = LocalDateTime.of(2023, Month.FEBRUARY, 4, 2, 32, 0), // should be ~2:42
+				location = "UTC",
+				bazi = BaZi(
+					year = BaZi.Pillar(Gui, Mao),
+					month = BaZi.Pillar(Jia, Yin),
+					day = BaZi.Pillar(Gui, Si),
+					hour = BaZi.Pillar(Gui, Chou),
+				),
+			),
+		)
+
 		val ALL_CASES: List<BaZiTestCase> =
 			mapOf(
 				"Celebrity" to CELEBRITIES,
+				"Solar year transitions" to SOLAR_YEAR_TRANSITIONS,
 			)
 				.flatMap { (name, cases) ->
 					cases.map {

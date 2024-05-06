@@ -23,6 +23,7 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.Month.FEBRUARY
 import java.time.Month.JANUARY
 import java.time.temporal.ChronoUnit.DAYS
@@ -43,6 +44,17 @@ class SexagenaryYearTestCase(
 	 * The last day of the year in lunar calendar, inclusive.
 	 */
 	val endDate: LocalDate,
+
+
+	/**
+	 * The first minute of the year in solar calendar (Lichun / 立春, beginning of spring), inclusive.
+	 */
+	val solarStart: LocalDateTime? = null,
+
+	/**
+	 * The first minute of the next year in solar calendar. So exclusive, subtract 1 minute to get last minute.
+	 */
+	val solarEnd: LocalDateTime? = null,
 ) {
 
 	val year: Int
@@ -55,7 +67,7 @@ class SexagenaryYearTestCase(
 	 * https://en.wikipedia.org/wiki/Sexagenary_cycle
 	 * Mostly the same as https://www.travelchinaguide.com/intro/chinese-zodiac-years-chart.htm,
 	 * but there are some discrepancies in some years.
-	 * 
+	 *
 	 * Branches: https://www.travelchinaguide.com/images/photogallery/2019/zodiac-year-chart.jpg
 	 */
 	@Suppress("detekt.NamedArguments")
@@ -259,6 +271,44 @@ class SexagenaryYearTestCase(
 			SexagenaryYearTestCase(60, Gui, Hai, LocalDate.of(1983, FEBRUARY, 13), LocalDate.of(1984, FEBRUARY, 1)),
 		)
 
+		// 2019-2026 based on https://www.hko.gov.hk/en/gts/astronomy/Solar_Term.htm, times converted to UTC.
+		// 2019-2026 confirmed at https://en.wikipedia.org/wiki/Lichun (https://zh.wikipedia.org/zh/%E7%AB%8B%E6%98%A5)
+		// 2001-2030 based on https://en.wikipedia.org/wiki/Lichun
+		@Suppress("ObjectPropertyName")
+		private object NY {
+
+			val _2001: LocalDateTime = LocalDateTime.of(2001, FEBRUARY, 3, 18, 28, 0)
+			val _2002: LocalDateTime = LocalDateTime.of(2002, FEBRUARY, 4, 0, 24, 0)
+			val _2003: LocalDateTime = LocalDateTime.of(2003, FEBRUARY, 4, 6, 5, 0)
+			val _2004: LocalDateTime = LocalDateTime.of(2004, FEBRUARY, 4, 11, 56, 0)
+			val _2005: LocalDateTime = LocalDateTime.of(2005, FEBRUARY, 3, 17, 43, 0)
+			val _2006: LocalDateTime = LocalDateTime.of(2006, FEBRUARY, 3, 23, 27, 0)
+			val _2007: LocalDateTime = LocalDateTime.of(2007, FEBRUARY, 4, 5, 18, 0)
+			val _2008: LocalDateTime = LocalDateTime.of(2008, FEBRUARY, 4, 11, 0, 0)
+			val _2009: LocalDateTime = LocalDateTime.of(2009, FEBRUARY, 3, 16, 49, 0)
+			val _2010: LocalDateTime = LocalDateTime.of(2010, FEBRUARY, 3, 22, 47, 0)
+			val _2011: LocalDateTime = LocalDateTime.of(2011, FEBRUARY, 4, 4, 32, 0)
+			val _2012: LocalDateTime = LocalDateTime.of(2012, FEBRUARY, 4, 10, 22, 0)
+			val _2013: LocalDateTime = LocalDateTime.of(2013, FEBRUARY, 3, 16, 13, 0)
+			val _2014: LocalDateTime = LocalDateTime.of(2014, FEBRUARY, 3, 22, 3, 0)
+			val _2015: LocalDateTime = LocalDateTime.of(2015, FEBRUARY, 4, 3, 58, 0)
+			val _2016: LocalDateTime = LocalDateTime.of(2016, FEBRUARY, 4, 9, 46, 0)
+			val _2017: LocalDateTime = LocalDateTime.of(2017, FEBRUARY, 3, 15, 34, 0)
+			val _2018: LocalDateTime = LocalDateTime.of(2018, FEBRUARY, 3, 21, 28, 0)
+			val _2019: LocalDateTime = LocalDateTime.of(2019, FEBRUARY, 4, 3, 14, 0)
+			val _2020: LocalDateTime = LocalDateTime.of(2020, FEBRUARY, 4, 9, 3, 0)
+			val _2021: LocalDateTime = LocalDateTime.of(2021, FEBRUARY, 3, 14, 58, 0) // 49 in hk
+			val _2022: LocalDateTime = LocalDateTime.of(2022, FEBRUARY, 3, 20, 50, 0) // 51 in hk
+			val _2023: LocalDateTime = LocalDateTime.of(2023, FEBRUARY, 4, 2, 42, 0)
+			val _2024: LocalDateTime = LocalDateTime.of(2024, FEBRUARY, 4, 8, 27, 0)
+			val _2025: LocalDateTime = LocalDateTime.of(2025, FEBRUARY, 3, 14, 10, 0)
+			val _2026: LocalDateTime = LocalDateTime.of(2026, FEBRUARY, 3, 20, 2, 0)
+			val _2027: LocalDateTime = LocalDateTime.of(2027, FEBRUARY, 4, 1, 46, 0)
+			val _2028: LocalDateTime = LocalDateTime.of(2028, FEBRUARY, 4, 7, 31, 0)
+			val _2029: LocalDateTime = LocalDateTime.of(2029, FEBRUARY, 3, 13, 20, 0)
+			val _2030: LocalDateTime = LocalDateTime.of(2030, FEBRUARY, 3, 19, 8, 0)
+		}
+
 		/**
 		 * https://en.wikipedia.org/wiki/Sexagenary_cycle#1924%E2%80%932043
 		 */
@@ -279,37 +329,37 @@ class SexagenaryYearTestCase(
 			SexagenaryYearTestCase(14, Ding, Chou, LocalDate.of(1997, FEBRUARY, 7), LocalDate.of(1998, JANUARY, 27)),
 			SexagenaryYearTestCase(15, WuHS, Yin, LocalDate.of(1998, JANUARY, 28), LocalDate.of(1999, FEBRUARY, 15)),
 			SexagenaryYearTestCase(16, Ji, Mao, LocalDate.of(1999, FEBRUARY, 16), LocalDate.of(2000, FEBRUARY, 4)),
-			SexagenaryYearTestCase(17, Geng, Chen, LocalDate.of(2000, FEBRUARY, 5), LocalDate.of(2001, JANUARY, 23)),
-			SexagenaryYearTestCase(18, Xin, Si, LocalDate.of(2001, JANUARY, 24), LocalDate.of(2002, FEBRUARY, 11)),
-			SexagenaryYearTestCase(19, Ren, WuEB, LocalDate.of(2002, FEBRUARY, 12), LocalDate.of(2003, JANUARY, 31)),
-			SexagenaryYearTestCase(20, Gui, Wei, LocalDate.of(2003, FEBRUARY, 1), LocalDate.of(2004, JANUARY, 21)),
-			SexagenaryYearTestCase(21, Jia, Shen, LocalDate.of(2004, JANUARY, 22), LocalDate.of(2005, FEBRUARY, 8)),
-			SexagenaryYearTestCase(22, Yi, You, LocalDate.of(2005, FEBRUARY, 9), LocalDate.of(2006, JANUARY, 29)),
-			SexagenaryYearTestCase(23, Bing, Xu, LocalDate.of(2006, JANUARY, 30), LocalDate.of(2007, FEBRUARY, 17)),
-			SexagenaryYearTestCase(24, Ding, Hai, LocalDate.of(2007, FEBRUARY, 18), LocalDate.of(2008, FEBRUARY, 6)),
-			SexagenaryYearTestCase(25, WuHS, Zi, LocalDate.of(2008, FEBRUARY, 7), LocalDate.of(2009, JANUARY, 25)),
-			SexagenaryYearTestCase(26, Ji, Chou, LocalDate.of(2009, JANUARY, 26), LocalDate.of(2010, FEBRUARY, 13)),
-			SexagenaryYearTestCase(27, Geng, Yin, LocalDate.of(2010, FEBRUARY, 14), LocalDate.of(2011, FEBRUARY, 2)),
-			SexagenaryYearTestCase(28, Xin, Mao, LocalDate.of(2011, FEBRUARY, 3), LocalDate.of(2012, JANUARY, 22)),
-			SexagenaryYearTestCase(29, Ren, Chen, LocalDate.of(2012, JANUARY, 23), LocalDate.of(2013, FEBRUARY, 9)),
-			SexagenaryYearTestCase(30, Gui, Si, LocalDate.of(2013, FEBRUARY, 10), LocalDate.of(2014, JANUARY, 30)),
-			SexagenaryYearTestCase(31, Jia, WuEB, LocalDate.of(2014, JANUARY, 31), LocalDate.of(2015, FEBRUARY, 18)),
-			SexagenaryYearTestCase(32, Yi, Wei, LocalDate.of(2015, FEBRUARY, 19), LocalDate.of(2016, FEBRUARY, 7)),
-			SexagenaryYearTestCase(33, Bing, Shen, LocalDate.of(2016, FEBRUARY, 8), LocalDate.of(2017, JANUARY, 27)),
-			SexagenaryYearTestCase(34, Ding, You, LocalDate.of(2017, JANUARY, 28), LocalDate.of(2018, FEBRUARY, 15)),
-			SexagenaryYearTestCase(35, WuHS, Xu, LocalDate.of(2018, FEBRUARY, 16), LocalDate.of(2019, FEBRUARY, 4)),
-			SexagenaryYearTestCase(36, Ji, Hai, LocalDate.of(2019, FEBRUARY, 5), LocalDate.of(2020, JANUARY, 24)),
-			SexagenaryYearTestCase(37, Geng, Zi, LocalDate.of(2020, JANUARY, 25), LocalDate.of(2021, FEBRUARY, 11)),
-			SexagenaryYearTestCase(38, Xin, Chou, LocalDate.of(2021, FEBRUARY, 12), LocalDate.of(2022, JANUARY, 31)),
-			SexagenaryYearTestCase(39, Ren, Yin, LocalDate.of(2022, FEBRUARY, 1), LocalDate.of(2023, JANUARY, 21)),
-			SexagenaryYearTestCase(40, Gui, Mao, LocalDate.of(2023, JANUARY, 22), LocalDate.of(2024, FEBRUARY, 9)),
-			SexagenaryYearTestCase(41, Jia, Chen, LocalDate.of(2024, FEBRUARY, 10), LocalDate.of(2025, JANUARY, 28)),
-			SexagenaryYearTestCase(42, Yi, Si, LocalDate.of(2025, JANUARY, 29), LocalDate.of(2026, FEBRUARY, 16)),
-			SexagenaryYearTestCase(43, Bing, WuEB, LocalDate.of(2026, FEBRUARY, 17), LocalDate.of(2027, FEBRUARY, 5)),
-			SexagenaryYearTestCase(44, Ding, Wei, LocalDate.of(2027, FEBRUARY, 6), LocalDate.of(2028, JANUARY, 25)),
-			SexagenaryYearTestCase(45, WuHS, Shen, LocalDate.of(2028, JANUARY, 26), LocalDate.of(2029, FEBRUARY, 12)),
-			SexagenaryYearTestCase(46, Ji, You, LocalDate.of(2029, FEBRUARY, 13), LocalDate.of(2030, FEBRUARY, 2)),
-			SexagenaryYearTestCase(47, Geng, Xu, LocalDate.of(2030, FEBRUARY, 3), LocalDate.of(2031, JANUARY, 22)),
+			SexagenaryYearTestCase(17, Geng, Chen, LocalDate.of(2000, FEBRUARY, 5), LocalDate.of(2001, JANUARY, 23), null, NY._2001),
+			SexagenaryYearTestCase(18, Xin, Si, LocalDate.of(2001, JANUARY, 24), LocalDate.of(2002, FEBRUARY, 11), NY._2001, NY._2002),
+			SexagenaryYearTestCase(19, Ren, WuEB, LocalDate.of(2002, FEBRUARY, 12), LocalDate.of(2003, JANUARY, 31), NY._2002, NY._2003),
+			SexagenaryYearTestCase(20, Gui, Wei, LocalDate.of(2003, FEBRUARY, 1), LocalDate.of(2004, JANUARY, 21), NY._2003, NY._2004),
+			SexagenaryYearTestCase(21, Jia, Shen, LocalDate.of(2004, JANUARY, 22), LocalDate.of(2005, FEBRUARY, 8), NY._2004, NY._2005),
+			SexagenaryYearTestCase(22, Yi, You, LocalDate.of(2005, FEBRUARY, 9), LocalDate.of(2006, JANUARY, 29), NY._2005, NY._2006),
+			SexagenaryYearTestCase(23, Bing, Xu, LocalDate.of(2006, JANUARY, 30), LocalDate.of(2007, FEBRUARY, 17), NY._2006, NY._2007),
+			SexagenaryYearTestCase(24, Ding, Hai, LocalDate.of(2007, FEBRUARY, 18), LocalDate.of(2008, FEBRUARY, 6), NY._2007, NY._2008),
+			SexagenaryYearTestCase(25, WuHS, Zi, LocalDate.of(2008, FEBRUARY, 7), LocalDate.of(2009, JANUARY, 25), NY._2008, NY._2009),
+			SexagenaryYearTestCase(26, Ji, Chou, LocalDate.of(2009, JANUARY, 26), LocalDate.of(2010, FEBRUARY, 13), NY._2009, NY._2010),
+			SexagenaryYearTestCase(27, Geng, Yin, LocalDate.of(2010, FEBRUARY, 14), LocalDate.of(2011, FEBRUARY, 2), NY._2010, NY._2011),
+			SexagenaryYearTestCase(28, Xin, Mao, LocalDate.of(2011, FEBRUARY, 3), LocalDate.of(2012, JANUARY, 22), NY._2011, NY._2012),
+			SexagenaryYearTestCase(29, Ren, Chen, LocalDate.of(2012, JANUARY, 23), LocalDate.of(2013, FEBRUARY, 9), NY._2012, NY._2013),
+			SexagenaryYearTestCase(30, Gui, Si, LocalDate.of(2013, FEBRUARY, 10), LocalDate.of(2014, JANUARY, 30), NY._2013, NY._2014),
+			SexagenaryYearTestCase(31, Jia, WuEB, LocalDate.of(2014, JANUARY, 31), LocalDate.of(2015, FEBRUARY, 18), NY._2014, NY._2015),
+			SexagenaryYearTestCase(32, Yi, Wei, LocalDate.of(2015, FEBRUARY, 19), LocalDate.of(2016, FEBRUARY, 7), NY._2015, NY._2016),
+			SexagenaryYearTestCase(33, Bing, Shen, LocalDate.of(2016, FEBRUARY, 8), LocalDate.of(2017, JANUARY, 27), NY._2016, NY._2017),
+			SexagenaryYearTestCase(34, Ding, You, LocalDate.of(2017, JANUARY, 28), LocalDate.of(2018, FEBRUARY, 15), NY._2017, NY._2018),
+			SexagenaryYearTestCase(35, WuHS, Xu, LocalDate.of(2018, FEBRUARY, 16), LocalDate.of(2019, FEBRUARY, 4), NY._2018, NY._2019),
+			SexagenaryYearTestCase(36, Ji, Hai, LocalDate.of(2019, FEBRUARY, 5), LocalDate.of(2020, JANUARY, 24), NY._2019, NY._2020),
+			SexagenaryYearTestCase(37, Geng, Zi, LocalDate.of(2020, JANUARY, 25), LocalDate.of(2021, FEBRUARY, 11), NY._2020, NY._2021),
+			SexagenaryYearTestCase(38, Xin, Chou, LocalDate.of(2021, FEBRUARY, 12), LocalDate.of(2022, JANUARY, 31), NY._2021, NY._2022),
+			SexagenaryYearTestCase(39, Ren, Yin, LocalDate.of(2022, FEBRUARY, 1), LocalDate.of(2023, JANUARY, 21), NY._2022, NY._2023),
+			SexagenaryYearTestCase(40, Gui, Mao, LocalDate.of(2023, JANUARY, 22), LocalDate.of(2024, FEBRUARY, 9), NY._2023, NY._2024),
+			SexagenaryYearTestCase(41, Jia, Chen, LocalDate.of(2024, FEBRUARY, 10), LocalDate.of(2025, JANUARY, 28), NY._2024, NY._2025),
+			SexagenaryYearTestCase(42, Yi, Si, LocalDate.of(2025, JANUARY, 29), LocalDate.of(2026, FEBRUARY, 16), NY._2025, NY._2026),
+			SexagenaryYearTestCase(43, Bing, WuEB, LocalDate.of(2026, FEBRUARY, 17), LocalDate.of(2027, FEBRUARY, 5), NY._2026, NY._2027),
+			SexagenaryYearTestCase(44, Ding, Wei, LocalDate.of(2027, FEBRUARY, 6), LocalDate.of(2028, JANUARY, 25), NY._2027, NY._2028),
+			SexagenaryYearTestCase(45, WuHS, Shen, LocalDate.of(2028, JANUARY, 26), LocalDate.of(2029, FEBRUARY, 12), NY._2028, NY._2029),
+			SexagenaryYearTestCase(46, Ji, You, LocalDate.of(2029, FEBRUARY, 13), LocalDate.of(2030, FEBRUARY, 2), NY._2029, NY._2030),
+			SexagenaryYearTestCase(47, Geng, Xu, LocalDate.of(2030, FEBRUARY, 3), LocalDate.of(2031, JANUARY, 22), NY._2030, null),
 			SexagenaryYearTestCase(48, Xin, Hai, LocalDate.of(2031, JANUARY, 23), LocalDate.of(2032, FEBRUARY, 10)),
 			SexagenaryYearTestCase(49, Ren, Zi, LocalDate.of(2032, FEBRUARY, 11), LocalDate.of(2033, JANUARY, 30)),
 			SexagenaryYearTestCase(50, Gui, Chou, LocalDate.of(2033, JANUARY, 31), LocalDate.of(2034, FEBRUARY, 18)),
