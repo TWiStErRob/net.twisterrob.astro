@@ -1,5 +1,6 @@
 package net.twisterrob.astro.bazi.test
 
+import io.kotest.assertions.withClue
 import io.kotest.matchers.nulls.beNull
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
@@ -82,7 +83,7 @@ private fun BaZiCalculator.verifySolarTermStems(year: Int, tc: SolarTermTestCase
 	val endDate = LocalDate.of(year + tc.endYear, tc.endMonth, tc.endDay)
 	val midDate = startDate.plusDays(ChronoUnit.DAYS.between(startDate, endDate) / 2)
 	val expectedStem = HeavenlyStem.lookupSolarMonth(heavenlyStem, tc.expectedBranch)
-	return dynamicTest("${midDate} stem is ${expectedStem}") {
+	return dynamicTest("${midDate} month stem is ${expectedStem}") {
 		val result = this.calculate(midDate.atTime(LocalTime.NOON))
 		result.month.heavenlyStem shouldBe expectedStem
 	}
@@ -155,7 +156,9 @@ fun BaZiCalculator.verifyCycle(cycle: List<SexagenaryHourTestCase>): DynamicNode
 							.map { time ->
 								dynamicTest("${time} is ${tc.hourPillar}") {
 									val result = this.calculate(time)
-									result.hour shouldBe tc.hourPillar
+									withClue("hour pillar") {
+										result.hour shouldBe tc.hourPillar
+									}
 								}
 							}
 					),
@@ -175,23 +178,38 @@ fun BaZiCalculator.verifyCycle(cycle: List<SexagenaryHourTestCase>): DynamicNode
 							tc.dayStem
 						}
 						val result = this.calculate(tc.startTime)
-						result.day.heavenlyStem shouldBe expected
+
+						withClue("day stem") {
+							result.day.heavenlyStem shouldBe expected
+						}
 					},
 					dynamicTest("${tc.midTime} day") {
 						val result = this.calculate(tc.midTime)
-						result.day.heavenlyStem shouldBe tc.dayStem
+
+						withClue("day stem") {
+							result.day.heavenlyStem shouldBe tc.dayStem
+						}
 					},
 					dynamicTest("${tc.endTime.minusMinutes(1)} day") {
 						val result = this.calculate(tc.endTime.minusMinutes(1))
-						result.day.heavenlyStem shouldBe tc.dayStem
+
+						withClue("day stem") {
+							result.day.heavenlyStem shouldBe tc.dayStem
+						}
 					},
 					dynamicTest("${tc.midTime} hour stem is ${tc.hourStem}") {
 						val result = this.calculate(tc.midTime)
-						result.hour?.heavenlyStem shouldBe tc.hourStem
+
+						withClue("hour stem") {
+							result.hour?.heavenlyStem shouldBe tc.hourStem
+						}
 					},
 					dynamicTest("${tc.midTime} hour branch is ${tc.hourBranch}") {
 						val result = this.calculate(tc.midTime)
-						result.hour?.earthlyBranch shouldBe tc.hourBranch
+
+						withClue("hour stem") {
+							result.hour?.earthlyBranch shouldBe tc.hourBranch
+						}
 					},
 				)
 			)
