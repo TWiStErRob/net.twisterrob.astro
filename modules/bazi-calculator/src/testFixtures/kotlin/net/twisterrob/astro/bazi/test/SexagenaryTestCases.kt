@@ -1,16 +1,20 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.bazi.test
 
-import io.kotest.assertions.withClue
 import io.kotest.matchers.nulls.beNull
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
+import net.twisterrob.astro.bazi.BaZiCalculator
 import net.twisterrob.astro.bazi.lookup.atHour
 import net.twisterrob.astro.bazi.lookup.lookupSolarMonth
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
 import net.twisterrob.astro.bazi.model.HeavenlyStem
+import net.twisterrob.astro.bazi.test.data.SexagenaryDayTestCase
+import net.twisterrob.astro.bazi.test.data.SexagenaryHourTestCase
+import net.twisterrob.astro.bazi.test.data.SexagenaryYearTestCase
+import net.twisterrob.astro.bazi.test.data.SolarTermTestCase
 import net.twisterrob.astro.units.canonicalMod
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode

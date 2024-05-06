@@ -24,8 +24,20 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
+import net.twisterrob.astro.bazi.test.data.BaZiHourlessTestCase
+import net.twisterrob.astro.bazi.test.data.BaZiTestCase
+import net.twisterrob.astro.bazi.test.data.SexagenaryDayTestCase
+import net.twisterrob.astro.bazi.test.data.SexagenaryHourTestCase
+import net.twisterrob.astro.bazi.test.data.SexagenaryYearTestCase
+import net.twisterrob.astro.bazi.test.verify
+import net.twisterrob.astro.bazi.test.verifyCycle
+import net.twisterrob.astro.bazi.test.verifyDay
+import net.twisterrob.astro.bazi.test.verifySolarTermBranchesIn
+import net.twisterrob.astro.bazi.test.verifySolarTermStemsIn
+import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Month
@@ -49,6 +61,31 @@ abstract class BaZiCalculatorTest {
 	 */
 	abstract val subject: BaZiCalculator
 
+
+	@TestFactory fun `random tests`(): Iterable<DynamicNode> =
+		BaZiTestCase.ALL_CASES.map { subject.verify(it.dateTime, it.bazi) }
+
+	@TestFactory fun `random hourless tests`(): Iterable<DynamicNode> =
+		BaZiHourlessTestCase.ALL_CASES.map { subject.verify(it.date, it.bazi) }
+
+	@TestFactory fun `sexagenary years`(): Iterable<DynamicNode> =
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
+
+	@TestFactory fun `solar term branches of non-leap year`(): Iterable<DynamicNode> =
+		listOf(2018, 2022).map { year -> subject.verifySolarTermBranchesIn(year) }
+
+	@TestFactory fun `solar term stems of non-leap years`(): Iterable<DynamicNode> =
+		(1900..2100).map { year -> subject.verifySolarTermStemsIn(year) }
+
+	@TestFactory fun `sexagenary days`(): Iterable<DynamicNode> =
+		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
+
+	@TestFactory fun `special days`(): Iterable<DynamicNode> =
+		SexagenaryDayTestCase.WIKIPEDIA_EXAMPLES.map { subject.verifyDay(it) }
+
+	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> =
+		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
+	
 	protected open fun check(date: LocalDate, expected: BaZi) {
 		expected.hour should beNull()
 
