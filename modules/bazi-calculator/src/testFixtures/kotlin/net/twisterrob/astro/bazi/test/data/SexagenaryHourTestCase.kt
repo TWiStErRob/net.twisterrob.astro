@@ -29,6 +29,7 @@ import java.time.Month.JANUARY
 import java.time.temporal.ChronoUnit
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
+import net.twisterrob.astro.bazi.test.previous
 
 /**
  * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_hours
@@ -42,10 +43,7 @@ class SexagenaryHourTestCase(
 	/**
 	 * The stem of the day this test case covers.
 	 * Except when [branchOfHour] == [Zi] between 23:00-00:00.
-	 * where it's the previous [dayStem]:
-	 * ```
-	 * HeavenlyStem.at((dayStem.order - 1 - 1).canonicalMod(HeavenlyStem.COUNT) + 1)
-	 * ```
+	 * where it's the previous [dayStem], see [HeavenlyStem.previous].
 	 */
 	val dayStem: HeavenlyStem,
 	val branchOfHour: EarthlyBranch,
