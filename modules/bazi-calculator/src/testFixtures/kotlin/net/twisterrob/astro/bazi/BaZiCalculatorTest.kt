@@ -81,7 +81,7 @@ abstract class BaZiCalculatorTest {
 		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
 
 	@TestFactory fun `special days`(): Iterable<DynamicNode> =
-		SexagenaryDayTestCase.WIKIPEDIA_EXAMPLES.map { subject.verifyDay(it) }
+		SexagenaryDayTestCase.WIKIPEDIA_EXAMPLES.map { subject.verifyDay(it.key, it.value) }
 
 	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> =
 		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }

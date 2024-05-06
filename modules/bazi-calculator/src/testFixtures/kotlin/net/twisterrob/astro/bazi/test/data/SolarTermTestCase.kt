@@ -41,7 +41,7 @@ class SolarTermTestCase(
 	companion object {
 
 		@Suppress("detekt.NamedArguments")
-		val NON_LEAP_YEAR = listOf(
+		val NON_LEAP_YEAR: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Yin, 0, FEBRUARY, 4, 0, MARCH, 6),
 			SolarTermTestCase(Mao, 0, MARCH, 6, 0, APRIL, 5),
 			SolarTermTestCase(Chen, 0, APRIL, 5, 0, MAY, 6),

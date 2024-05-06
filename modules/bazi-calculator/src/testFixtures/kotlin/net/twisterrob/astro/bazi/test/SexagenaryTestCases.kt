@@ -116,11 +116,11 @@ private fun BaZiCalculator.verifySolarTermBranches(year: Int, tc: SolarTermTestC
  */
 @JvmName("verifyCycleDay")
 fun BaZiCalculator.verifyCycle(cycle: List<SexagenaryDayTestCase>): DynamicNode =
-	dynamicContainer("${cycle[0].date} cycle", cycle.map { verifyDay(it) })
+	dynamicContainer("${cycle[0].date} cycle", cycle.map { verifyDay(null, it) })
 
-fun BaZiCalculator.verifyDay(tc: SexagenaryDayTestCase): DynamicNode =
+fun BaZiCalculator.verifyDay(name: String?, tc: SexagenaryDayTestCase): DynamicNode =
 	dynamicContainer(
-		"#${tc.cyclicOrdinal}: ${tc.dayStem} ${tc.dayBranch}",
+		"${if (name == null) "" else "${name}: "}#${tc.cyclicOrdinal}: ${tc.dayStem} ${tc.dayBranch}",
 		listOf(
 			dynamicContainer(
 				"${tc.date} all time",

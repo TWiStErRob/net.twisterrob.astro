@@ -64,7 +64,7 @@ class SexagenaryYearTestCase(
 		/**
 		 * https://en.wikipedia.org/wiki/Sexagenary_cycle#1804%E2%80%931923
 		 */
-		val CYCLE_1804 = listOf(
+		val CYCLE_1804: List<SexagenaryYearTestCase> = listOf(
 			SexagenaryYearTestCase(1, Jia, Zi, LocalDate.of(1804, FEBRUARY, 11), LocalDate.of(1805, JANUARY, 30)),
 			SexagenaryYearTestCase(2, Yi, Chou, LocalDate.of(1805, JANUARY, 31), LocalDate.of(1806, FEBRUARY, 17)),
 			SexagenaryYearTestCase(3, Bing, Yin, LocalDate.of(1806, FEBRUARY, 18), LocalDate.of(1807, FEBRUARY, 6)),
@@ -130,7 +130,7 @@ class SexagenaryYearTestCase(
 		/**
 		 * https://en.wikipedia.org/wiki/Sexagenary_cycle#1804%E2%80%931923
 		 */
-		val CYCLE_1864 = listOf(
+		val CYCLE_1864: List<SexagenaryYearTestCase> = listOf(
 			SexagenaryYearTestCase(1, Jia, Zi, LocalDate.of(1864, FEBRUARY, 8), LocalDate.of(1865, JANUARY, 26)),
 			SexagenaryYearTestCase(2, Yi, Chou, LocalDate.of(1865, JANUARY, 27), LocalDate.of(1866, FEBRUARY, 14)),
 			SexagenaryYearTestCase(3, Bing, Yin, LocalDate.of(1866, FEBRUARY, 15), LocalDate.of(1867, FEBRUARY, 4)),
@@ -196,7 +196,7 @@ class SexagenaryYearTestCase(
 		/**
 		 * https://en.wikipedia.org/wiki/Sexagenary_cycle#1924%E2%80%932043
 		 */
-		val CYCLE_1924 = listOf(
+		val CYCLE_1924: List<SexagenaryYearTestCase> = listOf(
 			SexagenaryYearTestCase(1, Jia, Zi, LocalDate.of(1924, FEBRUARY, 5), LocalDate.of(1925, JANUARY, 23)),
 			SexagenaryYearTestCase(2, Yi, Chou, LocalDate.of(1925, JANUARY, 24), LocalDate.of(1926, FEBRUARY, 12)),
 			SexagenaryYearTestCase(3, Bing, Yin, LocalDate.of(1926, FEBRUARY, 13), LocalDate.of(1927, FEBRUARY, 1)),
@@ -262,7 +262,7 @@ class SexagenaryYearTestCase(
 		/**
 		 * https://en.wikipedia.org/wiki/Sexagenary_cycle#1924%E2%80%932043
 		 */
-		val CYCLE_1984 = listOf(
+		val CYCLE_1984: List<SexagenaryYearTestCase> = listOf(
 			SexagenaryYearTestCase(1, Jia, Zi, LocalDate.of(1984, FEBRUARY, 2), LocalDate.of(1985, JANUARY, 20)),
 			SexagenaryYearTestCase(2, Yi, Chou, LocalDate.of(1985, JANUARY, 21), LocalDate.of(1986, FEBRUARY, 8)),
 			SexagenaryYearTestCase(3, Bing, Yin, LocalDate.of(1986, FEBRUARY, 9), LocalDate.of(1987, JANUARY, 29)),
@@ -325,7 +325,7 @@ class SexagenaryYearTestCase(
 			SexagenaryYearTestCase(60, Gui, Hai, LocalDate.of(2043, FEBRUARY, 10), LocalDate.of(2044, JANUARY, 29)),
 		)
 
-		val ALL_KNOWN_CYCLES = listOf(
+		val ALL_KNOWN_CYCLES: List<List<SexagenaryYearTestCase>> = listOf(
 			CYCLE_1804,
 			CYCLE_1864,
 			CYCLE_1924,

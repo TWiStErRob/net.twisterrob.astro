@@ -58,7 +58,7 @@ class SexagenaryDayTestCase(
 		 * A cycle that starts on 1st January, which is just a coincidence.
 		 * There aren't too many of these years, this year just happened to be one.
 		 */
-		val CYCLE_20240101 = listOf(
+		val CYCLE_20240101: List<SexagenaryDayTestCase> = listOf(
 			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(2024, JANUARY, 1)),
 			SexagenaryDayTestCase(2, Yi, Chou, LocalDate.of(2024, JANUARY, 2)),
 			SexagenaryDayTestCase(3, Bing, Yin, LocalDate.of(2024, JANUARY, 3)),
@@ -125,7 +125,7 @@ class SexagenaryDayTestCase(
 		 * A cycle that starts on 1st of a month, which is just a coincidence.
 		 * It's also a leap year, the cycle starts just after the Gregorian leap day.
 		 */
-		val CYCLE_20240301 = listOf(
+		val CYCLE_20240301: List<SexagenaryDayTestCase> = listOf(
 			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(2024, MARCH, 1)),
 			SexagenaryDayTestCase(2, Yi, Chou, LocalDate.of(2024, MARCH, 2)),
 			SexagenaryDayTestCase(3, Bing, Yin, LocalDate.of(2024, MARCH, 3)),
@@ -191,7 +191,7 @@ class SexagenaryDayTestCase(
 		/**
 		 * A summer cycle that starts in the middle of the month. It's not a leap year.
 		 */
-		val CYCLE_20220710 = listOf(
+		val CYCLE_20220710: List<SexagenaryDayTestCase> = listOf(
 			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(2022, JULY, 10)),
 			SexagenaryDayTestCase(2, Yi, Chou, LocalDate.of(2022, JULY, 11)),
 			SexagenaryDayTestCase(3, Bing, Yin, LocalDate.of(2022, JULY, 12)),
@@ -258,7 +258,7 @@ class SexagenaryDayTestCase(
 		 * A winter cycle that starts in the middle of the month. It's not a leap year.
 		 * The end of the cycle also wraps over to the next year.
 		 */
-		val CYCLE_20221107 = listOf(
+		val CYCLE_20221107: List<SexagenaryDayTestCase> = listOf(
 			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(2022, NOVEMBER, 7)),
 			SexagenaryDayTestCase(2, Yi, Chou, LocalDate.of(2022, NOVEMBER, 8)),
 			SexagenaryDayTestCase(3, Bing, Yin, LocalDate.of(2022, NOVEMBER, 9)),
@@ -321,26 +321,26 @@ class SexagenaryDayTestCase(
 			SexagenaryDayTestCase(60, Gui, Hai, LocalDate.of(2023, JANUARY, 5)),
 		)
 
-		val WIKIPEDIA_EXAMPLES = listOf(
-			// example 1: 甲子
-			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),
-			// detailed example 1: 甲申
-			SexagenaryDayTestCase(21, Jia, Shen, LocalDate.of(1592, DECEMBER, 31)),
-			// detailed example 2: 辛亥
-			SexagenaryDayTestCase(48, Xin, Hai, LocalDate.of(1338, AUGUST, 4)),
-			// detailed example 3: 庚寅
-			SexagenaryDayTestCase(27, Geng, Yin, LocalDate.of(-104, MAY, 25)),
-			// mental example 1: 己巳
-			SexagenaryDayTestCase(6, Ji, Si, LocalDate.of(-719, FEBRUARY, 22)),
-			// mental example 2: 癸丑
-			SexagenaryDayTestCase(5, Gui, Chou, LocalDate.of(-210, NOVEMBER, 1)),
-			// mental example 3: 甲子
-			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1912, FEBRUARY, 18)),
-			// mental example 4: 甲子
-			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),
+		val WIKIPEDIA_EXAMPLES: Map<String, SexagenaryDayTestCase> = mapOf(
+			// 甲子
+			"example 1" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),
+			// 甲申
+			"detailed example 1" to SexagenaryDayTestCase(21, Jia, Shen, LocalDate.of(1592, DECEMBER, 31)),
+			// 辛亥
+			"detailed example 2" to SexagenaryDayTestCase(48, Xin, Hai, LocalDate.of(1338, AUGUST, 4)),
+			// 庚寅
+			"detailed example 3" to SexagenaryDayTestCase(27, Geng, Yin, LocalDate.of(-104, MAY, 25)),
+			// 己巳
+			"mental example 1" to SexagenaryDayTestCase(6, Ji, Si, LocalDate.of(-719, FEBRUARY, 22)),
+			// 癸丑
+			"mental example 2" to SexagenaryDayTestCase(5, Gui, Chou, LocalDate.of(-210, NOVEMBER, 1)),
+			// 甲子
+			"mental example 3" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1912, FEBRUARY, 18)),
+			// 甲子
+			"mental example 4" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),
 		)
 
-		val ALL_KNOWN_CYCLES = listOf(
+		val ALL_KNOWN_CYCLES: List<List<SexagenaryDayTestCase>> = listOf(
 			CYCLE_20220710,
 			CYCLE_20221107,
 			CYCLE_20240101,

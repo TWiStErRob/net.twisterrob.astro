@@ -70,7 +70,7 @@ class SexagenaryHourTestCase(
 	@Suppress("detekt.NamedArguments", "detekt.LargeClass")
 	companion object {
 
-		val CYCLE_18071224 = listOf(
+		val CYCLE_18071224: List<SexagenaryHourTestCase> = listOf(
 			SexagenaryHourTestCase(
 				1, Jia, Zi, Jia, Zi,
 				LocalDateTime.of(1807, DECEMBER, 24, 23, 0),
@@ -373,7 +373,7 @@ class SexagenaryHourTestCase(
 			),
 		)
 
-		val CYCLE_18071229 = listOf(
+		val CYCLE_18071229: List<SexagenaryHourTestCase> = listOf(
 			SexagenaryHourTestCase(
 				1, Jia, Zi, Ji, Zi,
 				LocalDateTime.of(1807, DECEMBER, 29, 23, 0),
@@ -676,7 +676,7 @@ class SexagenaryHourTestCase(
 			),
 		)
 
-		val ALL_KNOWN_CYCLES = listOf(
+		val ALL_KNOWN_CYCLES: List<List<SexagenaryHourTestCase>> = listOf(
 			CYCLE_18071224,
 			CYCLE_18071229,
 		)
