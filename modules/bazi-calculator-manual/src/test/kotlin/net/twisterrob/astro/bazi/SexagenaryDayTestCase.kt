@@ -31,7 +31,9 @@ import java.time.Month.FEBRUARY
 import java.time.Month.JANUARY
 import java.time.Month.JULY
 import java.time.Month.MARCH
+import java.time.Month.MAY
 import java.time.Month.NOVEMBER
+import java.time.Month.OCTOBER
 import java.time.Month.SEPTEMBER
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
@@ -317,6 +319,25 @@ class SexagenaryDayTestCase(
 			SexagenaryDayTestCase(58, Xin, You, LocalDate.of(2023, JANUARY, 3)),
 			SexagenaryDayTestCase(59, Ren, Xu, LocalDate.of(2023, JANUARY, 4)),
 			SexagenaryDayTestCase(60, Gui, Hai, LocalDate.of(2023, JANUARY, 5)),
+		)
+
+		val WIKIPEDIA_EXAMPLES = listOf(
+			// example 1: 甲子
+			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),
+			// detailed example 1: 甲申
+			SexagenaryDayTestCase(21, Jia, Shen, LocalDate.of(1592, DECEMBER, 31)),
+			// detailed example 2: 辛亥
+			SexagenaryDayTestCase(48, Xin, Hai, LocalDate.of(1338, AUGUST, 4)),
+			// detailed example 3: 庚寅
+			SexagenaryDayTestCase(27, Geng, Yin, LocalDate.of(-104, MAY, 25)),
+			// mental example 1: 己巳
+			SexagenaryDayTestCase(6, Ji, Si, LocalDate.of(-719, FEBRUARY, 22)),
+			// mental example 2: 癸丑
+			SexagenaryDayTestCase(5, Gui, Chou, LocalDate.of(-210, NOVEMBER, 1)),
+			// mental example 3: 甲子
+			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1912, FEBRUARY, 18)),
+			// mental example 4: 甲子
+			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),
 		)
 
 		val ALL_KNOWN_CYCLES = listOf(

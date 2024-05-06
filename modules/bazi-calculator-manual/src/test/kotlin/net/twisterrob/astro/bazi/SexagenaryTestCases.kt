@@ -48,7 +48,7 @@ fun BaZiCalculator.verifySolarTermStemsIn(year: Int): DynamicNode =
 		}
 	)
 
-private fun BaZiCalculator.verifySolarTermStems(year: Int,tc: SolarTermTestCase): DynamicNode {
+private fun BaZiCalculator.verifySolarTermStems(year: Int, tc: SolarTermTestCase): DynamicNode {
 	// +7 because 1900 was Yang Metal Rat and Yang Metal is order 7.
 	val heavenlyStem = HeavenlyStem.at((year + 7 - 1) % HeavenlyStem.COUNT + 1)
 	val startDate = LocalDate.of(year + tc.startYear, tc.startMonth, tc.startDay)
@@ -88,29 +88,28 @@ private fun BaZiCalculator.verifySolarTermBranches(year: Int, tc: SolarTermTestC
  */
 @JvmName("verifyCycleDay")
 fun BaZiCalculator.verifyCycle(cycle: List<SexagenaryDayTestCase>): DynamicNode =
-	dynamicContainer("${cycle[0].date} cycle",
-		cycle.map { tc ->
+	dynamicContainer("${cycle[0].date} cycle", cycle.map { verifyDay(it) })
+
+fun BaZiCalculator.verifyDay(tc: SexagenaryDayTestCase): DynamicNode =
+	dynamicContainer(
+		"#${tc.cyclicOrdinal}: ${tc.dayStem} ${tc.dayBranch}",
+		listOf(
 			dynamicContainer(
-				"#${tc.cyclicOrdinal}: ${tc.dayStem} ${tc.dayBranch}",
-				listOf(
-					dynamicContainer(
-						"${tc.date} all time",
-						(tc.date.atStartOfDay()..<tc.date.atStartOfDay().plusDays(1))
-							.filter { it.minute == 0 }
-							.map { time ->
-								dynamicTest("${time} is ${tc.dayPillar}") {
-									val result = this.calculate(time)
-									result.day shouldBe tc.dayPillar
-								}
-							}
-					),
-					dynamicTest("${tc.date} day") {
-						val result = this.calculate(tc.date)
-						result.day shouldBe tc.dayPillar
-					},
-				)
-			)
-		}
+				"${tc.date} all time",
+				(tc.date.atStartOfDay()..<tc.date.atStartOfDay().plusDays(1))
+					.filter { it.minute == 0 }
+					.map { time ->
+						dynamicTest("${time} is ${tc.dayPillar}") {
+							val result = this.calculate(time)
+							result.day shouldBe tc.dayPillar
+						}
+					}
+			),
+			dynamicTest("${tc.date} day") {
+				val result = this.calculate(tc.date)
+				result.day shouldBe tc.dayPillar
+			},
+		)
 	)
 
 /**

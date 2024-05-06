@@ -105,65 +105,6 @@ abstract class BaZiCalculatorTest {
 	}
 
 	@Nested
-	inner class WikipediaSexagenaryExamples {
-
-		@Test fun `sexagenary day example 1`() {
-			val result = subject.calculate(LocalDate.of(1949, Month.OCTOBER, 1))
-
-			result.day shouldBe BaZi.Pillar(Jia, Zi) // 甲子
-		}
-
-		@Test fun `sexagenary day detailed example 1`() {
-			val result = subject.calculate(LocalDate.of(1592, Month.DECEMBER, 31))
-
-
-			result.day shouldBe BaZi.Pillar(Jia, Shen) // 甲申
-		}
-
-		@Test fun `sexagenary day detailed example 2`() {
-			val result = subject.calculate(LocalDate.of(1338, Month.AUGUST, 4))
-
-
-			result.day shouldBe BaZi.Pillar(Xin, Hai) // 辛亥
-		}
-
-		@Test fun `sexagenary day detailed example 3`() {
-			val result = subject.calculate(LocalDate.of(-104, Month.MAY, 25))
-
-
-			result.day shouldBe BaZi.Pillar(Geng, Yin) // 庚寅
-		}
-
-		@Test fun `sexagenary day mental example 1`() {
-			val result = subject.calculate(LocalDate.of(-719, Month.FEBRUARY, 22))
-
-
-			result.day shouldBe BaZi.Pillar(Ji, Si) // 己巳
-		}
-
-		@Test fun `sexagenary day mental example 2`() {
-			val result = subject.calculate(LocalDate.of(-210, Month.NOVEMBER, 1))
-
-
-			result.day shouldBe BaZi.Pillar(Gui, Chou) // 癸丑
-		}
-
-		@Test fun `sexagenary day mental example 3`() {
-			val result = subject.calculate(LocalDate.of(1912, Month.FEBRUARY, 18))
-
-
-			result.day shouldBe BaZi.Pillar(Jia, Zi) // 甲子
-		}
-
-		@Test fun `sexagenary day mental example 4`() {
-			val result = subject.calculate(LocalDate.of(1949, Month.OCTOBER, 1))
-
-
-			result.day shouldBe BaZi.Pillar(Jia, Zi) // 甲子
-		}
-	}
-
-	@Nested
 	inner class `edge cases` {
 
 		@Test fun `previous solar year`() {

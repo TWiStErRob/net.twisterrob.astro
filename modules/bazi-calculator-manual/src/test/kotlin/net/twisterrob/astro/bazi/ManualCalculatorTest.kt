@@ -36,6 +36,9 @@ class ManualCalculatorTest : BaZiCalculatorTest() {
 	@TestFactory fun `sexagenary days`(): Iterable<DynamicNode> =
 		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
 
+	@TestFactory fun `special days`(): Iterable<DynamicNode> =
+		SexagenaryDayTestCase.WIKIPEDIA_EXAMPLES.map { subject.verifyDay(it) }
+
 	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> =
 		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
 }
