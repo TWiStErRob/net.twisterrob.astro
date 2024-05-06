@@ -676,7 +676,7 @@ class SexagenaryHourTestCase(
 			),
 		)
 
-		val CYCLES = listOf(
+		val ALL_KNOWN_CYCLES = listOf(
 			CYCLE_18071224,
 			CYCLE_18071229,
 		)

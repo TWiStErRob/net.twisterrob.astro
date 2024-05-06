@@ -12,7 +12,7 @@ class SexagenaryYearTestCaseTest {
 
 	@Test
 	fun `the test data has full cycles`() {
-		SexagenaryYearTestCase.CYCLES.forEach { cycle ->
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.forEach { cycle ->
 			cycle shouldHaveSize 60
 			cycle.forEachIndexed { index, testCase ->
 				testCase.cyclicOrdinal shouldBe index + 1
@@ -22,7 +22,7 @@ class SexagenaryYearTestCaseTest {
 
 	@Test
 	fun `the test data is consistent with cycles`() {
-		SexagenaryYearTestCase.CYCLES.forEach { cycle ->
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.forEach { cycle ->
 			cycle.forEach { testCase ->
 				val expectedPillar = BaZi.Pillar.sexagenaryCycle(testCase.cyclicOrdinal - 1)
 				val actualPillar = BaZi.Pillar(testCase.stem, testCase.branch)
@@ -36,7 +36,7 @@ class SexagenaryYearTestCaseTest {
 
 	@Test
 	fun `the test data is consistent with dates`() {
-		SexagenaryYearTestCase.CYCLES.forEach { cycle ->
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.forEach { cycle ->
 			cycle.forEach { testCase ->
 				testCase.startDate shouldBeBefore testCase.endDate
 			}

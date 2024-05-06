@@ -319,7 +319,7 @@ class SexagenaryDayTestCase(
 			SexagenaryDayTestCase(60, Gui, Hai, LocalDate.of(2023, JANUARY, 5)),
 		)
 
-		val CYCLES = listOf(
+		val ALL_KNOWN_CYCLES = listOf(
 			CYCLE_20220710,
 			CYCLE_20221107,
 			CYCLE_20240101,
