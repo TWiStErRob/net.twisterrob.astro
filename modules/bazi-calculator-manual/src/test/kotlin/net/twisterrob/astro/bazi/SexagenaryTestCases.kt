@@ -1,8 +1,13 @@
 package net.twisterrob.astro.bazi
 
+import io.kotest.assertions.withClue
+import io.kotest.matchers.nulls.beNull
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNot
 import net.twisterrob.astro.bazi.lookup.atHour
 import net.twisterrob.astro.bazi.lookup.lookupSolarMonth
+import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
 import net.twisterrob.astro.bazi.model.HeavenlyStem
@@ -14,6 +19,24 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
+
+fun BaZiCalculator.verify(date: LocalDate, expected: BaZi): DynamicNode =
+	dynamicTest("${date}'s BaZi is ${expected}") {
+		expected.hour should beNull()
+
+		val result = this.calculate(date)
+
+		result shouldBe expected
+	}
+
+fun BaZiCalculator.verify(dateTime: LocalDateTime, expected: BaZi): DynamicNode =
+	dynamicTest("${dateTime}'s BaZi is ${expected}") {
+		expected.hour shouldNot beNull()
+
+		val result = this.calculate(dateTime)
+
+		result shouldBe expected
+	}
 
 /**
  * @see SexagenaryYearTestCase.Companion

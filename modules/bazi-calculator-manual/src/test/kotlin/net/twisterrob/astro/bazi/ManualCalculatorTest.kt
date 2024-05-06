@@ -24,6 +24,12 @@ class ManualCalculatorTest : BaZiCalculatorTest() {
 		}
 	}
 
+	@TestFactory fun `random tests`(): Iterable<DynamicNode> =
+		BaZiTestCase.ALL_CASES.map { subject.verify(it.dateTime, it.bazi) }
+
+	@TestFactory fun `random hourless tests`(): Iterable<DynamicNode> =
+		BaZiHourlessTestCase.ALL_CASES.map { subject.verify(it.date, it.bazi) }
+
 	@TestFactory fun `sexagenary years`(): Iterable<DynamicNode> =
 		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
 
