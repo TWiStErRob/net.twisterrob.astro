@@ -30,6 +30,7 @@ import java.time.temporal.ChronoUnit.DAYS
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
+@Suppress("detekt.LongParameterList")
 class SexagenaryYearTestCase(
 	val cyclicOrdinal: Int,
 	val stem: HeavenlyStem,
@@ -44,7 +45,6 @@ class SexagenaryYearTestCase(
 	 * The last day of the year in lunar calendar, inclusive.
 	 */
 	val endDate: LocalDate,
-
 
 	/**
 	 * The first minute of the year in solar calendar (Lichun / 立春, beginning of spring), inclusive.
@@ -70,7 +70,7 @@ class SexagenaryYearTestCase(
 	 *
 	 * Branches: https://www.travelchinaguide.com/images/photogallery/2019/zodiac-year-chart.jpg
 	 */
-	@Suppress("detekt.NamedArguments")
+	@Suppress("detekt.NamedArguments", "detekt.MaxLineLength")
 	companion object {
 
 		/**
@@ -274,7 +274,7 @@ class SexagenaryYearTestCase(
 		// 2019-2026 based on https://www.hko.gov.hk/en/gts/astronomy/Solar_Term.htm, times converted to UTC.
 		// 2019-2026 confirmed at https://en.wikipedia.org/wiki/Lichun (https://zh.wikipedia.org/zh/%E7%AB%8B%E6%98%A5)
 		// 2001-2030 based on https://en.wikipedia.org/wiki/Lichun
-		@Suppress("ObjectPropertyName")
+		@Suppress("ObjectPropertyName", "detekt.ObjectPropertyNaming")
 		private object NY {
 
 			val _2001: LocalDateTime = LocalDateTime.of(2001, FEBRUARY, 3, 18, 28, 0)

@@ -35,8 +35,8 @@ class BaZiHourlessTestCase(
 ) {
 
 	companion object {
-		
-		val GREGORIAN_YEAR_TRANSITIONS = listOf(
+
+		val GREGORIAN_YEAR_TRANSITIONS: List<BaZiHourlessTestCase> = listOf(
 			BaZiHourlessTestCase(
 				name = "1947/1948 new year: before",
 				sources = listOf("https://en.wikipedia.org/wiki/1947"),
@@ -63,7 +63,7 @@ class BaZiHourlessTestCase(
 			),
 		)
 
-		val SOLAR_YEAR_TRANSITIONS = listOf(
+		val SOLAR_YEAR_TRANSITIONS: List<BaZiHourlessTestCase> = listOf(
 			BaZiHourlessTestCase(
 				// Note: also covered by SexagenaryYearTestCase.CYCLE_1924
 				name = "1947 solar new year / 1948 gregorian year",
@@ -229,7 +229,7 @@ class BaZiHourlessTestCase(
 				),
 			),
 		)
-		
+
 		val ALL_CASES: List<BaZiHourlessTestCase> = GREGORIAN_YEAR_TRANSITIONS + SOLAR_YEAR_TRANSITIONS
 	}
 }

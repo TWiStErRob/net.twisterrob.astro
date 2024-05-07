@@ -70,23 +70,23 @@ abstract class BaZiCalculatorTest {
 		BaZiHourlessTestCase.ALL_CASES.map { subject.verify(it.date, it.bazi) }
 
 	@TestFactory fun `sexagenary years`(): Iterable<DynamicNode> =
-		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map {
-			val start = it.first().year
-			val end = it.last().year
-			dynamicContainer("cycle ${start}-${end}", it.map(subject::verifyYear))
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map { cycle ->
+			val start = cycle.first().year
+			val end = cycle.last().year
+			dynamicContainer("cycle ${start}-${end}", cycle.map(subject::verifyYear))
 		}
 
 	@TestFactory fun `solar terms`(): Iterable<DynamicNode> =
-		SolarTermTestCase.ALL_KNOWN_YEARS.map {
-			val year = it.first().startTime.year
-			dynamicContainer("year ${year}", it.map(subject::verifySolarTerms))
+		SolarTermTestCase.ALL_KNOWN_YEARS.map { cycle ->
+			val year = cycle.first().startTime.year
+			dynamicContainer("year ${year}", cycle.map(subject::verifySolarTerms))
 		}
 
 	@TestFactory fun `sexagenary days`(): Iterable<DynamicNode> =
-		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map {
-			val start = it.first().date
-			val end = it.last().date
-			dynamicContainer("cycle ${start}-${end}", it.map { subject.verifyDay(null, it) })
+		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map { cycle ->
+			val start = cycle.first().date
+			val end = cycle.last().date
+			dynamicContainer("cycle ${start}-${end}", cycle.map { subject.verifyDay(null, it) })
 		}
 
 	@TestFactory fun `special days`(): Iterable<DynamicNode> =
@@ -95,10 +95,10 @@ abstract class BaZiCalculatorTest {
 		}
 
 	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> =
-		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map {
-			val start = it.first().startTime.toLocalDate()
-			val end = it.last().endTime.toLocalDate()
-			dynamicContainer("cycle ${start}-${end}", it.map(subject::verifyHour))
+		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map { cycle ->
+			val start = cycle.first().startTime.toLocalDate()
+			val end = cycle.last().endTime.toLocalDate()
+			dynamicContainer("cycle ${start}-${end}", cycle.map(subject::verifyHour))
 		}
 
 	protected open fun check(date: LocalDate, expected: BaZi) {

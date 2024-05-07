@@ -56,9 +56,10 @@ class SolarTermTestCase(
 	/**
 	 * STOPSHIP sources https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months
 	 */
+	@Suppress("detekt.NamedArguments", "detekt.MaxLineLength")
 	companion object {
 
-		val SOLAR_TERMS_2019 = listOf(
+		val SOLAR_TERMS_2019: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Yi, Chou, LocalDateTime.of(2019, JANUARY, 5, 15, 39, 0), LocalDateTime.of(2019, JANUARY, 20, 9, 0, 0)),
 			SolarTermTestCase(Yi, Chou, LocalDateTime.of(2019, JANUARY, 20, 9, 0, 0), LocalDateTime.of(2019, FEBRUARY, 4, 3, 14, 0)),
 			SolarTermTestCase(Bing, Yin, LocalDateTime.of(2019, FEBRUARY, 4, 3, 14, 0), LocalDateTime.of(2019, FEBRUARY, 18, 23, 4, 0)),
@@ -85,7 +86,7 @@ class SolarTermTestCase(
 			SolarTermTestCase(Bing, Zi, LocalDateTime.of(2019, DECEMBER, 22, 4, 19, 0), LocalDateTime.of(2020, JANUARY, 5, 21, 30, 0)),
 		)
 
-		val SOLAR_TERMS_2020 = listOf(
+		val SOLAR_TERMS_2020: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Ding, Chou, LocalDateTime.of(2020, JANUARY, 5, 21, 30, 0), LocalDateTime.of(2020, JANUARY, 20, 14, 55, 0)),
 			SolarTermTestCase(Ding, Chou, LocalDateTime.of(2020, JANUARY, 20, 14, 55, 0), LocalDateTime.of(2020, FEBRUARY, 4, 9, 3, 0)),
 			SolarTermTestCase(WuHS, Yin, LocalDateTime.of(2020, FEBRUARY, 4, 9, 3, 0), LocalDateTime.of(2020, FEBRUARY, 19, 4, 57, 0)),
@@ -112,7 +113,7 @@ class SolarTermTestCase(
 			SolarTermTestCase(WuHS, Zi, LocalDateTime.of(2020, DECEMBER, 21, 10, 2, 0), LocalDateTime.of(2021, JANUARY, 5, 3, 23, 0)),
 		)
 
-		val SOLAR_TERMS_2021 = listOf(
+		val SOLAR_TERMS_2021: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Ji, Chou, LocalDateTime.of(2021, JANUARY, 5, 3, 23, 0), LocalDateTime.of(2021, JANUARY, 19, 20, 40, 0)),
 			SolarTermTestCase(Ji, Chou, LocalDateTime.of(2021, JANUARY, 19, 20, 40, 0), LocalDateTime.of(2021, FEBRUARY, 3, 14, 59, 0)),
 			SolarTermTestCase(Geng, Yin, LocalDateTime.of(2021, FEBRUARY, 3, 14, 59, 0), LocalDateTime.of(2021, FEBRUARY, 18, 10, 44, 0)),
@@ -139,7 +140,7 @@ class SolarTermTestCase(
 			SolarTermTestCase(Geng, Zi, LocalDateTime.of(2021, DECEMBER, 21, 15, 59, 0), LocalDateTime.of(2022, JANUARY, 5, 9, 14, 0)),
 		)
 
-		val SOLAR_TERMS_2022 = listOf(
+		val SOLAR_TERMS_2022: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Xin, Chou, LocalDateTime.of(2022, JANUARY, 5, 9, 14, 0), LocalDateTime.of(2022, JANUARY, 20, 2, 39, 0)),
 			SolarTermTestCase(Xin, Chou, LocalDateTime.of(2022, JANUARY, 20, 2, 39, 0), LocalDateTime.of(2022, FEBRUARY, 3, 20, 51, 0)),
 			SolarTermTestCase(Ren, Yin, LocalDateTime.of(2022, FEBRUARY, 3, 20, 51, 0), LocalDateTime.of(2022, FEBRUARY, 18, 16, 43, 0)),
@@ -166,7 +167,7 @@ class SolarTermTestCase(
 			SolarTermTestCase(Ren, Zi, LocalDateTime.of(2022, DECEMBER, 21, 21, 48, 0), LocalDateTime.of(2023, JANUARY, 5, 15, 5, 0)),
 		)
 
-		val SOLAR_TERMS_2023 = listOf(
+		val SOLAR_TERMS_2023: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Gui, Chou, LocalDateTime.of(2023, JANUARY, 5, 15, 5, 0), LocalDateTime.of(2023, JANUARY, 20, 8, 30, 0)),
 			SolarTermTestCase(Gui, Chou, LocalDateTime.of(2023, JANUARY, 20, 8, 30, 0), LocalDateTime.of(2023, FEBRUARY, 4, 2, 43, 0)),
 			SolarTermTestCase(Jia, Yin, LocalDateTime.of(2023, FEBRUARY, 4, 2, 43, 0), LocalDateTime.of(2023, FEBRUARY, 18, 22, 34, 0)),
@@ -193,7 +194,7 @@ class SolarTermTestCase(
 			SolarTermTestCase(Jia, Zi, LocalDateTime.of(2023, DECEMBER, 22, 3, 27, 0), LocalDateTime.of(2024, JANUARY, 5, 20, 49, 0)),
 		)
 
-		val SOLAR_TERMS_2024 = listOf(
+		val SOLAR_TERMS_2024: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Yi, Chou, LocalDateTime.of(2024, JANUARY, 5, 20, 49, 0), LocalDateTime.of(2024, JANUARY, 20, 14, 7, 0)),
 			SolarTermTestCase(Yi, Chou, LocalDateTime.of(2024, JANUARY, 20, 14, 7, 0), LocalDateTime.of(2024, FEBRUARY, 4, 8, 27, 0)),
 			SolarTermTestCase(Bing, Yin, LocalDateTime.of(2024, FEBRUARY, 4, 8, 27, 0), LocalDateTime.of(2024, FEBRUARY, 19, 4, 13, 0)),
@@ -220,7 +221,7 @@ class SolarTermTestCase(
 			SolarTermTestCase(Bing, Zi, LocalDateTime.of(2024, DECEMBER, 21, 9, 21, 0), LocalDateTime.of(2025, JANUARY, 5, 2, 33, 0)),
 		)
 
-		val SOLAR_TERMS_2025 = listOf(
+		val SOLAR_TERMS_2025: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Ding, Chou, LocalDateTime.of(2025, JANUARY, 5, 2, 33, 0), LocalDateTime.of(2025, JANUARY, 19, 20, 0, 0)),
 			SolarTermTestCase(Ding, Chou, LocalDateTime.of(2025, JANUARY, 19, 20, 0, 0), LocalDateTime.of(2025, FEBRUARY, 3, 14, 10, 0)),
 			SolarTermTestCase(WuHS, Yin, LocalDateTime.of(2025, FEBRUARY, 3, 14, 10, 0), LocalDateTime.of(2025, FEBRUARY, 18, 10, 7, 0)),
@@ -247,7 +248,7 @@ class SolarTermTestCase(
 			SolarTermTestCase(WuHS, Zi, LocalDateTime.of(2025, DECEMBER, 21, 15, 3, 0), LocalDateTime.of(2026, JANUARY, 5, 8, 23, 0)),
 		)
 
-		val SOLAR_TERMS_2026 = listOf(
+		val SOLAR_TERMS_2026: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Ji, Chou, LocalDateTime.of(2026, JANUARY, 5, 8, 23, 0), LocalDateTime.of(2026, JANUARY, 20, 1, 45, 0)),
 			SolarTermTestCase(Ji, Chou, LocalDateTime.of(2026, JANUARY, 20, 1, 45, 0), LocalDateTime.of(2026, FEBRUARY, 3, 20, 2, 0)),
 			SolarTermTestCase(Geng, Yin, LocalDateTime.of(2026, FEBRUARY, 3, 20, 2, 0), LocalDateTime.of(2026, FEBRUARY, 18, 15, 52, 0)),
@@ -275,7 +276,7 @@ class SolarTermTestCase(
 			SolarTermTestCase(Geng, Zi, LocalDateTime.of(2026, DECEMBER, 21, 20, 50, 0), LocalDateTime.of(2027, JANUARY, 5, 14, 15, 0)),
 		)
 
-		val ALL_KNOWN_YEARS = listOf(
+		val ALL_KNOWN_YEARS: List<List<SolarTermTestCase>> = listOf(
 			SOLAR_TERMS_2019,
 			SOLAR_TERMS_2020,
 			SOLAR_TERMS_2021,
