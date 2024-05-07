@@ -53,6 +53,9 @@ class SolarTermTestCase(
 	val midTime: LocalDateTime
 		get() = startTime.plusDays(ChronoUnit.DAYS.between(startTime, endTime) / 2)
 
+	/**
+	 * STOPSHIP sources https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months
+	 */
 	companion object {
 
 		val SOLAR_TERMS_2019 = listOf(

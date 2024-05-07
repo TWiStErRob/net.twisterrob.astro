@@ -31,9 +31,11 @@ import net.twisterrob.astro.bazi.test.data.SexagenaryHourTestCase
 import net.twisterrob.astro.bazi.test.data.SexagenaryYearTestCase
 import net.twisterrob.astro.bazi.test.data.SolarTermTestCase
 import net.twisterrob.astro.bazi.test.verify
-import net.twisterrob.astro.bazi.test.verifyCycle
 import net.twisterrob.astro.bazi.test.verifyDay
-import net.twisterrob.astro.bazi.test.verifySolarTermsIn
+import net.twisterrob.astro.bazi.test.verifyHour
+import net.twisterrob.astro.bazi.test.verifySolarTerms
+import net.twisterrob.astro.bazi.test.verifyYear
+import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -61,7 +63,6 @@ abstract class BaZiCalculatorTest {
 	 */
 	abstract val subject: BaZiCalculator
 
-
 	@TestFactory fun `random tests`(): Iterable<DynamicNode> =
 		BaZiTestCase.ALL_CASES.map { subject.verify(it.dateTime, it.bazi) }
 
@@ -69,20 +70,37 @@ abstract class BaZiCalculatorTest {
 		BaZiHourlessTestCase.ALL_CASES.map { subject.verify(it.date, it.bazi) }
 
 	@TestFactory fun `sexagenary years`(): Iterable<DynamicNode> =
-		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
+		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map {
+			val start = it.first().year
+			val end = it.last().year
+			dynamicContainer("cycle ${start}-${end}", it.map(subject::verifyYear))
+		}
 
 	@TestFactory fun `solar terms`(): Iterable<DynamicNode> =
-		SolarTermTestCase.ALL_KNOWN_YEARS.map { subject.verifySolarTermsIn(it) }
+		SolarTermTestCase.ALL_KNOWN_YEARS.map {
+			val year = it.first().startTime.year
+			dynamicContainer("year ${year}", it.map(subject::verifySolarTerms))
+		}
 
 	@TestFactory fun `sexagenary days`(): Iterable<DynamicNode> =
-		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
+		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map {
+			val start = it.first().date
+			val end = it.last().date
+			dynamicContainer("cycle ${start}-${end}", it.map { subject.verifyDay(null, it) })
+		}
 
 	@TestFactory fun `special days`(): Iterable<DynamicNode> =
-		SexagenaryDayTestCase.WIKIPEDIA_EXAMPLES.map { subject.verifyDay(it.key, it.value) }
+		SexagenaryDayTestCase.WIKIPEDIA_EXAMPLES.map {
+			subject.verifyDay(it.key, it.value)
+		}
 
 	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> =
-		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
-	
+		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map {
+			val start = it.first().startTime.toLocalDate()
+			val end = it.last().endTime.toLocalDate()
+			dynamicContainer("cycle ${start}-${end}", it.map(subject::verifyHour))
+		}
+
 	protected open fun check(date: LocalDate, expected: BaZi) {
 		expected.hour should beNull()
 
@@ -101,6 +119,9 @@ abstract class BaZiCalculatorTest {
 		}
 	}
 
+	/**
+	 * STOPSHIP is this covered by `solar terms`?
+	 */
 	@Nested
 	inner class `solar month transitions` {
 
