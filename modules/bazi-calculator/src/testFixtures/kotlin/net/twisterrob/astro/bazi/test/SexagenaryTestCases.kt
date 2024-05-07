@@ -7,7 +7,6 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
 import net.twisterrob.astro.bazi.BaZiCalculator
 import net.twisterrob.astro.bazi.lookup.atHour
-import net.twisterrob.astro.bazi.lookup.lookupSolarMonth
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Zi
@@ -22,8 +21,6 @@ import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
-import java.time.temporal.ChronoUnit
 
 fun BaZiCalculator.verify(date: LocalDate, expected: BaZi): DynamicNode =
 	dynamicTest("${date}'s BaZi is ${expected}") {
@@ -64,13 +61,13 @@ fun BaZiCalculator.verifyCycle(cycle: List<SexagenaryYearTestCase>): DynamicNode
 					// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
 					tc.solarStart?.let { startDate ->
 						dynamicTest("${startDate} (start) stem is ${tc.stem}") {
-							val result = this.calculate(startDate.plusMinutes(12))
+							val result = this.calculate(startDate.plusMinutes(11))
 							result.year.heavenlyStem shouldBe tc.stem
 						}
 					},
 					tc.solarStart?.let { startDate ->
 						dynamicTest("${startDate} (start) branch is ${tc.branch}") {
-							val result = this.calculate(startDate.plusMinutes(12))
+							val result = this.calculate(startDate.plusMinutes(11))
 							result.year.earthlyBranch shouldBe tc.branch
 						}
 					},
@@ -94,45 +91,65 @@ fun BaZiCalculator.verifyCycle(cycle: List<SexagenaryYearTestCase>): DynamicNode
 /**
  * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months
  */
-fun BaZiCalculator.verifySolarTermStemsIn(year: Int): DynamicNode =
-	dynamicContainer("year ${year}",
-		SolarTermTestCase.NON_LEAP_YEAR.map { tc ->
-			verifySolarTermStems(year, tc)
-		}
-	)
+fun BaZiCalculator.verifySolarTermsIn(year: List<SolarTermTestCase>): DynamicNode =
+	dynamicContainer("year ${year[0].startTime.year}", year.map(::verifySolarTerms))
 
-private fun BaZiCalculator.verifySolarTermStems(year: Int, tc: SolarTermTestCase): DynamicNode {
-	// +7 because 1900 was Yang Metal Rat and Yang Metal is order 7.
-	val heavenlyStem = HeavenlyStem.at((year + 7 - 1) % HeavenlyStem.COUNT + 1)
-	val startDate = LocalDate.of(year + tc.startYear, tc.startMonth, tc.startDay)
-	val endDate = LocalDate.of(year + tc.endYear, tc.endMonth, tc.endDay)
-	val midDate = startDate.plusDays(ChronoUnit.DAYS.between(startDate, endDate) / 2)
-	val expectedStem = HeavenlyStem.lookupSolarMonth(heavenlyStem, tc.expectedBranch)
-	return dynamicTest("${midDate} month stem is ${expectedStem}") {
-		val result = this.calculate(midDate.atTime(LocalTime.NOON))
-		result.month.heavenlyStem shouldBe expectedStem
-	}
-}
-
-/**
- * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months
- */
-fun BaZiCalculator.verifySolarTermBranchesIn(year: Int): DynamicNode =
-	dynamicContainer("year ${year}", SolarTermTestCase.NON_LEAP_YEAR.map { tc ->
-		verifySolarTermBranches(year, tc)
-	})
-
-private fun BaZiCalculator.verifySolarTermBranches(year: Int, tc: SolarTermTestCase): DynamicNode {
-	val startDate = LocalDate.of(year + tc.startYear, tc.startMonth, tc.startDay)
-	val endDate = LocalDate.of(year + tc.endYear, tc.endMonth, tc.endDay)
+private fun BaZiCalculator.verifySolarTerms(tc: SolarTermTestCase): DynamicNode {
+	// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
+	val startTime = tc.startTime.plusMinutes(11)
+	val endTime = tc.endTime.minusMinutes(12)
 	return dynamicContainer(
-		"solar term ${startDate}-${endDate} is ${tc.expectedBranch} month",
-		(startDate..<endDate).map { date ->
-			dynamicTest(date.toString()) {
-				val result = this.calculate(date.atTime(LocalTime.NOON))
-				result.month.earthlyBranch shouldBe tc.expectedBranch
-			}
-		}
+		"solar term ${tc.startTime}-${tc.endTime}",
+		listOfNotNull(
+			dynamicTest("${tc.midTime} (middle) stem is ${tc.stem}") {
+				val result = this.calculate(tc.midTime)
+				result.month.heavenlyStem shouldBe tc.stem
+			},
+			dynamicTest("${tc.midTime} (middle) branch is ${tc.branch}") {
+				val result = this.calculate(tc.midTime)
+				result.month.earthlyBranch shouldBe tc.branch
+			},
+			dynamicTest("${tc.startTime} (start) stem is ${tc.stem}") {
+				val result = this.calculate(startTime)
+				result.month.heavenlyStem shouldBe tc.stem
+			},
+			dynamicTest("${tc.startTime} (start) branch is ${tc.branch}") {
+				val result = this.calculate(startTime)
+				result.month.earthlyBranch shouldBe tc.branch
+			},
+			dynamicTest("${tc.endTime} (end) stem is ${tc.stem}") {
+				val result = this.calculate(endTime)
+				result.month.heavenlyStem shouldBe tc.stem
+			},
+			dynamicTest("${tc.endTime} (end) branch is ${tc.branch}") {
+				val result = this.calculate(endTime)
+				result.month.earthlyBranch shouldBe tc.branch
+			},
+			dynamicContainer(
+				"is ${tc.monthPillar} term in whole range",
+				// Test every day in the solar term's range.
+				(tc.startTime.plusDays(1).toLocalDate()..<tc.endTime.toLocalDate()).map { date ->
+					dynamicTest(date.toString()) {
+						val result = this.calculate(date)
+						result.month shouldBe tc.monthPillar
+					}
+				}
+						// Test the start edge of the solar term in more granularity.
+						+ (startTime..<tc.startTime.plusDays(1)).map { date ->
+					dynamicTest(date.toString()) {
+						val result = this.calculate(date)
+						result.month shouldBe tc.monthPillar
+					}
+				}
+						// Test the end edge of the solar term in more granularity.
+						+ (tc.endTime.minusDays(1)..<endTime).map { date ->
+					dynamicTest(date.toString()) {
+						val result = this.calculate(date)
+						result.month shouldBe tc.monthPillar
+					}
+				}
+			)
+		)
 	)
 }
 
@@ -170,7 +187,7 @@ fun BaZiCalculator.verifyDay(name: String?, tc: SexagenaryDayTestCase): DynamicN
  */
 @JvmName("verifyCycleHour")
 fun BaZiCalculator.verifyCycle(cycle: List<SexagenaryHourTestCase>): DynamicNode =
-	dynamicContainer("${cycle[0].startTime.toLocalDate()} cycle", cycle.map { verifyHour(it) })
+	dynamicContainer("${cycle[0].startTime.toLocalDate()} cycle", cycle.map(::verifyHour))
 
 private fun BaZiCalculator.verifyHour(tc: SexagenaryHourTestCase): DynamicNode {
 	val justTheEnd = tc.endTime.minusMinutes(1)

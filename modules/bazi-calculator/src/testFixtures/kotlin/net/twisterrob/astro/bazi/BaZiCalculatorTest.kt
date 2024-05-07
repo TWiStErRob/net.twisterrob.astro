@@ -29,11 +29,11 @@ import net.twisterrob.astro.bazi.test.data.BaZiTestCase
 import net.twisterrob.astro.bazi.test.data.SexagenaryDayTestCase
 import net.twisterrob.astro.bazi.test.data.SexagenaryHourTestCase
 import net.twisterrob.astro.bazi.test.data.SexagenaryYearTestCase
+import net.twisterrob.astro.bazi.test.data.SolarTermTestCase
 import net.twisterrob.astro.bazi.test.verify
 import net.twisterrob.astro.bazi.test.verifyCycle
 import net.twisterrob.astro.bazi.test.verifyDay
-import net.twisterrob.astro.bazi.test.verifySolarTermBranchesIn
-import net.twisterrob.astro.bazi.test.verifySolarTermStemsIn
+import net.twisterrob.astro.bazi.test.verifySolarTermsIn
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -71,11 +71,8 @@ abstract class BaZiCalculatorTest {
 	@TestFactory fun `sexagenary years`(): Iterable<DynamicNode> =
 		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
 
-	@TestFactory fun `solar term branches of non-leap year`(): Iterable<DynamicNode> =
-		listOf(2018, 2022).map { year -> subject.verifySolarTermBranchesIn(year) }
-
-	@TestFactory fun `solar term stems of non-leap years`(): Iterable<DynamicNode> =
-		(1900..2100).map { year -> subject.verifySolarTermStemsIn(year) }
+	@TestFactory fun `solar terms`(): Iterable<DynamicNode> =
+		SolarTermTestCase.ALL_KNOWN_YEARS.map { subject.verifySolarTermsIn(it) }
 
 	@TestFactory fun `sexagenary days`(): Iterable<DynamicNode> =
 		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map { subject.verifyCycle(it) }
