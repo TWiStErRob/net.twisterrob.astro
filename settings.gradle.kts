@@ -5,6 +5,11 @@ rootProject.name = "net-twisterrob-astro"
 
 pluginManagement {
 	includeBuild("gradle/plugins")
+	repositories {
+		google()
+		mavenCentral()
+		gradlePluginPortal()
+	}
 }
 
 plugins {
@@ -16,12 +21,14 @@ plugins {
 dependencyResolutionManagement {
 	repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
 	repositories {
+		google()
 		mavenCentral()
 	}
 }
 
 enableFeaturePreviewQuietly("TYPESAFE_PROJECT_ACCESSORS", "Type-safe project accessors")
 
+includeModule(":bazi-app")
 includeModule(":bazi-model")
 includeModule(":bazi-calculator")
 includeModule(":bazi-calculator-group44")

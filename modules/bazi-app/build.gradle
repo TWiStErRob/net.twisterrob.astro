@@ -1,0 +1,9 @@
+plugins {
+	id("net.twisterrob.astro.app")
+}
+
+android {
+	defaultConfig {
+		applicationId = "net.twisterrob.bazi"
+	}
+}

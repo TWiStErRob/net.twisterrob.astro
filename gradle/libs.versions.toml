@@ -2,6 +2,7 @@
 java-toolchain = "17"
 java-toolchainTest = "17"
 java-target = "17"
+agp = "8.4.0"
 kotlin = "1.9.24"
 
 detekt = "1.23.6"
@@ -27,3 +28,4 @@ test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.re
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+android = { id = "com.android.application", version.ref = "agp" }
