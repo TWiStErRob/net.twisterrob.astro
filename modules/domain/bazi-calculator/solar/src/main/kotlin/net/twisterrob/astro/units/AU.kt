@@ -5,9 +5,6 @@ package net.twisterrob.astro.units
 @JvmInline
 internal value class AU(internal val value: Double)
 
-internal inline val Int.au: AU
-	get() = AU(this.toDouble())
-
 internal inline val Double.au: AU
 	get() = AU(this)
 

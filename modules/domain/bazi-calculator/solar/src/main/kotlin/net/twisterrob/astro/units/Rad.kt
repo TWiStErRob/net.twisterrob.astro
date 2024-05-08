@@ -8,9 +8,6 @@ internal value class Rad(internal val value: Double)
 internal inline val Double.rad: Rad
 	get() = Rad(this)
 
-internal inline val Int.rad: Rad
-	get() = this.toDouble().rad
-
 internal inline val Deg.rad: Rad
 	get() = Math.toRadians(this.value).rad
 
