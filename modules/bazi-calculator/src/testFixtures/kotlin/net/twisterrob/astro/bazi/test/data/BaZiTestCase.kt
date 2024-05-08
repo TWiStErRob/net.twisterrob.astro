@@ -69,7 +69,7 @@ class BaZiTestCase(
 				name = "2022/23 solar new year: before",
 				sources = emptyList(),
 				// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
-				dateTime = LocalDateTime.of(2023, Month.FEBRUARY, 4, 2, 31, 0), // should be ~2:42
+				dateTime = LocalDateTime.of(2023, Month.FEBRUARY, 4, 2, 31), // should be ~2:42
 				location = "UTC",
 				bazi = BaZi(
 					year = BaZi.Pillar(Ren, Yin),
@@ -82,7 +82,7 @@ class BaZiTestCase(
 				name = "2022/23 solar new year: after",
 				sources = emptyList(),
 				// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
-				dateTime = LocalDateTime.of(2023, Month.FEBRUARY, 4, 2, 32, 0), // should be ~2:42
+				dateTime = LocalDateTime.of(2023, Month.FEBRUARY, 4, 2, 32), // should be ~2:42
 				location = "UTC",
 				bazi = BaZi(
 					year = BaZi.Pillar(Gui, Mao),
