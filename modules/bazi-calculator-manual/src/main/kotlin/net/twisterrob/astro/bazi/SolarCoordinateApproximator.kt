@@ -24,7 +24,7 @@ internal class SolarCoordinateApproximator {
 		approximateSolarLongitude(dateTime.julianDayTime.jd)
 
 	/**
-	 * https://aa.usno.navy.mil/faq/sun_approx
+	 * Algorithm source: https://aa.usno.navy.mil/faq/sun_approx
 	 */
 	@Suppress(
 		"LocalVariableName", "detekt.VariableNaming", // Using names from math.
@@ -41,11 +41,11 @@ internal class SolarCoordinateApproximator {
 		val q: Deg = (280.459.deg + (0.98564736 * D).deg).canonicalMod(360.deg)
 		// Geocentric apparent ecliptic longitude of the Sun (adjusted for aberration)
 		// Range: might not be 0-360.
-		val L: Deg = (q + 1.915 * sin(g) + 0.020 * sin(2 * g)).canonicalMod(360.deg)
+		val L: Deg = (q + (1.915 * sin(g) + 0.020 * sin(2 * g)).deg).canonicalMod(360.deg)
 		// Sun's ecliptic latitude
 		val b: Deg = 0.deg
 		// The distance of the Sun from the Earth
-		val R: AU = 1.00014.au - 0.01671 * cos(g) - 0.00014 * cos(2 * g)
+		val R: AU = 1.00014.au - (0.01671 * cos(g) - 0.00014 * cos(2 * g)).au
 		// Mean obliquity of the ecliptic
 		val e: Deg = 23.439.deg - (0.00000036 * D).deg
 		// Sun's right ascension (tan(RA) = cos(e) * sin (L) / cos (L))

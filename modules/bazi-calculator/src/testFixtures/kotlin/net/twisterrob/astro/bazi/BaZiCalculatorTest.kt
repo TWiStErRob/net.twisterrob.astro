@@ -6,11 +6,11 @@ import net.twisterrob.astro.bazi.test.data.SexagenaryDayTestCase
 import net.twisterrob.astro.bazi.test.data.SexagenaryHourTestCase
 import net.twisterrob.astro.bazi.test.data.SexagenaryYearTestCase
 import net.twisterrob.astro.bazi.test.data.SolarTermTestCase
-import net.twisterrob.astro.bazi.test.verify
-import net.twisterrob.astro.bazi.test.verifyDay
-import net.twisterrob.astro.bazi.test.verifyHour
-import net.twisterrob.astro.bazi.test.verifySolarTerms
-import net.twisterrob.astro.bazi.test.verifyYear
+import net.twisterrob.astro.bazi.test.test
+import net.twisterrob.astro.bazi.test.testDay
+import net.twisterrob.astro.bazi.test.testHour
+import net.twisterrob.astro.bazi.test.testSolarTerm
+import net.twisterrob.astro.bazi.test.testYear
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.TestFactory
@@ -22,8 +22,7 @@ import org.junit.jupiter.api.TestFactory
 	"unused",
 	"detekt.MagicNumber",
 	"detekt.StringLiteralDuplication", // TODEL https://github.com/detekt/detekt/issues/7271
-	"detekt.UndocumentedPublicClass",
-	"detekt.UndocumentedPublicFunction",
+	"detekt.UndocumentedPublicFunction", // Test methods only, they're fine without.
 	"detekt.UnnecessaryAbstractClass", // Needs to be abstract so JUnit doesn't run it.
 )
 abstract class BaZiCalculatorTest {
@@ -35,40 +34,40 @@ abstract class BaZiCalculatorTest {
 	abstract val subject: BaZiCalculator
 
 	@TestFactory fun `random tests`(): Iterable<DynamicNode> =
-		BaZiTestCase.ALL_CASES.map { subject.verify(it.dateTime, it.bazi) }
+		BaZiTestCase.ALL_CASES.map { subject.test(it.dateTime, it.bazi) }
 
 	@TestFactory fun `random hourless tests`(): Iterable<DynamicNode> =
-		BaZiHourlessTestCase.ALL_CASES.map { subject.verify(it.date, it.bazi) }
+		BaZiHourlessTestCase.ALL_CASES.map { subject.test(it.date, it.bazi) }
 
 	@TestFactory fun `sexagenary years`(): Iterable<DynamicNode> =
 		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map { cycle ->
 			val start = cycle.first().year
 			val end = cycle.last().year
-			dynamicContainer("cycle ${start}—${end}", cycle.map(subject::verifyYear))
+			dynamicContainer("cycle ${start}—${end}", cycle.map(subject::testYear))
 		}
 
 	@TestFactory fun `solar terms`(): Iterable<DynamicNode> =
 		SolarTermTestCase.ALL_KNOWN_YEARS.map { cycle ->
 			val year = cycle.first().startTime.year
-			dynamicContainer("year ${year}", cycle.map(subject::verifySolarTerms))
+			dynamicContainer("year ${year}", cycle.map(subject::testSolarTerm))
 		}
 
 	@TestFactory fun `sexagenary days`(): Iterable<DynamicNode> =
 		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map { cycle ->
 			val start = cycle.first().date
 			val end = cycle.last().date
-			dynamicContainer("cycle ${start}—${end}", cycle.map { subject.verifyDay(null, it) })
+			dynamicContainer("cycle ${start}—${end}", cycle.map { subject.testDay(null, it) })
 		}
 
 	@TestFactory fun `special days`(): Iterable<DynamicNode> =
-		SexagenaryDayTestCase.WIKIPEDIA_EXAMPLES.map {
-			subject.verifyDay(it.key, it.value)
+		SexagenaryDayTestCase.ALL_CASES.map {
+			subject.testDay(it.key, it.value)
 		}
 
 	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> =
 		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map { cycle ->
 			val start = cycle.first().startTime
 			val end = cycle.last().endTime
-			dynamicContainer("cycle ${start}—${end}", cycle.map(subject::verifyHour))
+			dynamicContainer("cycle ${start}—${end}", cycle.map(subject::testHour))
 		}
 }

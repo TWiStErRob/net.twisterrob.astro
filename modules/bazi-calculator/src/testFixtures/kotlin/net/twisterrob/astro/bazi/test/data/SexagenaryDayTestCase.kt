@@ -333,23 +333,19 @@ class SexagenaryDayTestCase(
 		 * Source: https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_hours
 		 */
 		val WIKIPEDIA_EXAMPLES: Map<String, SexagenaryDayTestCase> = mapOf(
-			// 甲子
-			"example 1" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),
-			// 甲申
-			"detailed example 1" to SexagenaryDayTestCase(21, Jia, Shen, LocalDate.of(1592, DECEMBER, 31)),
-			// 辛亥
-			"detailed example 2" to SexagenaryDayTestCase(48, Xin, Hai, LocalDate.of(1338, AUGUST, 4)),
-			// 庚寅
-			"detailed example 3" to SexagenaryDayTestCase(27, Geng, Yin, LocalDate.of(-104, MAY, 25)),
-			// 己巳
-			"mental example 1" to SexagenaryDayTestCase(6, Ji, Si, LocalDate.of(-719, FEBRUARY, 22)),
-			// 癸丑
-			"mental example 2" to SexagenaryDayTestCase(5, Gui, Chou, LocalDate.of(-210, NOVEMBER, 1)),
-			// 甲子
-			"mental example 3" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1912, FEBRUARY, 18)),
-			// 甲子
-			"mental example 4" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),
+			"example 1" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)), // 甲子
+			"detailed example 1" to SexagenaryDayTestCase(21, Jia, Shen, LocalDate.of(1592, DECEMBER, 31)), // 甲申
+			"detailed example 2" to SexagenaryDayTestCase(48, Xin, Hai, LocalDate.of(1338, AUGUST, 4)), // 辛亥
+			"detailed example 3" to SexagenaryDayTestCase(27, Geng, Yin, LocalDate.of(-104, MAY, 25)), // 庚寅
+			"mental example 1" to SexagenaryDayTestCase(6, Ji, Si, LocalDate.of(-719, FEBRUARY, 22)), // 己巳
+			"mental example 2" to SexagenaryDayTestCase(5, Gui, Chou, LocalDate.of(-210, NOVEMBER, 1)), // 癸丑
+			"mental example 3" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1912, FEBRUARY, 18)), // 甲子
+			"mental example 4" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)), // 甲子
 		)
+
+		val ALL_CASES: Map<String, SexagenaryDayTestCase> = listOf(
+			WIKIPEDIA_EXAMPLES,
+		).fold(emptyMap(), Map<String, SexagenaryDayTestCase>::plus)
 
 		val ALL_KNOWN_CYCLES: List<List<SexagenaryDayTestCase>> = listOf(
 			CYCLE_20220710,

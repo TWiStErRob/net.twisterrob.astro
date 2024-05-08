@@ -10,9 +10,3 @@ internal inline val Double.au: AU get() = AU(this)
 
 internal inline operator fun AU.plus(other: AU): AU = AU(this.value + other.value)
 internal inline operator fun AU.minus(other: AU): AU = AU(this.value - other.value)
-
-internal inline operator fun Double.plus(other: AU): AU = AU(this + other.value)
-internal inline operator fun Double.minus(other: AU): AU = AU(this - other.value)
-
-internal inline operator fun AU.plus(other: Double): AU = AU(this.value + other)
-internal inline operator fun AU.minus(other: Double): AU = AU(this.value - other)

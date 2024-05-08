@@ -108,9 +108,16 @@ public class ManualCalculator : BaZiCalculator {
 		 */
 		private const val BASE_YEAR: Int = -2696
 
+		/**
+		 * References:
+		 *  * https://en.wikipedia.org/wiki/Gregorian_calendar
+		 */
 		private val GREGORIAN_CUTOVER: LocalDateTime =
 			ZonedDateTime.of(LocalDate.of(1582, 10, 15), LocalTime.MIDNIGHT, ZoneOffset.UTC).toLocalDateTime()
 
+		/**
+		 * The sexagenary hours start at 23:00, we need to use the day that time is "starting" which is the next day.
+		 */
 		private val LocalDateTime.sexagenaryDayBase: LocalDateTime
 			get() =
 				@Suppress("detekt.MagicNumber")

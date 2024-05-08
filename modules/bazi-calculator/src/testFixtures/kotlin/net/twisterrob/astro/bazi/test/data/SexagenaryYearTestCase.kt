@@ -378,7 +378,6 @@ class SexagenaryYearTestCase(
 			val _2030: LocalDateTime = LocalDateTime.of(2030, FEBRUARY, 3, 19, 8)
 		}
 
-
 		val ALL_KNOWN_CYCLES: List<List<SexagenaryYearTestCase>> = listOf(
 			CYCLE_1804,
 			CYCLE_1864,

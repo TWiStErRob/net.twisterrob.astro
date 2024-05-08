@@ -26,7 +26,7 @@ import org.junit.jupiter.api.DynamicTest.dynamicTest
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-fun BaZiCalculator.verify(date: LocalDate, expected: BaZi): DynamicNode =
+fun BaZiCalculator.test(date: LocalDate, expected: BaZi): DynamicNode =
 	dynamicTest("${date} is ${expected}") {
 		expected.hour should beNull()
 
@@ -35,7 +35,7 @@ fun BaZiCalculator.verify(date: LocalDate, expected: BaZi): DynamicNode =
 		result shouldBe expected
 	}
 
-fun BaZiCalculator.verify(dateTime: LocalDateTime, expected: BaZi): DynamicNode =
+fun BaZiCalculator.test(dateTime: LocalDateTime, expected: BaZi): DynamicNode =
 	dynamicTest("${dateTime} is ${expected}") {
 		expected.hour shouldNot beNull()
 
@@ -44,10 +44,7 @@ fun BaZiCalculator.verify(dateTime: LocalDateTime, expected: BaZi): DynamicNode 
 		result shouldBe expected
 	}
 
-/**
- * @see SexagenaryYearTestCase.Companion
- */
-fun BaZiCalculator.verifyYear(tc: SexagenaryYearTestCase): DynamicNode =
+fun BaZiCalculator.testYear(tc: SexagenaryYearTestCase): DynamicNode =
 	dynamicContainer(
 		"${tc.year} year",
 		tc.solarStart?.let { solarStart ->
@@ -92,10 +89,7 @@ fun BaZiCalculator.verifyYear(tc: SexagenaryYearTestCase): DynamicNode =
 		},
 	)
 
-/**
- * @see SolarTermTestCase.Companion
- */
-fun BaZiCalculator.verifySolarTerms(tc: SolarTermTestCase): DynamicNode {
+fun BaZiCalculator.testSolarTerm(tc: SolarTermTestCase): DynamicNode {
 	// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
 	val startTime = tc.startTime.plusMinutes(11)
 	val endTime = tc.endTime.minusMinutes(12)
@@ -158,10 +152,7 @@ fun BaZiCalculator.verifySolarTerms(tc: SolarTermTestCase): DynamicNode {
 	)
 }
 
-/**
- * @see SexagenaryDayTestCase.Companion
- */
-fun BaZiCalculator.verifyDay(name: String?, tc: SexagenaryDayTestCase): DynamicNode =
+fun BaZiCalculator.testDay(name: String?, tc: SexagenaryDayTestCase): DynamicNode =
 	dynamicContainer(
 		"${if (name == null) "" else "${name}: "}#${tc.cyclicOrdinal}: ${tc.dayStem} ${tc.dayBranch}",
 		dynamicContainer(
@@ -181,11 +172,8 @@ fun BaZiCalculator.verifyDay(name: String?, tc: SexagenaryDayTestCase): DynamicN
 		},
 	)
 
-/**
- * @see SexagenaryHourTestCase.Companion
- */
-fun BaZiCalculator.verifyHour(tc: SexagenaryHourTestCase): DynamicNode {
-	val justTheEnd = tc.endTime.minusMinutes(1)
+fun BaZiCalculator.testHour(tc: SexagenaryHourTestCase): DynamicNode {
+	val nearTheEnd = tc.endTime.minusSeconds(1)
 	return dynamicContainer(
 		"#${tc.cyclicOrdinal}: ${tc.dayStem} d ${tc.branchOfHour} h -> ${tc.hourPillar}",
 		dynamicContainer(
@@ -208,8 +196,8 @@ fun BaZiCalculator.verifyHour(tc: SexagenaryHourTestCase): DynamicNode {
 			dynamicTest("${tc.midTime} (middle)") {
 				EarthlyBranch.atHour(tc.midTime.hour) shouldBe tc.branchOfHour
 			},
-			dynamicTest("${justTheEnd} (end)") {
-				EarthlyBranch.atHour(justTheEnd.hour) shouldBe tc.branchOfHour
+			dynamicTest("${nearTheEnd} (end)") {
+				EarthlyBranch.atHour(nearTheEnd.hour) shouldBe tc.branchOfHour
 			},
 		),
 		dynamicContainer(
@@ -227,8 +215,8 @@ fun BaZiCalculator.verifyHour(tc: SexagenaryHourTestCase): DynamicNode {
 				val result = this.calculate(tc.midTime)
 				result.day.heavenlyStem shouldBe tc.dayStem
 			},
-			dynamicTest("${justTheEnd} (end)") {
-				val result = this.calculate(justTheEnd)
+			dynamicTest("${nearTheEnd} (end)") {
+				val result = this.calculate(nearTheEnd)
 				result.day.heavenlyStem shouldBe tc.dayStem
 			},
 		),
