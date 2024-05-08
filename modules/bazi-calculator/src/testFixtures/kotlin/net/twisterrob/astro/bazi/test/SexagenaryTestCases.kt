@@ -1,3 +1,7 @@
+@file:Suppress(
+	"detekt.LongMethod", // Some of the methods are long, because they encode multiple tests.
+)
+
 package net.twisterrob.astro.bazi.test
 
 import io.kotest.assertions.withClue
@@ -116,27 +120,33 @@ fun BaZiCalculator.verifySolarTerms(tc: SolarTermTestCase): DynamicNode {
 		},
 		dynamicContainer(
 			"is ${tc.monthPillar} term in whole range",
-			// Test every day in the solar term's range.
-			*(tc.startTime.plusDays(1).toLocalDate()..<tc.endTime.toLocalDate()).map { date ->
-				dynamicTest(date.toString()) {
-					val result = this.calculate(date)
-					result.month shouldBe tc.monthPillar
+			dynamicContainer(
+				"starting 24h minutes",
+				(startTime..<tc.startTime.plusDays(1)).map { date ->
+					dynamicTest(date.toString()) {
+						val result = this.calculate(date)
+						result.month shouldBe tc.monthPillar
+					}
 				}
-			}.toTypedArray(),
-			// Test the start edge of the solar term in more granularity.
-			*(startTime..<tc.startTime.plusDays(1)).map { date ->
-				dynamicTest(date.toString()) {
-					val result = this.calculate(date)
-					result.month shouldBe tc.monthPillar
+			),
+			dynamicContainer(
+				"middle days",
+				(tc.startTime.plusDays(1).toLocalDate()..<tc.endTime.toLocalDate()).map { date ->
+					dynamicTest(date.toString()) {
+						val result = this.calculate(date)
+						result.month shouldBe tc.monthPillar
+					}
 				}
-			}.toTypedArray(),
-			// Test the end edge of the solar term in more granularity.
-			*(tc.endTime.minusDays(1)..<endTime).map { date ->
-				dynamicTest(date.toString()) {
-					val result = this.calculate(date)
-					result.month shouldBe tc.monthPillar
+			),
+			dynamicContainer(
+				"ending 24h minutes",
+				(tc.endTime.minusDays(1)..<endTime).map { date ->
+					dynamicTest(date.toString()) {
+						val result = this.calculate(date)
+						result.month shouldBe tc.monthPillar
+					}
 				}
-			}.toTypedArray()
+			),
 		)
 	)
 }
