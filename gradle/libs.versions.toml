@@ -3,8 +3,8 @@ java-toolchain = "17"
 java-toolchainTest = "17"
 java-target = "17"
 agp = "8.4.0"
-kotlin = "1.9.23"
-kotlin-composeCompiler = "1.5.13" # 1.5.14-dev-k1.9.24-50022def4af
+kotlin = "1.9.24"
+kotlin-composeCompiler = "1.5.14-dev-k1.9.24-50022def4af"
 
 detekt = "1.23.6"
 jsr305 = "3.0.2"

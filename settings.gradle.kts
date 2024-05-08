@@ -23,6 +23,10 @@ dependencyResolutionManagement {
 	repositories {
 		google()
 		mavenCentral()
+		maven {
+			name = "compose-compiler"
+			url = uri("https://androidx.dev/storage/compose-compiler/repository/")
+		}
 	}
 }
 
