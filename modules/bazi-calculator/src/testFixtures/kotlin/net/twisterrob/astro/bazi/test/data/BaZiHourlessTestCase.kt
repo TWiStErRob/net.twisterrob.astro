@@ -230,6 +230,37 @@ class BaZiHourlessTestCase(
 			),
 		)
 
-		val ALL_CASES: List<BaZiHourlessTestCase> = GREGORIAN_YEAR_TRANSITIONS + SOLAR_YEAR_TRANSITIONS
+		val SOLAR_MONTH_TRANSITIONS: List<BaZiHourlessTestCase> = listOf(
+			BaZiHourlessTestCase(
+				name = "leap year - before",
+				sources = emptyList(),
+				date = LocalDate.of(1948, Month.APRIL, 4),
+				location = "UTC",
+				bazi = BaZi(
+					year = BaZi.Pillar(WuHS, Zi),
+					month = BaZi.Pillar(Yi, Mao),
+					day = BaZi.Pillar(Ji, Wei),
+					hour = null,
+				),
+			),
+			BaZiHourlessTestCase(
+				name = "leap year - after",
+				sources = emptyList(),
+				date = LocalDate.of(1948, Month.APRIL, 5),
+				location = "UTC",
+				bazi = BaZi(
+					year = BaZi.Pillar(WuHS, Zi),
+					month = BaZi.Pillar(Bing, Chen),
+					day = BaZi.Pillar(Geng, Shen),
+					hour = null,
+				),
+			),
+		)
+
+		val ALL_CASES: List<BaZiHourlessTestCase> = listOf(
+			GREGORIAN_YEAR_TRANSITIONS,
+			SOLAR_YEAR_TRANSITIONS,
+			SOLAR_MONTH_TRANSITIONS,
+		).flatten()
 	}
 }
