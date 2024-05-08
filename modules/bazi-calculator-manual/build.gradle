@@ -4,7 +4,6 @@ plugins {
 
 dependencies {
 	api(projects.baziCalculator)
-	implementation(projects.baziCalculatorWikipedia) // STOPSHIP
 
 	testImplementation(testFixtures(projects.baziCalculator))
 }
