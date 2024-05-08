@@ -54,6 +54,12 @@ android {
 	}
 }
 
+androidComponents {
+	beforeVariants { variantBuilder ->
+		(variantBuilder as HasUnitTestBuilder).enableUnitTest = variantBuilder.buildType == "debug"
+	}
+}
+
 kotlin {
 	jvmToolchain(libs.versions.java.toolchain.get().toInt())
 }
