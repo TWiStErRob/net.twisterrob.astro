@@ -26,8 +26,8 @@ internal inline operator fun Deg.rem(other: Double): Deg = Deg(this.value % othe
 
 internal inline operator fun Deg.plus(other: Deg): Deg = Deg(this.value + other.value)
 internal inline operator fun Deg.minus(other: Deg): Deg = Deg(this.value - other.value)
-internal inline operator fun Deg.div(other: Deg): Deg = Deg(this.value / other.value)
-internal inline operator fun Deg.rem(other: Deg): Deg = Deg(this.value % other.value)
+internal inline operator fun Deg.div(other: Deg): Double = this.value / other.value
+internal inline operator fun Deg.rem(other: Deg): Double = this.value % other.value
 
 internal inline fun asin(x: Double): Deg = kotlin.math.asin(x).rad.deg
 internal inline fun atan2(y: Double, x: Double): Deg = kotlin.math.atan2(y, x).rad.deg
