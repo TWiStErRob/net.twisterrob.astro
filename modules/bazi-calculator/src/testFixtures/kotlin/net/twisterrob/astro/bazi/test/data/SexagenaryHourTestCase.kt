@@ -23,13 +23,13 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Jia
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
+import net.twisterrob.astro.bazi.test.previous
 import java.time.LocalDateTime
 import java.time.Month.DECEMBER
 import java.time.Month.JANUARY
 import java.time.temporal.ChronoUnit
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
-import net.twisterrob.astro.bazi.test.previous
 
 /**
  * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_hours
@@ -68,6 +68,10 @@ class SexagenaryHourTestCase(
 	@Suppress("detekt.NamedArguments", "detekt.LargeClass")
 	companion object {
 
+		/**
+		 * Source: Picked a random day and looked up in an online calculator,
+		 * then cycled around to the start and manually calculated the rest.
+		 */
 		val CYCLE_18071224: List<SexagenaryHourTestCase> = listOf(
 			SexagenaryHourTestCase(
 				1, Jia, Zi, Jia, Zi,
@@ -371,6 +375,9 @@ class SexagenaryHourTestCase(
 			),
 		)
 
+		/**
+		 * Source: continues from [CYCLE_18071224], and manually calculated the cycles.
+		 */
 		val CYCLE_18071229: List<SexagenaryHourTestCase> = listOf(
 			SexagenaryHourTestCase(
 				1, Jia, Zi, Ji, Zi,

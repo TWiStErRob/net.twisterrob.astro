@@ -34,8 +34,7 @@ class BaZiTestCase(
 				name = "Bruce Lee",
 				sources = listOf(
 					"From: Group44",
-					// https://kinaiasztrologia.com/kalkulator/kinai_horoszkop_kalkulator.html?id=1&YE=1940&MO=11&DA=27&HO=8&MI=0&CI=San%20Francisco%2C%20CA%2C%20USA&NA=BL&GE=1&TU=false&CST=1
-					"kinaiasztrologia.com confirmed",
+					"Confirmed: kinaiasztrologia.com",
 				),
 				dateTime = LocalDateTime.of(1940, 11, 27, 8, 0),
 				location = "San Francisco, CA, USA",
@@ -50,8 +49,7 @@ class BaZiTestCase(
 				name = "Mao Zedong",
 				sources = listOf(
 					"From: Group44",
-					// https://kinaiasztrologia.com/kalkulator/kinai_horoszkop_kalkulator.html?id=1&YE=1893&MO=12&DA=26&HO=8&MI=0&CI=Shaoshan%2C%20Xiangtan%2C%20Hunan%2C%20China&NA=MZ&GE=1&TU=false&CST=1
-					"kinaiasztrologia.com confirmed",
+					"Confirmed: kinaiasztrologia.com",
 				),
 				dateTime = LocalDateTime.of(1893, 12, 26, 8 /*7-9*/, 0),
 				location = "Shaoshan, Xiangtan, Hunan, China",

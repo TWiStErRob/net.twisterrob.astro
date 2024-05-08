@@ -39,7 +39,7 @@ import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
 /**
- * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_hours
+ * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_days
  */
 class SexagenaryDayTestCase(
 	val cyclicOrdinal: Int,
@@ -57,6 +57,8 @@ class SexagenaryDayTestCase(
 		/**
 		 * A cycle that starts on 1st January, which is just a coincidence.
 		 * There aren't too many of these years, this year just happened to be one.
+		 *
+		 * Source: Picked the start day, looked up the day, and manually calculated the cycles.
 		 */
 		val CYCLE_20240101: List<SexagenaryDayTestCase> = listOf(
 			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(2024, JANUARY, 1)),
@@ -124,6 +126,8 @@ class SexagenaryDayTestCase(
 		/**
 		 * A cycle that starts on 1st of a month, which is just a coincidence.
 		 * It's also a leap year, the cycle starts just after the Gregorian leap day.
+		 *
+		 * Source: continues from [CYCLE_20240101], and manually calculated the cycles.
 		 */
 		val CYCLE_20240301: List<SexagenaryDayTestCase> = listOf(
 			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(2024, MARCH, 1)),
@@ -190,6 +194,8 @@ class SexagenaryDayTestCase(
 
 		/**
 		 * A summer cycle that starts in the middle of the month. It's not a leap year.
+		 *
+		 * Source: Picked the start day, looked up the day, manually calculated the cycles.
 		 */
 		val CYCLE_20220710: List<SexagenaryDayTestCase> = listOf(
 			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(2022, JULY, 10)),
@@ -257,6 +263,8 @@ class SexagenaryDayTestCase(
 		/**
 		 * A winter cycle that starts in the middle of the month. It's not a leap year.
 		 * The end of the cycle also wraps over to the next year.
+		 *
+		 * Source: 2 cycles after [CYCLE_20220710], manually calculated the cycles.
 		 */
 		val CYCLE_20221107: List<SexagenaryDayTestCase> = listOf(
 			SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(2022, NOVEMBER, 7)),
@@ -321,6 +329,9 @@ class SexagenaryDayTestCase(
 			SexagenaryDayTestCase(60, Gui, Hai, LocalDate.of(2023, JANUARY, 5)),
 		)
 
+		/**
+		 * Source: https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_hours
+		 */
 		val WIKIPEDIA_EXAMPLES: Map<String, SexagenaryDayTestCase> = mapOf(
 			// 甲子
 			"example 1" to SexagenaryDayTestCase(1, Jia, Zi, LocalDate.of(1949, OCTOBER, 1)),

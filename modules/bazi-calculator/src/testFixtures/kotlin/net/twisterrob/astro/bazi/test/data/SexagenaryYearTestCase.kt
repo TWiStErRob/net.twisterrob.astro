@@ -271,44 +271,6 @@ class SexagenaryYearTestCase(
 			SexagenaryYearTestCase(60, Gui, Hai, LocalDate.of(1983, FEBRUARY, 13), LocalDate.of(1984, FEBRUARY, 1)),
 		)
 
-		// 2019-2026 based on https://www.hko.gov.hk/en/gts/astronomy/Solar_Term.htm, times converted to UTC.
-		// 2019-2026 confirmed at https://en.wikipedia.org/wiki/Lichun (https://zh.wikipedia.org/zh/%E7%AB%8B%E6%98%A5)
-		// 2001-2030 based on https://en.wikipedia.org/wiki/Lichun
-		@Suppress("ObjectPropertyName", "detekt.ObjectPropertyNaming")
-		private object NY {
-
-			val _2001: LocalDateTime = LocalDateTime.of(2001, FEBRUARY, 3, 18, 28)
-			val _2002: LocalDateTime = LocalDateTime.of(2002, FEBRUARY, 4, 0, 24)
-			val _2003: LocalDateTime = LocalDateTime.of(2003, FEBRUARY, 4, 6, 5)
-			val _2004: LocalDateTime = LocalDateTime.of(2004, FEBRUARY, 4, 11, 56)
-			val _2005: LocalDateTime = LocalDateTime.of(2005, FEBRUARY, 3, 17, 43)
-			val _2006: LocalDateTime = LocalDateTime.of(2006, FEBRUARY, 3, 23, 27)
-			val _2007: LocalDateTime = LocalDateTime.of(2007, FEBRUARY, 4, 5, 18)
-			val _2008: LocalDateTime = LocalDateTime.of(2008, FEBRUARY, 4, 11, 0)
-			val _2009: LocalDateTime = LocalDateTime.of(2009, FEBRUARY, 3, 16, 49)
-			val _2010: LocalDateTime = LocalDateTime.of(2010, FEBRUARY, 3, 22, 47)
-			val _2011: LocalDateTime = LocalDateTime.of(2011, FEBRUARY, 4, 4, 32)
-			val _2012: LocalDateTime = LocalDateTime.of(2012, FEBRUARY, 4, 10, 22)
-			val _2013: LocalDateTime = LocalDateTime.of(2013, FEBRUARY, 3, 16, 13)
-			val _2014: LocalDateTime = LocalDateTime.of(2014, FEBRUARY, 3, 22, 3)
-			val _2015: LocalDateTime = LocalDateTime.of(2015, FEBRUARY, 4, 3, 58)
-			val _2016: LocalDateTime = LocalDateTime.of(2016, FEBRUARY, 4, 9, 46)
-			val _2017: LocalDateTime = LocalDateTime.of(2017, FEBRUARY, 3, 15, 34)
-			val _2018: LocalDateTime = LocalDateTime.of(2018, FEBRUARY, 3, 21, 28)
-			val _2019: LocalDateTime = LocalDateTime.of(2019, FEBRUARY, 4, 3, 14)
-			val _2020: LocalDateTime = LocalDateTime.of(2020, FEBRUARY, 4, 9, 3)
-			val _2021: LocalDateTime = LocalDateTime.of(2021, FEBRUARY, 3, 14, 58) // 49 in hk
-			val _2022: LocalDateTime = LocalDateTime.of(2022, FEBRUARY, 3, 20, 50) // 51 in hk
-			val _2023: LocalDateTime = LocalDateTime.of(2023, FEBRUARY, 4, 2, 42)
-			val _2024: LocalDateTime = LocalDateTime.of(2024, FEBRUARY, 4, 8, 27)
-			val _2025: LocalDateTime = LocalDateTime.of(2025, FEBRUARY, 3, 14, 10)
-			val _2026: LocalDateTime = LocalDateTime.of(2026, FEBRUARY, 3, 20, 2)
-			val _2027: LocalDateTime = LocalDateTime.of(2027, FEBRUARY, 4, 1, 46)
-			val _2028: LocalDateTime = LocalDateTime.of(2028, FEBRUARY, 4, 7, 31)
-			val _2029: LocalDateTime = LocalDateTime.of(2029, FEBRUARY, 3, 13, 20)
-			val _2030: LocalDateTime = LocalDateTime.of(2030, FEBRUARY, 3, 19, 8)
-		}
-
 		/**
 		 * https://en.wikipedia.org/wiki/Sexagenary_cycle#1924%E2%80%932043
 		 */
@@ -374,6 +336,48 @@ class SexagenaryYearTestCase(
 			SexagenaryYearTestCase(59, Ren, Xu, LocalDate.of(2042, JANUARY, 22), LocalDate.of(2043, FEBRUARY, 9)),
 			SexagenaryYearTestCase(60, Gui, Hai, LocalDate.of(2043, FEBRUARY, 10), LocalDate.of(2044, JANUARY, 29)),
 		)
+
+		/**
+		 * Solar new years for [CYCLE_1984] to reduce duplication.
+		 * Source: 2019-2026 based on https://www.hko.gov.hk/en/gts/astronomy/Solar_Term.htm (and archived versions), times converted to UTC.
+		 * Source: 2019-2026 confirmed at https://en.wikipedia.org/wiki/Lichun (https://zh.wikipedia.org/zh/%E7%AB%8B%E6%98%A5)
+		 * Source: 2001-2030 based on https://en.wikipedia.org/wiki/Lichun
+		 */
+		@Suppress("ObjectPropertyName", "detekt.ObjectPropertyNaming")
+		private object NY {
+
+			val _2001: LocalDateTime = LocalDateTime.of(2001, FEBRUARY, 3, 18, 28)
+			val _2002: LocalDateTime = LocalDateTime.of(2002, FEBRUARY, 4, 0, 24)
+			val _2003: LocalDateTime = LocalDateTime.of(2003, FEBRUARY, 4, 6, 5)
+			val _2004: LocalDateTime = LocalDateTime.of(2004, FEBRUARY, 4, 11, 56)
+			val _2005: LocalDateTime = LocalDateTime.of(2005, FEBRUARY, 3, 17, 43)
+			val _2006: LocalDateTime = LocalDateTime.of(2006, FEBRUARY, 3, 23, 27)
+			val _2007: LocalDateTime = LocalDateTime.of(2007, FEBRUARY, 4, 5, 18)
+			val _2008: LocalDateTime = LocalDateTime.of(2008, FEBRUARY, 4, 11, 0)
+			val _2009: LocalDateTime = LocalDateTime.of(2009, FEBRUARY, 3, 16, 49)
+			val _2010: LocalDateTime = LocalDateTime.of(2010, FEBRUARY, 3, 22, 47)
+			val _2011: LocalDateTime = LocalDateTime.of(2011, FEBRUARY, 4, 4, 32)
+			val _2012: LocalDateTime = LocalDateTime.of(2012, FEBRUARY, 4, 10, 22)
+			val _2013: LocalDateTime = LocalDateTime.of(2013, FEBRUARY, 3, 16, 13)
+			val _2014: LocalDateTime = LocalDateTime.of(2014, FEBRUARY, 3, 22, 3)
+			val _2015: LocalDateTime = LocalDateTime.of(2015, FEBRUARY, 4, 3, 58)
+			val _2016: LocalDateTime = LocalDateTime.of(2016, FEBRUARY, 4, 9, 46)
+			val _2017: LocalDateTime = LocalDateTime.of(2017, FEBRUARY, 3, 15, 34)
+			val _2018: LocalDateTime = LocalDateTime.of(2018, FEBRUARY, 3, 21, 28)
+			val _2019: LocalDateTime = LocalDateTime.of(2019, FEBRUARY, 4, 3, 14)
+			val _2020: LocalDateTime = LocalDateTime.of(2020, FEBRUARY, 4, 9, 3)
+			val _2021: LocalDateTime = LocalDateTime.of(2021, FEBRUARY, 3, 14, 58) // 49 in hk
+			val _2022: LocalDateTime = LocalDateTime.of(2022, FEBRUARY, 3, 20, 50) // 51 in hk
+			val _2023: LocalDateTime = LocalDateTime.of(2023, FEBRUARY, 4, 2, 42)
+			val _2024: LocalDateTime = LocalDateTime.of(2024, FEBRUARY, 4, 8, 27)
+			val _2025: LocalDateTime = LocalDateTime.of(2025, FEBRUARY, 3, 14, 10)
+			val _2026: LocalDateTime = LocalDateTime.of(2026, FEBRUARY, 3, 20, 2)
+			val _2027: LocalDateTime = LocalDateTime.of(2027, FEBRUARY, 4, 1, 46)
+			val _2028: LocalDateTime = LocalDateTime.of(2028, FEBRUARY, 4, 7, 31)
+			val _2029: LocalDateTime = LocalDateTime.of(2029, FEBRUARY, 3, 13, 20)
+			val _2030: LocalDateTime = LocalDateTime.of(2030, FEBRUARY, 3, 19, 8)
+		}
+
 
 		val ALL_KNOWN_CYCLES: List<List<SexagenaryYearTestCase>> = listOf(
 			CYCLE_1804,

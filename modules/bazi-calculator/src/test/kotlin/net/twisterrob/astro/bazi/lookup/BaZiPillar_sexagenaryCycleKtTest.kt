@@ -16,7 +16,9 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class BaZiPillar_sexagenaryCycleKtTest {
 
-	// https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_years
+	/**
+	 * Source: https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_years
+	 */
 	@CsvSource(
 		"1, Jia, Zi",
 		"2, Yi, Chou",

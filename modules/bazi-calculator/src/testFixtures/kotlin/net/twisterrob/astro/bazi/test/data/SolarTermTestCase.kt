@@ -40,6 +40,9 @@ import java.time.temporal.ChronoUnit
 import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
+/**
+ * https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months
+ */
 class SolarTermTestCase(
 	val stem: HeavenlyStem,
 	val branch: EarthlyBranch,
@@ -53,12 +56,58 @@ class SolarTermTestCase(
 	val midTime: LocalDateTime
 		get() = startTime.plusDays(ChronoUnit.DAYS.between(startTime, endTime) / 2)
 
-	/**
-	 * STOPSHIP sources https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_months
-	 */
 	@Suppress("detekt.NamedArguments", "detekt.MaxLineLength")
 	companion object {
 
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal01.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal02.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal03.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal04.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal05.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal06.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal07.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal08.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal09.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal10.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal11.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2018/files/2018cal12.pdf
+		 * Source: https://www.hko.gov.hk/en/gts/astron2019/files/2019cal01.pdf
+		 */
+		val SOLAR_TERMS_2018: List<SolarTermTestCase> = listOf(
+			SolarTermTestCase(Gui, Chou, LocalDateTime.of(2018, JANUARY, 5, 9, 49), LocalDateTime.of(2018, JANUARY, 20, 3, 9)),
+			SolarTermTestCase(Gui, Chou, LocalDateTime.of(2018, JANUARY, 20, 3, 9), LocalDateTime.of(2018, FEBRUARY, 3, 21, 28)),
+			SolarTermTestCase(Jia, Yin, LocalDateTime.of(2018, FEBRUARY, 3, 21, 28), LocalDateTime.of(2018, FEBRUARY, 18, 17, 18)),
+			SolarTermTestCase(Jia, Yin, LocalDateTime.of(2018, FEBRUARY, 18, 17, 18), LocalDateTime.of(2018, MARCH, 5, 15, 28)),
+			SolarTermTestCase(Yi, Mao, LocalDateTime.of(2018, MARCH, 5, 15, 28), LocalDateTime.of(2018, MARCH, 20, 16, 15)),
+			SolarTermTestCase(Yi, Mao, LocalDateTime.of(2018, MARCH, 20, 16, 15), LocalDateTime.of(2018, APRIL, 4, 20, 13)),
+			SolarTermTestCase(Bing, Chen, LocalDateTime.of(2018, APRIL, 4, 20, 13), LocalDateTime.of(2018, APRIL, 20, 3, 13)),
+			SolarTermTestCase(Bing, Chen, LocalDateTime.of(2018, APRIL, 20, 3, 13), LocalDateTime.of(2018, MAY, 5, 13, 25)),
+			SolarTermTestCase(Ding, Si, LocalDateTime.of(2018, MAY, 5, 13, 25), LocalDateTime.of(2018, MAY, 21, 2, 15)),
+			SolarTermTestCase(Ding, Si, LocalDateTime.of(2018, MAY, 21, 2, 15), LocalDateTime.of(2018, JUNE, 5, 17, 29)),
+			SolarTermTestCase(WuHS, WuEB, LocalDateTime.of(2018, JUNE, 5, 17, 29), LocalDateTime.of(2018, JUNE, 21, 10, 7)),
+			SolarTermTestCase(WuHS, WuEB, LocalDateTime.of(2018, JUNE, 21, 10, 7), LocalDateTime.of(2018, JULY, 7, 3, 42)),
+			SolarTermTestCase(Ji, Wei, LocalDateTime.of(2018, JULY, 7, 3, 42), LocalDateTime.of(2018, JULY, 22, 21, 0)),
+			SolarTermTestCase(Ji, Wei, LocalDateTime.of(2018, JULY, 22, 21, 0), LocalDateTime.of(2018, AUGUST, 7, 13, 31)),
+			SolarTermTestCase(Geng, Shen, LocalDateTime.of(2018, AUGUST, 7, 13, 31), LocalDateTime.of(2018, AUGUST, 23, 4, 9)),
+			SolarTermTestCase(Geng, Shen, LocalDateTime.of(2018, AUGUST, 23, 4, 9), LocalDateTime.of(2018, SEPTEMBER, 7, 16, 30)),
+			SolarTermTestCase(Xin, You, LocalDateTime.of(2018, SEPTEMBER, 7, 16, 30), LocalDateTime.of(2018, SEPTEMBER, 23, 1, 54)),
+			SolarTermTestCase(Xin, You, LocalDateTime.of(2018, SEPTEMBER, 23, 1, 54), LocalDateTime.of(2018, OCTOBER, 8, 8, 15)),
+			SolarTermTestCase(Ren, Xu, LocalDateTime.of(2018, OCTOBER, 8, 8, 15), LocalDateTime.of(2018, OCTOBER, 23, 11, 22)),
+			SolarTermTestCase(Ren, Xu, LocalDateTime.of(2018, OCTOBER, 23, 11, 22), LocalDateTime.of(2018, NOVEMBER, 7, 11, 32)),
+			SolarTermTestCase(Gui, Hai, LocalDateTime.of(2018, NOVEMBER, 7, 11, 32), LocalDateTime.of(2018, NOVEMBER, 22, 9, 1)),
+			SolarTermTestCase(Gui, Hai, LocalDateTime.of(2018, NOVEMBER, 22, 9, 1), LocalDateTime.of(2018, DECEMBER, 7, 4, 26)),
+			SolarTermTestCase(Jia, Zi, LocalDateTime.of(2018, DECEMBER, 7, 4, 26), LocalDateTime.of(2018, DECEMBER, 21, 22, 23)),
+			SolarTermTestCase(Jia, Zi, LocalDateTime.of(2018, DECEMBER, 21, 22, 23), LocalDateTime.of(2019, JANUARY, 5, 15, 39)),
+		)
+
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2019/files/2019SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2019.xml
+		 */
 		val SOLAR_TERMS_2019: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Yi, Chou, LocalDateTime.of(2019, JANUARY, 5, 15, 39), LocalDateTime.of(2019, JANUARY, 20, 9, 0)),
 			SolarTermTestCase(Yi, Chou, LocalDateTime.of(2019, JANUARY, 20, 9, 0), LocalDateTime.of(2019, FEBRUARY, 4, 3, 14)),
@@ -86,6 +135,11 @@ class SolarTermTestCase(
 			SolarTermTestCase(Bing, Zi, LocalDateTime.of(2019, DECEMBER, 22, 4, 19), LocalDateTime.of(2020, JANUARY, 5, 21, 30)),
 		)
 
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2020/files/2020SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2020.xml
+		 */
 		val SOLAR_TERMS_2020: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Ding, Chou, LocalDateTime.of(2020, JANUARY, 5, 21, 30), LocalDateTime.of(2020, JANUARY, 20, 14, 55)),
 			SolarTermTestCase(Ding, Chou, LocalDateTime.of(2020, JANUARY, 20, 14, 55), LocalDateTime.of(2020, FEBRUARY, 4, 9, 3)),
@@ -113,6 +167,11 @@ class SolarTermTestCase(
 			SolarTermTestCase(WuHS, Zi, LocalDateTime.of(2020, DECEMBER, 21, 10, 2), LocalDateTime.of(2021, JANUARY, 5, 3, 23)),
 		)
 
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2021/files/2021SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2021.xml
+		 */
 		val SOLAR_TERMS_2021: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Ji, Chou, LocalDateTime.of(2021, JANUARY, 5, 3, 23), LocalDateTime.of(2021, JANUARY, 19, 20, 40)),
 			SolarTermTestCase(Ji, Chou, LocalDateTime.of(2021, JANUARY, 19, 20, 40), LocalDateTime.of(2021, FEBRUARY, 3, 14, 59)),
@@ -140,6 +199,11 @@ class SolarTermTestCase(
 			SolarTermTestCase(Geng, Zi, LocalDateTime.of(2021, DECEMBER, 21, 15, 59), LocalDateTime.of(2022, JANUARY, 5, 9, 14)),
 		)
 
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2022/files/2022SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2022.xml
+		 */
 		val SOLAR_TERMS_2022: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Xin, Chou, LocalDateTime.of(2022, JANUARY, 5, 9, 14), LocalDateTime.of(2022, JANUARY, 20, 2, 39)),
 			SolarTermTestCase(Xin, Chou, LocalDateTime.of(2022, JANUARY, 20, 2, 39), LocalDateTime.of(2022, FEBRUARY, 3, 20, 51)),
@@ -167,6 +231,11 @@ class SolarTermTestCase(
 			SolarTermTestCase(Ren, Zi, LocalDateTime.of(2022, DECEMBER, 21, 21, 48), LocalDateTime.of(2023, JANUARY, 5, 15, 5)),
 		)
 
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2023/files/2023SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2023.xml
+		 */
 		val SOLAR_TERMS_2023: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Gui, Chou, LocalDateTime.of(2023, JANUARY, 5, 15, 5), LocalDateTime.of(2023, JANUARY, 20, 8, 30)),
 			SolarTermTestCase(Gui, Chou, LocalDateTime.of(2023, JANUARY, 20, 8, 30), LocalDateTime.of(2023, FEBRUARY, 4, 2, 43)),
@@ -194,6 +263,11 @@ class SolarTermTestCase(
 			SolarTermTestCase(Jia, Zi, LocalDateTime.of(2023, DECEMBER, 22, 3, 27), LocalDateTime.of(2024, JANUARY, 5, 20, 49)),
 		)
 
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2024/files/2024SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2024.xml
+		 */
 		val SOLAR_TERMS_2024: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Yi, Chou, LocalDateTime.of(2024, JANUARY, 5, 20, 49), LocalDateTime.of(2024, JANUARY, 20, 14, 7)),
 			SolarTermTestCase(Yi, Chou, LocalDateTime.of(2024, JANUARY, 20, 14, 7), LocalDateTime.of(2024, FEBRUARY, 4, 8, 27)),
@@ -221,6 +295,11 @@ class SolarTermTestCase(
 			SolarTermTestCase(Bing, Zi, LocalDateTime.of(2024, DECEMBER, 21, 9, 21), LocalDateTime.of(2025, JANUARY, 5, 2, 33)),
 		)
 
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2025/files/2025SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2025.xml
+		 */
 		val SOLAR_TERMS_2025: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Ding, Chou, LocalDateTime.of(2025, JANUARY, 5, 2, 33), LocalDateTime.of(2025, JANUARY, 19, 20, 0)),
 			SolarTermTestCase(Ding, Chou, LocalDateTime.of(2025, JANUARY, 19, 20, 0), LocalDateTime.of(2025, FEBRUARY, 3, 14, 10)),
@@ -248,6 +327,11 @@ class SolarTermTestCase(
 			SolarTermTestCase(WuHS, Zi, LocalDateTime.of(2025, DECEMBER, 21, 15, 3), LocalDateTime.of(2026, JANUARY, 5, 8, 23)),
 		)
 
+		/**
+		 * Source times are in Hong Kong time, converted to UTC.
+		 * Source: https://www.hko.gov.hk/en/gts/astron2026/files/2026SolarTerms24.pdf (only minors)
+		 * Source: https://www.hko.gov.hk/en/gts/astronomy/data/files/24SolarTerms_2026.xml
+		 */
 		val SOLAR_TERMS_2026: List<SolarTermTestCase> = listOf(
 			SolarTermTestCase(Ji, Chou, LocalDateTime.of(2026, JANUARY, 5, 8, 23), LocalDateTime.of(2026, JANUARY, 20, 1, 45)),
 			SolarTermTestCase(Ji, Chou, LocalDateTime.of(2026, JANUARY, 20, 1, 45), LocalDateTime.of(2026, FEBRUARY, 3, 20, 2)),
@@ -277,6 +361,7 @@ class SolarTermTestCase(
 		)
 
 		val ALL_KNOWN_YEARS: List<List<SolarTermTestCase>> = listOf(
+			SOLAR_TERMS_2018,
 			SOLAR_TERMS_2019,
 			SOLAR_TERMS_2020,
 			SOLAR_TERMS_2021,
