@@ -25,7 +25,7 @@ enableFeaturePreviewQuietly("TYPESAFE_PROJECT_ACCESSORS", "Type-safe project acc
 includeModule(":bazi-model")
 includeModule(":bazi-calculator")
 includeModule(":bazi-calculator-group44")
-includeModule(":bazi-calculator-manual")
+includeModule(":bazi-calculator-solar")
 includeModule(":bazi-calculator-wikipedia")
 includeModule(":test-helpers")
 

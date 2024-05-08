@@ -4,9 +4,9 @@ import net.twisterrob.astro.bazi.model.BaZi
 import org.junit.jupiter.api.Assumptions
 import java.time.LocalDateTime
 
-class ManualCalculatorTest : BaZiCalculatorTest() {
+class SolarCalculatorTest : BaZiCalculatorTest() {
 
-	private val realSubject = ManualCalculator()
+	private val realSubject = SolarCalculator()
 	override val subject: BaZiCalculator = object : BaZiCalculator {
 		override fun calculate(dateTime: LocalDateTime): BaZi {
 			try {

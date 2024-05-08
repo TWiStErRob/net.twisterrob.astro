@@ -20,7 +20,7 @@ import java.time.ZonedDateTime
  * Calculator based on solar terms, and calculations from various sources.
  * The goal was to make it as human-friendly as possible.
  */
-public class ManualCalculator : BaZiCalculator {
+public class SolarCalculator : BaZiCalculator {
 	private val solar = SolarCoordinateApproximator()
 
 	override fun calculate(dateTime: LocalDateTime): BaZi {
