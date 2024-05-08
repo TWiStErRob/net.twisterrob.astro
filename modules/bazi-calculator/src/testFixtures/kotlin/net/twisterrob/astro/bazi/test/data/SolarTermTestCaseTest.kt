@@ -29,7 +29,7 @@ class SolarTermTestCaseTest {
 		SolarTermTestCase.ALL_KNOWN_YEARS.forEach { cycle ->
 			cycle.forEach { testCase ->
 				val lengthD = ChronoUnit.DAYS.between(testCase.startTime, testCase.endTime)
-				withClue("${testCase.startTime}-${testCase.endTime} term") {
+				withClue("${testCase.startTime}—${testCase.endTime} term") {
 					lengthD shouldBe between(14, 15)
 				}
 			}

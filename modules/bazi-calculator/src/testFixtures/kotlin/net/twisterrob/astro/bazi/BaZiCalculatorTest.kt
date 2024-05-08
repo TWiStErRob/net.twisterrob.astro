@@ -73,7 +73,7 @@ abstract class BaZiCalculatorTest {
 		SexagenaryYearTestCase.ALL_KNOWN_CYCLES.map { cycle ->
 			val start = cycle.first().year
 			val end = cycle.last().year
-			dynamicContainer("cycle ${start}-${end}", cycle.map(subject::verifyYear))
+			dynamicContainer("cycle ${start}—${end}", cycle.map(subject::verifyYear))
 		}
 
 	@TestFactory fun `solar terms`(): Iterable<DynamicNode> =
@@ -86,7 +86,7 @@ abstract class BaZiCalculatorTest {
 		SexagenaryDayTestCase.ALL_KNOWN_CYCLES.map { cycle ->
 			val start = cycle.first().date
 			val end = cycle.last().date
-			dynamicContainer("cycle ${start}-${end}", cycle.map { subject.verifyDay(null, it) })
+			dynamicContainer("cycle ${start}—${end}", cycle.map { subject.verifyDay(null, it) })
 		}
 
 	@TestFactory fun `special days`(): Iterable<DynamicNode> =
@@ -98,7 +98,7 @@ abstract class BaZiCalculatorTest {
 		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map { cycle ->
 			val start = cycle.first().startTime
 			val end = cycle.last().endTime
-			dynamicContainer("cycle ${start}-${end}", cycle.map(subject::verifyHour))
+			dynamicContainer("cycle ${start}—${end}", cycle.map(subject::verifyHour))
 		}
 
 	protected open fun check(date: LocalDate, expected: BaZi) {
