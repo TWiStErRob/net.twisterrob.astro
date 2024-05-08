@@ -1,6 +1,10 @@
+import com.android.build.api.variant.HasUnitTestBuilder
+import net.twisterrob.astro.build.dsl.libs
+
 plugins {
 	id("com.android.application")
-//	id("net.twisterrob.astro.build.kotlin")
+	id("org.jetbrains.kotlin.android")
+	id("net.twisterrob.astro.build.kotlin")
 //	id("net.twisterrob.astro.build.testing")
 //	id("net.twisterrob.astro.build.detekt")
 }
@@ -37,22 +41,19 @@ android {
 			)
 		}
 	}
-	compileOptions {
-		sourceCompatibility = JavaVersion.VERSION_1_8
-		targetCompatibility = JavaVersion.VERSION_1_8
-	}
-//	kotlinOptions {
-//		jvmTarget = "1.8"
-//	}
 	buildFeatures {
 		compose = true
 	}
 	composeOptions {
-		kotlinCompilerExtensionVersion = "1.5.1"
+		kotlinCompilerExtensionVersion = libs.versions.kotlin.composeCompiler.get()
 	}
 	packaging {
 		resources {
 			excludes += "/META-INF/{AL2.0,LGPL2.1}"
 		}
 	}
+}
+
+kotlin {
+	jvmToolchain(libs.versions.java.toolchain.get().toInt())
 }
