@@ -1,6 +1,7 @@
 package net.twisterrob.astro.bazi.lookup
 
 import net.twisterrob.astro.bazi.model.EarthlyBranch
+import net.twisterrob.astro.units.canonicalMod
 
 private const val HOURS_IN_DAY: Int = 24
 
@@ -11,6 +12,6 @@ private const val HOURS_IN_DAY: Int = 24
  */
 public fun EarthlyBranch.Companion.atHour(hour: Int): EarthlyBranch {
 	require(hour in 0..<HOURS_IN_DAY) { "Invalid hour: ${hour}" }
-	val rounded = ((hour + 1) % HOURS_IN_DAY + HOURS_IN_DAY) % HOURS_IN_DAY
+	val rounded = (hour + 1).canonicalMod(HOURS_IN_DAY)
 	return EarthlyBranch.entries[rounded / 2]
 }

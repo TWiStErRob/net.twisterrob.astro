@@ -19,10 +19,5 @@ public interface BaZiCalculator {
 	 * Calculates Ba Zi based on a given date, no time.
 	 */
 	public fun calculate(date: LocalDate): BaZi =
-		calculate(date.atTime(MIDDAY)).copy(hour = null)
-
-	public companion object {
-
-		private val MIDDAY = LocalTime.of(12, 0, 0)
-	}
+		calculate(date.atTime(LocalTime.NOON)).copy(hour = null)
 }

@@ -12,6 +12,7 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem.Ren
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Xin
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Yi
+import net.twisterrob.astro.units.canonicalMod
 
 /**
  * Looks up the Heavenly Stem based on already calculated year stem and month branch.
@@ -24,7 +25,7 @@ public fun HeavenlyStem.Companion.lookupSolarMonth(yearStem: HeavenlyStem, month
 	// Zero-based index, so subtract 1.
 	val zeroAdjust = orderAdjust - 1
 	// Cycle one up to make sure the number is positive in 0..11.
-	val cycled = (zeroAdjust + EarthlyBranch.COUNT) % EarthlyBranch.COUNT
+	val cycled = zeroAdjust.canonicalMod(EarthlyBranch.COUNT)
 	return table.getValue(yearStem)[cycled]
 }
 
