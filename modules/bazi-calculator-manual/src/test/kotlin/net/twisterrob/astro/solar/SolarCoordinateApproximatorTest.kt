@@ -1,4 +1,4 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.solar
 
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.compose.any

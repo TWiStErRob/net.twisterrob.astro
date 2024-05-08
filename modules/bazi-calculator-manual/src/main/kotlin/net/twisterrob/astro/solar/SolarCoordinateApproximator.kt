@@ -1,4 +1,4 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.solar
 
 import net.twisterrob.astro.units.AU
 import net.twisterrob.astro.units.Deg
@@ -11,6 +11,7 @@ import net.twisterrob.astro.units.cos
 import net.twisterrob.astro.units.deg
 import net.twisterrob.astro.units.duration
 import net.twisterrob.astro.units.jd
+import net.twisterrob.astro.units.julianDayTime
 import net.twisterrob.astro.units.minus
 import net.twisterrob.astro.units.plus
 import net.twisterrob.astro.units.sin

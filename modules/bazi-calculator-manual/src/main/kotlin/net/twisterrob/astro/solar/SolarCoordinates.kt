@@ -1,4 +1,4 @@
-package net.twisterrob.astro.bazi
+package net.twisterrob.astro.solar
 
 import net.twisterrob.astro.units.AU
 import net.twisterrob.astro.units.Deg

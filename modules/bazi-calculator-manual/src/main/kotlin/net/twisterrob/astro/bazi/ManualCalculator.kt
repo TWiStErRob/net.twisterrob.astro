@@ -6,7 +6,9 @@ import net.twisterrob.astro.bazi.lookup.sexagenaryCycle
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
+import net.twisterrob.astro.solar.SolarCoordinateApproximator
 import net.twisterrob.astro.units.canonicalMod
+import net.twisterrob.astro.units.julianDayTime
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
