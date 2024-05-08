@@ -23,9 +23,9 @@ console-reports:
 
 naming:
 
-  ClassNaming: 
+  ClassNaming:
     excludes: [ '**/src/test/kotlin/**', '**/src/testFixtures/kotlin/**' ]
-    
+  
   FunctionNaming:
     excludes: [ '**/src/test/kotlin/**', '**/src/testFixtures/kotlin/**' ]
 
