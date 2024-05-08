@@ -7,3 +7,14 @@ android {
 		applicationId = "net.twisterrob.bazi"
 	}
 }
+dependencies {
+	implementation(libs.androidx.coreKtx)
+	implementation(libs.androidx.lifecycleRuntimeKtx)
+	implementation(libs.androidx.activityCompose)
+
+	implementation(platform(libs.compose.bom))
+	implementation(libs.compose.ui)
+	implementation(libs.compose.uiGraphics)
+	implementation(libs.compose.uiToolingPreview)
+	implementation(libs.compose.material3)
+}
