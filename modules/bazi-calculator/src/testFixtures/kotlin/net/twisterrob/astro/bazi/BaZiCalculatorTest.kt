@@ -49,11 +49,11 @@ import java.time.Month
  */
 @Suppress(
 	"unused",
-	"detekt.UnnecessaryAbstractClass",
 	"detekt.MagicNumber",
+	"detekt.StringLiteralDuplication", // TODEL https://github.com/detekt/detekt/issues/7271
 	"detekt.UndocumentedPublicClass",
 	"detekt.UndocumentedPublicFunction",
-	"detekt.TooManyFunctions",
+	"detekt.UnnecessaryAbstractClass", // Needs to be abstract so JUnit doesn't run it.
 )
 abstract class BaZiCalculatorTest {
 
@@ -96,8 +96,8 @@ abstract class BaZiCalculatorTest {
 
 	@TestFactory fun `sexagenary hours`(): Iterable<DynamicNode> =
 		SexagenaryHourTestCase.ALL_KNOWN_CYCLES.map { cycle ->
-			val start = cycle.first().startTime.toLocalDate()
-			val end = cycle.last().endTime.toLocalDate()
+			val start = cycle.first().startTime
+			val end = cycle.last().endTime
 			dynamicContainer("cycle ${start}-${end}", cycle.map(subject::verifyHour))
 		}
 

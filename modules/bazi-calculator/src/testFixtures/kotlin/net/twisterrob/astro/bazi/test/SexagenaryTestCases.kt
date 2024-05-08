@@ -46,41 +46,39 @@ fun BaZiCalculator.verify(dateTime: LocalDateTime, expected: BaZi): DynamicNode 
 fun BaZiCalculator.verifyYear(tc: SexagenaryYearTestCase): DynamicNode =
 	dynamicContainer(
 		"${tc.year} year",
-		listOfNotNull(
-			dynamicTest("${tc.midDate} (middle) stem is ${tc.stem}") {
-				val result = this.calculate(tc.midDate)
+		dynamicTest("${tc.midDate} (middle) stem is ${tc.stem}") {
+			val result = this.calculate(tc.midDate)
+			result.year.heavenlyStem shouldBe tc.stem
+		},
+		dynamicTest("${tc.midDate} (middle) branch is ${tc.branch}") {
+			val result = this.calculate(tc.midDate)
+			result.year.earthlyBranch shouldBe tc.branch
+		},
+		// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
+		tc.solarStart?.let { startDate ->
+			dynamicTest("${startDate} (start) stem is ${tc.stem}") {
+				val result = this.calculate(startDate.plusMinutes(11))
 				result.year.heavenlyStem shouldBe tc.stem
-			},
-			dynamicTest("${tc.midDate} (middle) branch is ${tc.branch}") {
-				val result = this.calculate(tc.midDate)
+			}
+		},
+		tc.solarStart?.let { startDate ->
+			dynamicTest("${startDate} (start) branch is ${tc.branch}") {
+				val result = this.calculate(startDate.plusMinutes(11))
 				result.year.earthlyBranch shouldBe tc.branch
-			},
-			// TODO https://github.com/TWiStErRob/net.twisterrob.astro/issues/14
-			tc.solarStart?.let { startDate ->
-				dynamicTest("${startDate} (start) stem is ${tc.stem}") {
-					val result = this.calculate(startDate.plusMinutes(11))
-					result.year.heavenlyStem shouldBe tc.stem
-				}
-			},
-			tc.solarStart?.let { startDate ->
-				dynamicTest("${startDate} (start) branch is ${tc.branch}") {
-					val result = this.calculate(startDate.plusMinutes(11))
-					result.year.earthlyBranch shouldBe tc.branch
-				}
-			},
-			tc.solarEnd?.let { endDate ->
-				dynamicTest("${endDate} (end) stem is ${tc.stem}") {
-					val result = this.calculate(endDate.minusMinutes(12))
-					result.year.heavenlyStem shouldBe tc.stem
-				}
-			},
-			tc.solarEnd?.let { endDate ->
-				dynamicTest("${endDate} (end) branch is ${tc.branch}") {
-					val result = this.calculate(endDate.minusMinutes(12))
-					result.year.earthlyBranch shouldBe tc.branch
-				}
-			},
-		)
+			}
+		},
+		tc.solarEnd?.let { endDate ->
+			dynamicTest("${endDate} (end) stem is ${tc.stem}") {
+				val result = this.calculate(endDate.minusMinutes(12))
+				result.year.heavenlyStem shouldBe tc.stem
+			}
+		},
+		tc.solarEnd?.let { endDate ->
+			dynamicTest("${endDate} (end) branch is ${tc.branch}") {
+				val result = this.calculate(endDate.minusMinutes(12))
+				result.year.earthlyBranch shouldBe tc.branch
+			}
+		},
 	)
 
 /**
@@ -92,55 +90,53 @@ fun BaZiCalculator.verifySolarTerms(tc: SolarTermTestCase): DynamicNode {
 	val endTime = tc.endTime.minusMinutes(12)
 	return dynamicContainer(
 		"solar term ${tc.startTime}-${tc.endTime}",
-		listOfNotNull(
-			dynamicTest("${tc.midTime} (middle) stem is ${tc.stem}") {
-				val result = this.calculate(tc.midTime)
-				result.month.heavenlyStem shouldBe tc.stem
-			},
-			dynamicTest("${tc.midTime} (middle) branch is ${tc.branch}") {
-				val result = this.calculate(tc.midTime)
-				result.month.earthlyBranch shouldBe tc.branch
-			},
-			dynamicTest("${tc.startTime} (start) stem is ${tc.stem}") {
-				val result = this.calculate(startTime)
-				result.month.heavenlyStem shouldBe tc.stem
-			},
-			dynamicTest("${tc.startTime} (start) branch is ${tc.branch}") {
-				val result = this.calculate(startTime)
-				result.month.earthlyBranch shouldBe tc.branch
-			},
-			dynamicTest("${tc.endTime} (end) stem is ${tc.stem}") {
-				val result = this.calculate(endTime)
-				result.month.heavenlyStem shouldBe tc.stem
-			},
-			dynamicTest("${tc.endTime} (end) branch is ${tc.branch}") {
-				val result = this.calculate(endTime)
-				result.month.earthlyBranch shouldBe tc.branch
-			},
-			dynamicContainer(
-				"is ${tc.monthPillar} term in whole range",
-				// Test every day in the solar term's range.
-				(tc.startTime.plusDays(1).toLocalDate()..<tc.endTime.toLocalDate()).map { date ->
-					dynamicTest(date.toString()) {
-						val result = this.calculate(date)
-						result.month shouldBe tc.monthPillar
-					}
+		dynamicTest("${tc.midTime} (middle) stem is ${tc.stem}") {
+			val result = this.calculate(tc.midTime)
+			result.month.heavenlyStem shouldBe tc.stem
+		},
+		dynamicTest("${tc.midTime} (middle) branch is ${tc.branch}") {
+			val result = this.calculate(tc.midTime)
+			result.month.earthlyBranch shouldBe tc.branch
+		},
+		dynamicTest("${tc.startTime} (start) stem is ${tc.stem}") {
+			val result = this.calculate(startTime)
+			result.month.heavenlyStem shouldBe tc.stem
+		},
+		dynamicTest("${tc.startTime} (start) branch is ${tc.branch}") {
+			val result = this.calculate(startTime)
+			result.month.earthlyBranch shouldBe tc.branch
+		},
+		dynamicTest("${tc.endTime} (end) stem is ${tc.stem}") {
+			val result = this.calculate(endTime)
+			result.month.heavenlyStem shouldBe tc.stem
+		},
+		dynamicTest("${tc.endTime} (end) branch is ${tc.branch}") {
+			val result = this.calculate(endTime)
+			result.month.earthlyBranch shouldBe tc.branch
+		},
+		dynamicContainer(
+			"is ${tc.monthPillar} term in whole range",
+			// Test every day in the solar term's range.
+			*(tc.startTime.plusDays(1).toLocalDate()..<tc.endTime.toLocalDate()).map { date ->
+				dynamicTest(date.toString()) {
+					val result = this.calculate(date)
+					result.month shouldBe tc.monthPillar
 				}
-						// Test the start edge of the solar term in more granularity.
-						+ (startTime..<tc.startTime.plusDays(1)).map { date ->
-					dynamicTest(date.toString()) {
-						val result = this.calculate(date)
-						result.month shouldBe tc.monthPillar
-					}
+			}.toTypedArray(),
+			// Test the start edge of the solar term in more granularity.
+			*(startTime..<tc.startTime.plusDays(1)).map { date ->
+				dynamicTest(date.toString()) {
+					val result = this.calculate(date)
+					result.month shouldBe tc.monthPillar
 				}
-						// Test the end edge of the solar term in more granularity.
-						+ (tc.endTime.minusDays(1)..<endTime).map { date ->
-					dynamicTest(date.toString()) {
-						val result = this.calculate(date)
-						result.month shouldBe tc.monthPillar
-					}
+			}.toTypedArray(),
+			// Test the end edge of the solar term in more granularity.
+			*(tc.endTime.minusDays(1)..<endTime).map { date ->
+				dynamicTest(date.toString()) {
+					val result = this.calculate(date)
+					result.month shouldBe tc.monthPillar
 				}
-			)
+			}.toTypedArray()
 		)
 	)
 }
@@ -151,23 +147,21 @@ fun BaZiCalculator.verifySolarTerms(tc: SolarTermTestCase): DynamicNode {
 fun BaZiCalculator.verifyDay(name: String?, tc: SexagenaryDayTestCase): DynamicNode =
 	dynamicContainer(
 		"${if (name == null) "" else "${name}: "}#${tc.cyclicOrdinal}: ${tc.dayStem} ${tc.dayBranch}",
-		listOf(
-			dynamicContainer(
-				"${tc.date} all time",
-				(tc.date.atStartOfDay()..<tc.date.atStartOfDay().plusDays(1))
-					.filter { it.minute % 30 == 0 }
-					.map { time ->
-						dynamicTest("${time} is ${tc.dayPillar}") {
-							val result = this.calculate(time)
-							result.day shouldBe tc.dayPillar
-						}
+		dynamicContainer(
+			"${tc.date} all time",
+			(tc.date.atStartOfDay()..<tc.date.atStartOfDay().plusDays(1))
+				.filter { it.minute % 30 == 0 }
+				.map { time ->
+					dynamicTest("${time} is ${tc.dayPillar}") {
+						val result = this.calculate(time)
+						result.day shouldBe tc.dayPillar
 					}
-			),
-			dynamicTest("${tc.date} day") {
-				val result = this.calculate(tc.date)
-				result.day shouldBe tc.dayPillar
-			},
-		)
+				}
+		),
+		dynamicTest("${tc.date} day") {
+			val result = this.calculate(tc.date)
+			result.day shouldBe tc.dayPillar
+		},
 	)
 
 /**
@@ -177,64 +171,58 @@ fun BaZiCalculator.verifyHour(tc: SexagenaryHourTestCase): DynamicNode {
 	val justTheEnd = tc.endTime.minusMinutes(1)
 	return dynamicContainer(
 		"#${tc.cyclicOrdinal}: ${tc.dayStem} d ${tc.branchOfHour} h -> ${tc.hourPillar}",
-		listOf(
-			dynamicContainer(
-				"${tc.startTime}-${tc.endTime}",
-				(tc.startTime..<tc.endTime)
-					.map { time ->
-						dynamicTest("${time} is ${tc.hourPillar}") {
-							val result = this.calculate(time)
-							withClue("hour pillar") {
-								result.hour shouldBe tc.hourPillar
-							}
+		dynamicContainer(
+			"${tc.startTime}-${tc.endTime}",
+			(tc.startTime..<tc.endTime)
+				.map { time ->
+					dynamicTest("${time} is ${tc.hourPillar}") {
+						val result = this.calculate(time)
+						withClue("hour pillar") {
+							result.hour shouldBe tc.hourPillar
 						}
 					}
-			),
-			dynamicContainer(
-				"branch associations",
-				listOf(
-					dynamicTest("${tc.startTime} (start)") {
-						EarthlyBranch.atHour(tc.startTime.hour) shouldBe tc.branchOfHour
-					},
-					dynamicTest("${tc.midTime} (middle)") {
-						EarthlyBranch.atHour(tc.midTime.hour) shouldBe tc.branchOfHour
-					},
-					dynamicTest("${justTheEnd} (end)") {
-						EarthlyBranch.atHour(justTheEnd.hour) shouldBe tc.branchOfHour
-					},
-				),
-			),
-			dynamicContainer(
-				"day stem",
-				listOf(
-					dynamicTest("${tc.startTime} (start)") {
-						val expected = if (tc.branchOfHour == Zi && tc.startTime.hour >= 23) {
-							tc.dayStem.previous()
-						} else {
-							tc.dayStem
-						}
-						val result = this.calculate(tc.startTime)
-						result.day.heavenlyStem shouldBe expected
-					},
-					dynamicTest("${tc.midTime} (middle)") {
-						val result = this.calculate(tc.midTime)
-						result.day.heavenlyStem shouldBe tc.dayStem
-					},
-					dynamicTest("${justTheEnd} (end)") {
-						val result = this.calculate(justTheEnd)
-						result.day.heavenlyStem shouldBe tc.dayStem
-					},
-				),
-			),
-			dynamicTest("${tc.midTime} (middle) hour stem is ${tc.hourStem}") {
-				val result = this.calculate(tc.midTime)
-				result.hour?.heavenlyStem shouldBe tc.hourStem
+				}
+		),
+		dynamicContainer(
+			"branch associations",
+			dynamicTest("${tc.startTime} (start)") {
+				EarthlyBranch.atHour(tc.startTime.hour) shouldBe tc.branchOfHour
 			},
-			dynamicTest("${tc.midTime} (middle) hour branch is ${tc.hourBranch}") {
-				val result = this.calculate(tc.midTime)
-				result.hour?.earthlyBranch shouldBe tc.hourBranch
+			dynamicTest("${tc.midTime} (middle)") {
+				EarthlyBranch.atHour(tc.midTime.hour) shouldBe tc.branchOfHour
 			},
-		)
+			dynamicTest("${justTheEnd} (end)") {
+				EarthlyBranch.atHour(justTheEnd.hour) shouldBe tc.branchOfHour
+			},
+		),
+		dynamicContainer(
+			"day stem",
+			dynamicTest("${tc.startTime} (start)") {
+				val expected = if (tc.branchOfHour == Zi && tc.startTime.hour >= 23) {
+					tc.dayStem.previous()
+				} else {
+					tc.dayStem
+				}
+				val result = this.calculate(tc.startTime)
+				result.day.heavenlyStem shouldBe expected
+			},
+			dynamicTest("${tc.midTime} (middle)") {
+				val result = this.calculate(tc.midTime)
+				result.day.heavenlyStem shouldBe tc.dayStem
+			},
+			dynamicTest("${justTheEnd} (end)") {
+				val result = this.calculate(justTheEnd)
+				result.day.heavenlyStem shouldBe tc.dayStem
+			},
+		),
+		dynamicTest("${tc.midTime} (middle) hour stem is ${tc.hourStem}") {
+			val result = this.calculate(tc.midTime)
+			result.hour?.heavenlyStem shouldBe tc.hourStem
+		},
+		dynamicTest("${tc.midTime} (middle) hour branch is ${tc.hourBranch}") {
+			val result = this.calculate(tc.midTime)
+			result.hour?.earthlyBranch shouldBe tc.hourBranch
+		},
 	)
 }
 
@@ -246,3 +234,6 @@ private operator fun LocalDateTime.rangeUntil(endDate: LocalDateTime): Iterable<
 
 internal fun HeavenlyStem.previous(): HeavenlyStem =
 	HeavenlyStem.at((order - 1 - 1).canonicalMod(HeavenlyStem.COUNT) + 1)
+
+private fun dynamicContainer(name: String, vararg nodes: DynamicNode?): DynamicNode =
+	dynamicContainer(name, nodes.filterNotNull())
