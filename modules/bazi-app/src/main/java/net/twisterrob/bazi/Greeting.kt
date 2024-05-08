@@ -9,15 +9,18 @@ import net.twisterrob.bazi.ui.theme.AppTheme
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 	Text(
-		text = "Hello $name!",
+		text = greet(name),
 		modifier = modifier
 	)
 }
+
+internal fun greet(name: String): String =
+	"Hello ${name}!"
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
 	AppTheme {
-		Greeting("Android")
+		Greeting("Preview")
 	}
 }
