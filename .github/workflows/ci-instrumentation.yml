@@ -1,0 +1,31 @@
+name: "🧪 Instrumentation Test Matrix"
+
+on:
+  workflow_call:
+
+jobs:
+
+  instrumentation:
+    name: "${{ matrix.api }}"
+
+    uses: TWiStErRob/github-workflows/.github/workflows/instrumentation.yml@f44f69e4ba1bcbd6a7ecf29dba33342d23e3220c # v3
+    with:
+      android-api: ${{ matrix.api }}
+      script: >
+        ./gradlew
+        --continue
+        --stacktrace
+        --scan
+        connectedCheck
+        mergeAndroidReports
+
+    permissions:
+      contents: read
+      checks: write
+      statuses: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        api:
+          - 34
