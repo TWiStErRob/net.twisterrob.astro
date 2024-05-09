@@ -13,6 +13,7 @@ plugins {
 
 dependencies {
 	"testImplementation"(project(":test-helpers"))
+	"androidTestImplementation"(project(":test-helpers"))
 }
 
 androidComponents {
