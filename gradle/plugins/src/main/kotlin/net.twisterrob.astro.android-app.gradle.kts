@@ -9,13 +9,4 @@ android {
 	defaultConfig {
 		targetSdk = libs.versions.android.targetSdk.get().toInt()
 	}
-	buildTypes {
-		release {
-			isMinifyEnabled = false
-			proguardFiles(
-				getDefaultProguardFile("proguard-android-optimize.txt"),
-				"proguard-rules.pro"
-			)
-		}
-	}
 }
