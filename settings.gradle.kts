@@ -33,6 +33,7 @@ dependencyResolutionManagement {
 enableFeaturePreviewQuietly("TYPESAFE_PROJECT_ACCESSORS", "Type-safe project accessors")
 
 includeModule(":bazi-app")
+includeModule(":bazi-app-main")
 includeModule(":bazi-app-theme")
 includeModule(":bazi-widget")
 includeModule(":bazi-model")
