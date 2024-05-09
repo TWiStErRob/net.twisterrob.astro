@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-	api(projects.baziModel)
+	api(projects.domain.baziModel)
 }
