@@ -1,5 +1,5 @@
 plugins {
-	id("net.twisterrob.astro.app")
+	id("net.twisterrob.astro.android-app")
 }
 
 android {
