@@ -7,7 +7,7 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 
-fun Project.configureTestTask(task: Test) {
+internal fun Project.configureTestTask(task: Test) {
 	task.javaLauncher.set(javaToolchains.launcherFor {
 		languageVersion.set(JavaLanguageVersion.of(libs.versions.java.toolchainTest.get()))
 	})

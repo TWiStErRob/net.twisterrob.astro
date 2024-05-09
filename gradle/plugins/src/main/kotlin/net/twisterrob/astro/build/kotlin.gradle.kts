@@ -5,6 +5,12 @@ import net.twisterrob.astro.build.dsl.libs
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+plugins {
+	// One of these is implied.
+	// id("org.jetbrains.kotlin.jvm")
+	// id("org.jetbrains.kotlin.android")
+}
+
 dependencies {
 	"implementation"(libs.kotlin.stdlib)
 }
