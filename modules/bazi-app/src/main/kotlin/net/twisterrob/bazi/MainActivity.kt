@@ -10,6 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import net.twisterrob.bazi.ui.theme.AppTheme
 
+/**
+ * Application entry point, started from launcher icon.
+ */
 public class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

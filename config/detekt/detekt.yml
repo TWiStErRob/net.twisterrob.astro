@@ -70,6 +70,13 @@ comments:
   CommentOverPrivateFunction:
     # I want to be able to write comments for private functions if they're needed.
     active: false
+  
+  UndocumentedPublicClass:
+    excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
+  UndocumentedPublicFunction:
+    excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
+  UndocumentedPublicProperty:
+    excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
 
 
 libraries:
@@ -79,4 +86,4 @@ libraries:
     active: false
   
   LibraryCodeMustSpecifyReturnType:
-    excludes: [ '**/src/test/kotlin/**' ]
+    excludes: [ '**/src/test/kotlin/**', '**/src/sharedTest/kotlin/**' ]

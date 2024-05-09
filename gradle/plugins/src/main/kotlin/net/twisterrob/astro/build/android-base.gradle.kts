@@ -11,7 +11,7 @@ plugins {
 	id("org.jetbrains.kotlin.android")
 	id("net.twisterrob.astro.build.kotlin")
 //	id("net.twisterrob.astro.build.testing")
-//	id("net.twisterrob.astro.build.detekt")
+	id("net.twisterrob.astro.build.detekt")
 }
 
 android {

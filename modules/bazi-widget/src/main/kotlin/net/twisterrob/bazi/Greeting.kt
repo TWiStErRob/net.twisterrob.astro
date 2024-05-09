@@ -6,6 +6,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.bazi.ui.theme.AppTheme
 
+/**
+ * Basic widget to get something on screen.
+ */
 @Composable
 public fun Greeting(name: String, modifier: Modifier = Modifier) {
 	Text(

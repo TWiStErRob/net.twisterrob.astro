@@ -31,6 +31,9 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+/**
+ * The app's main theme.
+ */
 @Composable
 public fun AppTheme(
 	darkTheme: Boolean = isSystemInDarkTheme(),
@@ -39,10 +42,11 @@ public fun AppTheme(
 ) {
 	val colorScheme = when {
 		dynamicColor ->
-			if (darkTheme)
+			if (darkTheme) {
 				dynamicDarkColorScheme(LocalContext.current)
-			else
+			} else {
 				dynamicLightColorScheme(LocalContext.current)
+			}
 
 		darkTheme ->
 			DarkColorScheme

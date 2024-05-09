@@ -1,3 +1,8 @@
+@file:Suppress(
+	"detekt.MagicNumber",
+	"detekt.UndocumentedPublicProperty",
+)
+
 package net.twisterrob.bazi.ui.theme
 
 import androidx.compose.ui.graphics.Color
