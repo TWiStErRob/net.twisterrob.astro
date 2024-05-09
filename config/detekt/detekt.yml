@@ -24,12 +24,22 @@ console-reports:
 naming:
 
   ClassNaming:
-    # Include testFixtures among default test folders.
-    excludes: [ '**/src/test/kotlin/**', '**/src/testFixtures/kotlin/**' ]
+    excludes: &testExcludes
+      - '**/test/**'
+      # Include testFixtures among default test folders.
+      - '**/testFixtures/**'
+      # Include sharedTest among default test folders.
+      - '**/sharedTest/**'
+      - '**/androidTest/**'
+      - '**/commonTest/**'
+      - '**/jvmTest/**'
+      - '**/androidUnitTest/**'
+      - '**/androidInstrumentedTest/**'
+      - '**/jsTest/**'
+      - '**/iosTest/**'
 
   FunctionNaming:
-    # Include testFixtures among default test folders.
-    excludes: [ '**/src/test/kotlin/**', '**/src/testFixtures/kotlin/**' ]
+    excludes: *testExcludes
 
   FunctionMaxLength:
     ignoreAnnotated:
@@ -74,16 +84,15 @@ comments:
     active: false
 
   UndocumentedPublicClass:
-    # Include sharedTest among default test folders.
-    excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
+    excludes: *testExcludes
 
   UndocumentedPublicFunction:
     # Include sharedTest among default test folders.
-    excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
+    excludes: *testExcludes
 
   UndocumentedPublicProperty:
     # Include sharedTest among default test folders.
-    excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
+    excludes: *testExcludes
 
 
 libraries:
@@ -93,5 +102,4 @@ libraries:
     active: false
 
   LibraryCodeMustSpecifyReturnType:
-    # Include sharedTest among default test folders.
-    excludes: [ '**/src/test/kotlin/**', '**/src/sharedTest/kotlin/**' ]
+    excludes: *testExcludes
