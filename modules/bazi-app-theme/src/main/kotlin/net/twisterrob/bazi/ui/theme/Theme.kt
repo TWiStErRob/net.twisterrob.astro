@@ -32,7 +32,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun AppTheme(
+public fun AppTheme(
 	darkTheme: Boolean = isSystemInDarkTheme(),
 	dynamicColor: Boolean = true,
 	content: @Composable () -> Unit,

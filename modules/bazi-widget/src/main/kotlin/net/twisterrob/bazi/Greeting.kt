@@ -7,7 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.bazi.ui.theme.AppTheme
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+public fun Greeting(name: String, modifier: Modifier = Modifier) {
 	Text(
 		text = greet(name),
 		modifier = modifier
@@ -19,7 +19,7 @@ internal fun greet(name: String): String =
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+private fun GreetingPreview() {
 	AppTheme {
 		Greeting("Preview")
 	}

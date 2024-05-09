@@ -85,6 +85,6 @@ androidComponents {
 }
 
 kotlin {
-	//explicitApi = ExplicitApiMode.Strict
+	explicitApi = ExplicitApiMode.Strict
 	jvmToolchain(libs.versions.java.toolchain.get().toInt())
 }

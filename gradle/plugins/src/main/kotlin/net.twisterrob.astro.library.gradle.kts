@@ -12,8 +12,5 @@ plugins {
 
 kotlin {
 	explicitApi = ExplicitApiMode.Strict
-}
-
-kotlin {
 	jvmToolchain(libs.versions.java.toolchain.get().toInt())
 }
