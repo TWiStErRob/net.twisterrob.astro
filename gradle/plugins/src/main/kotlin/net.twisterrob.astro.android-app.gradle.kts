@@ -1,5 +1,3 @@
-import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
-
 plugins {
 	id("com.android.application")
 	id("net.twisterrob.astro.build.android-base")

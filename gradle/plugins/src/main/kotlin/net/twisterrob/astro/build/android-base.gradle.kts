@@ -1,11 +1,10 @@
 package net.twisterrob.astro.build
 
 import com.android.build.api.variant.HasUnitTestBuilder
-import net.twisterrob.astro.build.dsl.isIdeaSync
-import net.twisterrob.astro.build.dsl.libs
 import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.androidComponents
-import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
+import net.twisterrob.astro.build.dsl.isIdeaSync
+import net.twisterrob.astro.build.dsl.libs
 
 plugins {
 	id("com.android.base")
@@ -82,9 +81,4 @@ androidComponents {
 	beforeVariants { variantBuilder ->
 		(variantBuilder as HasUnitTestBuilder).enableUnitTest = variantBuilder.buildType == "debug"
 	}
-}
-
-kotlin {
-	explicitApi = ExplicitApiMode.Strict
-	jvmToolchain(libs.versions.java.toolchain.get().toInt())
 }

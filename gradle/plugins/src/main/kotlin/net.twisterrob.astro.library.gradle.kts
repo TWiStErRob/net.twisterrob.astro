@@ -1,6 +1,3 @@
-import net.twisterrob.astro.build.dsl.libs
-import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
-
 plugins {
 	//noinspection JavaPluginLanguageLevel
 	id("org.gradle.java-library")
@@ -8,9 +5,4 @@ plugins {
 	id("net.twisterrob.astro.build.kotlin")
 	id("net.twisterrob.astro.build.testing")
 	id("net.twisterrob.astro.build.detekt")
-}
-
-kotlin {
-	explicitApi = ExplicitApiMode.Strict
-	jvmToolchain(libs.versions.java.toolchain.get().toInt())
 }
