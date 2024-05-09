@@ -35,7 +35,7 @@ class AppThemeUiTest {
 	fun testDynamicLight() {
 		compose.setContent {
 			LocalConfiguration.current.uiModeNight = Configuration.UI_MODE_NIGHT_NO
-			AppTheme { assertLightMode() }
+			AppTheme { AssertLightMode() }
 		}
 	}
 
@@ -43,7 +43,7 @@ class AppThemeUiTest {
 	fun testDynamicDark() {
 		compose.setContent {
 			LocalConfiguration.current.uiModeNight = Configuration.UI_MODE_NIGHT_YES
-			AppTheme { assertDarkMode() }
+			AppTheme { AssertDarkMode() }
 		}
 	}
 
@@ -51,7 +51,7 @@ class AppThemeUiTest {
 	fun testNonDynamicLight() {
 		compose.setContent {
 			LocalConfiguration.current.uiModeNight = Configuration.UI_MODE_NIGHT_NO
-			AppTheme(dynamicColor = false) { assertLightMode() }
+			AppTheme(dynamicColor = false) { AssertLightMode() }
 		}
 	}
 
@@ -59,21 +59,21 @@ class AppThemeUiTest {
 	fun testNonDynamicDark() {
 		compose.setContent {
 			LocalConfiguration.current.uiModeNight = Configuration.UI_MODE_NIGHT_YES
-			AppTheme(dynamicColor = false) { assertDarkMode() }
+			AppTheme(dynamicColor = false) { AssertDarkMode() }
 		}
 	}
 
 	@Test
 	fun testExplicitLight() {
 		compose.setContent {
-			AppTheme(darkTheme = false) { assertLightMode() }
+			AppTheme(darkTheme = false) { AssertLightMode() }
 		}
 	}
 
 	@Test
 	fun testExplicitDark() {
 		compose.setContent {
-			AppTheme(darkTheme = true) { assertDarkMode() }
+			AppTheme(darkTheme = true) { AssertDarkMode() }
 		}
 	}
 }
@@ -82,18 +82,19 @@ private var Configuration.uiModeNight: Int
 	get() = uiMode and Configuration.UI_MODE_NIGHT_MASK
 	set(value) {
 		apply {
-			uiMode = (uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or value
+			val withoutNightMode = uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()
+			uiMode = withoutNightMode or value
 		}
 	}
 
 @Composable
-private fun assertLightMode() {
+private fun AssertLightMode() {
 	MaterialTheme.colorScheme.background should beLight()
 	MaterialTheme.colorScheme.onBackground should beDark()
 }
 
 @Composable
-private fun assertDarkMode() {
+private fun AssertDarkMode() {
 	MaterialTheme.colorScheme.background should beDark()
 	MaterialTheme.colorScheme.onBackground should beLight()
 }
@@ -102,6 +103,7 @@ private fun beDark(): Matcher<Color> =
 	object : Matcher<Color> {
 		override fun test(value: Color): MatcherResult {
 			val luminance = value.luminance()
+			@Suppress("detekt.MagicNumber")
 			val dark = 0.25f
 			return MatcherResult(
 				luminance < dark,
@@ -115,6 +117,7 @@ private fun beLight(): Matcher<Color> =
 	object : Matcher<Color> {
 		override fun test(value: Color): MatcherResult {
 			val luminance = value.luminance()
+			@Suppress("detekt.MagicNumber")
 			val light = 0.75f
 			return MatcherResult(
 				luminance > light,
