@@ -2,7 +2,9 @@ package net.twisterrob.bazi
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Assert.assertEquals
+import io.kotest.matchers.should
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.beInstanceOf
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -13,6 +15,13 @@ class AppInstrumentedTest {
 	fun testPackageName() {
 		val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-		assertEquals("net.twisterrob.bazi", appContext.packageName)
+		appContext.packageName shouldBe "net.twisterrob.bazi"
+	}
+
+	@Test
+	fun testApplicationClass() {
+		val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
+		appContext.applicationContext should beInstanceOf<App>()
 	}
 }
