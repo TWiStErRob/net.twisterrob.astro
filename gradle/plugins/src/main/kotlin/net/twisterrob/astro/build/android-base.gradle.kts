@@ -1,9 +1,6 @@
 package net.twisterrob.astro.build
 
-import com.android.build.api.variant.HasUnitTestBuilder
 import net.twisterrob.astro.build.dsl.android
-import net.twisterrob.astro.build.dsl.androidComponents
-import net.twisterrob.astro.build.dsl.isIdeaSync
 import net.twisterrob.astro.build.dsl.libs
 
 plugins {
@@ -24,44 +21,8 @@ android {
 	defaultConfig {
 		minSdk = 34
 
-		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 		vectorDrawables {
 			useSupportLibrary = true
-		}
-	}
-	@Suppress("UnstableApiUsage")
-	testOptions {
-		unitTests {
-			isIncludeAndroidResources = true
-		}
-		managedDevices {
-			localDevices {
-				// ./gradlew pixel7ProApi34DebugAndroidTest
-				create("pixel7ProApi34") {
-					device = "Pixel 7 Pro"
-					apiLevel = 34
-					systemImageSource = "aosp-atd"
-					require64Bit = true
-				}
-			}
-			groups {
-				// ./gradlew defaultGroupDebugAndroidTest
-				create("default") {
-					targetDevices.add(devices["pixel7ProApi34"])
-				}
-			}
-		}
-	}
-	sourceSets {
-		named("test") {
-			kotlin.srcDir("src/sharedTest/kotlin")
-		}
-		if (!isIdeaSync) {
-			// Only attach the source folder not during sync,
-			// because Android Studio is not capable of handling the same test in multiple sourceSets.
-			named("androidTest") {
-				kotlin.srcDir("src/sharedTest/kotlin")
-			}
 		}
 	}
 	buildFeatures {
@@ -74,11 +35,5 @@ android {
 		resources {
 			excludes += "/META-INF/{AL2.0,LGPL2.1}"
 		}
-	}
-}
-
-androidComponents {
-	beforeVariants { variantBuilder ->
-		(variantBuilder as HasUnitTestBuilder).enableUnitTest = variantBuilder.buildType == "debug"
 	}
 }
