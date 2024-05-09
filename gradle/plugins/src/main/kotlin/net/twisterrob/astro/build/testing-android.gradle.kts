@@ -12,8 +12,8 @@ plugins {
 }
 
 dependencies {
-	"testImplementation"(project(":test-helpers"))
-	"androidTestImplementation"(project(":test-helpers"))
+	"testImplementation"(project(":component:test-base-unit"))
+	"androidTestImplementation"(project(":component:test-base-unit"))
 }
 
 androidComponents {

@@ -13,7 +13,7 @@ testing.suites.withType<JvmTestSuite>().configureEach {
 	useJUnitJupiter(libs.versions.junit.jupiter)
 
 	dependencies {
-		implementation(project(":test-helpers"))
+		implementation(project(":component:test-base-unit"))
 	}
 
 	targets.configureEach {
@@ -22,5 +22,5 @@ testing.suites.withType<JvmTestSuite>().configureEach {
 }
 
 dependencies {
-	testFixturesImplementation(project(":test-helpers"))
+	testFixturesImplementation(project(":component:test-base-unit"))
 }

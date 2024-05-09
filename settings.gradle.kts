@@ -32,18 +32,21 @@ dependencyResolutionManagement {
 
 enableFeaturePreviewQuietly("TYPESAFE_PROJECT_ACCESSORS", "Type-safe project accessors")
 
-includeModule(":bazi-app")
-includeModule(":bazi-app-main")
-includeModule(":bazi-app-theme")
-includeModule(":bazi-widget")
-includeModule(":bazi-model")
-includeModule(":bazi-calculator")
-includeModule(":bazi-calculator-group44")
-includeModule(":bazi-calculator-solar")
-includeModule(":bazi-calculator-wikipedia")
-includeModule(":test-helpers")
+includeGroup(":bazi-app")
+includeGroup(":bazi-app-main")
+includeGroup(":bazi-app-theme")
+includeGroup(":bazi-widget")
+includeGroup(":domain")
+include(":domain:bazi-model")
+include(":domain:bazi-calculator")
+include(":domain:bazi-calculator:base")
+include(":domain:bazi-calculator:group44")
+include(":domain:bazi-calculator:solar")
+include(":domain:bazi-calculator:wikipedia")
+includeGroup(":component")
+include(":component:test-base-unit")
 
-fun includeModule(path: String) {
+fun includeGroup(path: String) {
 	include(path)
 	val module = project(path)
 	module.projectDir = file("modules").resolve(module.projectDir.relativeTo(settings.rootDir))
