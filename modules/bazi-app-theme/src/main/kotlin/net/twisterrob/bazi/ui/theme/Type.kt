@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.sp
 /**
  * Default typography for the app.
  */
-public val Typography: Typography = Typography(
+public val AppTypography: Typography = Typography(
 	bodyLarge = TextStyle(
 		fontFamily = FontFamily.Default,
 		fontWeight = FontWeight.Normal,

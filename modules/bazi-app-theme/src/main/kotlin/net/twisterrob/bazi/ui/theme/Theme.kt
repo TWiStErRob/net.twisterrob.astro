@@ -1,6 +1,8 @@
 package net.twisterrob.bazi.ui.theme
 
+import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -40,12 +42,20 @@ public fun AppTheme(
 	dynamicColor: Boolean = true,
 	content: @Composable () -> Unit,
 ) {
-	val colorScheme = when {
+	MaterialTheme(
+		colorScheme = LocalContext.current.colorScheme(dynamicColor, darkTheme),
+		typography = AppTypography,
+		content = content
+	)
+}
+
+private fun Context.colorScheme(dynamicColor: Boolean, darkTheme: Boolean): ColorScheme =
+	when {
 		dynamicColor ->
 			if (darkTheme) {
-				dynamicDarkColorScheme(LocalContext.current)
+				dynamicDarkColorScheme(this)
 			} else {
-				dynamicLightColorScheme(LocalContext.current)
+				dynamicLightColorScheme(this)
 			}
 
 		darkTheme ->
@@ -54,10 +64,3 @@ public fun AppTheme(
 		else ->
 			LightColorScheme
 	}
-
-	MaterialTheme(
-		colorScheme = colorScheme,
-		typography = Typography,
-		content = content
-	)
-}
