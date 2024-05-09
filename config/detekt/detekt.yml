@@ -13,7 +13,7 @@ console-reports:
   exclude:
     # Disabled because I don't want to see what kind of reports are generate every time I run detekt.
     - 'NotificationReport'
-    # Disabled because it's very verbose. 
+    # Disabled because it's very verbose.
     - 'FindingsReport'
     # Disabled because it's very verbose, even more so than FindingsReport.
     - 'FileBasedFindingsReport'
@@ -24,9 +24,11 @@ console-reports:
 naming:
 
   ClassNaming:
+    # Include testFixtures among default test folders.
     excludes: [ '**/src/test/kotlin/**', '**/src/testFixtures/kotlin/**' ]
-  
+
   FunctionNaming:
+    # Include testFixtures among default test folders.
     excludes: [ '**/src/test/kotlin/**', '**/src/testFixtures/kotlin/**' ]
 
   FunctionMaxLength:
@@ -70,12 +72,17 @@ comments:
   CommentOverPrivateFunction:
     # I want to be able to write comments for private functions if they're needed.
     active: false
-  
+
   UndocumentedPublicClass:
+    # Include sharedTest among default test folders.
     excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
+
   UndocumentedPublicFunction:
+    # Include sharedTest among default test folders.
     excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
+
   UndocumentedPublicProperty:
+    # Include sharedTest among default test folders.
     excludes: [ '**/test/**', '**/sharedTest/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
 
 
@@ -84,6 +91,7 @@ libraries:
   LibraryEntitiesShouldNotBePublic:
     # Calm down, I'm using Kotlin's strict explicit API mode.
     active: false
-  
+
   LibraryCodeMustSpecifyReturnType:
+    # Include sharedTest among default test folders.
     excludes: [ '**/src/test/kotlin/**', '**/src/sharedTest/kotlin/**' ]

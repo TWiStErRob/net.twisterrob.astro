@@ -23,15 +23,20 @@ style:
 
 compose: # Kode
   ComposableEventParameterNaming:
+    # Enable default-disabled rule.
     active: true
   TopLevelComposableFunctions:
+    # Enable default-disabled rule.
     active: true
   ConditionCouldBeLifted:
+    # Enable default-disabled rule.
     active: true
 
 
 Compose: # Twitter
   Material2:
+    # Enable default-disabled rule.
     active: true
   UnstableCollections:
+    # Enable default-disabled rule.
     active: true
