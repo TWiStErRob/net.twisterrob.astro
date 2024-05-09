@@ -16,10 +16,10 @@ android {
 		.replace("-", ".")
 		.replace(":", ".")
 	namespace = "net.twisterrob.astro${subPackage}"
-	compileSdk = 34
+	compileSdk = libs.versions.android.compileSdk.get().toInt()
 
 	defaultConfig {
-		minSdk = 34
+		minSdk = libs.versions.android.minSdk.get().toInt()
 
 		vectorDrawables {
 			useSupportLibrary = true

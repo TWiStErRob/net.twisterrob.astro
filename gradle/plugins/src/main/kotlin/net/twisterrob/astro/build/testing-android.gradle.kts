@@ -4,6 +4,7 @@ import com.android.build.api.variant.HasUnitTestBuilder
 import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.androidComponents
 import net.twisterrob.astro.build.dsl.isIdeaSync
+import net.twisterrob.astro.build.dsl.libs
 import net.twisterrob.astro.build.testing.configureTestTask
 
 plugins {
@@ -45,11 +46,12 @@ android {
 			}
 		}
 		managedDevices {
+			val minSdk = libs.versions.android.minSdk.get().toInt()
 			localDevices {
 				// ./gradlew pixel7ProApi34DebugAndroidTest
-				create("pixel7ProApi34") {
+				create("pixel7ProApi${minSdk}") {
 					device = "Pixel 7 Pro"
-					apiLevel = 34
+					apiLevel = minSdk
 					systemImageSource = "aosp-atd"
 					require64Bit = true
 				}
@@ -57,7 +59,7 @@ android {
 			groups {
 				// ./gradlew defaultGroupDebugAndroidTest
 				create("default") {
-					targetDevices.add(devices["pixel7ProApi34"])
+					targetDevices.add(devices["pixel7ProApi${minSdk}"])
 				}
 			}
 		}

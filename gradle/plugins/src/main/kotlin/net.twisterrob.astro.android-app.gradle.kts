@@ -1,3 +1,5 @@
+import net.twisterrob.astro.build.dsl.libs
+
 plugins {
 	id("com.android.application")
 	id("net.twisterrob.astro.build.android-base")
@@ -5,7 +7,7 @@ plugins {
 
 android {
 	defaultConfig {
-		targetSdk = 34
+		targetSdk = libs.versions.android.targetSdk.get().toInt()
 	}
 	buildTypes {
 		release {
