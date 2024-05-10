@@ -78,11 +78,11 @@ jobs:
           junit_files: |
             **/build/test-results/*/TEST-*UiTest.xml
 
-      - name: "Publish 'Big Unit Results' check suite."
+      - name: "Publish 'Unit (Parameterized) Results' check suite."
         if: ${{ success() || failure() }}
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          check_name: '🔔 Test: Big Unit Results'
+          check_name: '🔔 Test: Unit (Parameterized) Results'
           comment_mode: off
           report_individual_runs: true
           test_changes_limit: 0
