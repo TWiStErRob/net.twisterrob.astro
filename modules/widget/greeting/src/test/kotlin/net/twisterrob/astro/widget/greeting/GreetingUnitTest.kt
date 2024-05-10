@@ -1,12 +1,12 @@
 package net.twisterrob.astro.widget.greeting
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.Test
 
 class GreetingUnitTest {
 
 	@Test
 	fun testGreet() {
-		assertEquals("Hello Name!", greet("Name"))
+		greet("Name") shouldBe "Hello Name!"
 	}
 }

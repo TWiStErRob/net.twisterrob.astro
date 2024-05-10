@@ -12,5 +12,6 @@ internal fun Project.configureTestTask(task: Test) {
 		languageVersion.set(JavaLanguageVersion.of(libs.versions.java.toolchainTest.get()))
 	})
 	task.ignoreFailures = isCI.get()
+	task.useJUnitPlatform()
 	task.systemProperties(junitPlatformProperties())
 }
