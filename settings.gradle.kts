@@ -32,10 +32,12 @@ dependencyResolutionManagement {
 
 enableFeaturePreviewQuietly("TYPESAFE_PROJECT_ACCESSORS", "Type-safe project accessors")
 
-includeGroup(":bazi-app")
-includeGroup(":bazi-app-main")
-includeGroup(":bazi-app-theme")
-includeGroup(":bazi-widget")
+includeGroup(":app")
+include(":app:bazi")
+includeGroup(":feature")
+include(":feature:main")
+includeGroup(":widget")
+include(":widget:greeting")
 includeGroup(":domain")
 include(":domain:bazi-model")
 include(":domain:bazi-calculator")
@@ -45,6 +47,7 @@ include(":domain:bazi-calculator:solar")
 include(":domain:bazi-calculator:wikipedia")
 includeGroup(":component")
 include(":component:test-base-unit")
+include(":component:theme")
 
 fun includeGroup(path: String) {
 	include(path)

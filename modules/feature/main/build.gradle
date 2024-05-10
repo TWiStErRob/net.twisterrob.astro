@@ -3,8 +3,8 @@ plugins {
 }
 
 dependencies {
-	implementation(projects.baziAppTheme)
-	implementation(projects.baziWidget)
+	implementation(projects.component.theme)
+	implementation(projects.widget.greeting)
 	implementation(libs.androidx.coreKtx)
 	implementation(libs.androidx.lifecycleRuntimeKtx)
 	implementation(libs.androidx.activityCompose)
