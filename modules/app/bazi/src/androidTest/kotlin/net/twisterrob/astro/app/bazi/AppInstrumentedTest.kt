@@ -1,7 +1,8 @@
 package net.twisterrob.astro.app.bazi
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.beInstanceOf
@@ -13,15 +14,15 @@ class AppInstrumentedTest {
 
 	@Test
 	fun testPackageName() {
-		val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+		val appContext: Context = ApplicationProvider.getApplicationContext()
 
 		appContext.packageName shouldBe "net.twisterrob.bazi"
 	}
 
 	@Test
 	fun testApplicationClass() {
-		val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+		val appContext: Context = ApplicationProvider.getApplicationContext()
 
-		appContext.applicationContext should beInstanceOf<App>()
+		appContext should beInstanceOf<App>()
 	}
 }
