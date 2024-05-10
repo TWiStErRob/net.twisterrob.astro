@@ -1,0 +1,13 @@
+plugins {
+	id("net.twisterrob.astro.library")
+}
+
+dependencies { // testImplementation(projects.component.testBaseRobolectric)
+	api(projects.component.testBaseUnit)
+
+	api(libs.test.junit)
+	api(libs.test.robolectric)
+
+	api(platform(libs.compose.bom))
+	api(libs.test.compose.junit)
+}

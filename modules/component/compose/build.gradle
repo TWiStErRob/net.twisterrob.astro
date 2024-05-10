@@ -1,0 +1,16 @@
+plugins {
+	id("net.twisterrob.astro.android-library")
+}
+
+dependencies {
+	api(libs.androidx.activityCompose)
+
+	api(platform(libs.compose.bom))
+	api(libs.compose.ui)
+	api(libs.compose.uiGraphics)
+	api(libs.compose.uiToolingPreview)
+	api(libs.compose.material3)
+
+	debugImplementation(libs.compose.uiTooling)
+	debugImplementation(libs.compose.uiTestManifest)
+}

@@ -1,0 +1,12 @@
+plugins {
+	id("net.twisterrob.astro.android-library")
+}
+
+dependencies { // androidTestImplementation(projects.component.testBaseInstrumentation)
+	api(platform(libs.compose.bom))
+
+	api(libs.test.androidx.junit)
+	api(libs.test.compose.junit)
+	api(libs.test.androidx.espressoCore)
+	api(libs.test.kotest.assertions)
+}

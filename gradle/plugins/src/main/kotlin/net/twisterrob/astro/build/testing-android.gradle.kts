@@ -12,8 +12,8 @@ plugins {
 }
 
 dependencies {
-	"testImplementation"(project(":component:test-base-unit"))
-	"androidTestImplementation"(project(":component:test-base-unit"))
+	"testImplementation"(project(":component:test-base-robolectric"))
+	"androidTestImplementation"(project(":component:test-base-instrumentation"))
 }
 
 androidComponents {
@@ -42,8 +42,21 @@ android {
 	testOptions {
 		unitTests {
 			isIncludeAndroidResources = true
-			all {
-				configureTestTask(it)
+			all { task ->
+				configureTestTask(task)
+				// Workaround for this warning/error in modules without any test sources:
+				// > > Task :component:compose:testDebugUnitTest
+				// > No test executed. This behavior has been deprecated.
+				// > This will fail with an error in Gradle 9.0.
+				// > There are test sources present but no test was executed.
+				// > Please check your test configuration.
+				// > Consult the upgrading guide for further information:
+				// > https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#test_task_fail_on_no_test_executed
+				// The issue is that this file is present on the Test.candidateClassFiles classpath:
+				// `build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debugUnitTest/processDebugUnitTestResources/R.jar`
+				// and that makes it look like there are tests, when the test sourceSet folders are empty.
+				// Excluding R.jar files will make it run as `:...:testDebugUnitTest NO-SOURCE`.
+				task.exclude("R.jar")
 			}
 		}
 		managedDevices {

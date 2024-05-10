@@ -3,27 +3,5 @@ plugins {
 }
 
 dependencies {
-	implementation(projects.component.theme)
-	
-	implementation(libs.androidx.coreKtx)
-	implementation(libs.androidx.lifecycleRuntimeKtx)
-	implementation(libs.androidx.activityCompose)
-
-	implementation(platform(libs.compose.bom))
-	implementation(libs.compose.ui)
-	implementation(libs.compose.uiGraphics)
-	implementation(libs.compose.uiToolingPreview)
-	implementation(libs.compose.material3)
-
-	debugImplementation(libs.compose.uiTooling)
-	debugImplementation(libs.compose.uiTestManifest)
-	testImplementation(platform(libs.compose.bom))
-	testImplementation(libs.test.junit)
-	testImplementation(libs.test.robolectric)
-	testImplementation(libs.test.compose.junit)
-
-	androidTestImplementation(platform(libs.compose.bom))
-	androidTestImplementation(libs.test.androidx.junit)
-	androidTestImplementation(libs.test.compose.junit)
-	androidTestImplementation(libs.test.androidx.espressoCore)
+	implementation(projects.component.compose)
 }
