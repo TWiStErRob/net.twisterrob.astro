@@ -1,18 +1,23 @@
 package net.twisterrob.astro.build
 
+import net.twisterrob.astro.build.dsl.kotlin
 import net.twisterrob.astro.build.dsl.libs
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.jetbrains.kotlin.jvm")
-}
-
-kotlin {
-	jvmToolchain(libs.versions.java.toolchain.get().toInt())
+	// One of these is implied.
+	// id("org.jetbrains.kotlin.jvm")
+	// id("org.jetbrains.kotlin.android")
 }
 
 dependencies {
-	implementation(libs.kotlin.stdlib)
+	"implementation"(libs.kotlin.stdlib)
+}
+
+kotlin {
+	explicitApi = ExplicitApiMode.Strict
+	jvmToolchain(libs.versions.java.toolchain.get().toInt())
 }
 
 // TODO kotlin.target.compilerOptions { ... }

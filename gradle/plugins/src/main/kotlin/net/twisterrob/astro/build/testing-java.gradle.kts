@@ -1,8 +1,7 @@
 package net.twisterrob.astro.build
 
-import net.twisterrob.astro.build.dsl.isCI
 import net.twisterrob.astro.build.dsl.libs
-import java.util.Properties
+import net.twisterrob.astro.build.testing.configureTestTask
 
 plugins {
 	id("org.gradle.java")
@@ -18,18 +17,7 @@ testing.suites.withType<JvmTestSuite>().configureEach {
 	}
 
 	targets.configureEach {
-		testTask.configure {
-			javaLauncher.set(javaToolchains.launcherFor {
-				languageVersion.set(JavaLanguageVersion.of(libs.versions.java.toolchainTest.get()))
-			})
-			ignoreFailures = isCI.get()
-			systemProperties(
-				rootProject.file("config/junit/junit-platform.properties")
-					.reader()
-					.use { Properties().apply { load(it) } }
-					.mapKeys { (k, _) -> k.toString() }
-			)
-		}
+		testTask.configure { configureTestTask(this) }
 	}
 }
 

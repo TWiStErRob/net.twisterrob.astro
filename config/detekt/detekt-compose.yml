@@ -1,0 +1,42 @@
+complexity:
+  TooManyFunctions:
+    ignoreAnnotatedFunctions:
+      - 'androidx.compose.ui.tooling.preview.Preview'
+
+
+naming:
+
+  FunctionNaming:
+    ignoreAnnotated:
+      - 'androidx.compose.runtime.Composable'
+
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+
+
+style:
+
+  UnusedPrivateMember:
+    ignoreAnnotated:
+      - 'androidx.compose.ui.tooling.preview.Preview'
+
+
+compose: # Kode
+  ComposableEventParameterNaming:
+    # Enable default-disabled rule.
+    active: true
+  TopLevelComposableFunctions:
+    # Enable default-disabled rule.
+    active: true
+  ConditionCouldBeLifted:
+    # Enable default-disabled rule.
+    active: true
+
+
+Compose: # Twitter
+  Material2:
+    # Enable default-disabled rule.
+    active: true
+  UnstableCollections:
+    # Enable default-disabled rule.
+    active: true

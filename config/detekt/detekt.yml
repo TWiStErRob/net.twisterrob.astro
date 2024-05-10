@@ -13,7 +13,7 @@ console-reports:
   exclude:
     # Disabled because I don't want to see what kind of reports are generate every time I run detekt.
     - 'NotificationReport'
-    # Disabled because it's very verbose. 
+    # Disabled because it's very verbose.
     - 'FindingsReport'
     # Disabled because it's very verbose, even more so than FindingsReport.
     - 'FileBasedFindingsReport'
@@ -23,11 +23,23 @@ console-reports:
 
 naming:
 
-  ClassNaming: 
-    excludes: [ '**/src/test/kotlin/**', '**/src/testFixtures/kotlin/**' ]
-    
+  ClassNaming:
+    excludes: &testExcludes
+      - '**/test/**'
+      # Include testFixtures among default test folders.
+      - '**/testFixtures/**'
+      # Include sharedTest among default test folders.
+      - '**/sharedTest/**'
+      - '**/androidTest/**'
+      - '**/commonTest/**'
+      - '**/jvmTest/**'
+      - '**/androidUnitTest/**'
+      - '**/androidInstrumentedTest/**'
+      - '**/jsTest/**'
+      - '**/iosTest/**'
+
   FunctionNaming:
-    excludes: [ '**/src/test/kotlin/**', '**/src/testFixtures/kotlin/**' ]
+    excludes: *testExcludes
 
   FunctionMaxLength:
     ignoreAnnotated:
@@ -71,12 +83,23 @@ comments:
     # I want to be able to write comments for private functions if they're needed.
     active: false
 
+  UndocumentedPublicClass:
+    excludes: *testExcludes
+
+  UndocumentedPublicFunction:
+    # Include sharedTest among default test folders.
+    excludes: *testExcludes
+
+  UndocumentedPublicProperty:
+    # Include sharedTest among default test folders.
+    excludes: *testExcludes
+
 
 libraries:
 
   LibraryEntitiesShouldNotBePublic:
     # Calm down, I'm using Kotlin's strict explicit API mode.
     active: false
-  
+
   LibraryCodeMustSpecifyReturnType:
-    excludes: [ '**/src/test/kotlin/**' ]
+    excludes: *testExcludes

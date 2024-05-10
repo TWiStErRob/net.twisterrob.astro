@@ -30,3 +30,12 @@ jobs:
       contents: read
       security-events: write
       checks: write
+
+  instrumentation:
+    name: "🧪 Instrumentation Tests on" # / API ${{ matrix.api }} will be appended by used workflow.
+    needs: validate
+    uses: ./.github/workflows/ci-instrumentation.yml
+    permissions:
+      contents: read
+      checks: write
+      statuses: write

@@ -1,6 +1,7 @@
 # IDEA
 /.idea/
 !/.idea/runConfigurations/
+/gradle/plugins/.idea/
 
 # Gradle
 .gradle/
@@ -9,6 +10,9 @@
 /modules/*/build/
 /modules/*/*/build/
 /modules/*/*/*/build/
+
+# Android
+local.properties
 
 # Other
 /temp/

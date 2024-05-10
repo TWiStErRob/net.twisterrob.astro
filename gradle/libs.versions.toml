@@ -2,24 +2,60 @@
 java-toolchain = "17"
 java-toolchainTest = "17"
 java-target = "17"
+android-compileSdk = "34"
+android-minSdk = "34"
+android-targetSdk = "34"
+agp = "8.4.0"
 kotlin = "1.9.24"
+kotlin-composeCompiler = "1.5.14-dev-k1.9.24-50022def4af"
 
 detekt = "1.23.6"
-jsr305 = "3.0.2"
+detekt-kode = "1.3.0"
+detekt-twitter = "0.3.20"
 
+junit = "4.13.2"
 junit-jupiter = "5.10.2"
 kotest = "5.9.0"
 mockito-kotlin = "5.3.1"
+robolectric = "4.12.1"
 
+compose-bom = "2024.05.00"
+androidx-activityCompose = "1.9.0"
+androidx-core = "1.13.1"
+androidx-espresso = "3.5.1"
+androidx-espressoJunit = "1.1.5"
+androidx-lifecycleRuntime = "2.7.0"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
-jsr305 = { module = "com.google.code.findbugs:jsr305", version.ref = "jsr305" }
 detekt-rules-libraries = { module = "io.gitlab.arturbosch.detekt:detekt-rules-libraries", version.ref = "detekt" }
+detekt-rules-composeTwitter = { module = "io.nlopez.compose.rules:detekt", version.ref = "detekt-twitter" }
+detekt-rules-composeKode = { module = "ru.kode:detekt-rules-compose", version.ref = "detekt-kode" }
 
-test-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
-test-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter" }
-test-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter" }
+androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycleRuntime" }
+
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-uiGraphics = { module = "androidx.compose.ui:ui-graphics" }
+compose-uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose-uiTooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+
+test-junit = { module = "junit:junit", version.ref = "junit" }
+test-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+test-compose-junit = { module = "androidx.compose.ui:ui-test-junit4" }
+test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-espressoJunit" }
+test-androidx-espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
+
+test-jupiter-bom = { module = "org.junit:junit-bom", version.ref = "junit-jupiter" }
+test-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+test-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
+test-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+test-jupiter-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+test-jupiter-vintage = { module = "org.junit.vintage:junit-vintage-engine" }
 
 test-kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
@@ -27,3 +63,4 @@ test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.re
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+android = { id = "com.android.application", version.ref = "agp" }

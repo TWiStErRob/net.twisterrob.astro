@@ -3,10 +3,26 @@ plugins {
 }
 
 dependencies {
-	api(libs.test.jupiter.api)
-	api(libs.test.jupiter.params)
-	runtimeOnly(libs.test.jupiter.engine)
+	api(platform(libs.test.jupiter.bom)) {
+		because("Platform, Jupiter, and Vintage versions should match.")
+	}
+	api(libs.test.jupiter.api) {
+		because("Provides JUnit 5 @Test annotation for tests.")
+	}
+	api(libs.test.jupiter.params) {
+		because("Provides JUnit 5 @ParameterizedTest annotation for tests.")
+	}
+	runtimeOnly(libs.test.jupiter.engine) {
+		because("JUnit 5 engine is needed explicitly to run tests in Gradle.")
+	}
+	runtimeOnly(libs.test.jupiter.launcher) {
+		because("JUnit 5 launcher is needed explicitly to run tests in Gradle.")
+	}
 
-	api(libs.test.kotest.assertions)
-	api(libs.test.mockito.kotlin)
+	api(libs.test.kotest.assertions) {
+		because("Choice of assertions library for this project.")
+	}
+	api(libs.test.mockito.kotlin) {
+		because("Choice of mocking library for this project.")
+	}
 }

@@ -15,6 +15,9 @@ detekt {
 
 	parallel = true
 	config.from(rootProject.file("config/detekt/detekt.yml"))
+	plugins.withId("com.android.base") {
+		config.from(rootProject.file("config/detekt/detekt-compose.yml"))
+	}
 
 	tasks.withType<Detekt>().configureEach {
 		// Target version of the generated JVM bytecode. It is used for type resolution.
@@ -31,4 +34,6 @@ detekt {
 
 dependencies {
 	detektPlugins(libs.detekt.rules.libraries)
+	detektPlugins(libs.detekt.rules.composeTwitter)
+	detektPlugins(libs.detekt.rules.composeKode)
 }

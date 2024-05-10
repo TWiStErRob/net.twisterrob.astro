@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Exclude everything for now. Might add more as soon as there's something. -->
+<data-extraction-rules>
+
+	<cloud-backup>
+		<exclude domain="root" />
+		<exclude domain="file" />
+		<exclude domain="database" />
+		<exclude domain="sharedpref" />
+		<exclude domain="external" />
+	</cloud-backup>
+
+	<device-transfer>
+		<exclude domain="root" />
+		<exclude domain="file" />
+		<exclude domain="database" />
+		<exclude domain="sharedpref" />
+		<exclude domain="external" />
+	</device-transfer>
+
+</data-extraction-rules>

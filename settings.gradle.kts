@@ -5,6 +5,11 @@ rootProject.name = "net-twisterrob-astro"
 
 pluginManagement {
 	includeBuild("gradle/plugins")
+	repositories {
+		google()
+		mavenCentral()
+		gradlePluginPortal()
+	}
 }
 
 plugins {
@@ -16,12 +21,24 @@ plugins {
 dependencyResolutionManagement {
 	repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
 	repositories {
+		google()
 		mavenCentral()
+		maven {
+			// Using the pre-release repository for latest Kotlin support.
+			name = "compose-compiler"
+			url = uri("https://androidx.dev/storage/compose-compiler/repository/")
+		}
 	}
 }
 
 enableFeaturePreviewQuietly("TYPESAFE_PROJECT_ACCESSORS", "Type-safe project accessors")
 
+includeGroup(":app")
+include(":app:bazi")
+includeGroup(":feature")
+include(":feature:main")
+includeGroup(":widget")
+include(":widget:greeting")
 includeGroup(":domain")
 include(":domain:bazi-model")
 include(":domain:bazi-calculator")
@@ -30,7 +47,11 @@ include(":domain:bazi-calculator:group44")
 include(":domain:bazi-calculator:solar")
 include(":domain:bazi-calculator:wikipedia")
 includeGroup(":component")
+include(":component:compose")
+include(":component:test-base-instrumentation")
+include(":component:test-base-robolectric")
 include(":component:test-base-unit")
+include(":component:theme")
 
 fun includeGroup(path: String) {
 	include(path)
