@@ -1,4 +1,4 @@
-package net.twisterrob.bazi.ui.theme
+package net.twisterrob.astro.component.theme
 
 import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme

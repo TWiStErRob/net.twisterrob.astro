@@ -3,7 +3,7 @@
 	"detekt.UndocumentedPublicProperty",
 )
 
-package net.twisterrob.bazi.ui.theme
+package net.twisterrob.astro.component.theme
 
 import androidx.compose.ui.graphics.Color
 

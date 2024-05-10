@@ -1,4 +1,4 @@
-package net.twisterrob.bazi
+package net.twisterrob.astro.component.theme
 
 import android.content.res.Configuration
 import androidx.compose.material3.MaterialTheme
@@ -11,8 +11,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
-import net.twisterrob.bazi.ui.theme.AppTheme
-import net.twisterrob.bazi.ui.theme.AppTypography
 import org.junit.Assert.assertSame
 import org.junit.Rule
 import org.junit.Test
@@ -103,6 +101,7 @@ private fun beDark(): Matcher<Color> =
 	object : Matcher<Color> {
 		override fun test(value: Color): MatcherResult {
 			val luminance = value.luminance()
+
 			@Suppress("detekt.MagicNumber")
 			val dark = 0.25f
 			return MatcherResult(
@@ -117,6 +116,7 @@ private fun beLight(): Matcher<Color> =
 	object : Matcher<Color> {
 		override fun test(value: Color): MatcherResult {
 			val luminance = value.luminance()
+
 			@Suppress("detekt.MagicNumber")
 			val light = 0.75f
 			return MatcherResult(

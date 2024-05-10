@@ -6,7 +6,7 @@
 	<application>
 
 		<activity
-			android:name="net.twisterrob.bazi.MainActivity"
+			android:name="net.twisterrob.astro.feature.main.MainActivity"
 			android:exported="true"
 			>
 			<intent-filter>

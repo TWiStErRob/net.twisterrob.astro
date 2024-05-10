@@ -1,4 +1,4 @@
-package net.twisterrob.bazi
+package net.twisterrob.astro.widget.greeting
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

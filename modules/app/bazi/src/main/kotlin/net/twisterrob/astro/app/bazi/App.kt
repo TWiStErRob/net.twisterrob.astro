@@ -1,4 +1,4 @@
-package net.twisterrob.bazi
+package net.twisterrob.astro.app.bazi
 
 import android.app.Application
 
