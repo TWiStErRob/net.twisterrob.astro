@@ -24,6 +24,7 @@ dependencyResolutionManagement {
 		google()
 		mavenCentral()
 		maven {
+			// Using the pre-release repository for latest Kotlin support.
 			name = "compose-compiler"
 			url = uri("https://androidx.dev/storage/compose-compiler/repository/")
 		}
