@@ -12,7 +12,6 @@ private const val DEG_PER_HOUR = 360 / 24
 internal val Deg.duration: Duration get() = (this.value / DEG_PER_HOUR).hours
 internal inline val Int.deg: Deg get() = Deg(this.toDouble())
 internal inline val Double.deg: Deg get() = Deg(this)
-internal inline val JulianDay.deg: Deg get() = this.value.deg
 
 internal inline operator fun Int.times(other: Deg): Deg = Deg(this * other.value)
 internal inline operator fun Long.times(other: Deg): Deg = Deg(this * other.value)
