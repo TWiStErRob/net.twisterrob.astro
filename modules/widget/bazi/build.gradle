@@ -5,5 +5,5 @@ plugins {
 dependencies {
 	implementation(projects.component.theme)
 	implementation(projects.domain.baziModel)
-	implementation(libs.compose.materialIconsExtended)
+	implementation(libs.compose.materialIconsExtended) // STOPSHIP
 }
