@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.BaZi
@@ -100,7 +101,7 @@ private fun Character(character: HeavenlyStem, modifier: Modifier = Modifier) {
 		modifier = modifier,
 		symbol = character.symbol,
 		phase = character.phase,
-		label = "${character.polarity.name} ${character.phase.label}",
+		label = character.label,
 	)
 }
 
@@ -110,7 +111,7 @@ private fun Character(character: EarthlyBranch, modifier: Modifier = Modifier) {
 		modifier = modifier,
 		symbol = character.symbol,
 		phase = character.zodiac.charge.phase,
-		label = character.zodiac.name,
+		label = character.label
 	)
 }
 
@@ -143,6 +144,7 @@ private fun CharacterSymbol(symbol: String, phase: Phase) {
 private fun CharacterLabel(text: String) {
 	Text(
 		text = text,
+		textAlign = TextAlign.Center,
 	)
 }
 
@@ -175,6 +177,12 @@ private val HeavenlyStem.symbol: String
 		HeavenlyStem.Ren -> "壬"
 		HeavenlyStem.Gui -> "癸"
 	}
+
+private val HeavenlyStem.label: String
+	get() = "${polarity.name} ${phase.label}"
+
+private val EarthlyBranch.label: String
+	get() = "${zodiac.name}\n${zodiac.charge.label}"
 
 private val Phase.label: String
 	get() = when (this) {
