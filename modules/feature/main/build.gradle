@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
 	implementation(projects.component.theme)
-	implementation(projects.widget.greeting)
+	implementation(projects.screen.bazi)
 }
