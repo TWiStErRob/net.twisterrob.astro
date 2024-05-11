@@ -6,4 +6,10 @@
 	<string name="widget_bazi__pillar_title_day">Day</string>
 	<string name="widget_bazi__pillar_title_hour">Hour</string>
 
+	<string name="widget_bazi__pillar_unknown_hour_stem_symbol"> ？</string>
+	<string name="widget_bazi__pillar_unknown_hour_stem_label">Unknown</string>
+
+	<string name="widget_bazi__pillar_unknown_hour_branch_symbol"> ？</string>
+	<string name="widget_bazi__pillar_unknown_hour_branch_label">Unknown</string>
+
 </resources>

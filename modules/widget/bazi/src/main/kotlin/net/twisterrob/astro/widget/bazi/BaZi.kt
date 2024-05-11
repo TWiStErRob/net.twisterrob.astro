@@ -43,18 +43,18 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 				top = {
 					DisabledContentText {
 						Character(
-							symbol = " ？",
+							symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_symbol),
 							color = LocalContentColor.current,
-							label = "Unknown"
+							label = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_label)
 						)
 					}
 				},
 				bottom = {
 					DisabledContentText {
 						Character(
-							symbol = " ？",
+							symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_symbol),
 							color = LocalContentColor.current,
-							label = "Unknown\n"
+							label = "${stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_label)}\n"
 						)
 					}
 				},
