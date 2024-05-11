@@ -14,14 +14,20 @@ internal inline val Double.deg: Deg
 internal inline operator fun Int.times(other: Deg): Deg =
 	Deg(this * other.value)
 
+internal inline operator fun Deg.times(other: Int): Deg =
+	Deg(this.value * other)
+
 internal inline operator fun Long.times(other: Deg): Deg =
 	Deg(this * other.value)
+
+internal inline operator fun Deg.times(other: Long): Deg =
+	Deg(this.value * other)
 
 internal inline operator fun Double.times(other: Deg): Deg =
 	Deg(this * other.value)
 
-internal inline operator fun Deg.rem(other: Double): Deg =
-	Deg(this.value % other)
+internal inline operator fun Deg.times(other: Double): Deg =
+	Deg(this.value * other)
 
 internal inline operator fun Deg.plus(other: Deg): Deg =
 	Deg(this.value + other.value)
@@ -32,8 +38,8 @@ internal inline operator fun Deg.minus(other: Deg): Deg =
 internal inline operator fun Deg.div(other: Deg): Double =
 	this.value / other.value
 
-internal inline operator fun Deg.rem(other: Deg): Double =
-	this.value % other.value
+internal inline operator fun Deg.rem(other: Deg): Deg =
+	Deg(this.value % other.value)
 
 internal inline fun asin(x: Double): Deg =
 	kotlin.math.asin(x).rad.deg

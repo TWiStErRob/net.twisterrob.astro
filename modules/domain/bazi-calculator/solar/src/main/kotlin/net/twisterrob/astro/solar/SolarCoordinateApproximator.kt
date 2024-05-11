@@ -9,6 +9,7 @@ import net.twisterrob.astro.units.au
 import net.twisterrob.astro.units.canonicalMod
 import net.twisterrob.astro.units.cos
 import net.twisterrob.astro.units.deg
+import net.twisterrob.astro.units.div
 import net.twisterrob.astro.units.jd
 import net.twisterrob.astro.units.julianDayTime
 import net.twisterrob.astro.units.minus
@@ -75,9 +76,9 @@ internal class SolarCoordinateApproximator {
 		/**
 		 * Epoch referred to as "J2000.0", which is 2000 January 1.5, Julian date 2451545.0.
 		 */
-		private val J2000_0 = 2_451_545.0.jd
+		private val J2000_0: JulianDay = 2_451_545.0.jd
 
-		private const val DEG_PER_HOUR = 360 / 24
+		private const val DEG_PER_HOUR: Int = 360 / 24
 
 		internal val Deg.duration: Duration
 			get() = (this.value / DEG_PER_HOUR).hours

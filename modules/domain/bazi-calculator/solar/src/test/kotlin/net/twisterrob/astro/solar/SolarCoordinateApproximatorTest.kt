@@ -125,7 +125,7 @@ class SolarCoordinateApproximatorTest {
 		"-30.0, -2h",
 	)
 	@ParameterizedTest
-	fun `test deg to duration conversion`(d: Double, expectedDuration: String) {
+	fun `deg to duration conversion`(d: Double, expectedDuration: String) {
 		val expected = Duration.parse(expectedDuration)
 		val deg: Deg = d.deg
 
