@@ -16,6 +16,7 @@ import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
 import net.twisterrob.astro.bazi.model.Phase
+import net.twisterrob.astro.component.theme.AppTheme
 
 /**
  * Widget to render a basic BaZi chart.
@@ -160,25 +161,29 @@ private val Phase.label: String
 @Preview
 @Composable
 private fun BaZiFullPreview() {
-	BaZi(
+	AppTheme {
 		BaZi(
-			year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
-			month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
-			day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
-			hour = BaZi.Pillar(HeavenlyStem.Ding, EarthlyBranch.Mao),
+			BaZi(
+				year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
+				month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
+				day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
+				hour = BaZi.Pillar(HeavenlyStem.Ding, EarthlyBranch.Mao),
+			)
 		)
-	)
+	}
 }
 
 @Preview
 @Composable
 private fun BaZiHourlessPreview() {
-	BaZi(
+	AppTheme {
 		BaZi(
-			year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
-			month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
-			day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
-			hour = null,
+			BaZi(
+				year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
+				month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
+				day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
+				hour = null,
+			)
 		)
-	)
+	}
 }

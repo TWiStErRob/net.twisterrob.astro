@@ -15,6 +15,9 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
+/**
+ * Screen that displays the current BaZi.
+ */
 @Composable
 public fun BaZiScreen(modifier: Modifier = Modifier) {
 	val dateTime = ZonedDateTime.now()
