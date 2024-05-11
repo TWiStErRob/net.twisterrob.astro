@@ -16,7 +16,7 @@ class MainActivityUiTest {
 	@Test
 	fun test() {
 		compose
-			.onNodeWithText("Hello Android!")
+			.onNodeWithText("BaZi")
 			.assertExists()
 	}
 }
