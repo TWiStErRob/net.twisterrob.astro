@@ -40,6 +40,7 @@ androidx-lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-uiGraphics = { module = "androidx.compose.ui:ui-graphics" }
 compose-uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }

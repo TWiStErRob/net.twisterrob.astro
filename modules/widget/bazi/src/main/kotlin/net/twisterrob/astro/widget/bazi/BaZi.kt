@@ -1,19 +1,32 @@
 package net.twisterrob.astro.widget.bazi
 
+import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircleOutline
+import androidx.compose.material.icons.filled.RemoveCircleOutline
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
@@ -27,6 +40,14 @@ import net.twisterrob.astro.component.theme.AppTheme
 public fun BaZi(
 	modifier: Modifier = Modifier,
 	bazi: BaZi,
+	onHourIncreased: () -> Unit = {},
+	onHourDecreased: () -> Unit = {},
+	onDayIncreased: () -> Unit = {},
+	onDayDecreased: () -> Unit = {},
+	onMonthIncreased: () -> Unit = {},
+	onMonthDecreased: () -> Unit = {},
+	onYearIncreased: () -> Unit = {},
+	onYearDecreased: () -> Unit = {},
 ) {
 	Row(
 		modifier = modifier
@@ -39,6 +60,8 @@ public fun BaZi(
 				modifier = space25percent,
 				title = stringResource(R.string.widget_bazi__pillar_title_hour),
 				pillar = hour,
+				onIncreased = onHourIncreased,
+				onDecreased = onHourDecreased,
 			)
 		} else {
 			Pillar(
@@ -62,22 +85,30 @@ public fun BaZi(
 						)
 					}
 				},
+				onIncreased = {},
+				onDecreased = {},
 			)
 		}
 		Pillar(
 			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_day),
 			pillar = bazi.day,
+			onIncreased = onDayIncreased,
+			onDecreased = onDayDecreased,
 		)
 		Pillar(
 			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_month),
 			pillar = bazi.month,
+			onIncreased = onMonthIncreased,
+			onDecreased = onMonthDecreased,
 		)
 		Pillar(
 			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_year),
 			pillar = bazi.year,
+			onIncreased = onYearIncreased,
+			onDecreased = onYearDecreased,
 		)
 	}
 }
@@ -88,17 +119,57 @@ private fun Pillar(
 	title: String,
 	top: @Composable () -> Unit,
 	bottom: @Composable () -> Unit,
+	onIncreased: () -> Unit,
+	onDecreased: () -> Unit,
 ) {
 	Column(
 		modifier = modifier,
 		horizontalAlignment = CenterHorizontally,
 	) {
-		Text(
-			text = title,
-			style = MaterialTheme.typography.labelLarge,
-		)
+		Row(
+			verticalAlignment = Alignment.CenterVertically,
+			horizontalArrangement = Arrangement.spacedBy(4.dp),
+		) {
+			SmallButton(
+				icon = Icons.Filled.RemoveCircleOutline,
+				cd = R.string.widget_bazi__pillar_title_minus,
+				onClick = onDecreased,
+			)
+			Text(
+				text = title,
+				style = MaterialTheme.typography.labelMedium,
+			)
+			SmallButton(
+				icon = Icons.Filled.AddCircleOutline,
+				cd = R.string.widget_bazi__pillar_title_plus,
+				onClick = onIncreased,
+			)
+		}
 		top()
 		bottom()
+	}
+}
+
+@Composable
+private fun SmallButton(
+	icon: ImageVector,
+	@StringRes cd: Int,
+	onClick: () -> Unit,
+) {
+	@OptIn(ExperimentalMaterial3Api::class)
+	CompositionLocalProvider(
+		LocalMinimumInteractiveComponentEnforcement provides false
+	) {
+		IconButton(
+			modifier = Modifier
+				.size(16.dp),
+			onClick = onClick,
+		) {
+			Icon(
+				imageVector = icon,
+				contentDescription = stringResource(cd)
+			)
+		}
 	}
 }
 
@@ -107,10 +178,14 @@ private fun Pillar(
 	modifier: Modifier = Modifier,
 	title: String,
 	pillar: BaZi.Pillar,
+	onIncreased: () -> Unit,
+	onDecreased: () -> Unit,
 ) {
 	Pillar(
 		modifier = modifier,
 		title = title,
+		onIncreased = onIncreased,
+		onDecreased = onDecreased,
 		top = {
 			Character(
 				symbol = pillar.heavenlyStem.symbol,
