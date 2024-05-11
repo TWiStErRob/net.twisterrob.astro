@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
 	implementation(projects.component.compose)
-	implementation(projects.domain.baziCalculator.solar)
+	implementation(projects.domain.baziModel)
 }

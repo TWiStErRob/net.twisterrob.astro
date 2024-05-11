@@ -4,5 +4,6 @@ plugins {
 
 dependencies {
 	implementation(projects.component.theme)
-	implementation(projects.screen.bazi)
+	implementation(projects.widget.bazi)
+	implementation(projects.domain.baziCalculator.solar)
 }

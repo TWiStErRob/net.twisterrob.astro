@@ -53,6 +53,8 @@ include(":component:test-base-instrumentation")
 include(":component:test-base-robolectric")
 include(":component:test-base-unit")
 include(":component:theme")
+includeGroup(":screen")
+include(":screen:bazi")
 
 fun includeGroup(path: String) {
 	include(path)
