@@ -36,7 +36,7 @@ internal class SolarCoordinateApproximator {
 	)
 	internal fun approximateSolarLongitude(jd: JulianDay): SolarCoordinates {
 		// Elapsed since J2000 epoch.
-		val D = jd - J2000_0
+		val D: Duration = jd - J2000_0
 		// Mean anomaly of the Sun
 		// Range: might not be 0-360.
 		val g: Deg = (357.529.deg + (0.98560028 * D).rotation).canonicalMod(360.deg)
