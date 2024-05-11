@@ -5,6 +5,7 @@ import io.kotest.matchers.compose.any
 import io.kotest.matchers.doubles.ToleranceMatcher
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
+import net.twisterrob.astro.solar.SolarCoordinateApproximator.Companion.duration
 import net.twisterrob.astro.units.Deg
 import net.twisterrob.astro.units.deg
 import org.junit.jupiter.api.Test
@@ -12,6 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDateTime
 import java.time.Month.APRIL
+import kotlin.time.Duration
 
 class SolarCoordinateApproximatorTest {
 
@@ -111,6 +113,25 @@ class SolarCoordinateApproximatorTest {
 
 		// ± 0.0004° = 0.024′ = 1.44″
 		result.apparentSolarLongitude.value shouldBe (15.846941794266089.deg plusOrMinus 0.0004.deg)
+	}
+
+	@CsvSource(
+		"0.0, 0s",
+		"15.0, 1h",
+		"30.0, 2h",
+		"180.0, 12h",
+		"1.0, 4m",
+		"-15.0, -1h",
+		"-30.0, -2h",
+	)
+	@ParameterizedTest
+	fun `test deg to duration conversion`(d: Double, expectedDuration: String) {
+		val expected = Duration.parse(expectedDuration)
+		val deg: Deg = d.deg
+
+		val duration = deg.duration
+
+		duration shouldBe expected
 	}
 }
 

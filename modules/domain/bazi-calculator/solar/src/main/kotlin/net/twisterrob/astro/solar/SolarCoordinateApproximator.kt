@@ -9,7 +9,6 @@ import net.twisterrob.astro.units.au
 import net.twisterrob.astro.units.canonicalMod
 import net.twisterrob.astro.units.cos
 import net.twisterrob.astro.units.deg
-import net.twisterrob.astro.units.duration
 import net.twisterrob.astro.units.jd
 import net.twisterrob.astro.units.julianDayTime
 import net.twisterrob.astro.units.minus
@@ -18,6 +17,7 @@ import net.twisterrob.astro.units.sin
 import net.twisterrob.astro.units.times
 import java.time.LocalDateTime
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.hours
 
 internal class SolarCoordinateApproximator {
 
@@ -76,5 +76,10 @@ internal class SolarCoordinateApproximator {
 		 * Epoch referred to as "J2000.0", which is 2000 January 1.5, Julian date 2451545.0.
 		 */
 		private val J2000_0 = 2_451_545.0.jd
+
+		private const val DEG_PER_HOUR = 360 / 24
+
+		internal val Deg.duration: Duration
+			get() = (this.value / DEG_PER_HOUR).hours
 	}
 }

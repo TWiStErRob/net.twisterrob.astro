@@ -2,16 +2,8 @@
 
 package net.twisterrob.astro.units
 
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.hours
-
 @JvmInline
 internal value class Deg(internal val value: Double)
-
-private const val DEG_PER_HOUR = 360 / 24
-
-internal val Deg.duration: Duration
-	get() = (this.value / DEG_PER_HOUR).hours
 
 internal inline val Int.deg: Deg
 	get() = Deg(this.toDouble())
