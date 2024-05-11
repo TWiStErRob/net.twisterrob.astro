@@ -31,21 +31,6 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 			.fillMaxWidth(),
 	) {
 		val space25percent = Modifier.weight(1f)
-		Pillar(
-			title = "Year",
-			pillar = bazi.year,
-			modifier = space25percent,
-		)
-		Pillar(
-			title = "Month",
-			pillar = bazi.month,
-			modifier = space25percent,
-		)
-		Pillar(
-			title = "Day",
-			pillar = bazi.day,
-			modifier = space25percent,
-		)
 		val hour = bazi.hour
 		if (hour != null) {
 			Pillar(
@@ -77,6 +62,21 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 				modifier = space25percent,
 			)
 		}
+		Pillar(
+			title = "Day",
+			pillar = bazi.day,
+			modifier = space25percent,
+		)
+		Pillar(
+			title = "Month",
+			pillar = bazi.month,
+			modifier = space25percent,
+		)
+		Pillar(
+			title = "Year",
+			pillar = bazi.year,
+			modifier = space25percent,
+		)
 	}
 }
 
