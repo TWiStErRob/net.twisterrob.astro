@@ -70,7 +70,12 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modifier) {
+private fun Pillar(
+	title: String,
+	top: @Composable () -> Unit,
+	bottom: @Composable () -> Unit,
+	modifier: Modifier = Modifier,
+) {
 	Column(
 		modifier = modifier,
 		horizontalAlignment = CenterHorizontally,
@@ -78,13 +83,27 @@ private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modi
 		PillarTitle(
 			title = title,
 		)
-		Character(
-			character = pillar.heavenlyStem,
-		)
-		Character(
-			character = pillar.earthlyBranch,
-		)
+		top()
+		bottom()
 	}
+}
+
+@Composable
+private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modifier) {
+	Pillar(
+		title = title,
+		top = {
+			Character(
+				character = pillar.heavenlyStem,
+			)
+		},
+		bottom = {
+			Character(
+				character = pillar.earthlyBranch,
+			)
+		},
+		modifier = modifier,
+	)
 }
 
 @Composable
@@ -100,7 +119,7 @@ private fun Character(character: HeavenlyStem, modifier: Modifier = Modifier) {
 	Character(
 		modifier = modifier,
 		symbol = character.symbol,
-		phase = character.phase,
+		color = character.phase.color,
 		label = character.label,
 	)
 }
@@ -110,20 +129,20 @@ private fun Character(character: EarthlyBranch, modifier: Modifier = Modifier) {
 	Character(
 		modifier = modifier,
 		symbol = character.symbol,
-		phase = character.zodiac.charge.phase,
-		label = character.label
+		color = character.zodiac.charge.phase.color,
+		label = character.label,
 	)
 }
 
 @Composable
-private fun Character(symbol: String, phase: Phase, label: String, modifier: Modifier = Modifier) {
+private fun Character(symbol: String, color: Color, label: String, modifier: Modifier = Modifier) {
 	Column(
 		modifier = modifier,
 		horizontalAlignment = CenterHorizontally,
 	) {
 		CharacterSymbol(
 			symbol = symbol,
-			phase = phase,
+			color = color,
 		)
 		CharacterLabel(
 			text = label,
@@ -132,10 +151,10 @@ private fun Character(symbol: String, phase: Phase, label: String, modifier: Mod
 }
 
 @Composable
-private fun CharacterSymbol(symbol: String, phase: Phase) {
+private fun CharacterSymbol(symbol: String, color: Color) {
 	Text(
 		text = symbol,
-		color = phase.color,
+		color = color,
 		style = MaterialTheme.typography.displaySmall,
 	)
 }
