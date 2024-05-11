@@ -1,4 +1,9 @@
 complexity:
+
+  LongParameterList:
+    ignoreAnnotated:
+      - 'androidx.compose.runtime.Composable'
+
   TooManyFunctions:
     ignoreAnnotatedFunctions:
       - 'androidx.compose.ui.tooling.preview.Preview'
