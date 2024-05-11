@@ -19,6 +19,7 @@ import net.twisterrob.astro.units.times
 import java.time.LocalDateTime
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.DurationUnit.HOURS
 
 internal class SolarCoordinateApproximator {
 
@@ -81,6 +82,9 @@ internal class SolarCoordinateApproximator {
 		private const val DEG_PER_HOUR: Int = 360 / 24
 
 		internal val Deg.duration: Duration
-			get() = (this.value / DEG_PER_HOUR).hours
+			get() = (this / DEG_PER_HOUR.deg).hours
+
+		internal val Duration.deg: Deg
+			get() = this.toDouble(HOURS).deg * DEG_PER_HOUR
 	}
 }

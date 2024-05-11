@@ -5,12 +5,15 @@ import io.kotest.matchers.compose.any
 import io.kotest.matchers.doubles.ToleranceMatcher
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
+import net.twisterrob.astro.solar.SolarCoordinateApproximator.Companion.deg
 import net.twisterrob.astro.solar.SolarCoordinateApproximator.Companion.duration
 import net.twisterrob.astro.units.Deg
 import net.twisterrob.astro.units.deg
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.MethodSource
 import java.time.LocalDateTime
 import java.time.Month.APRIL
 import kotlin.time.Duration
@@ -115,23 +118,41 @@ class SolarCoordinateApproximatorTest {
 		result.apparentSolarLongitude.value shouldBe (15.846941794266089.deg plusOrMinus 0.0004.deg)
 	}
 
-	@CsvSource(
-		"0.0, 0s",
-		"15.0, 1h",
-		"30.0, 2h",
-		"180.0, 12h",
-		"1.0, 4m",
-		"-15.0, -1h",
-		"-30.0, -2h",
-	)
+	@MethodSource("degDuration")
 	@ParameterizedTest
-	fun `deg to duration conversion`(d: Double, expectedDuration: String) {
-		val expected = Duration.parse(expectedDuration)
-		val deg: Deg = d.deg
+	fun `deg to duration conversion`(degree: Double, durationString: String) {
+		val expected: Duration = Duration.parse(durationString)
+		val deg: Deg = degree.deg
 
-		val duration = deg.duration
+		val result: Duration = deg.duration
 
-		duration shouldBe expected
+		result shouldBe expected
+	}
+
+	@MethodSource("degDuration")
+	@ParameterizedTest
+	fun `duration to deg conversion`(degree: Double, durationString: String) {
+		val duration: Duration = Duration.parse(durationString)
+
+		val result: Deg = duration.deg
+
+		result.value shouldBe (degree plusOrMinus TOLERANCE)
+	}
+
+	companion object {
+		private const val TOLERANCE = 1e-14
+
+		@JvmStatic
+		fun degDuration() =
+			listOf(
+				arguments(0.0, "0s"),
+				arguments(15.0, "1h"),
+				arguments(30.0, "2h"),
+				arguments(180.0, "12h"),
+				arguments(1.0, "4m"),
+				arguments(-15.0, "-1h"),
+				arguments(-30.0, "-2h"),
+			)
 	}
 }
 
