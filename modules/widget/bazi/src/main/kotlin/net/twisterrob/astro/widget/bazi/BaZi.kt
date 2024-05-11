@@ -113,7 +113,8 @@ private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modi
 		bottom = {
 			Character(
 				symbol = pillar.earthlyBranch.symbol,
-				color = pillar.earthlyBranch.zodiac.charge.phase.color,
+				color = @Suppress("detekt.MaxChainedCallsOnSameLine")
+				pillar.earthlyBranch.zodiac.charge.phase.color,
 				label = pillar.earthlyBranch.label,
 			)
 		},
