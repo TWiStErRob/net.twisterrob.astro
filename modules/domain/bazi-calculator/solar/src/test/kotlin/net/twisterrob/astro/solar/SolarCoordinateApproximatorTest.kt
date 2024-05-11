@@ -135,4 +135,5 @@ class SolarCoordinateApproximatorTest {
 	}
 }
 
-private infix fun Deg.plusOrMinus(deg: Deg): ToleranceMatcher = this.value.plusOrMinus(deg.value)
+private infix fun Deg.plusOrMinus(deg: Deg): ToleranceMatcher =
+	this.value.plusOrMinus(deg.value)
