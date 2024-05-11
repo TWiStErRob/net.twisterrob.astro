@@ -11,22 +11,24 @@ import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.widget.bazi.BaZi
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 @Composable
 public fun BaZiScreen(modifier: Modifier = Modifier) {
-	val dateTime = LocalDateTime.now()
+	val dateTime = ZonedDateTime.now()
 	Column(
 		modifier = modifier,
 	) {
 		Text(
-			text = dateTime.toString(),
+			text = dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG)),
 			modifier = Modifier
 				.align(CenterHorizontally)
 				.padding(4.dp),
 		)
 		BaZi(
-			bazi = SolarCalculator().calculate(dateTime),
+			bazi = SolarCalculator().calculate(dateTime.toLocalDateTime()),
 		)
 	}
 }
