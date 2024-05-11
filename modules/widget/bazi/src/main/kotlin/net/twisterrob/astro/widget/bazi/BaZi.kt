@@ -2,18 +2,18 @@ package net.twisterrob.astro.widget.bazi
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
@@ -30,100 +30,107 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 			.fillMaxWidth(),
 	) {
 		val space25percent = Modifier.weight(1f)
-		Pillar(
-			title = "Year",
-			pillar = bazi.year,
-			modifier = space25percent,
-		)
-		Pillar(
-			title = "Month",
-			pillar = bazi.month,
-			modifier = space25percent,
-		)
-		Pillar(
-			title = "Day",
-			pillar = bazi.day,
-			modifier = space25percent,
-		)
 		val hour = bazi.hour
 		if (hour != null) {
 			Pillar(
-				title = "Hour",
+				title = stringResource(R.string.widget_bazi__pillar_title_hour),
 				pillar = hour,
 				modifier = space25percent,
 			)
 		} else {
-			Column(
+			Pillar(
+				title = stringResource(R.string.widget_bazi__pillar_title_hour),
+				top = {
+					DisabledContentText {
+						Character(
+							symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_symbol),
+							color = LocalContentColor.current,
+							label = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_label)
+						)
+					}
+				},
+				bottom = {
+					DisabledContentText {
+						Character(
+							symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_symbol),
+							color = LocalContentColor.current,
+							label = "${stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_label)}\n"
+						)
+					}
+				},
 				modifier = space25percent,
-				horizontalAlignment = CenterHorizontally,
-			) {
-				PillarTitle("Hour")
-				Text(
-					text = "Unknown",
-					modifier = Modifier
-						.absoluteOffset(y = 60.dp)
-						.rotate(@Suppress("detekt.MagicNumber") -75f),
-				)
-			}
+			)
 		}
+		Pillar(
+			title = stringResource(R.string.widget_bazi__pillar_title_day),
+			pillar = bazi.day,
+			modifier = space25percent,
+		)
+		Pillar(
+			title = stringResource(R.string.widget_bazi__pillar_title_month),
+			pillar = bazi.month,
+			modifier = space25percent,
+		)
+		Pillar(
+			title = stringResource(R.string.widget_bazi__pillar_title_year),
+			pillar = bazi.year,
+			modifier = space25percent,
+		)
+	}
+}
+
+@Composable
+private fun Pillar(
+	title: String,
+	top: @Composable () -> Unit,
+	bottom: @Composable () -> Unit,
+	modifier: Modifier = Modifier,
+) {
+	Column(
+		modifier = modifier,
+		horizontalAlignment = CenterHorizontally,
+	) {
+		Text(
+			text = title,
+			style = MaterialTheme.typography.labelLarge,
+		)
+		top()
+		bottom()
 	}
 }
 
 @Composable
 private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modifier) {
-	Column(
+	Pillar(
+		title = title,
+		top = {
+			Character(
+				symbol = pillar.heavenlyStem.symbol,
+				color = pillar.heavenlyStem.phase.color,
+				label = pillar.heavenlyStem.label,
+			)
+		},
+		bottom = {
+			Character(
+				symbol = pillar.earthlyBranch.symbol,
+				color = @Suppress("detekt.MaxChainedCallsOnSameLine")
+				pillar.earthlyBranch.zodiac.charge.phase.color,
+				label = pillar.earthlyBranch.label,
+			)
+		},
 		modifier = modifier,
-		horizontalAlignment = CenterHorizontally,
-	) {
-		PillarTitle(
-			title = title,
-		)
-		Character(
-			character = pillar.heavenlyStem,
-		)
-		Character(
-			character = pillar.earthlyBranch,
-		)
-	}
-}
-
-@Composable
-private fun PillarTitle(title: String) {
-	Text(
-		text = title,
-		style = MaterialTheme.typography.labelLarge,
 	)
 }
 
 @Composable
-private fun Character(character: HeavenlyStem, modifier: Modifier = Modifier) {
-	Character(
-		modifier = modifier,
-		symbol = character.symbol,
-		phase = character.phase,
-		label = character.label,
-	)
-}
-
-@Composable
-private fun Character(character: EarthlyBranch, modifier: Modifier = Modifier) {
-	Character(
-		modifier = modifier,
-		symbol = character.symbol,
-		phase = character.zodiac.charge.phase,
-		label = character.label
-	)
-}
-
-@Composable
-private fun Character(symbol: String, phase: Phase, label: String, modifier: Modifier = Modifier) {
+private fun Character(symbol: String, color: Color, label: String, modifier: Modifier = Modifier) {
 	Column(
 		modifier = modifier,
 		horizontalAlignment = CenterHorizontally,
 	) {
 		CharacterSymbol(
 			symbol = symbol,
-			phase = phase,
+			color = color,
 		)
 		CharacterLabel(
 			text = label,
@@ -132,11 +139,11 @@ private fun Character(symbol: String, phase: Phase, label: String, modifier: Mod
 }
 
 @Composable
-private fun CharacterSymbol(symbol: String, phase: Phase) {
+private fun CharacterSymbol(symbol: String, color: Color) {
 	Text(
 		text = symbol,
-		color = phase.color,
-		style = MaterialTheme.typography.displaySmall,
+		color = color,
+		style = MaterialTheme.typography.displayMedium,
 	)
 }
 
@@ -146,6 +153,13 @@ private fun CharacterLabel(text: String) {
 		text = text,
 		textAlign = TextAlign.Center,
 	)
+}
+
+@Composable
+private fun DisabledContentText(content: @Composable () -> Unit) {
+	CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)) {
+		content()
+	}
 }
 
 private val EarthlyBranch.symbol: String

@@ -16,8 +16,15 @@ android {
 		.replace("-", ".")
 		.replace(":", ".")
 	namespace = "net.twisterrob.astro${subPackage}"
-	compileSdk = libs.versions.android.compileSdk.get().toInt()
 
+
+	resourcePrefix = project.path
+		.removePrefix(":")
+		.replace("-", "_")
+		.replace(":", "_")
+		.plus("__")
+
+	compileSdk = libs.versions.android.compileSdk.get().toInt()
 	defaultConfig {
 		minSdk = libs.versions.android.minSdk.get().toInt()
 
