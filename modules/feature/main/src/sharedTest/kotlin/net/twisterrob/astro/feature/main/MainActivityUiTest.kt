@@ -16,7 +16,7 @@ class MainActivityUiTest {
 	@Test
 	fun test() {
 		compose
-			.onNodeWithText("BaZi")
+			.onNodeWithText(compose.activity.getString(R.string.feature_main__title))
 			.assertExists()
 	}
 }
