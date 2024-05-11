@@ -8,11 +8,14 @@ import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.bazi.model.BaZi
 import java.time.ZonedDateTime
 
-internal class BaZiViewModel : ViewModel() {
+/**
+ * [ViewModel] for [BaZiScreen].
+ */
+public class BaZiViewModel : ViewModel() {
 	private val _uiState = MutableStateFlow(BaZiState.now())
-	val uiState: StateFlow<BaZiState> = _uiState.asStateFlow()
+	internal val uiState: StateFlow<BaZiState> = _uiState.asStateFlow()
 
-	fun update() {
+	internal fun update() {
 		_uiState.value = BaZiState.now()
 	}
 }

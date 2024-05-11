@@ -25,6 +25,7 @@ androidx-core = "1.13.1"
 androidx-espresso = "3.5.1"
 androidx-espressoJunit = "1.1.5"
 androidx-lifecycleRuntime = "2.7.0"
+androidx-viewmodelCompose = "2.7.0"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -33,6 +34,7 @@ detekt-rules-composeTwitter = { module = "io.nlopez.compose.rules:detekt", versi
 detekt-rules-composeKode = { module = "ru.kode:detekt-rules-compose", version.ref = "detekt-kode" }
 
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-viewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-viewmodelCompose" }
 androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycleRuntime" }
 
