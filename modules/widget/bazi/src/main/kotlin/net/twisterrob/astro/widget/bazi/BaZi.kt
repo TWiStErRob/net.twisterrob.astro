@@ -2,18 +2,17 @@ package net.twisterrob.astro.widget.bazi
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.text.style.LineHeightStyle.Alignment
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
@@ -53,18 +52,24 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 				modifier = space25percent,
 			)
 		} else {
-			Column(
+			Pillar(
+				title = "Hour",
+				top = {
+					Character(
+						symbol = "?",
+						color = MaterialTheme.colorScheme.onBackground,
+						label = "Unknown"
+					)
+				},
+				bottom = {
+					Character(
+						symbol = "?",
+						color = MaterialTheme.colorScheme.onBackground,
+						label = "Unknown"
+					)
+				},
 				modifier = space25percent,
-				horizontalAlignment = CenterHorizontally,
-			) {
-				PillarTitle("Hour")
-				Text(
-					text = "Unknown",
-					modifier = Modifier
-						.absoluteOffset(y = 60.dp)
-						.rotate(@Suppress("detekt.MagicNumber") -75f),
-				)
-			}
+			)
 		}
 	}
 }
@@ -155,7 +160,15 @@ private fun CharacterSymbol(symbol: String, color: Color) {
 	Text(
 		text = symbol,
 		color = color,
-		style = MaterialTheme.typography.displaySmall,
+		style = MaterialTheme.typography.displayMedium.run {
+			copy(
+				lineHeight = fontSize * 1.5f,
+				lineHeightStyle = LineHeightStyle(
+					alignment = Alignment.Bottom,
+					trim = LineHeightStyle.Trim.None,
+				),
+			)
+		},
 	)
 }
 
