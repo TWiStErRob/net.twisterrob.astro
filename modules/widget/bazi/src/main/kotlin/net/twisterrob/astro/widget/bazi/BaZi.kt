@@ -85,8 +85,9 @@ private fun Pillar(
 		modifier = modifier,
 		horizontalAlignment = CenterHorizontally,
 	) {
-		PillarTitle(
-			title = title,
+		Text(
+			text = title,
+			style = MaterialTheme.typography.labelLarge,
 		)
 		top()
 		bottom()
@@ -99,43 +100,19 @@ private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modi
 		title = title,
 		top = {
 			Character(
-				character = pillar.heavenlyStem,
+				symbol = pillar.heavenlyStem.symbol,
+				color = pillar.heavenlyStem.phase.color,
+				label = pillar.heavenlyStem.label,
 			)
 		},
 		bottom = {
 			Character(
-				character = pillar.earthlyBranch,
+				symbol = pillar.earthlyBranch.symbol,
+				color = pillar.earthlyBranch.zodiac.charge.phase.color,
+				label = pillar.earthlyBranch.label,
 			)
 		},
 		modifier = modifier,
-	)
-}
-
-@Composable
-private fun PillarTitle(title: String) {
-	Text(
-		text = title,
-		style = MaterialTheme.typography.labelLarge,
-	)
-}
-
-@Composable
-private fun Character(character: HeavenlyStem, modifier: Modifier = Modifier) {
-	Character(
-		modifier = modifier,
-		symbol = character.symbol,
-		color = character.phase.color,
-		label = character.label,
-	)
-}
-
-@Composable
-private fun Character(character: EarthlyBranch, modifier: Modifier = Modifier) {
-	Character(
-		modifier = modifier,
-		symbol = character.symbol,
-		color = character.zodiac.charge.phase.color,
-		label = character.label,
 	)
 }
 
