@@ -56,10 +56,7 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 				modifier = space25percent,
 				horizontalAlignment = CenterHorizontally,
 			) {
-				Text(
-					text = "Hour",
-					style = MaterialTheme.typography.labelLarge,
-				)
+				PillarTitle("Hour")
 				Text(
 					text = "Unknown",
 					modifier = Modifier
@@ -77,9 +74,8 @@ private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modi
 		modifier = modifier,
 		horizontalAlignment = CenterHorizontally,
 	) {
-		Text(
-			text = title,
-			style = MaterialTheme.typography.labelLarge,
+		PillarTitle(
+			title = title,
 		)
 		Character(
 			character = pillar.heavenlyStem,
@@ -91,37 +87,63 @@ private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modi
 }
 
 @Composable
+private fun PillarTitle(title: String) {
+	Text(
+		text = title,
+		style = MaterialTheme.typography.labelLarge,
+	)
+}
+
+@Composable
 private fun Character(character: HeavenlyStem, modifier: Modifier = Modifier) {
+	Character(
+		modifier = modifier,
+		symbol = character.symbol,
+		phase = character.phase,
+		label = "${character.polarity.name} ${character.phase.label}",
+	)
+}
+
+@Composable
+private fun Character(character: EarthlyBranch, modifier: Modifier = Modifier) {
+	Character(
+		modifier = modifier,
+		symbol = character.symbol,
+		phase = character.zodiac.charge.phase,
+		label = character.zodiac.name,
+	)
+}
+
+@Composable
+private fun Character(symbol: String, phase: Phase, label: String, modifier: Modifier = Modifier) {
 	Column(
 		modifier = modifier,
 		horizontalAlignment = CenterHorizontally,
 	) {
-		Text(
-			text = character.symbol,
-			color = character.phase.color,
-			style = MaterialTheme.typography.displaySmall,
+		CharacterSymbol(
+			symbol = symbol,
+			phase = phase,
 		)
-		Text(
-			text = "${character.polarity.name} ${character.phase.label}",
+		CharacterLabel(
+			text = label,
 		)
 	}
 }
 
 @Composable
-private fun Character(character: EarthlyBranch, modifier: Modifier = Modifier) {
-	Column(
-		modifier = modifier,
-		horizontalAlignment = CenterHorizontally,
-	) {
-		Text(
-			text = character.symbol,
-			color = character.zodiac.charge.phase.color,
-			style = MaterialTheme.typography.displaySmall,
-		)
-		Text(
-			text = character.zodiac.name,
-		)
-	}
+private fun CharacterSymbol(symbol: String, phase: Phase) {
+	Text(
+		text = symbol,
+		color = phase.color,
+		style = MaterialTheme.typography.displaySmall,
+	)
+}
+
+@Composable
+private fun CharacterLabel(text: String) {
+	Text(
+		text = text,
+	)
 }
 
 private val EarthlyBranch.symbol: String
