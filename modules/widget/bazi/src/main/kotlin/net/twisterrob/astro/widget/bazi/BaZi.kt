@@ -85,8 +85,8 @@ public fun BaZi(
 						)
 					}
 				},
-				onIncreased = {},
-				onDecreased = {},
+				onIncreased = null,
+				onDecreased = null,
 			)
 		}
 		Pillar(
@@ -119,8 +119,8 @@ private fun Pillar(
 	title: String,
 	top: @Composable () -> Unit,
 	bottom: @Composable () -> Unit,
-	onIncreased: () -> Unit,
-	onDecreased: () -> Unit,
+	onIncreased: (() -> Unit)?,
+	onDecreased: (() -> Unit)?,
 ) {
 	Column(
 		modifier = modifier,
@@ -130,20 +130,24 @@ private fun Pillar(
 			verticalAlignment = Alignment.CenterVertically,
 			horizontalArrangement = Arrangement.spacedBy(4.dp),
 		) {
-			SmallButton(
-				icon = Icons.Filled.RemoveCircleOutline,
-				cd = R.string.widget_bazi__pillar_title_minus,
-				onClick = onDecreased,
-			)
+			onDecreased?.let { onDecreased ->
+				SmallButton(
+					icon = Icons.Filled.RemoveCircleOutline,
+					cd = R.string.widget_bazi__pillar_title_minus,
+					onClick = onDecreased,
+				)
+			}
 			Text(
 				text = title,
 				style = MaterialTheme.typography.labelMedium,
 			)
-			SmallButton(
-				icon = Icons.Filled.AddCircleOutline,
-				cd = R.string.widget_bazi__pillar_title_plus,
-				onClick = onIncreased,
-			)
+			onIncreased?.let { onIncreased ->
+				SmallButton(
+					icon = Icons.Filled.AddCircleOutline,
+					cd = R.string.widget_bazi__pillar_title_plus,
+					onClick = onIncreased,
+				)
+			}
 		}
 		top()
 		bottom()
