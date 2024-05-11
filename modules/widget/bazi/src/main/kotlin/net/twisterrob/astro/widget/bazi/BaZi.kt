@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.BaZi
@@ -95,6 +96,7 @@ private fun Character(character: HeavenlyStem, modifier: Modifier = Modifier) {
 	) {
 		Text(
 			text = character.symbol,
+			color = character.phase.color,
 			style = MaterialTheme.typography.displaySmall,
 		)
 		Text(
@@ -111,6 +113,7 @@ private fun Character(character: EarthlyBranch, modifier: Modifier = Modifier) {
 	) {
 		Text(
 			text = character.symbol,
+			color = character.zodiac.charge.phase.color,
 			style = MaterialTheme.typography.displaySmall,
 		)
 		Text(
@@ -158,6 +161,16 @@ private val Phase.label: String
 		Phase.Shui -> "Water"
 	}
 
+private val Phase.color: Color
+	@Suppress("detekt.MagicNumber")
+	get() = when (this) {
+		Phase.Mu -> Color(0xFF90EE90)
+		Phase.Huo -> Color(0xFFF08080)
+		Phase.Tu -> Color(0xFFDEB887)
+		Phase.Jin -> Color(0xFFB0B0B0)
+		Phase.Shui -> Color(0xFF87CEFA)
+	}
+
 @Preview
 @Composable
 private fun BaZiFullPreview() {
@@ -165,9 +178,9 @@ private fun BaZiFullPreview() {
 		BaZi(
 			BaZi(
 				year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
-				month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
-				day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
-				hour = BaZi.Pillar(HeavenlyStem.Ding, EarthlyBranch.Mao),
+				month = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Si),
+				day = BaZi.Pillar(HeavenlyStem.Wu, EarthlyBranch.Shen),
+				hour = BaZi.Pillar(HeavenlyStem.Xin, EarthlyBranch.Mao),
 			)
 		)
 	}
@@ -180,8 +193,8 @@ private fun BaZiHourlessPreview() {
 		BaZi(
 			BaZi(
 				year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
-				month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
-				day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
+				month = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Si),
+				day = BaZi.Pillar(HeavenlyStem.Wu, EarthlyBranch.Shen),
 				hour = null,
 			)
 		)
