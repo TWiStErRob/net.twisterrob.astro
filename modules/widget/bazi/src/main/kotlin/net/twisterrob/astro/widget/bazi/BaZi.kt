@@ -24,7 +24,10 @@ import net.twisterrob.astro.component.theme.AppTheme
  * Widget to render a basic BaZi chart.
  */
 @Composable
-public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
+public fun BaZi(
+	modifier: Modifier = Modifier,
+	bazi: BaZi,
+) {
 	Row(
 		modifier = modifier
 			.fillMaxWidth(),
@@ -33,12 +36,13 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 		val hour = bazi.hour
 		if (hour != null) {
 			Pillar(
+				modifier = space25percent,
 				title = stringResource(R.string.widget_bazi__pillar_title_hour),
 				pillar = hour,
-				modifier = space25percent,
 			)
 		} else {
 			Pillar(
+				modifier = space25percent,
 				title = stringResource(R.string.widget_bazi__pillar_title_hour),
 				top = {
 					DisabledContentText {
@@ -58,33 +62,32 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 						)
 					}
 				},
-				modifier = space25percent,
 			)
 		}
 		Pillar(
+			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_day),
 			pillar = bazi.day,
-			modifier = space25percent,
 		)
 		Pillar(
+			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_month),
 			pillar = bazi.month,
-			modifier = space25percent,
 		)
 		Pillar(
+			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_year),
 			pillar = bazi.year,
-			modifier = space25percent,
 		)
 	}
 }
 
 @Composable
 private fun Pillar(
+	modifier: Modifier = Modifier,
 	title: String,
 	top: @Composable () -> Unit,
 	bottom: @Composable () -> Unit,
-	modifier: Modifier = Modifier,
 ) {
 	Column(
 		modifier = modifier,
@@ -100,8 +103,13 @@ private fun Pillar(
 }
 
 @Composable
-private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modifier) {
+private fun Pillar(
+	modifier: Modifier = Modifier,
+	title: String,
+	pillar: BaZi.Pillar,
+) {
 	Pillar(
+		modifier = modifier,
 		title = title,
 		top = {
 			Character(
@@ -118,12 +126,16 @@ private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modi
 				label = pillar.earthlyBranch.label,
 			)
 		},
-		modifier = modifier,
 	)
 }
 
 @Composable
-private fun Character(symbol: String, color: Color, label: String, modifier: Modifier = Modifier) {
+private fun Character(
+	modifier: Modifier = Modifier,
+	symbol: String,
+	color: Color,
+	label: String,
+) {
 	Column(
 		modifier = modifier,
 		horizontalAlignment = CenterHorizontally,
@@ -222,7 +234,7 @@ private val Phase.color: Color
 private fun BaZiFullPreview() {
 	AppTheme {
 		BaZi(
-			BaZi(
+			bazi = BaZi(
 				year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
 				month = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Si),
 				day = BaZi.Pillar(HeavenlyStem.Wu, EarthlyBranch.Shen),
@@ -237,7 +249,7 @@ private fun BaZiFullPreview() {
 private fun BaZiHourlessPreview() {
 	AppTheme {
 		BaZi(
-			BaZi(
+			bazi = BaZi(
 				year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
 				month = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Si),
 				day = BaZi.Pillar(HeavenlyStem.Wu, EarthlyBranch.Shen),
