@@ -5,6 +5,8 @@ import io.kotest.matchers.compose.any
 import io.kotest.matchers.doubles.ToleranceMatcher
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
+import net.twisterrob.astro.solar.SolarCoordinateApproximator.Companion.rotation
+import net.twisterrob.astro.solar.SolarCoordinateApproximator.Companion.time
 import net.twisterrob.astro.units.Deg
 import net.twisterrob.astro.units.deg
 import org.junit.jupiter.api.Test
@@ -12,8 +14,9 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDateTime
 import java.time.Month.APRIL
+import kotlin.time.Duration
 
-class SolarCoordinateApproximatorTest {
+class SolarCoordinateApproximatorUnitTest {
 
 	private val subject = SolarCoordinateApproximator()
 
@@ -112,6 +115,48 @@ class SolarCoordinateApproximatorTest {
 		// ± 0.0004° = 0.024′ = 1.44″
 		result.apparentSolarLongitude.value shouldBe (15.846941794266089.deg plusOrMinus 0.0004.deg)
 	}
+
+	@CsvSource(
+		"0.0,   0s",
+		"15.0,  1h",
+		"30.0,  2h",
+		"180.0, 12h",
+		"1.0,   4m",
+		"-15.0, -1h",
+		"-30.0, -2h",
+	)
+	@ParameterizedTest
+	fun `deg to time conversion`(degree: Double, durationString: String) {
+		val expected: Duration = Duration.parse(durationString)
+		val deg: Deg = degree.deg
+
+		val result: Duration = deg.time
+
+		result shouldBe expected
+	}
+
+	@CsvSource(
+		"0.0,   0s",
+		"15.0,  1h",
+		"30.0,  2h",
+		"180.0, 12h",
+		"1.0,   4m",
+		"-15.0, -1h",
+		"-30.0, -2h",
+	)
+	@ParameterizedTest
+	fun `duration to deg conversion`(degree: Double, durationString: String) {
+		val duration: Duration = Duration.parse(durationString)
+
+		val result: Deg = duration.rotation
+
+		result.value shouldBe (degree / 360 plusOrMinus TOLERANCE)
+	}
+
+	companion object {
+		private const val TOLERANCE = 1e-14
+	}
 }
 
-private infix fun Deg.plusOrMinus(deg: Deg): ToleranceMatcher = this.value.plusOrMinus(deg.value)
+private infix fun Deg.plusOrMinus(deg: Deg): ToleranceMatcher =
+	this.value.plusOrMinus(deg.value)

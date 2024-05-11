@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDateTime
 
-class LocalDateTime_julianDayTimeKtTest {
+class LocalDateTime_julianDayTimeKtUnitTest {
 
 	@CsvSource(
 		// 1e-4 = 0.0001 precision, 1 second is 0.000011574, so this is ~8.64 seconds precise.
@@ -27,6 +27,6 @@ class LocalDateTime_julianDayTimeKtTest {
 	@ParameterizedTest fun test(dateTime: LocalDateTime, expectedJulianDay: Double /* UT1 */, precision: Double) {
 		val jd = dateTime.julianDayTime
 
-		jd shouldBe (expectedJulianDay plusOrMinus precision)
+		jd.value shouldBe (expectedJulianDay plusOrMinus precision)
 	}
 }
