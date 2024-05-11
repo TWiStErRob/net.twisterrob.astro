@@ -158,7 +158,7 @@ private fun SmallButton(
 				.repeatingClickable(interactionSource, true, onClick = onClick)
 				.size(16.dp),
 			interactionSource = interactionSource,
-			onClick = onClick,
+			onClick = {},
 		) {
 			Icon(
 				imageVector = icon,
