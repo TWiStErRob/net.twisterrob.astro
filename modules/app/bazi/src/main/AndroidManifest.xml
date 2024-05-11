@@ -5,9 +5,9 @@
 
 	<application
 		android:name="net.twisterrob.astro.app.bazi.App"
-		android:label="@string/app_name"
+		android:label="@string/app_bazi__app_title"
 		android:icon="@android:drawable/sym_def_app_icon"
-		android:dataExtractionRules="@xml/data_extraction_rules"
+		android:dataExtractionRules="@xml/app_bazi__data_extraction_rules"
 		>
 
 	</application>
