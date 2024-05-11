@@ -33,8 +33,8 @@ class JulianDayUnitTest {
 	)
 	@ParameterizedTest
 	fun `julian day difference`(start: LocalDateTime, end: LocalDateTime, dayDifference: Double) {
-		val startJD: JulianDay = start.julianDayTime.jd
-		val endJD: JulianDay = end.julianDayTime.jd
+		val startJD: JulianDay = start.julianDayTime
+		val endJD: JulianDay = end.julianDayTime
 
 		val result: Duration = endJD - startJD
 

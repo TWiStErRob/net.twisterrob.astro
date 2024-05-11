@@ -81,7 +81,7 @@ public class SolarCalculator : BaZiCalculator {
 		}
 
 	private fun calculateDay(dateTime: LocalDateTime): BaZi.Pillar {
-		val jd = Math.round(dateTime.julianDayTime)
+		val jd = Math.round(dateTime.julianDayTime.value)
 		// See https://ytliu0.github.io/ChineseCalendar/sexagenary.html
 		val dayStem = HeavenlyStem.at(((jd - 1) % HeavenlyStem.COUNT).toInt().canonicalMod(HeavenlyStem.COUNT) + 1)
 		val dayBranch = EarthlyBranch.at(((jd + 1) % EarthlyBranch.COUNT).toInt().canonicalMod(EarthlyBranch.COUNT) + 1)

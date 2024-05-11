@@ -8,8 +8,8 @@ import java.time.temporal.JulianFields
  * Julian Day for a [LocalDateTime], takes into account the time of day.
  * https://en.wikipedia.org/wiki/Julian_day#Converting_Julian_calendar_date_to_Julian_Day_Number
  */
-internal val LocalDateTime.julianDayTime: Double
-	get() = this.julianDay + this.toLocalTime().julianTimeFraction
+internal val LocalDateTime.julianDayTime: JulianDay
+	get() = (this.julianDay + this.toLocalTime().julianTimeFraction).jd
 
 private val LocalDateTime.julianDay: Long
 	get() = this.getLong(JulianFields.JULIAN_DAY)

@@ -25,7 +25,7 @@ import kotlin.time.times
 internal class SolarCoordinateApproximator {
 
 	internal fun approximateSolarLongitude(dateTime: LocalDateTime): SolarCoordinates =
-		approximateSolarLongitude(dateTime.julianDayTime.jd)
+		approximateSolarLongitude(dateTime.julianDayTime)
 
 	/**
 	 * Algorithm source: https://aa.usno.navy.mil/faq/sun_approx

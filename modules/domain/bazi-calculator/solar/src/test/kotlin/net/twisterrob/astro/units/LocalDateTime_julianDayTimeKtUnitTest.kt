@@ -27,6 +27,6 @@ class LocalDateTime_julianDayTimeKtUnitTest {
 	@ParameterizedTest fun test(dateTime: LocalDateTime, expectedJulianDay: Double /* UT1 */, precision: Double) {
 		val jd = dateTime.julianDayTime
 
-		jd shouldBe (expectedJulianDay plusOrMinus precision)
+		jd.value shouldBe (expectedJulianDay plusOrMinus precision)
 	}
 }
