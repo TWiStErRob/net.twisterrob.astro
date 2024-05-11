@@ -17,7 +17,6 @@ android {
 		.replace(":", ".")
 	namespace = "net.twisterrob.astro${subPackage}"
 
-
 	resourcePrefix = project.path
 		.removePrefix(":")
 		.replace("-", "_")
@@ -42,5 +41,10 @@ android {
 		resources {
 			excludes += "/META-INF/{LICENSE.md,LICENSE-notice.md}"
 		}
+	}
+	lint {
+		warningsAsErrors = true
+		checkAllWarnings = true
+		lintConfig = rootProject.file("config/lint/lint.xml")
 	}
 }
