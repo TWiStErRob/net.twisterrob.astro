@@ -2,8 +2,8 @@ package net.twisterrob.astro.widget.bazi
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,7 +61,7 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 				Text(
 					text = "Unknown",
 					modifier = Modifier
-						.padding(top = 60.dp)
+						.absoluteOffset(y = 60.dp)
 						.rotate(@Suppress("detekt.MagicNumber") -75f),
 				)
 			}
