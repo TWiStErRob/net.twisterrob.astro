@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import java.time.temporal.ChronoUnit
 import java.util.Collections
 
-class SolarTermTestCaseTest {
+class SolarTermTestCaseUnitTest {
 
 	@Test
 	fun `the test data has full cycles`() {

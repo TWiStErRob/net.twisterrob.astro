@@ -10,14 +10,14 @@ import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class HeavenlyStem_lookupSolarMonthKtTest {
+class HeavenlyStem_lookupHourKtUnitTest {
 
 	@TestFactory fun `all sexagenary pairs return a value`() =
 		(1..60)
 			.map { position ->
 				val pillar = BaZi.Pillar.sexagenaryCycle(position - 1)
 				dynamicTest("for #${position}: ${pillar.heavenlyStem} ${pillar.earthlyBranch}") {
-					HeavenlyStem.lookupSolarMonth(pillar.heavenlyStem, pillar.earthlyBranch)
+					HeavenlyStem.lookupHour(pillar.heavenlyStem, pillar.earthlyBranch)
 				}
 			}
 
@@ -29,34 +29,39 @@ class HeavenlyStem_lookupSolarMonthKtTest {
 			HeavenlyStem.Bing to HeavenlyStem.Xin,
 			HeavenlyStem.Ding to HeavenlyStem.Ren,
 			HeavenlyStem.Wu to HeavenlyStem.Gui,
-		).map { yearStems ->
+		).map { dayStems ->
 			dynamicContainer(
-				"Years ${yearStems.first} and ${yearStems.second} are equivalent",
+				"Days ${dayStems.first} and ${dayStems.second} are equivalent",
 				EarthlyBranch.entries
-					.map { monthBranch ->
-						dynamicTest("for ${monthBranch} month") {
-							val firstMonth = HeavenlyStem.lookupSolarMonth(yearStems.first, monthBranch)
-							val secondMonth = HeavenlyStem.lookupSolarMonth(yearStems.second, monthBranch)
-							firstMonth shouldBe secondMonth
+					.map { hourBranch ->
+						dynamicTest("for ${hourBranch} hour") {
+							val firstHour = HeavenlyStem.lookupHour(dayStems.first, hourBranch)
+							val secondHour = HeavenlyStem.lookupHour(dayStems.second, hourBranch)
+							firstHour shouldBe secondHour
 						}
 					}
 			)
 		}
 
 	@CsvSource(
-		"First stem, Jia, Zi, Bing",
-		"Last stem, Yi, Hai, Ding",
-		"First month, Bing, Yin, Geng",
-		"Second half of the table, Xin, Wei, Yi",
+		"Just before midnight, Jia, Zi, Jia",
+		"Exactly midnight, Wu, Zi, Ren",
+		"Just after midnight, Yi, Chou, Ding",
+
+		"Just before noon, Yi, Wu, Ren",
+		"Exactly noon, Bing, Wu, Jia",
+		"Just after noon, Gui, Wei, Ji",
+
+		"Second half of table, Xin, Mao, Xin",
 	)
 	@ParameterizedTest
 	fun `table is correct at specific positions`(
 		@Suppress("UNUSED_PARAMETER") description: String,
-		yearStem: HeavenlyStem,
-		monthBranch: EarthlyBranch,
+		dayStem: HeavenlyStem,
+		hourBranch: EarthlyBranch,
 		expected: HeavenlyStem,
 	) {
-		val actual = HeavenlyStem.lookupSolarMonth(yearStem, monthBranch)
+		val actual = HeavenlyStem.lookupHour(dayStem, hourBranch)
 		actual shouldBe expected
 	}
 }
