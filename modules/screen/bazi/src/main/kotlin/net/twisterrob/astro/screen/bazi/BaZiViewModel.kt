@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.bazi.model.BaZi
 import java.time.ZonedDateTime
@@ -15,8 +16,10 @@ public class BaZiViewModel : ViewModel() {
 	private val _uiState = MutableStateFlow(BaZiState.now())
 	internal val uiState: StateFlow<BaZiState> = _uiState.asStateFlow()
 
-	internal fun update() {
-		_uiState.value = BaZiState.now()
+	internal fun refresh() {
+		_uiState.update {
+			BaZiState.now()
+		}
 	}
 }
 

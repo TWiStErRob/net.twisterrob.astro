@@ -1,5 +1,6 @@
 package net.twisterrob.astro.screen.bazi
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -24,26 +25,32 @@ public fun BaZiScreen(
 	modifier: Modifier = Modifier,
 	viewModel: BaZiViewModel = viewModel(),
 ) {
-	val baZiState by viewModel.uiState.collectAsState()
-	BaZiScreen(modifier, baZiState)
+	val state by viewModel.uiState.collectAsState()
+	BaZiScreen(
+		modifier = modifier,
+		state = state,
+		onRefresh = viewModel::refresh,
+	)
 }
 
 @Composable
 private fun BaZiScreen(
 	modifier: Modifier = Modifier,
-	baZiState: BaZiState,
+	state: BaZiState,
+	onRefresh: () -> Unit,
 ) {
 	Column(
 		modifier = modifier,
 	) {
 		Text(
-			text = baZiState.dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG)),
+			text = state.dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG)),
 			modifier = Modifier
 				.align(CenterHorizontally)
+				.clickable(onClick = onRefresh)
 				.padding(4.dp),
 		)
 		BaZi(
-			bazi = baZiState.baZi,
+			bazi = state.baZi,
 		)
 	}
 }
@@ -53,7 +60,8 @@ private fun BaZiScreen(
 private fun BaZiScreenPreview() {
 	AppTheme {
 		BaZiScreen(
-			baZiState = BaZiState.now(),
+			state = BaZiState.now(),
+			onRefresh = {},
 		)
 	}
 }
