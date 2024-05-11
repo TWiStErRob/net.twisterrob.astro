@@ -1,3 +1,5 @@
+@file:Suppress("detekt.TooManyFunctions")
+
 package net.twisterrob.astro.widget.bazi
 
 import androidx.annotation.StringRes
@@ -38,16 +40,16 @@ import net.twisterrob.astro.component.theme.AppTheme
  */
 @Composable
 public fun BaZi(
-	modifier: Modifier = Modifier,
 	bazi: BaZi,
-	onYearIncreased: () -> Unit = {},
-	onYearDecreased: () -> Unit = {},
-	onMonthIncreased: () -> Unit = {},
-	onMonthDecreased: () -> Unit = {},
-	onDayIncreased: () -> Unit = {},
-	onDayDecreased: () -> Unit = {},
-	onHourIncreased: () -> Unit = {},
-	onHourDecreased: () -> Unit = {},
+	onYearAdd: () -> Unit,
+	onYearSubtract: () -> Unit,
+	onMonthAdd: () -> Unit,
+	onMonthSubtract: () -> Unit,
+	onDayAdd: () -> Unit,
+	onDaySubtract: () -> Unit,
+	onHourAdd: () -> Unit,
+	onHourSubtract: () -> Unit,
+	modifier: Modifier = Modifier,
 ) {
 	Row(
 		modifier = modifier
@@ -60,67 +62,51 @@ public fun BaZi(
 				modifier = space25percent,
 				title = stringResource(R.string.widget_bazi__pillar_title_hour),
 				pillar = hour,
-				onIncreased = onHourIncreased,
-				onDecreased = onHourDecreased,
+				onAdd = onHourAdd,
+				onSubtract = onHourSubtract,
 			)
 		} else {
 			Pillar(
 				modifier = space25percent,
 				title = stringResource(R.string.widget_bazi__pillar_title_hour),
-				top = {
-					DisabledContentText {
-						Character(
-							symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_symbol),
-							color = LocalContentColor.current,
-							label = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_label)
-						)
-					}
-				},
-				bottom = {
-					DisabledContentText {
-						Character(
-							symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_symbol),
-							color = LocalContentColor.current,
-							label = "${stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_label)}\n"
-						)
-					}
-				},
-				onIncreased = null,
-				onDecreased = null,
+				top = { MissingHourPillarStem() },
+				bottom = { MissingHourPillarBranch() },
+				onAdd = null,
+				onSubtract = null,
 			)
 		}
 		Pillar(
 			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_day),
 			pillar = bazi.day,
-			onIncreased = onDayIncreased,
-			onDecreased = onDayDecreased,
+			onAdd = onDayAdd,
+			onSubtract = onDaySubtract,
 		)
 		Pillar(
 			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_month),
 			pillar = bazi.month,
-			onIncreased = onMonthIncreased,
-			onDecreased = onMonthDecreased,
+			onAdd = onMonthAdd,
+			onSubtract = onMonthSubtract,
 		)
 		Pillar(
 			modifier = space25percent,
 			title = stringResource(R.string.widget_bazi__pillar_title_year),
 			pillar = bazi.year,
-			onIncreased = onYearIncreased,
-			onDecreased = onYearDecreased,
+			onAdd = onYearAdd,
+			onSubtract = onYearSubtract,
 		)
 	}
 }
 
 @Composable
 private fun Pillar(
-	modifier: Modifier = Modifier,
 	title: String,
 	top: @Composable () -> Unit,
 	bottom: @Composable () -> Unit,
-	onIncreased: (() -> Unit)?,
-	onDecreased: (() -> Unit)?,
+	onAdd: (() -> Unit)?,
+	onSubtract: (() -> Unit)?,
+	modifier: Modifier = Modifier,
 ) {
 	Column(
 		modifier = modifier,
@@ -130,22 +116,22 @@ private fun Pillar(
 			verticalAlignment = Alignment.CenterVertically,
 			horizontalArrangement = Arrangement.spacedBy(4.dp),
 		) {
-			onDecreased?.let { onDecreased ->
+			onSubtract?.let { onSubtract ->
 				SmallButton(
 					icon = Icons.Filled.RemoveCircleOutline,
 					cd = R.string.widget_bazi__pillar_title_minus,
-					onClick = onDecreased,
+					onClick = onSubtract,
 				)
 			}
 			Text(
 				text = title,
 				style = MaterialTheme.typography.labelMedium,
 			)
-			onIncreased?.let { onIncreased ->
+			onAdd?.let { onAdd ->
 				SmallButton(
 					icon = Icons.Filled.AddCircleOutline,
 					cd = R.string.widget_bazi__pillar_title_plus,
-					onClick = onIncreased,
+					onClick = onAdd,
 				)
 			}
 		}
@@ -179,17 +165,17 @@ private fun SmallButton(
 
 @Composable
 private fun Pillar(
-	modifier: Modifier = Modifier,
 	title: String,
 	pillar: BaZi.Pillar,
-	onIncreased: () -> Unit,
-	onDecreased: () -> Unit,
+	onAdd: () -> Unit,
+	onSubtract: () -> Unit,
+	modifier: Modifier = Modifier,
 ) {
 	Pillar(
 		modifier = modifier,
 		title = title,
-		onIncreased = onIncreased,
-		onDecreased = onDecreased,
+		onAdd = onAdd,
+		onSubtract = onSubtract,
 		top = {
 			Character(
 				symbol = pillar.heavenlyStem.symbol,
@@ -210,10 +196,10 @@ private fun Pillar(
 
 @Composable
 private fun Character(
-	modifier: Modifier = Modifier,
 	symbol: String,
 	color: Color,
 	label: String,
+	modifier: Modifier = Modifier,
 ) {
 	Column(
 		modifier = modifier,
@@ -244,6 +230,28 @@ private fun CharacterLabel(text: String) {
 		text = text,
 		textAlign = TextAlign.Center,
 	)
+}
+
+@Composable
+private fun MissingHourPillarStem() {
+	DisabledContentText {
+		Character(
+			symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_symbol),
+			color = LocalContentColor.current,
+			label = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_label)
+		)
+	}
+}
+
+@Composable
+private fun MissingHourPillarBranch() {
+	DisabledContentText {
+		Character(
+			symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_symbol),
+			color = LocalContentColor.current,
+			label = "${stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_label)}\n"
+		)
+	}
 }
 
 @Composable
@@ -318,7 +326,15 @@ private fun BaZiFullPreview() {
 				month = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Si),
 				day = BaZi.Pillar(HeavenlyStem.Wu, EarthlyBranch.Shen),
 				hour = BaZi.Pillar(HeavenlyStem.Xin, EarthlyBranch.Mao),
-			)
+			),
+			onYearAdd = {},
+			onYearSubtract = {},
+			onMonthAdd = {},
+			onMonthSubtract = {},
+			onDayAdd = {},
+			onDaySubtract = {},
+			onHourAdd = {},
+			onHourSubtract = {},
 		)
 	}
 }
@@ -334,14 +350,14 @@ private fun BaZiHourlessPreview() {
 				day = BaZi.Pillar(HeavenlyStem.Wu, EarthlyBranch.Shen),
 				hour = null,
 			),
-			onYearIncreased = {},
-			onYearDecreased = {},
-			onMonthIncreased = {},
-			onMonthDecreased = {},
-			onDayIncreased = {},
-			onDayDecreased = {},
-			onHourIncreased = {},
-			onHourDecreased = {},
+			onYearAdd = {},
+			onYearSubtract = {},
+			onMonthAdd = {},
+			onMonthSubtract = {},
+			onDayAdd = {},
+			onDaySubtract = {},
+			onHourAdd = {},
+			onHourSubtract = {},
 		)
 	}
 }

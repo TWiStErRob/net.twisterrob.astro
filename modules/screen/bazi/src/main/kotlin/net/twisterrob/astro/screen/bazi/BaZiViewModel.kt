@@ -16,12 +16,13 @@ import java.time.temporal.TemporalAmount
 /**
  * [ViewModel] for [BaZiScreen].
  */
+@Suppress("detekt.TooManyFunctions")
 public class BaZiViewModel : ViewModel() {
 	private val _uiState = MutableStateFlow(BaZiState.now())
 	internal val uiState: StateFlow<BaZiState> = _uiState.asStateFlow()
 
 	internal fun refresh() {
-		_uiState.update {
+		_uiState.update { _ ->
 			BaZiState.now()
 		}
 	}
@@ -42,8 +43,8 @@ public class BaZiViewModel : ViewModel() {
 	}
 
 	private fun update(adjuster: (Temporal) -> Temporal) {
-		_uiState.update {
-			val dateTime = adjuster(it.dateTime) as ZonedDateTime
+		_uiState.update { state ->
+			val dateTime = adjuster(state.dateTime) as ZonedDateTime
 			BaZiState(
 				dateTime = dateTime,
 				baZi = SolarCalculator().calculate(dateTime.toLocalDateTime()),

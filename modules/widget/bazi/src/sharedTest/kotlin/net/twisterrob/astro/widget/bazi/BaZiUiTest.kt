@@ -20,12 +20,20 @@ class BaZiUiTest {
 	fun `full is rendered`() {
 		compose.setContent {
 			BaZi(
-				BaZi(
+				bazi = BaZi(
 					year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
 					month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
 					day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
 					hour = BaZi.Pillar(HeavenlyStem.Ding, EarthlyBranch.Mao),
-				)
+				),
+				onYearAdd = {},
+				onYearSubtract = {},
+				onMonthAdd = {},
+				onMonthSubtract = {},
+				onDayAdd = {},
+				onDaySubtract = {},
+				onHourAdd = {},
+				onHourSubtract = {},
 			)
 		}
 		compose
@@ -37,12 +45,20 @@ class BaZiUiTest {
 	fun `hourless is rendered`() {
 		compose.setContent {
 			BaZi(
-				BaZi(
+				bazi = BaZi(
 					year = BaZi.Pillar(HeavenlyStem.Geng, EarthlyBranch.Chen),
 					month = BaZi.Pillar(HeavenlyStem.Xin, EarthlyBranch.Si),
 					day = BaZi.Pillar(HeavenlyStem.Ren, EarthlyBranch.Wu),
 					hour = null,
-				)
+				),
+				onYearAdd = {},
+				onYearSubtract = {},
+				onMonthAdd = {},
+				onMonthSubtract = {},
+				onDayAdd = {},
+				onDaySubtract = {},
+				onHourAdd = {},
+				onHourSubtract = {},
 			)
 		}
 		compose
