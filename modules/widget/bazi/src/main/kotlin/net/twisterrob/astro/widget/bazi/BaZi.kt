@@ -11,8 +11,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.ui.text.style.LineHeightStyle.Alignment
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.bazi.model.BaZi
@@ -44,7 +42,7 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 				top = {
 					DisabledContentText {
 						Character(
-							symbol = "?",
+							symbol = " ？",
 							color = LocalContentColor.current,
 							label = "Unknown"
 						)
@@ -53,7 +51,7 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 				bottom = {
 					DisabledContentText {
 						Character(
-							symbol = "?",
+							symbol = " ？",
 							color = LocalContentColor.current,
 							label = "Unknown\n"
 						)
@@ -143,15 +141,7 @@ private fun CharacterSymbol(symbol: String, color: Color) {
 	Text(
 		text = symbol,
 		color = color,
-		style = MaterialTheme.typography.displayMedium.run {
-			copy(
-				lineHeight = fontSize * 1.5f,
-				lineHeightStyle = LineHeightStyle(
-					alignment = Alignment.Bottom,
-					trim = LineHeightStyle.Trim.None,
-				),
-			)
-		},
+		style = MaterialTheme.typography.displayMedium,
 	)
 }
 
