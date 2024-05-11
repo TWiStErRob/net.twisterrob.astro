@@ -19,19 +19,24 @@ import java.time.format.FormatStyle
  * Screen that displays the current BaZi.
  */
 @Composable
-public fun BaZiScreen(modifier: Modifier = Modifier) {
-	val dateTime = ZonedDateTime.now()
+public fun BaZiScreen(
+	modifier: Modifier = Modifier,
+) {
+	val baZiState = BaZiState(
+		dateTime = ZonedDateTime.now(),
+		baZi = SolarCalculator().calculate(ZonedDateTime.now().toLocalDateTime())
+	)
 	Column(
 		modifier = modifier,
 	) {
 		Text(
-			text = dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG)),
+			text = baZiState.dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG)),
 			modifier = Modifier
 				.align(CenterHorizontally)
 				.padding(4.dp),
 		)
 		BaZi(
-			bazi = SolarCalculator().calculate(dateTime.toLocalDateTime()),
+			bazi = baZiState.baZi,
 		)
 	}
 }
