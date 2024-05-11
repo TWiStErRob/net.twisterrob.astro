@@ -30,6 +30,14 @@ public fun BaZiScreen(
 		modifier = modifier,
 		state = state,
 		onRefresh = viewModel::refresh,
+		onYearIncreased = viewModel::increaseYear,
+		onYearDecreased = viewModel::decreaseYear,
+		onMonthIncreased = viewModel::increaseMonth,
+		onMonthDecreased = viewModel::decreaseMonth,
+		onDayIncreased = viewModel::increaseDay,
+		onDayDecreased = viewModel::decreaseDay,
+		onHourIncreased = viewModel::increaseHour,
+		onHourDecreased = viewModel::decreaseHour,
 	)
 }
 
@@ -38,6 +46,14 @@ private fun BaZiScreen(
 	modifier: Modifier = Modifier,
 	state: BaZiState,
 	onRefresh: () -> Unit,
+	onYearIncreased: () -> Unit = {},
+	onYearDecreased: () -> Unit = {},
+	onMonthIncreased: () -> Unit = {},
+	onMonthDecreased: () -> Unit = {},
+	onDayIncreased: () -> Unit = {},
+	onDayDecreased: () -> Unit = {},
+	onHourIncreased: () -> Unit = {},
+	onHourDecreased: () -> Unit = {},
 ) {
 	Column(
 		modifier = modifier,
@@ -51,6 +67,14 @@ private fun BaZiScreen(
 		)
 		BaZi(
 			bazi = state.baZi,
+			onYearIncreased = onYearIncreased,
+			onYearDecreased = onYearDecreased,
+			onMonthIncreased = onMonthIncreased,
+			onMonthDecreased = onMonthDecreased,
+			onDayIncreased = onDayIncreased,
+			onDayDecreased = onDayDecreased,
+			onHourIncreased = onHourIncreased,
+			onHourDecreased = onHourDecreased,
 		)
 	}
 }
@@ -62,6 +86,14 @@ private fun BaZiScreenPreview() {
 		BaZiScreen(
 			state = BaZiState.now(),
 			onRefresh = {},
+			onYearIncreased = {},
+			onYearDecreased = {},
+			onMonthIncreased = {},
+			onMonthDecreased = {},
+			onDayIncreased = {},
+			onDayDecreased = {},
+			onHourIncreased = {},
+			onHourDecreased = {},
 		)
 	}
 }

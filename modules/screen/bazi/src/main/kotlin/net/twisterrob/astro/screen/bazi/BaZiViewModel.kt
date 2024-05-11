@@ -7,7 +7,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.bazi.model.BaZi
+import java.time.Duration
+import java.time.Period
 import java.time.ZonedDateTime
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAmount
 
 /**
  * [ViewModel] for [BaZiScreen].
@@ -19,6 +23,31 @@ public class BaZiViewModel : ViewModel() {
 	internal fun refresh() {
 		_uiState.update {
 			BaZiState.now()
+		}
+	}
+
+	//@formatter:off
+	internal fun increaseYear() { update(Period.ofYears(+1)) }
+	internal fun decreaseYear() { update(Period.ofYears( -1)) }
+	internal fun increaseMonth() { update(Period.ofMonths(+1)) }
+	internal fun decreaseMonth() { update(Period.ofMonths(-1)) }
+	internal fun increaseDay() { update(Period.ofDays(+1)) }
+	internal fun decreaseDay() { update(Period.ofDays(-1)) }
+	internal fun increaseHour() { update(Duration.ofHours(+1)) }
+	internal fun decreaseHour() { update(Duration.ofHours(-1)) }
+	//@formatter:on
+
+	private fun update(amount: TemporalAmount) {
+		update(amount::addTo)
+	}
+
+	private fun update(adjuster: (Temporal) -> Temporal) {
+		_uiState.update {
+			val dateTime = adjuster(it.dateTime) as ZonedDateTime
+			BaZiState(
+				dateTime = dateTime,
+				baZi = SolarCalculator().calculate(dateTime.toLocalDateTime()),
+			)
 		}
 	}
 }

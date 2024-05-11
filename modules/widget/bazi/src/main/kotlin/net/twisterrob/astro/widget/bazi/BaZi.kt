@@ -40,14 +40,14 @@ import net.twisterrob.astro.component.theme.AppTheme
 public fun BaZi(
 	modifier: Modifier = Modifier,
 	bazi: BaZi,
-	onHourIncreased: () -> Unit = {},
-	onHourDecreased: () -> Unit = {},
-	onDayIncreased: () -> Unit = {},
-	onDayDecreased: () -> Unit = {},
-	onMonthIncreased: () -> Unit = {},
-	onMonthDecreased: () -> Unit = {},
 	onYearIncreased: () -> Unit = {},
 	onYearDecreased: () -> Unit = {},
+	onMonthIncreased: () -> Unit = {},
+	onMonthDecreased: () -> Unit = {},
+	onDayIncreased: () -> Unit = {},
+	onDayDecreased: () -> Unit = {},
+	onHourIncreased: () -> Unit = {},
+	onHourDecreased: () -> Unit = {},
 ) {
 	Row(
 		modifier = modifier
@@ -333,7 +333,15 @@ private fun BaZiHourlessPreview() {
 				month = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Si),
 				day = BaZi.Pillar(HeavenlyStem.Wu, EarthlyBranch.Shen),
 				hour = null,
-			)
+			),
+			onYearIncreased = {},
+			onYearDecreased = {},
+			onMonthIncreased = {},
+			onMonthDecreased = {},
+			onDayIncreased = {},
+			onDayDecreased = {},
+			onHourIncreased = {},
+			onHourDecreased = {},
 		)
 	}
 }
