@@ -10,6 +10,7 @@ import net.twisterrob.astro.bazi.model.BaZi
 import java.time.Duration
 import java.time.Period
 import java.time.ZonedDateTime
+import java.time.temporal.ChronoField
 import java.time.temporal.Temporal
 import java.time.temporal.TemporalAmount
 
@@ -39,7 +40,15 @@ public class BaZiViewModel : ViewModel() {
 	//@formatter:on
 
 	private fun update(amount: TemporalAmount) {
-		update(amount::addTo)
+		update {
+			amount
+				.addTo(it)
+				// Reset time to a half an hour to make it easier to understand
+				// as the sexagenary hours are changing on the hour.
+				.with(ChronoField.MINUTE_OF_HOUR, @Suppress("detekt.MagicNumber") 30)
+				.with(ChronoField.SECOND_OF_MINUTE, 0)
+				.with(ChronoField.NANO_OF_SECOND, 0)
+		}
 	}
 
 	private fun update(adjuster: (Temporal) -> Temporal) {
