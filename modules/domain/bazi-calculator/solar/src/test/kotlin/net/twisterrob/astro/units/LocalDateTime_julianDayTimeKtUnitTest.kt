@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDateTime
 
-class LocalDateTime_julianDayTimeKtTest {
+class LocalDateTime_julianDayTimeKtUnitTest {
 
 	@CsvSource(
 		// 1e-4 = 0.0001 precision, 1 second is 0.000011574, so this is ~8.64 seconds precise.

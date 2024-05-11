@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 import java.time.Month.APRIL
 import kotlin.time.Duration
 
-class SolarCoordinateApproximatorTest {
+class SolarCoordinateApproximatorUnitTest {
 
 	private val subject = SolarCoordinateApproximator()
 
