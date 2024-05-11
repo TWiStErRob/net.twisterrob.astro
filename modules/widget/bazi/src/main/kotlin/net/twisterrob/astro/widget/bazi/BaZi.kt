@@ -58,6 +58,7 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 			) {
 				Text(
 					text = "Hour",
+					style = MaterialTheme.typography.labelLarge,
 				)
 				Text(
 					text = "Unknown",
@@ -78,6 +79,7 @@ private fun Pillar(title: String, pillar: BaZi.Pillar, modifier: Modifier = Modi
 	) {
 		Text(
 			text = title,
+			style = MaterialTheme.typography.labelLarge,
 		)
 		Character(
 			character = pillar.heavenlyStem,
