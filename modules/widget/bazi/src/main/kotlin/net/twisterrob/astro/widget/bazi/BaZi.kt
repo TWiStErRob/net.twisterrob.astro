@@ -65,7 +65,7 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 					Character(
 						symbol = "?",
 						color = MaterialTheme.colorScheme.onBackground,
-						label = "Unknown"
+						label = "Unknown\n"
 					)
 				},
 				modifier = space25percent,
