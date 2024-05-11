@@ -25,7 +25,7 @@ import org.junit.jupiter.api.TestFactory
 	"detekt.UndocumentedPublicFunction", // Test methods only, they're fine without.
 	"detekt.UnnecessaryAbstractClass", // Needs to be abstract so JUnit doesn't run it.
 )
-abstract class BaZiCalculatorTest {
+abstract class BaZiCalculatorBaseUnitTest {
 
 	/**
 	 * Store an instance of the test subject.

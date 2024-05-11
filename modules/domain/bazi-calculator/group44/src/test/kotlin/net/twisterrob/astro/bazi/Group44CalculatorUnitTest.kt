@@ -20,7 +20,7 @@ import net.twisterrob.astro.bazi.model.EarthlyBranch.Wu as WuEB
 import net.twisterrob.astro.bazi.model.HeavenlyStem.Wu as WuHS
 
 @Disabled("Group44Calculator is not working, I think the month is lunar, not solar and the hour is somehow wrong.")
-class Group44CalculatorTest : BaZiCalculatorTest() {
+class Group44CalculatorUnitTest : BaZiCalculatorBaseUnitTest() {
 
 	override val subject = Group44Calculator()
 

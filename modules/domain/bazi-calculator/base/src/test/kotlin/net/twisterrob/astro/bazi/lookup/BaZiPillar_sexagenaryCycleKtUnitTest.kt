@@ -14,7 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 
-class BaZiPillar_sexagenaryCycleKtTest {
+class BaZiPillar_sexagenaryCycleKtUnitTest {
 
 	/**
 	 * Source: https://en.wikipedia.org/wiki/Sexagenary_cycle#Sexagenary_years

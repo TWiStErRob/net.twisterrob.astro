@@ -8,7 +8,7 @@ import net.twisterrob.astro.bazi.lookup.sexagenaryCycle
 import net.twisterrob.astro.bazi.model.BaZi
 import org.junit.jupiter.api.Test
 
-class SexagenaryYearTestCaseTest {
+class SexagenaryYearTestCaseUnitTest {
 
 	@Test
 	fun `the test data has full cycles`() {

@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class CanonicalModKtTest {
+class CanonicalModKtUnitTest {
 
 	@CsvSource(
 		"1.0, 2.0, 1.0",

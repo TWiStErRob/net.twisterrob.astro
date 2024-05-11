@@ -4,7 +4,7 @@ import io.kotest.matchers.shouldBe
 import net.twisterrob.astro.bazi.model.BaZi.Pillar
 import org.junit.jupiter.api.Test
 
-class BaZiTest {
+class BaZiUnitTest {
 
 	@Test fun `self element represents the day's heavenly stem`() {
 		val subject = BaZi(
