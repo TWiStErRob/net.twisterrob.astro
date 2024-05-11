@@ -11,6 +11,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.bazi.model.BaZi
@@ -32,13 +33,13 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 		val hour = bazi.hour
 		if (hour != null) {
 			Pillar(
-				title = "Hour",
+				title = stringResource(R.string.widget_bazi__pillar_title_hour),
 				pillar = hour,
 				modifier = space25percent,
 			)
 		} else {
 			Pillar(
-				title = "Hour",
+				title = stringResource(R.string.widget_bazi__pillar_title_hour),
 				top = {
 					DisabledContentText {
 						Character(
@@ -61,17 +62,17 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 			)
 		}
 		Pillar(
-			title = "Day",
+			title = stringResource(R.string.widget_bazi__pillar_title_day),
 			pillar = bazi.day,
 			modifier = space25percent,
 		)
 		Pillar(
-			title = "Month",
+			title = stringResource(R.string.widget_bazi__pillar_title_month),
 			pillar = bazi.month,
 			modifier = space25percent,
 		)
 		Pillar(
-			title = "Year",
+			title = stringResource(R.string.widget_bazi__pillar_title_year),
 			pillar = bazi.year,
 			modifier = space25percent,
 		)

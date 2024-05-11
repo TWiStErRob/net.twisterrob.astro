@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="widget_bazi__pillar_title_year">Year</string>
+	<string name="widget_bazi__pillar_title_month">Month</string>
+	<string name="widget_bazi__pillar_title_day">Day</string>
+	<string name="widget_bazi__pillar_title_hour">Hour</string>
+
+</resources>
