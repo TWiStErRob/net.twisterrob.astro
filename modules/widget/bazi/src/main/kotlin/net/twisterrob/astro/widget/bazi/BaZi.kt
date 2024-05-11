@@ -3,9 +3,11 @@ package net.twisterrob.astro.widget.bazi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -55,18 +57,22 @@ public fun BaZi(bazi: BaZi, modifier: Modifier = Modifier) {
 			Pillar(
 				title = "Hour",
 				top = {
-					Character(
-						symbol = "?",
-						color = MaterialTheme.colorScheme.onBackground,
-						label = "Unknown"
-					)
+					DisabledContentText {
+						Character(
+							symbol = "?",
+							color = LocalContentColor.current,
+							label = "Unknown"
+						)
+					}
 				},
 				bottom = {
-					Character(
-						symbol = "?",
-						color = MaterialTheme.colorScheme.onBackground,
-						label = "Unknown\n"
-					)
+					DisabledContentText {
+						Character(
+							symbol = "?",
+							color = LocalContentColor.current,
+							label = "Unknown\n"
+						)
+					}
 				},
 				modifier = space25percent,
 			)
@@ -155,6 +161,13 @@ private fun CharacterLabel(text: String) {
 		text = text,
 		textAlign = TextAlign.Center,
 	)
+}
+
+@Composable
+private fun DisabledContentText(content: @Composable () -> Unit) {
+	CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)) {
+		content()
+	}
 }
 
 private val EarthlyBranch.symbol: String
