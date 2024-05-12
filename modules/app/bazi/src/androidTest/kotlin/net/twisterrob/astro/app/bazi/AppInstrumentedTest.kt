@@ -16,7 +16,7 @@ class AppInstrumentedTest {
 	fun testPackageName() {
 		val appContext: Context = ApplicationProvider.getApplicationContext()
 
-		appContext.packageName shouldBe "net.twisterrob.bazi"
+		appContext.packageName shouldBe "net.twisterrob.bazi.debug"
 	}
 
 	@Test

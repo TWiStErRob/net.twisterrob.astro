@@ -9,4 +9,9 @@ android {
 	defaultConfig {
 		targetSdk = libs.versions.android.targetSdk.get().toInt()
 	}
+	buildTypes {
+		debug {
+			applicationIdSuffix = ".debug"
+		}
+	}
 }
