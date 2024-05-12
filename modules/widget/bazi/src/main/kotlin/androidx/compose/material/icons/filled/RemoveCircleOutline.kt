@@ -15,10 +15,11 @@ import androidx.compose.ui.tooling.preview.Preview
 public val Icons.Filled.RemoveCircleOutline: ImageVector
 	get() {
 		if (_removeCircleOutline != null) {
+			@Suppress("detekt.UnsafeCallOnNullableType")
 			return _removeCircleOutline!!
 		}
 		_removeCircleOutline = materialIcon(name = "Filled.RemoveCircleOutline") {
-			@Suppress("detekt.MagicNumber")
+			@Suppress("detekt.MagicNumber", "detekt.NamedArguments")
 			materialPath {
 				moveTo(7.0f, 11.0f)
 				verticalLineToRelative(2.0f)
@@ -40,6 +41,7 @@ public val Icons.Filled.RemoveCircleOutline: ImageVector
 				close()
 			}
 		}
+		@Suppress("detekt.UnsafeCallOnNullableType")
 		return _removeCircleOutline!!
 	}
 

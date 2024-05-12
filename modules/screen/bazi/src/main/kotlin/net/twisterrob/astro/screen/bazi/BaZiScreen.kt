@@ -69,7 +69,7 @@ private fun BaZiScreen(
 				.padding(4.dp),
 		)
 		BaZi(
-			bazi = state.baZi,
+			bazi = state.bazi,
 			onYearAdd = onYearAdd,
 			onYearSubtract = onYearSubtract,
 			onMonthAdd = onMonthAdd,
@@ -89,7 +89,7 @@ private fun BaZiScreenPreview() {
 		BaZiScreen(
 			state = BaZiState(
 				dateTime = ZonedDateTime.now(),
-				baZi = SolarCalculator().calculate(LocalDateTime.now()),
+				bazi = SolarCalculator().calculate(LocalDateTime.now()),
 			),
 			onRefresh = {},
 			onYearAdd = {},

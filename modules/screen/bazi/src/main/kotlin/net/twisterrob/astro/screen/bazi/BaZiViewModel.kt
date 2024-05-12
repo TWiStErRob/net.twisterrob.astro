@@ -23,7 +23,7 @@ public class BaZiViewModel : ViewModel() {
 		val dateTime = ZonedDateTime.now()
 		BaZiState(
 			dateTime = dateTime,
-			baZi = bazi(dateTime),
+			bazi = bazi(dateTime),
 		)
 	})
 	internal val uiState: StateFlow<BaZiState> = _uiState.asStateFlow()
@@ -62,7 +62,7 @@ public class BaZiViewModel : ViewModel() {
 			val dateTime = adjuster(state.dateTime) as ZonedDateTime
 			BaZiState(
 				dateTime = dateTime,
-				baZi = bazi(dateTime),
+				bazi = bazi(dateTime),
 			)
 		}
 	}
@@ -76,5 +76,5 @@ public class BaZiViewModel : ViewModel() {
 
 internal class BaZiState(
 	val dateTime: ZonedDateTime,
-	val baZi: BaZi,
+	val bazi: BaZi,
 )
