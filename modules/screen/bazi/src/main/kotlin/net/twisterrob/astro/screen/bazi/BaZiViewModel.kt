@@ -19,28 +19,34 @@ import java.time.temporal.TemporalAmount
  */
 @Suppress("detekt.TooManyFunctions")
 public class BaZiViewModel : ViewModel() {
-	private val _uiState = MutableStateFlow(BaZiState.now())
+	private val _uiState = MutableStateFlow(run {
+		val dateTime = ZonedDateTime.now()
+		BaZiState(
+			dateTime = dateTime,
+			baZi = bazi(dateTime),
+		)
+	})
 	internal val uiState: StateFlow<BaZiState> = _uiState.asStateFlow()
 
 	internal fun refresh() {
-		_uiState.update { _ ->
-			BaZiState.now()
+		updateDateTime { _ ->
+			ZonedDateTime.now()
 		}
 	}
 
 	//@formatter:off
-	internal fun increaseYear() { update(Period.ofYears(+1)) }
-	internal fun decreaseYear() { update(Period.ofYears( -1)) }
-	internal fun increaseMonth() { update(Period.ofMonths(+1)) }
-	internal fun decreaseMonth() { update(Period.ofMonths(-1)) }
-	internal fun increaseDay() { update(Period.ofDays(+1)) }
-	internal fun decreaseDay() { update(Period.ofDays(-1)) }
-	internal fun increaseHour() { update(Duration.ofHours(+1)) }
-	internal fun decreaseHour() { update(Duration.ofHours(-1)) }
+	internal fun increaseYear() { updateDateTime(Period.ofYears(+1)) }
+	internal fun decreaseYear() { updateDateTime(Period.ofYears( -1)) }
+	internal fun increaseMonth() { updateDateTime(Period.ofMonths(+1)) }
+	internal fun decreaseMonth() { updateDateTime(Period.ofMonths(-1)) }
+	internal fun increaseDay() { updateDateTime(Period.ofDays(+1)) }
+	internal fun decreaseDay() { updateDateTime(Period.ofDays(-1)) }
+	internal fun increaseHour() { updateDateTime(Duration.ofHours(+1)) }
+	internal fun decreaseHour() { updateDateTime(Duration.ofHours(-1)) }
 	//@formatter:on
 
-	private fun update(amount: TemporalAmount) {
-		update {
+	private fun updateDateTime(amount: TemporalAmount) {
+		updateDateTime {
 			amount
 				.addTo(it)
 				// Reset time to a half an hour to make it easier to understand
@@ -51,28 +57,24 @@ public class BaZiViewModel : ViewModel() {
 		}
 	}
 
-	private fun update(adjuster: (Temporal) -> Temporal) {
+	private fun updateDateTime(adjuster: (Temporal) -> Temporal) {
 		_uiState.update { state ->
 			val dateTime = adjuster(state.dateTime) as ZonedDateTime
 			BaZiState(
 				dateTime = dateTime,
-				baZi = SolarCalculator().calculate(dateTime.toLocalDateTime()),
+				baZi = bazi(dateTime),
 			)
 		}
+	}
+
+	private fun bazi(dateTime: ZonedDateTime): BaZi {
+		// Hack to adjust for GMT+1 / DST, will fix when TZ handling is implemented.
+		val localTime = dateTime.toLocalDateTime().minusHours(1)
+		return SolarCalculator().calculate(localTime)
 	}
 }
 
 internal class BaZiState(
 	val dateTime: ZonedDateTime,
 	val baZi: BaZi,
-) {
-	companion object {
-		fun now(): BaZiState {
-			val dateTime = ZonedDateTime.now()
-			return BaZiState(
-				dateTime,
-				SolarCalculator().calculate(dateTime.toLocalDateTime())
-			)
-		}
-	}
-}
+)

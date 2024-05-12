@@ -12,8 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.widget.bazi.BaZi
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -84,7 +87,10 @@ private fun BaZiScreen(
 private fun BaZiScreenPreview() {
 	AppTheme {
 		BaZiScreen(
-			state = BaZiState.now(),
+			state = BaZiState(
+				dateTime = ZonedDateTime.now(),
+				baZi = SolarCalculator().calculate(LocalDateTime.now()),
+			),
 			onRefresh = {},
 			onYearAdd = {},
 			onYearSubtract = {},
