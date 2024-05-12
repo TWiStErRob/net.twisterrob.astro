@@ -70,6 +70,8 @@ private fun BaZiScreen(
 		)
 		BaZi(
 			bazi = state.bazi,
+			modifier = Modifier
+				.padding(top = 24.dp),
 			onYearAdd = onYearAdd,
 			onYearSubtract = onYearSubtract,
 			onMonthAdd = onMonthAdd,
