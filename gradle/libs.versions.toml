@@ -40,6 +40,8 @@ androidx-lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
+# Should be unused, but keep it around for quick reference.
+# Drop it in and sync: implementation(libs.compose.materialIconsExtended)
 compose-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-uiGraphics = { module = "androidx.compose.ui:ui-graphics" }
