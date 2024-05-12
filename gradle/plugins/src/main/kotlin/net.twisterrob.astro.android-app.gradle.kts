@@ -10,8 +10,8 @@ android {
 		targetSdk = libs.versions.android.targetSdk.get().toInt()
 	}
 	buildTypes {
-		named("debug") {
-			this.applicationIdSuffix = ".debug"
+		debug {
+			applicationIdSuffix = ".debug"
 		}
 	}
 }
