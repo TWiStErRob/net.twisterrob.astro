@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.update
 import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.bazi.model.BaZi
 import java.time.Duration
+import java.time.Instant
 import java.time.Period
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoField
@@ -24,6 +25,7 @@ public class BaZiViewModel : ViewModel() {
 		BaZiState(
 			dateTime = dateTime,
 			bazi = bazi(dateTime),
+			isPickingDate = false,
 		)
 	})
 	internal val uiState: StateFlow<BaZiState> = _uiState.asStateFlow()
@@ -57,12 +59,13 @@ public class BaZiViewModel : ViewModel() {
 		}
 	}
 
-	private fun updateDateTime(adjuster: (Temporal) -> Temporal) {
+	private fun updateDateTime(adjuster: (ZonedDateTime) -> Temporal) {
 		_uiState.update { state ->
 			val dateTime = adjuster(state.dateTime) as ZonedDateTime
 			BaZiState(
 				dateTime = dateTime,
 				bazi = bazi(dateTime),
+				isPickingDate = false,
 			)
 		}
 	}
@@ -72,9 +75,26 @@ public class BaZiViewModel : ViewModel() {
 		val localTime = dateTime.toLocalDateTime().minusHours(1)
 		return SolarCalculator().calculate(localTime)
 	}
+
+	internal fun pickDate() {
+		_uiState.update { it.copy(isPickingDate = true) }
+	}
+
+	internal fun hideDatePicker() {
+		_uiState.update { it.copy(isPickingDate = false) }
+	}
+
+	internal fun selectDate(date: Instant) {
+		updateDateTime { current ->
+			// Hack to adjust for GMT+1 / DST, will fix when TZ handling is implemented.
+			val keepOriginalTime = date.plusNanos(current.toLocalTime().minusHours(1).toNanoOfDay())
+			ZonedDateTime.ofInstant(keepOriginalTime, current.zone)
+		}
+	}
 }
 
-internal class BaZiState(
+internal data class BaZiState(
 	val dateTime: ZonedDateTime,
 	val bazi: BaZi,
+	val isPickingDate: Boolean,
 )
