@@ -8,5 +8,10 @@ dependencies { // androidTestImplementation(projects.component.testBaseInstrumen
 	api(libs.test.androidx.junit)
 	api(libs.test.compose.junit)
 	api(libs.test.androidx.espressoCore)
-	api(libs.test.kotest.assertions)
+	api(libs.test.kotest.assertions) {
+		because("Choice of assertions library for this project.")
+	}
+	api(libs.test.mockito.kotlin) {
+		because("Choice of mocking library for this project.")
+	}
 }

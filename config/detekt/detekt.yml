@@ -20,21 +20,25 @@ console-reports:
     # Enabled, because this gives enough context to see the problems.
     #- 'LiteFindingsReport'
 
-complexity: 
-  TooManyFunctions: 
+complexity:
+
+  StringLiteralDuplication:
     excludes: &testExcludes
-    - '**/test/**'
-    # Include testFixtures among default test folders.
-    - '**/testFixtures/**'
-    # Include sharedTest among default test folders.
-    - '**/sharedTest/**'
-    - '**/androidTest/**'
-    - '**/commonTest/**'
-    - '**/jvmTest/**'
-    - '**/androidUnitTest/**'
-    - '**/androidInstrumentedTest/**'
-    - '**/jsTest/**'
-    - '**/iosTest/**'
+      - '**/test/**'
+      # Include testFixtures among default test folders.
+      - '**/testFixtures/**'
+      # Include sharedTest among default test folders.
+      - '**/sharedTest/**'
+      - '**/androidTest/**'
+      - '**/commonTest/**'
+      - '**/jvmTest/**'
+      - '**/androidUnitTest/**'
+      - '**/androidInstrumentedTest/**'
+      - '**/jsTest/**'
+      - '**/iosTest/**'
+
+  TooManyFunctions:
+    excludes: *testExcludes
 
 
 naming:
@@ -47,7 +51,8 @@ naming:
 
   FunctionMaxLength:
     ignoreAnnotated:
-      # Test names in JUnit 5 are ok to be long as they're likely sentences.
+      # Test names in JUnit are ok to be long as they're likely sentences.
+      - 'org.junit.Test'
       - 'org.junit.jupiter.api.Test'
       - 'org.junit.jupiter.api.TestFactory'
       - 'org.junit.jupiter.api.RepeatedTest'
