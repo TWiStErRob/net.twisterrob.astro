@@ -16,6 +16,7 @@ detekt-twitter = "0.3.20"
 junit = "4.13.2"
 junit-jupiter = "5.10.2"
 kotest = "5.9.0"
+mockito = "5.12.0"
 mockito-kotlin = "5.3.1"
 robolectric = "4.12.1"
 
@@ -25,6 +26,7 @@ androidx-core = "1.13.1"
 androidx-espresso = "3.5.1"
 androidx-espressoJunit = "1.1.5"
 androidx-lifecycleRuntime = "2.7.0"
+androidx-viewmodelCompose = "2.7.0"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -33,11 +35,15 @@ detekt-rules-composeTwitter = { module = "io.nlopez.compose.rules:detekt", versi
 detekt-rules-composeKode = { module = "ru.kode:detekt-rules-compose", version.ref = "detekt-kode" }
 
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-viewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-viewmodelCompose" }
 androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycleRuntime" }
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
+# Should be unused, but keep it around for quick reference.
+# Drop it in and sync: implementation(libs.compose.materialIconsExtended)
+compose-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-uiGraphics = { module = "androidx.compose.ui:ui-graphics" }
 compose-uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
@@ -58,6 +64,8 @@ test-jupiter-launcher = { module = "org.junit.platform:junit-platform-launcher" 
 test-jupiter-vintage = { module = "org.junit.vintage:junit-vintage-engine" }
 
 test-kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+test-mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
+test-mockito-bom = { module = "org.mockito:mockito-bom", version.ref = "mockito" }
 test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 
 [plugins]
