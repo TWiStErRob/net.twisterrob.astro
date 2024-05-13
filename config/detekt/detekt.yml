@@ -20,23 +20,27 @@ console-reports:
     # Enabled, because this gives enough context to see the problems.
     #- 'LiteFindingsReport'
 
+complexity: 
+  TooManyFunctions: 
+    excludes: &testExcludes
+    - '**/test/**'
+    # Include testFixtures among default test folders.
+    - '**/testFixtures/**'
+    # Include sharedTest among default test folders.
+    - '**/sharedTest/**'
+    - '**/androidTest/**'
+    - '**/commonTest/**'
+    - '**/jvmTest/**'
+    - '**/androidUnitTest/**'
+    - '**/androidInstrumentedTest/**'
+    - '**/jsTest/**'
+    - '**/iosTest/**'
+
 
 naming:
 
   ClassNaming:
-    excludes: &testExcludes
-      - '**/test/**'
-      # Include testFixtures among default test folders.
-      - '**/testFixtures/**'
-      # Include sharedTest among default test folders.
-      - '**/sharedTest/**'
-      - '**/androidTest/**'
-      - '**/commonTest/**'
-      - '**/jvmTest/**'
-      - '**/androidUnitTest/**'
-      - '**/androidInstrumentedTest/**'
-      - '**/jsTest/**'
-      - '**/iosTest/**'
+    excludes: *testExcludes
 
   FunctionNaming:
     excludes: *testExcludes

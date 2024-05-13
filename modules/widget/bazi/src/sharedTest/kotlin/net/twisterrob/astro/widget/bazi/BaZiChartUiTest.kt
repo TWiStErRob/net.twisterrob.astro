@@ -44,19 +44,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `full is rendered`() {
-		compose.setContent {
-			BaZiChart(
-				bazi = fixtFullBazi,
-				onYearAdd = {},
-				onYearSubtract = {},
-				onMonthAdd = {},
-				onMonthSubtract = {},
-				onDayAdd = {},
-				onDaySubtract = {},
-				onHourAdd = {},
-				onHourSubtract = {},
-			)
-		}
+		compose.setContent(bazi = fixtFullBazi)
+
 		compose
 			.onRoot()
 			.assertExists()
@@ -64,19 +53,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `hourless is rendered`() {
-		compose.setContent {
-			BaZiChart(
-				bazi = fixtHourlessBazi,
-				onYearAdd = {},
-				onYearSubtract = {},
-				onMonthAdd = {},
-				onMonthSubtract = {},
-				onDayAdd = {},
-				onDaySubtract = {},
-				onHourAdd = {},
-				onHourSubtract = {},
-			)
-		}
+		compose.setContent(bazi = fixtHourlessBazi)
+
 		compose
 			.onRoot()
 			.assertExists()
@@ -84,7 +62,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `year add is clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners())
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
 
 		compose.onPillarAction("Year", "add").performClick()
 
@@ -94,7 +73,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `year subtract is clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners())
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
 
 		compose.onPillarAction("Year", "subtract").performClick()
 
@@ -104,7 +84,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `month add is clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners())
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
 
 		compose.onPillarAction("Month", "add").performClick()
 
@@ -114,7 +95,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `month subtract is clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners())
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
 
 		compose.onPillarAction("Month", "subtract").performClick()
 
@@ -124,7 +106,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `day add is clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners())
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
 
 		compose.onPillarAction("Day", "add").performClick()
 
@@ -134,7 +117,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `day subtract is clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners())
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
 
 		compose.onPillarAction("Day", "subtract").performClick()
 
@@ -144,7 +128,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `hour add is clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners())
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
 
 		compose.onPillarAction("Hour", "add").performClick()
 
@@ -154,7 +139,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `hour subtract is clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners())
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
 
 		compose.onPillarAction("Hour", "subtract").performClick()
 
@@ -164,7 +150,8 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `hourless hour add is not clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners(), fixtHourlessBazi)
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
 
 		compose.onPillarAction("Hour", "add").assertDoesNotExist()
 
@@ -173,53 +160,56 @@ class BaZiChartUiTest {
 
 	@Test
 	fun `hourless hour subtract is not clickable`() {
-		val mockListeners = setContentWithListeners(MockListeners(), fixtHourlessBazi)
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
 
 		compose.onPillarAction("Hour", "subtract").assertDoesNotExist()
 
 		mockListeners.verifyNoMoreInteractions()
 	}
 
-	private fun setContentWithListeners(mockListeners: MockListeners, bazi: BaZi = fixtFullBazi): MockListeners {
-		compose.setContent {
+	private fun ComposeContentTestRule.setContent(
+		listeners: TestListeners = TestListeners(),
+		bazi: BaZi = fixtFullBazi,
+	) {
+		setContent {
 			BaZiChart(
 				bazi = bazi,
-				onYearAdd = mockListeners.onYearAdd,
-				onYearSubtract = mockListeners.onYearSubtract,
-				onMonthAdd = mockListeners.onMonthAdd,
-				onMonthSubtract = mockListeners.onMonthSubtract,
-				onDayAdd = mockListeners.onDayAdd,
-				onDaySubtract = mockListeners.onDaySubtract,
-				onHourAdd = mockListeners.onHourAdd,
-				onHourSubtract = mockListeners.onHourSubtract,
+				onYearAdd = listeners.onYearAdd,
+				onYearSubtract = listeners.onYearSubtract,
+				onMonthAdd = listeners.onMonthAdd,
+				onMonthSubtract = listeners.onMonthSubtract,
+				onDayAdd = listeners.onDayAdd,
+				onDaySubtract = listeners.onDaySubtract,
+				onHourAdd = listeners.onHourAdd,
+				onHourSubtract = listeners.onHourSubtract,
 			)
 		}
-		return mockListeners
 	}
+}
 
-	@Suppress("detekt.LongParameterList")
-	private class MockListeners(
-		val onYearAdd: () -> Unit = mock(),
-		val onYearSubtract: () -> Unit = mock(),
-		val onMonthAdd: () -> Unit = mock(),
-		val onMonthSubtract: () -> Unit = mock(),
-		val onDayAdd: () -> Unit = mock(),
-		val onDaySubtract: () -> Unit = mock(),
-		val onHourAdd: () -> Unit = mock(),
-		val onHourSubtract: () -> Unit = mock(),
-	) {
-		fun verifyNoMoreInteractions() {
-			verifyNoMoreInteractions(
-				onYearAdd,
-				onYearSubtract,
-				onMonthAdd,
-				onMonthSubtract,
-				onDayAdd,
-				onDaySubtract,
-				onHourAdd,
-				onHourSubtract,
-			)
-		}
+@Suppress("detekt.LongParameterList")
+private class TestListeners(
+	val onYearAdd: () -> Unit = mock(),
+	val onYearSubtract: () -> Unit = mock(),
+	val onMonthAdd: () -> Unit = mock(),
+	val onMonthSubtract: () -> Unit = mock(),
+	val onDayAdd: () -> Unit = mock(),
+	val onDaySubtract: () -> Unit = mock(),
+	val onHourAdd: () -> Unit = mock(),
+	val onHourSubtract: () -> Unit = mock(),
+) {
+	fun verifyNoMoreInteractions() {
+		verifyNoMoreInteractions(
+			onYearAdd,
+			onYearSubtract,
+			onMonthAdd,
+			onMonthSubtract,
+			onDayAdd,
+			onDaySubtract,
+			onHourAdd,
+			onHourSubtract,
+		)
 	}
 }
 
