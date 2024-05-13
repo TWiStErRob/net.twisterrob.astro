@@ -16,6 +16,7 @@ detekt-twitter = "0.3.20"
 junit = "4.13.2"
 junit-jupiter = "5.10.2"
 kotest = "5.9.0"
+mockito = "5.12.0"
 mockito-kotlin = "5.3.1"
 robolectric = "4.12.1"
 
@@ -63,6 +64,8 @@ test-jupiter-launcher = { module = "org.junit.platform:junit-platform-launcher" 
 test-jupiter-vintage = { module = "org.junit.vintage:junit-vintage-engine" }
 
 test-kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+test-mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
+test-mockito-bom = { module = "org.mockito:mockito-bom", version.ref = "mockito" }
 test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 
 [plugins]
