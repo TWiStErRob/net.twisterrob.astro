@@ -11,7 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class BaZiUiTest {
+class BaZiChartUiTest {
 
 	@get:Rule
 	val compose = createComposeRule()
@@ -19,7 +19,7 @@ class BaZiUiTest {
 	@Test
 	fun `full is rendered`() {
 		compose.setContent {
-			BaZi(
+			BaZiChart(
 				bazi = BaZi(
 					year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
 					month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
@@ -44,7 +44,7 @@ class BaZiUiTest {
 	@Test
 	fun `hourless is rendered`() {
 		compose.setContent {
-			BaZi(
+			BaZiChart(
 				bazi = BaZi(
 					year = BaZi.Pillar(HeavenlyStem.Geng, EarthlyBranch.Chen),
 					month = BaZi.Pillar(HeavenlyStem.Xin, EarthlyBranch.Si),

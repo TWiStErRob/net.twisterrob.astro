@@ -41,7 +41,7 @@ import net.twisterrob.astro.component.theme.AppTheme
  * Widget to render a basic BaZi chart.
  */
 @Composable
-public fun BaZi(
+public fun BaZiChart(
 	bazi: BaZi,
 	onYearAdd: () -> Unit,
 	onYearSubtract: () -> Unit,
@@ -323,9 +323,9 @@ private val Phase.color: Color
 
 @Preview
 @Composable
-private fun BaZiFullPreview() {
+private fun BaZiChartFullPreview() {
 	AppTheme {
-		BaZi(
+		BaZiChart(
 			bazi = BaZi(
 				year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
 				month = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Si),
@@ -346,9 +346,9 @@ private fun BaZiFullPreview() {
 
 @Preview
 @Composable
-private fun BaZiHourlessPreview() {
+private fun BaZiChartHourlessPreview() {
 	AppTheme {
-		BaZi(
+		BaZiChart(
 			bazi = BaZi(
 				year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
 				month = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Si),
