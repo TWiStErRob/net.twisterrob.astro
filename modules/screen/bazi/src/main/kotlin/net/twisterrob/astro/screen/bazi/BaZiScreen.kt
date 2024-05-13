@@ -16,6 +16,7 @@ import net.twisterrob.astro.widget.bazi.chart.BaZiChart
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 /**
@@ -39,6 +40,12 @@ public fun BaZiScreen(
 		onHideTimePicker = viewModel::hideTimePicker,
 		onResetToNow = viewModel::resetToNow,
 		onTimeSelected = viewModel::selectTime,
+
+		onPickZone = viewModel::pickZone,
+		onHideZonePicker = viewModel::hideZonePicker,
+		onResetToZone = viewModel::resetToZone,
+		onZoneSelected = viewModel::selectZone,
+		onPickOffset = viewModel::pickOffset,
 
 		onYearAdd = viewModel::increaseYear,
 		onYearSubtract = viewModel::decreaseYear,
@@ -64,6 +71,12 @@ private fun BaZiScreen(
 	onHideTimePicker: () -> Unit,
 	onResetToNow: () -> Unit,
 	onTimeSelected: (LocalTime) -> Unit,
+
+	onPickZone: () -> Unit,
+	onHideZonePicker: () -> Unit,
+	onResetToZone: () -> Unit,
+	onZoneSelected: (ZoneId) -> Unit,
+	onPickOffset: () -> Unit,
 
 	onYearAdd: () -> Unit,
 	onYearSubtract: () -> Unit,
@@ -92,6 +105,11 @@ private fun BaZiScreen(
 			onHideTimePicker = onHideTimePicker,
 			onResetToNow = onResetToNow,
 			onTimeSelected = onTimeSelected,
+			onPickZone = onPickZone,
+			onZoneSelected = onZoneSelected,
+			onHideZonePicker = onHideZonePicker,
+			onResetToZone = onResetToZone,
+			onPickOffset = onPickOffset,
 		)
 		BaZiChart(
 			bazi = state.bazi,
@@ -120,16 +138,25 @@ private fun BaZiScreenPreview() {
 					dateTime = ZonedDateTime.now(),
 					isPickingDate = false,
 					isPickingTime = false,
+					isPickingZone = false,
 				),
 			),
 			onPickDate = {},
 			onHideDatePicker = {},
 			onResetToToday = {},
 			onDateSelected = {},
+
 			onPickTime = {},
 			onHideTimePicker = {},
 			onResetToNow = {},
 			onTimeSelected = {},
+
+			onPickZone = {},
+			onHideZonePicker = {},
+			onResetToZone = {},
+			onZoneSelected = {},
+			onPickOffset = {},
+
 			onYearAdd = {},
 			onYearSubtract = {},
 			onMonthAdd = {},

@@ -6,6 +6,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.component.theme.AppTheme
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Composable
@@ -22,6 +23,12 @@ internal fun DateTimeEditors(
 	onResetToNow: () -> Unit,
 	onTimeSelected: (LocalTime) -> Unit,
 
+	onPickZone: () -> Unit,
+	onZoneSelected: (ZoneId) -> Unit,
+	onHideZonePicker: () -> Unit,
+	onResetToZone: () -> Unit,
+	onPickOffset: () -> Unit,
+
 	modifier: Modifier = Modifier,
 ) {
 	DateTimeDisplay(
@@ -29,6 +36,8 @@ internal fun DateTimeEditors(
 		state = state.dateTime,
 		onPickDate = onPickDate,
 		onPickTime = onPickTime,
+		onPickZone = onPickZone,
+		onPickOffset = onPickOffset,
 	)
 	if (state.isPickingDate) {
 		DatePickerDialog(
@@ -46,6 +55,14 @@ internal fun DateTimeEditors(
 			onResetToNow = onResetToNow,
 		)
 	}
+	if (state.isPickingZone) {
+		ZonePickerDialog(
+			state = state.dateTime,
+			onZoneSelected = onZoneSelected,
+			onHideZonePicker = onHideZonePicker,
+			onResetToZone = onResetToZone,
+		)
+	}
 }
 
 @Preview
@@ -57,6 +74,7 @@ private fun DateTimeDisplayPreview() {
 				dateTime = ZonedDateTime.now(),
 				isPickingDate = false,
 				isPickingTime = false,
+				isPickingZone = false,
 			),
 
 			onPickDate = {},
@@ -68,6 +86,12 @@ private fun DateTimeDisplayPreview() {
 			onHideTimePicker = {},
 			onResetToNow = {},
 			onTimeSelected = {},
+
+			onPickZone = {},
+			onZoneSelected = {},
+			onHideZonePicker = {},
+			onResetToZone = {},
+			onPickOffset = {},
 		)
 	}
 }
@@ -81,6 +105,7 @@ private fun DateTimeDisplayDatePickerPreview() {
 				dateTime = ZonedDateTime.now(),
 				isPickingDate = true,
 				isPickingTime = false,
+				isPickingZone = false,
 			),
 
 			onPickDate = {},
@@ -92,6 +117,12 @@ private fun DateTimeDisplayDatePickerPreview() {
 			onHideTimePicker = {},
 			onResetToNow = {},
 			onTimeSelected = {},
+
+			onPickZone = {},
+			onZoneSelected = {},
+			onHideZonePicker = {},
+			onResetToZone = {},
+			onPickOffset = {},
 		)
 	}
 }
@@ -105,6 +136,7 @@ private fun DateTimeDisplayTimePickerPreview() {
 				dateTime = ZonedDateTime.now(),
 				isPickingDate = false,
 				isPickingTime = true,
+				isPickingZone = false,
 			),
 
 			onPickDate = {},
@@ -116,6 +148,43 @@ private fun DateTimeDisplayTimePickerPreview() {
 			onHideTimePicker = {},
 			onResetToNow = {},
 			onTimeSelected = {},
+
+			onPickZone = {},
+			onZoneSelected = {},
+			onHideZonePicker = {},
+			onResetToZone = {},
+			onPickOffset = {},
+		)
+	}
+}
+
+@Preview
+@Composable
+private fun DateTimeDisplayZonePickerPreview() {
+	AppTheme {
+		DateTimeEditors(
+			state = DateTimeState(
+				dateTime = ZonedDateTime.now(),
+				isPickingDate = false,
+				isPickingTime = false,
+				isPickingZone = true,
+			),
+
+			onPickDate = {},
+			onHideDatePicker = {},
+			onResetToToday = {},
+			onDateSelected = {},
+
+			onPickTime = {},
+			onHideTimePicker = {},
+			onResetToNow = {},
+			onTimeSelected = {},
+
+			onPickZone = {},
+			onZoneSelected = {},
+			onHideZonePicker = {},
+			onResetToZone = {},
+			onPickOffset = {},
 		)
 	}
 }

@@ -11,6 +11,7 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.Period
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoField
 import java.time.temporal.Temporal
@@ -29,6 +30,7 @@ public class BaZiViewModel : ViewModel() {
 				dateTime = dateTime,
 				isPickingDate = false,
 				isPickingTime = false,
+				isPickingZone = false,
 			),
 		)
 	})
@@ -66,6 +68,7 @@ public class BaZiViewModel : ViewModel() {
 					dateTime = dateTime,
 					isPickingDate = false,
 					isPickingTime = false,
+					isPickingZone = false,
 				),
 			)
 		}
@@ -78,16 +81,15 @@ public class BaZiViewModel : ViewModel() {
 	}
 
 	internal fun resetToToday() {
-		updateDateTime { current ->
-			LocalDate.now().atTime(current.toLocalTime()).atZone(current.zone)
-		}
+		selectDate(LocalDate.now())
 	}
 
 	internal fun resetToNow() {
-		updateDateTime { current ->
-			// Hack to adjust for GMT+1 / DST, will fix when TZ handling is implemented.
-			current.atTime(LocalTime.now().minusHours(1))
-		}
+		selectTime(LocalTime.now())
+	}
+
+	internal fun resetToZone() {
+		selectZone(ZoneId.systemDefault())
 	}
 
 	internal fun pickDate() {
@@ -98,12 +100,24 @@ public class BaZiViewModel : ViewModel() {
 		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingTime = true)) }
 	}
 
+	internal fun pickOffset() {
+		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingZone = true)) }
+	}
+
+	internal fun pickZone() {
+		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingZone = true)) }
+	}
+
 	internal fun hideDatePicker() {
 		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingDate = false)) }
 	}
 
 	internal fun hideTimePicker() {
 		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingTime = false)) }
+	}
+
+	internal fun hideZonePicker() {
+		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingZone = false)) }
 	}
 
 	internal fun selectDate(date: LocalDate) {
@@ -117,6 +131,12 @@ public class BaZiViewModel : ViewModel() {
 		updateDateTime { current ->
 			// Hack to adjust for GMT+1 / DST, will fix when TZ handling is implemented.
 			current.atTime(time).minusHours(1)
+		}
+	}
+
+	internal fun selectZone(zone: ZoneId) {
+		updateDateTime { current ->
+			current.withZoneSameLocal(zone)
 		}
 	}
 }
@@ -133,4 +153,5 @@ internal data class DateTimeState(
 	val dateTime: ZonedDateTime,
 	val isPickingDate: Boolean,
 	val isPickingTime: Boolean,
+	val isPickingZone: Boolean,
 )

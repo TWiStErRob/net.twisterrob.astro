@@ -22,6 +22,8 @@ internal fun DateTimeDisplay(
 	state: ZonedDateTime,
 	onPickDate: () -> Unit,
 	onPickTime: () -> Unit,
+	onPickOffset: () -> Unit,
+	onPickZone: () -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 	Column(
@@ -44,14 +46,14 @@ internal fun DateTimeDisplay(
 			Text(
 				text = state.format(DateTimeFormatter.ofPattern("ZZZZZ (zzz)")),
 				modifier = Modifier
-					.clickable(onClick = { /* TODO time zone picker */ })
+					.clickable(onClick = onPickOffset)
 			)
 		}
 		Row {
 			Text(
 				text = state.format(DateTimeFormatter.ofPattern("VV zzzz")),
 				modifier = Modifier
-					.clickable(onClick = { /* TODO time zone picker */ })
+					.clickable(onClick = onPickZone)
 			)
 		}
 	}
@@ -65,6 +67,8 @@ private fun DateTimeDisplayPreview() {
 			state = ZonedDateTime.now(),
 			onPickDate = {},
 			onPickTime = {},
+			onPickZone = {},
+			onPickOffset = {},
 		)
 	}
 }
@@ -77,6 +81,8 @@ private fun DateTimeDisplayUTCPreview() {
 			state = ZonedDateTime.now(ZoneId.of("Etc/UTC")),
 			onPickDate = {},
 			onPickTime = {},
+			onPickZone = {},
+			onPickOffset = {},
 		)
 	}
 }
@@ -90,6 +96,8 @@ private fun DateTimeDisplayHungarySummerPreview() {
 			state = LocalDate.of(2024, Month.JULY, 1).atStartOfDay(ZoneId.of("Europe/Budapest")),
 			onPickDate = {},
 			onPickTime = {},
+			onPickZone = {},
+			onPickOffset = {},
 		)
 	}
 }
@@ -103,6 +111,8 @@ private fun DateTimeDisplayHungaryWinterPreview() {
 			state = LocalDate.of(2024, Month.JANUARY, 1).atStartOfDay(ZoneId.of("Europe/Budapest")),
 			onPickDate = {},
 			onPickTime = {},
+			onPickZone = {},
+			onPickOffset = {},
 		)
 	}
 }
@@ -115,6 +125,8 @@ private fun DateTimeDisplayIndiaPreview() {
 			state = ZonedDateTime.now(ZoneId.of("Asia/Kolkata")),
 			onPickDate = {},
 			onPickTime = {},
+			onPickZone = {},
+			onPickOffset = {},
 		)
 	}
 }
