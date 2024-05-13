@@ -1,5 +1,6 @@
 package net.twisterrob.astro.widget.bazi
 
+import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.filterToOne
 import androidx.compose.ui.test.hasAnySibling
 import androidx.compose.ui.test.hasText
@@ -25,16 +26,27 @@ class BaZiChartUiTest {
 	@get:Rule
 	val compose = createComposeRule()
 
+	private val fixtFullBazi: BaZi
+		get() = BaZi(
+			year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
+			month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
+			day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
+			hour = BaZi.Pillar(HeavenlyStem.Ding, EarthlyBranch.Mao),
+		)
+
+	private val fixtHourlessBazi: BaZi
+		get() = BaZi(
+			year = BaZi.Pillar(HeavenlyStem.Geng, EarthlyBranch.Chen),
+			month = BaZi.Pillar(HeavenlyStem.Xin, EarthlyBranch.Si),
+			day = BaZi.Pillar(HeavenlyStem.Ren, EarthlyBranch.Wu),
+			hour = null,
+		)
+
 	@Test
 	fun `full is rendered`() {
 		compose.setContent {
 			BaZiChart(
-				bazi = BaZi(
-					year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
-					month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
-					day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
-					hour = BaZi.Pillar(HeavenlyStem.Ding, EarthlyBranch.Mao),
-				),
+				bazi = fixtFullBazi,
 				onYearAdd = {},
 				onYearSubtract = {},
 				onMonthAdd = {},
@@ -54,12 +66,7 @@ class BaZiChartUiTest {
 	fun `hourless is rendered`() {
 		compose.setContent {
 			BaZiChart(
-				bazi = BaZi(
-					year = BaZi.Pillar(HeavenlyStem.Geng, EarthlyBranch.Chen),
-					month = BaZi.Pillar(HeavenlyStem.Xin, EarthlyBranch.Si),
-					day = BaZi.Pillar(HeavenlyStem.Ren, EarthlyBranch.Wu),
-					hour = null,
-				),
+				bazi = fixtHourlessBazi,
 				onYearAdd = {},
 				onYearSubtract = {},
 				onMonthAdd = {},
@@ -79,7 +86,7 @@ class BaZiChartUiTest {
 	fun `year add is clickable`() {
 		val mockListeners = setContentWithListeners(MockListeners())
 
-		compose.clickPillarAction("Year", "add")
+		compose.onPillarAction("Year", "add").performClick()
 
 		verify(mockListeners.onYearAdd).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -89,7 +96,7 @@ class BaZiChartUiTest {
 	fun `year subtract is clickable`() {
 		val mockListeners = setContentWithListeners(MockListeners())
 
-		compose.clickPillarAction("Year", "subtract")
+		compose.onPillarAction("Year", "subtract").performClick()
 
 		verify(mockListeners.onYearSubtract).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -99,7 +106,7 @@ class BaZiChartUiTest {
 	fun `month add is clickable`() {
 		val mockListeners = setContentWithListeners(MockListeners())
 
-		compose.clickPillarAction("Month", "add")
+		compose.onPillarAction("Month", "add").performClick()
 
 		verify(mockListeners.onMonthAdd).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -109,7 +116,7 @@ class BaZiChartUiTest {
 	fun `month subtract is clickable`() {
 		val mockListeners = setContentWithListeners(MockListeners())
 
-		compose.clickPillarAction("Month", "subtract")
+		compose.onPillarAction("Month", "subtract").performClick()
 
 		verify(mockListeners.onMonthSubtract).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -119,7 +126,7 @@ class BaZiChartUiTest {
 	fun `day add is clickable`() {
 		val mockListeners = setContentWithListeners(MockListeners())
 
-		compose.clickPillarAction("Day", "add")
+		compose.onPillarAction("Day", "add").performClick()
 
 		verify(mockListeners.onDayAdd).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -129,7 +136,7 @@ class BaZiChartUiTest {
 	fun `day subtract is clickable`() {
 		val mockListeners = setContentWithListeners(MockListeners())
 
-		compose.clickPillarAction("Day", "subtract")
+		compose.onPillarAction("Day", "subtract").performClick()
 
 		verify(mockListeners.onDaySubtract).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -139,7 +146,7 @@ class BaZiChartUiTest {
 	fun `hour add is clickable`() {
 		val mockListeners = setContentWithListeners(MockListeners())
 
-		compose.clickPillarAction("Hour", "add")
+		compose.onPillarAction("Hour", "add").performClick()
 
 		verify(mockListeners.onHourAdd).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -149,21 +156,34 @@ class BaZiChartUiTest {
 	fun `hour subtract is clickable`() {
 		val mockListeners = setContentWithListeners(MockListeners())
 
-		compose.clickPillarAction("Hour", "subtract")
+		compose.onPillarAction("Hour", "subtract").performClick()
 
 		verify(mockListeners.onHourSubtract).invoke()
 		mockListeners.verifyNoMoreInteractions()
 	}
 
-	private fun setContentWithListeners(mockListeners: MockListeners): MockListeners {
+	@Test
+	fun `hourless hour add is not clickable`() {
+		val mockListeners = setContentWithListeners(MockListeners(), fixtHourlessBazi)
+
+		compose.onPillarAction("Hour", "add").assertDoesNotExist()
+
+		mockListeners.verifyNoMoreInteractions()
+	}
+
+	@Test
+	fun `hourless hour subtract is not clickable`() {
+		val mockListeners = setContentWithListeners(MockListeners(), fixtHourlessBazi)
+
+		compose.onPillarAction("Hour", "subtract").assertDoesNotExist()
+
+		mockListeners.verifyNoMoreInteractions()
+	}
+
+	private fun setContentWithListeners(mockListeners: MockListeners, bazi: BaZi = fixtFullBazi): MockListeners {
 		compose.setContent {
 			BaZiChart(
-				bazi = BaZi(
-					year = BaZi.Pillar(HeavenlyStem.Jia, EarthlyBranch.Zi),
-					month = BaZi.Pillar(HeavenlyStem.Yi, EarthlyBranch.Chou),
-					day = BaZi.Pillar(HeavenlyStem.Bing, EarthlyBranch.Yin),
-					hour = BaZi.Pillar(HeavenlyStem.Ding, EarthlyBranch.Mao),
-				),
+				bazi = bazi,
 				onYearAdd = mockListeners.onYearAdd,
 				onYearSubtract = mockListeners.onYearSubtract,
 				onMonthAdd = mockListeners.onMonthAdd,
@@ -203,8 +223,6 @@ class BaZiChartUiTest {
 	}
 }
 
-private fun ComposeContentTestRule.clickPillarAction(title: String, contentDescription: String) {
+private fun ComposeContentTestRule.onPillarAction(title: String, contentDescription: String): SemanticsNodeInteraction =
 	onAllNodesWithContentDescription(contentDescription)
 		.filterToOne(hasAnySibling(hasText(title)))
-		.performClick()
-}
