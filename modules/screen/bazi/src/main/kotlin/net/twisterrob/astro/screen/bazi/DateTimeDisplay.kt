@@ -10,25 +10,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.component.theme.AppTheme
 import java.time.LocalDate
-import java.time.LocalTime
+import java.time.Month
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
+import java.time.format.FormatStyle.LONG
+import java.time.format.FormatStyle.MEDIUM
 
 @Composable
 internal fun DateTimeDisplay(
-	state: DateTimeState,
-
+	state: ZonedDateTime,
 	onPickDate: () -> Unit,
-	onHideDatePicker: () -> Unit,
-	onResetToToday: () -> Unit,
-	onDateSelected: (LocalDate) -> Unit,
-
 	onPickTime: () -> Unit,
-	onHideTimePicker: () -> Unit,
-	onResetToNow: () -> Unit,
-	onTimeSelected: (LocalTime) -> Unit,
-
 	modifier: Modifier = Modifier,
 ) {
 	Column(
@@ -37,36 +30,26 @@ internal fun DateTimeDisplay(
 	) {
 		Row {
 			Text(
-				text = state.dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)),
+				text = state.format(DateTimeFormatter.ofLocalizedDate(LONG)),
 				modifier = Modifier
 					.clickable(onClick = onPickDate)
 			)
-			if (state.isPickingDate) {
-				DatePickerDialog(
-					state = state.dateTime,
-					onDateSelected = onDateSelected,
-					onHideDatePicker = onHideDatePicker,
-					onResetToToday = onResetToToday,
-				)
-			}
 			Text(text = " ")
 			Text(
-				text = state.dateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)),
+				text = state.format(DateTimeFormatter.ofLocalizedTime(MEDIUM)),
 				modifier = Modifier
 					.clickable(onClick = onPickTime)
 			)
-			if (state.isPickingTime) {
-				TimePickerDialog(
-					state = state.dateTime,
-					onTimeSelected = onTimeSelected,
-					onHideTimePicker = onHideTimePicker,
-					onResetToNow = onResetToNow,
-				)
-			}
+			Text(text = " ")
+			Text(
+				text = state.format(DateTimeFormatter.ofPattern("ZZZZZ (zzz)")),
+				modifier = Modifier
+					.clickable(onClick = { /* TODO time zone picker */ })
+			)
 		}
 		Row {
 			Text(
-				text = state.dateTime.format(DateTimeFormatter.ofPattern("VV zzzz z")),
+				text = state.format(DateTimeFormatter.ofPattern("VV zzzz")),
 				modifier = Modifier
 					.clickable(onClick = { /* TODO time zone picker */ })
 			)
@@ -79,69 +62,59 @@ internal fun DateTimeDisplay(
 private fun DateTimeDisplayPreview() {
 	AppTheme {
 		DateTimeDisplay(
-			state = DateTimeState(
-				dateTime = ZonedDateTime.now(),
-				isPickingDate = false,
-				isPickingTime = false,
-			),
-
+			state = ZonedDateTime.now(),
 			onPickDate = {},
-			onHideDatePicker = {},
-			onResetToToday = {},
-			onDateSelected = {},
-
 			onPickTime = {},
-			onHideTimePicker = {},
-			onResetToNow = {},
-			onTimeSelected = {},
 		)
 	}
 }
 
 @Preview
 @Composable
-private fun DateTimeDisplayDatePickerPreview() {
+private fun DateTimeDisplayUTCPreview() {
 	AppTheme {
 		DateTimeDisplay(
-			state = DateTimeState(
-				dateTime = ZonedDateTime.now(),
-				isPickingDate = true,
-				isPickingTime = false,
-			),
-
+			state = ZonedDateTime.now(ZoneId.of("Etc/UTC")),
 			onPickDate = {},
-			onHideDatePicker = {},
-			onResetToToday = {},
-			onDateSelected = {},
-
 			onPickTime = {},
-			onHideTimePicker = {},
-			onResetToNow = {},
-			onTimeSelected = {},
 		)
 	}
 }
 
 @Preview
 @Composable
-private fun DateTimeDisplayTimePickerPreview() {
+private fun DateTimeDisplayHungarySummerPreview() {
+	AppTheme {
+		@Suppress("detekt.MagicNumber")
+		DateTimeDisplay(
+			state = LocalDate.of(2024, Month.JULY, 1).atStartOfDay(ZoneId.of("Europe/Budapest")),
+			onPickDate = {},
+			onPickTime = {},
+		)
+	}
+}
+
+@Preview
+@Composable
+private fun DateTimeDisplayHungaryWinterPreview() {
+	AppTheme {
+		@Suppress("detekt.MagicNumber")
+		DateTimeDisplay(
+			state = LocalDate.of(2024, Month.JANUARY, 1).atStartOfDay(ZoneId.of("Europe/Budapest")),
+			onPickDate = {},
+			onPickTime = {},
+		)
+	}
+}
+
+@Preview
+@Composable
+private fun DateTimeDisplayIndiaPreview() {
 	AppTheme {
 		DateTimeDisplay(
-			state = DateTimeState(
-				dateTime = ZonedDateTime.now(),
-				isPickingDate = false,
-				isPickingTime = true,
-			),
-
+			state = ZonedDateTime.now(ZoneId.of("Asia/Kolkata")),
 			onPickDate = {},
-			onHideDatePicker = {},
-			onResetToToday = {},
-			onDateSelected = {},
-
 			onPickTime = {},
-			onHideTimePicker = {},
-			onResetToNow = {},
-			onTimeSelected = {},
 		)
 	}
 }

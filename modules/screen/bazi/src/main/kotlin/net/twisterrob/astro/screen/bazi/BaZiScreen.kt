@@ -79,7 +79,7 @@ private fun BaZiScreen(
 	Column(
 		modifier = modifier,
 	) {
-		DateTimeDisplay(
+		DateTimeEditors(
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(4.dp),
