@@ -1,4 +1,4 @@
-package net.twisterrob.astro.widget.bazi
+package net.twisterrob.astro.widget.bazi.chart
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.awaitEachGesture

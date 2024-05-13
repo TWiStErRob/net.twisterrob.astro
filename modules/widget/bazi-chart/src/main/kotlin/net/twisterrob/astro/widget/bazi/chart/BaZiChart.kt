@@ -1,6 +1,6 @@
 @file:Suppress("detekt.TooManyFunctions")
 
-package net.twisterrob.astro.widget.bazi
+package net.twisterrob.astro.widget.bazi.chart
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -64,7 +64,7 @@ public fun BaZiChart(
 		if (hour != null) {
 			Pillar(
 				modifier = space25percent,
-				title = stringResource(R.string.widget_bazi__pillar_title_hour),
+				title = stringResource(R.string.widget_bazi_chart__pillar_title_hour),
 				pillar = hour,
 				onAdd = onHourAdd,
 				onSubtract = onHourSubtract,
@@ -72,7 +72,7 @@ public fun BaZiChart(
 		} else {
 			Pillar(
 				modifier = space25percent,
-				title = stringResource(R.string.widget_bazi__pillar_title_hour),
+				title = stringResource(R.string.widget_bazi_chart__pillar_title_hour),
 				top = { MissingHourPillarStem() },
 				bottom = { MissingHourPillarBranch() },
 				onAdd = null,
@@ -81,21 +81,21 @@ public fun BaZiChart(
 		}
 		Pillar(
 			modifier = space25percent,
-			title = stringResource(R.string.widget_bazi__pillar_title_day),
+			title = stringResource(R.string.widget_bazi_chart__pillar_title_day),
 			pillar = bazi.day,
 			onAdd = onDayAdd,
 			onSubtract = onDaySubtract,
 		)
 		Pillar(
 			modifier = space25percent,
-			title = stringResource(R.string.widget_bazi__pillar_title_month),
+			title = stringResource(R.string.widget_bazi_chart__pillar_title_month),
 			pillar = bazi.month,
 			onAdd = onMonthAdd,
 			onSubtract = onMonthSubtract,
 		)
 		Pillar(
 			modifier = space25percent,
-			title = stringResource(R.string.widget_bazi__pillar_title_year),
+			title = stringResource(R.string.widget_bazi_chart__pillar_title_year),
 			pillar = bazi.year,
 			onAdd = onYearAdd,
 			onSubtract = onYearSubtract,
@@ -124,7 +124,7 @@ private fun Pillar(
 			onSubtract?.let { onSubtract ->
 				SmallButton(
 					icon = Icons.Filled.RemoveCircleOutline,
-					cd = R.string.widget_bazi__pillar_title_minus,
+					cd = R.string.widget_bazi_chart__pillar_title_minus,
 					onClick = onSubtract,
 				)
 			}
@@ -135,7 +135,7 @@ private fun Pillar(
 			onAdd?.let { onAdd ->
 				SmallButton(
 					icon = Icons.Filled.AddCircleOutline,
-					cd = R.string.widget_bazi__pillar_title_plus,
+					cd = R.string.widget_bazi_chart__pillar_title_plus,
 					onClick = onAdd,
 				)
 			}
@@ -244,9 +244,9 @@ private fun CharacterLabel(text: String) {
 private fun MissingHourPillarStem() {
 	DisabledContentText {
 		Character(
-			symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_symbol),
+			symbol = stringResource(R.string.widget_bazi_chart__pillar_unknown_hour_stem_symbol),
 			color = LocalContentColor.current,
-			label = stringResource(R.string.widget_bazi__pillar_unknown_hour_stem_label)
+			label = stringResource(R.string.widget_bazi_chart__pillar_unknown_hour_stem_label)
 		)
 	}
 }
@@ -255,9 +255,9 @@ private fun MissingHourPillarStem() {
 private fun MissingHourPillarBranch() {
 	DisabledContentText {
 		Character(
-			symbol = stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_symbol),
+			symbol = stringResource(R.string.widget_bazi_chart__pillar_unknown_hour_branch_symbol),
 			color = LocalContentColor.current,
-			label = "${stringResource(R.string.widget_bazi__pillar_unknown_hour_branch_label)}\n"
+			label = "${stringResource(R.string.widget_bazi_chart__pillar_unknown_hour_branch_label)}\n"
 		)
 	}
 }

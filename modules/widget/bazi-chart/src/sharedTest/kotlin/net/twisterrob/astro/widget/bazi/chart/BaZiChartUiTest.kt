@@ -1,4 +1,4 @@
-package net.twisterrob.astro.widget.bazi
+package net.twisterrob.astro.widget.bazi.chart
 
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.filterToOne
