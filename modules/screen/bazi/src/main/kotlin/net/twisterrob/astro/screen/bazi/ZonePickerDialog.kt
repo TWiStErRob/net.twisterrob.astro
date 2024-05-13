@@ -19,7 +19,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,7 +31,7 @@ import java.time.format.TextStyle
 @Composable
 internal fun ZonePickerDialog(
 	state: ZonedDateTime,
-	onZoneSelected: (ZoneId) -> Unit,
+	onSelectZone: (ZoneId) -> Unit,
 	onHideZonePicker: () -> Unit,
 	onResetToZone: () -> Unit,
 ) {
@@ -42,7 +41,7 @@ internal fun ZonePickerDialog(
 	AlertDialog(
 		onDismissRequest = onHideZonePicker,
 		confirmButton = {
-			TextButton({ onZoneSelected(selected) }) { Text("OK") }
+			TextButton({ onSelectZone(selected) }) { Text("OK") }
 		},
 		dismissButton = {
 			TextButton(onResetToZone) { Text("Here") }
@@ -67,7 +66,7 @@ internal fun ZonePickerDialog(
 						zoneId = zone,
 						example = example,
 						isSelected = zone == selected.id,
-						onSelected = { selected = it },
+						onClick = { selected = it },
 					)
 				}
 			}
@@ -80,25 +79,25 @@ private fun ZonePickerItem(
 	zoneId: String,
 	example: LocalDateTime,
 	isSelected: Boolean,
-	onSelected: (ZoneId) -> Unit,
+	onClick: (ZoneId) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
-	val locale = LocalContext.current.resources.configuration.locales.get(0)
 	val zone = ZoneId.of(zoneId)
 	CompositionLocalProvider(
-		LocalTextStyle provides if (isSelected)
+		LocalTextStyle provides if (isSelected) {
 			LocalTextStyle.current.copy(fontWeight = FontWeight.Bold)
-		else
-			LocalTextStyle.current,
+		} else {
+			LocalTextStyle.current
+		},
 	) {
 
 		Column(
 			modifier = modifier
-				.clickable(onClick = { onSelected(zone) }),
+				.clickable(onClick = { onClick(zone) }),
 		) {
 			val name = zone.id
 			// Note NARROW returns ID and SHORT returns abbreviation, but only in preview.
-			val displayName = zone.getDisplayName(TextStyle.FULL, locale)
+			val displayName = zone.getDisplayName(TextStyle.FULL, defaultLocale())
 			val offset = zone.rules.getOffset(example)
 			Text(
 				text = "${offset} ${name}",
@@ -117,7 +116,7 @@ private fun DatePickerDialogPreview() {
 	AppTheme {
 		ZonePickerDialog(
 			state = ZonedDateTime.now(),
-			onZoneSelected = {},
+			onSelectZone = {},
 			onHideZonePicker = {},
 			onResetToZone = {},
 		)

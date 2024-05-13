@@ -139,10 +139,12 @@ public class BaZiViewModel : ViewModel() {
 			current.withZoneSameLocal(zone)
 		}
 	}
-}
 
-private fun ZonedDateTime.atTime(localTime: LocalTime): ZonedDateTime =
-	ZonedDateTime.of(toLocalDate(), localTime, zone)
+	private companion object {
+		fun ZonedDateTime.atTime(localTime: LocalTime): ZonedDateTime =
+			ZonedDateTime.of(this.toLocalDate(), localTime, this.zone)
+	}
+}
 
 internal data class BaZiState(
 	val bazi: BaZi,

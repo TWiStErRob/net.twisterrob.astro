@@ -11,6 +11,11 @@ complexity:
 
 naming:
 
+# Not mergeable, defined in main config.
+#  FunctionMaxLength:
+#    ignoreAnnotated:
+#      - 'androidx.compose.ui.tooling.preview.Preview'
+
   FunctionNaming:
     ignoreAnnotated:
       - 'androidx.compose.runtime.Composable'

@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -28,20 +29,17 @@ import java.time.ZonedDateTime
 @Composable
 internal fun TimePickerDialog(
 	state: ZonedDateTime,
-	onTimeSelected: (LocalTime) -> Unit,
+	onSelectTime: (LocalTime) -> Unit,
 	onHideTimePicker: () -> Unit,
 	onResetToNow: () -> Unit,
 ) {
-	val timePickerState = rememberTimePickerState(
+	val pickerState = rememberTimePickerState(
 		initialHour = state.hour,
 		initialMinute = state.minute,
 	)
 	DatePickerDialog(
 		confirmButton = {
-			fun convertToOnTimeSelected() {
-				onTimeSelected(LocalTime.of(timePickerState.hour, timePickerState.minute))
-			}
-			TextButton(::convertToOnTimeSelected) { Text("OK") }
+			TextButton({ onSelectTime(pickerState.selectedLocalTime) }) { Text("OK") }
 		},
 		onDismissRequest = onHideTimePicker,
 		dismissButton = {
@@ -66,12 +64,16 @@ internal fun TimePickerDialog(
 				}
 			}
 			TimePicker(
-				state = timePickerState,
+				state = pickerState,
 				modifier = Modifier.align(Alignment.CenterHorizontally)
 			)
 		}
 	}
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+private val TimePickerState.selectedLocalTime: LocalTime
+	get() = LocalTime.of(this.hour, this.minute)
 
 @Preview
 @Composable
@@ -81,7 +83,7 @@ private fun TimePickerDialogPreview() {
 			state = ZonedDateTime.now(),
 			onHideTimePicker = {},
 			onResetToNow = {},
-			onTimeSelected = {},
+			onSelectTime = {},
 		)
 	}
 }

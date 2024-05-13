@@ -16,15 +16,15 @@ internal fun DateTimeEditors(
 	onPickDate: () -> Unit,
 	onHideDatePicker: () -> Unit,
 	onResetToToday: () -> Unit,
-	onDateSelected: (LocalDate) -> Unit,
+	onSelectDate: (LocalDate) -> Unit,
 
 	onPickTime: () -> Unit,
 	onHideTimePicker: () -> Unit,
 	onResetToNow: () -> Unit,
-	onTimeSelected: (LocalTime) -> Unit,
+	onSelectTime: (LocalTime) -> Unit,
 
 	onPickZone: () -> Unit,
-	onZoneSelected: (ZoneId) -> Unit,
+	onSelectZone: (ZoneId) -> Unit,
 	onHideZonePicker: () -> Unit,
 	onResetToZone: () -> Unit,
 	onPickOffset: () -> Unit,
@@ -42,7 +42,7 @@ internal fun DateTimeEditors(
 	if (state.isPickingDate) {
 		DatePickerDialog(
 			state = state.dateTime,
-			onDateSelected = onDateSelected,
+			onSelectDate = onSelectDate,
 			onHideDatePicker = onHideDatePicker,
 			onResetToToday = onResetToToday,
 		)
@@ -50,7 +50,7 @@ internal fun DateTimeEditors(
 	if (state.isPickingTime) {
 		TimePickerDialog(
 			state = state.dateTime,
-			onTimeSelected = onTimeSelected,
+			onSelectTime = onSelectTime,
 			onHideTimePicker = onHideTimePicker,
 			onResetToNow = onResetToNow,
 		)
@@ -58,7 +58,7 @@ internal fun DateTimeEditors(
 	if (state.isPickingZone) {
 		ZonePickerDialog(
 			state = state.dateTime,
-			onZoneSelected = onZoneSelected,
+			onSelectZone = onSelectZone,
 			onHideZonePicker = onHideZonePicker,
 			onResetToZone = onResetToZone,
 		)
@@ -80,15 +80,15 @@ private fun DateTimeDisplayPreview() {
 			onPickDate = {},
 			onHideDatePicker = {},
 			onResetToToday = {},
-			onDateSelected = {},
+			onSelectDate = {},
 
 			onPickTime = {},
 			onHideTimePicker = {},
 			onResetToNow = {},
-			onTimeSelected = {},
+			onSelectTime = {},
 
 			onPickZone = {},
-			onZoneSelected = {},
+			onSelectZone = {},
 			onHideZonePicker = {},
 			onResetToZone = {},
 			onPickOffset = {},
@@ -111,15 +111,15 @@ private fun DateTimeDisplayDatePickerPreview() {
 			onPickDate = {},
 			onHideDatePicker = {},
 			onResetToToday = {},
-			onDateSelected = {},
+			onSelectDate = {},
 
 			onPickTime = {},
 			onHideTimePicker = {},
 			onResetToNow = {},
-			onTimeSelected = {},
+			onSelectTime = {},
 
 			onPickZone = {},
-			onZoneSelected = {},
+			onSelectZone = {},
 			onHideZonePicker = {},
 			onResetToZone = {},
 			onPickOffset = {},
@@ -142,15 +142,15 @@ private fun DateTimeDisplayTimePickerPreview() {
 			onPickDate = {},
 			onHideDatePicker = {},
 			onResetToToday = {},
-			onDateSelected = {},
+			onSelectDate = {},
 
 			onPickTime = {},
 			onHideTimePicker = {},
 			onResetToNow = {},
-			onTimeSelected = {},
+			onSelectTime = {},
 
 			onPickZone = {},
-			onZoneSelected = {},
+			onSelectZone = {},
 			onHideZonePicker = {},
 			onResetToZone = {},
 			onPickOffset = {},
@@ -173,15 +173,15 @@ private fun DateTimeDisplayZonePickerPreview() {
 			onPickDate = {},
 			onHideDatePicker = {},
 			onResetToToday = {},
-			onDateSelected = {},
+			onSelectDate = {},
 
 			onPickTime = {},
 			onHideTimePicker = {},
 			onResetToNow = {},
-			onTimeSelected = {},
+			onSelectTime = {},
 
 			onPickZone = {},
-			onZoneSelected = {},
+			onSelectZone = {},
 			onHideZonePicker = {},
 			onResetToZone = {},
 			onPickOffset = {},

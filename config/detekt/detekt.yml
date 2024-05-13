@@ -57,6 +57,7 @@ naming:
       - 'org.junit.jupiter.api.TestFactory'
       - 'org.junit.jupiter.api.RepeatedTest'
       - 'org.junit.jupiter.params.ParameterizedTest'
+      - 'androidx.compose.ui.tooling.preview.Preview'
 
 
 style:
