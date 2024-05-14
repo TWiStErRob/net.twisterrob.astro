@@ -102,10 +102,6 @@ public class BaZiViewModel : ViewModel() {
 		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingTime = true)) }
 	}
 
-	internal fun pickOffset() {
-		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingZone = true)) }
-	}
-
 	internal fun pickZone() {
 		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingZone = true)) }
 	}

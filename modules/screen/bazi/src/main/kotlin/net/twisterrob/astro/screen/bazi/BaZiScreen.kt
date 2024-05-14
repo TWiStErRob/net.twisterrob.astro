@@ -45,7 +45,7 @@ public fun BaZiScreen(
 		onHideZonePicker = viewModel::hideZonePicker,
 		onResetToZone = viewModel::resetToZone,
 		onSelectZone = viewModel::selectZone,
-		onPickOffset = viewModel::pickOffset,
+		onPickOffset = viewModel::pickZone,
 
 		onYearAdd = viewModel::increaseYear,
 		onYearSubtract = viewModel::decreaseYear,
