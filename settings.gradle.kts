@@ -23,10 +23,17 @@ dependencyResolutionManagement {
 	repositories {
 		google()
 		mavenCentral()
-		maven {
-			// Using the pre-release repository for latest Kotlin support.
-			name = "compose-compiler"
-			url = uri("https://androidx.dev/storage/compose-compiler/repository/")
+		exclusiveContent {
+			forRepository {
+				maven {
+					// Using the pre-release repository for latest Kotlin support.
+					name = "compose-compiler"
+					url = uri("https://androidx.dev/storage/compose-compiler/repository/")
+				}
+			}
+			filter {
+				includeVersionByRegex("androidx.compose.compiler", "compiler", """\d+\.\d+\.\d+-dev-.*""")
+			}
 		}
 	}
 }
