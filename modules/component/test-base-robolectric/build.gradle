@@ -11,8 +11,13 @@ dependencies { // testImplementation(projects.component.testBaseRobolectric)
 		because("Every/most Roboletric test should be testing Compose code.")
 	}
 
-	api(libs.test.robolectric) {
+	runtimeOnly(libs.test.robolectric) {
 		because("Robolectric is used for testing Android components and Composables.")
+	}
+	api(libs.test.robolectricAnnotations) {
+		// TODO figure out a sharedTest way of doing this.
+		because("Some tests might need @Config adjustments with increased screen size. " +
+				"Default is w320dp x h470dp, see https://robolectric.org/device-configuration/")
 	}
 
 	runtimeOnly(libs.test.jupiter.vintage) {

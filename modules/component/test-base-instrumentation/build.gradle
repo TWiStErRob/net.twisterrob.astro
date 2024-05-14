@@ -10,6 +10,12 @@ dependencies { // androidTestImplementation(projects.component.testBaseInstrumen
 	api(libs.test.androidx.junit)
 	api(libs.test.androidx.espressoCore)
 
+	api(libs.test.robolectricAnnotations) {
+		// TODO figure out a sharedTest way of doing this.
+		because("Some tests might need @Config adjustments with increased screen size. " +
+				"Default is w320dp x h470dp, see https://robolectric.org/device-configuration/")
+	}
+
 	api(libs.test.kotest.assertions) {
 		because("Choice of assertions library for this project.")
 	}
