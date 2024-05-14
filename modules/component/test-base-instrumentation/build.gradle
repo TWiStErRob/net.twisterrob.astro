@@ -3,17 +3,21 @@ plugins {
 }
 
 dependencies { // androidTestImplementation(projects.component.testBaseInstrumentation)
-	api(platform(libs.compose.bom))
+	api(projects.component.testBaseCompose) {
+		because("Every/most instrumentation tests should be testing Compose code.")
+	}
 
 	api(libs.test.androidx.junit)
-	api(libs.test.compose.junit)
 	api(libs.test.androidx.espressoCore)
+
 	api(libs.test.kotest.assertions) {
 		because("Choice of assertions library for this project.")
 	}
+
 	api(platform(libs.test.mockito.bom)) {
 		because("Mockito versions should match.")
 	}
+
 	api(libs.test.mockito.android) {
 		because("Choice of mocking library for this project.")
 	}
