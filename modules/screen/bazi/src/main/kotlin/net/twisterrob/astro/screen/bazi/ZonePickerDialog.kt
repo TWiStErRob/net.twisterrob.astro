@@ -3,7 +3,6 @@ package net.twisterrob.astro.screen.bazi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -34,9 +33,8 @@ internal fun ZonePickerDialog(
 	onSelectZone: (ZoneId) -> Unit,
 	onHideZonePicker: () -> Unit,
 	onResetToZone: () -> Unit,
+	zones: List<String> = ZoneId.getAvailableZoneIds().sorted(),
 ) {
-	val zones = ZoneId.getAvailableZoneIds().sorted()
-	val example = state.toLocalDateTime()
 	var selected by remember { mutableStateOf(state.zone) }
 	AlertDialog(
 		onDismissRequest = onHideZonePicker,
@@ -48,30 +46,43 @@ internal fun ZonePickerDialog(
 			TextButton(onHideZonePicker) { Text("Cancel") }
 		},
 		text = {
-			val listState = rememberLazyListState(
-				initialFirstVisibleItemIndex = (zones.indexOf(selected.id) - 2)
-					.coerceAtLeast(0),
+			ZoneList(
+				zones = zones,
+				selected = selected,
+				onSelect = { selected = it },
+				example = state.toLocalDateTime(),
 			)
-			LazyColumn(
-				state = listState,
-				verticalArrangement = Arrangement.spacedBy(8.dp),
-			) {
-				items(
-					items = zones,
-					key = { it },
-				) { zone ->
-					ZonePickerItem(
-						modifier = Modifier
-							.fillMaxWidth(),
-						zoneId = zone,
-						example = example,
-						isSelected = zone == selected.id,
-						onClick = { selected = it },
-					)
-				}
-			}
 		}
 	)
+}
+
+@Composable
+private fun ZoneList(
+	zones: List<String>,
+	selected: ZoneId,
+	onSelect: (ZoneId) -> Unit,
+	example: LocalDateTime,
+) {
+	val listState = rememberLazyListState(
+		initialFirstVisibleItemIndex = (zones.indexOf(selected.id) - 2)
+			.coerceAtLeast(0),
+	)
+	LazyColumn(
+		state = listState,
+		verticalArrangement = Arrangement.spacedBy(8.dp),
+	) {
+		items(
+			items = zones,
+			key = { it },
+		) { zone ->
+			ZonePickerItem(
+				zoneId = zone,
+				example = example,
+				isSelected = zone == selected.id,
+				onClick = onSelect,
+			)
+		}
+	}
 }
 
 @Composable
@@ -90,7 +101,6 @@ private fun ZonePickerItem(
 			LocalTextStyle.current
 		},
 	) {
-
 		Column(
 			modifier = modifier
 				.clickable(onClick = { onClick(zone) }),
