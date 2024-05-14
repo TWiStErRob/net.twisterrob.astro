@@ -14,7 +14,6 @@ import java.time.Period
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoField
-import java.time.temporal.Temporal
 import java.time.temporal.TemporalAmount
 
 /**
@@ -58,12 +57,13 @@ public class BaZiViewModel : ViewModel() {
 				.with(ChronoField.MINUTE_OF_HOUR, @Suppress("detekt.MagicNumber") 30)
 				.with(ChronoField.SECOND_OF_MINUTE, 0)
 				.with(ChronoField.NANO_OF_SECOND, 0)
+				as ZonedDateTime
 		}
 	}
 
-	private fun updateDateTime(adjuster: (ZonedDateTime) -> Temporal) {
+	private fun updateDateTime(adjuster: (ZonedDateTime) -> ZonedDateTime) {
 		_uiState.update { state ->
-			val dateTime = adjuster(state.dateTime.dateTime) as ZonedDateTime
+			val dateTime = adjuster(state.dateTime.dateTime)
 			BaZiState(
 				bazi = bazi(dateTime),
 				dateTime = state.dateTime.copy(
