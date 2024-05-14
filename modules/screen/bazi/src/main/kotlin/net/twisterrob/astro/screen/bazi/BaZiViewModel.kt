@@ -45,6 +45,8 @@ public class BaZiViewModel : ViewModel() {
 	internal fun decreaseDay() { updateDateTime(Period.ofDays(-1)) }
 	internal fun increaseHour() { updateDateTime(Duration.ofHours(+1)) }
 	internal fun decreaseHour() { updateDateTime(Duration.ofHours(-1)) }
+	internal fun increaseMinute() { updateDateTime(Duration.ofMinutes(+1)) }
+	internal fun decreaseMinute() { updateDateTime(Duration.ofMinutes(-1)) }
 	//@formatter:on
 
 	private fun updateDateTime(amount: TemporalAmount) {
