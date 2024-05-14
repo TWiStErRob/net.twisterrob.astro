@@ -38,7 +38,7 @@ compose: # Kode
     active: true
 
 
-Compose: # Twitter
+Compose: # Twitter (io.nlopez.compose.rules:detekt)
   Material2:
     # Enable default-disabled rule.
     active: true
