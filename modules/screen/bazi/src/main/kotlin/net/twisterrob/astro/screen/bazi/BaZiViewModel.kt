@@ -49,15 +49,14 @@ public class BaZiViewModel : ViewModel() {
 	//@formatter:on
 
 	private fun updateDateTime(amount: TemporalAmount) {
-		updateDateTime {
-			amount
-				.addTo(it)
+		updateDateTime { current ->
+			current
+				.plus(amount)
 				// Reset time to a half an hour to make it easier to understand
 				// as the sexagenary hours are changing on the hour.
 				.with(ChronoField.MINUTE_OF_HOUR, @Suppress("detekt.MagicNumber") 30)
 				.with(ChronoField.SECOND_OF_MINUTE, 0)
 				.with(ChronoField.NANO_OF_SECOND, 0)
-				as ZonedDateTime
 		}
 	}
 
