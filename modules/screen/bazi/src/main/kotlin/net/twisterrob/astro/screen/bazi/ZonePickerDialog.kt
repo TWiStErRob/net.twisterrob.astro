@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.component.theme.AppTheme
+import net.twisterrob.astro.compose.defaultLocale
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -118,7 +119,7 @@ private fun ZonePickerItem(
 		) {
 			val name = zone.id
 			// Note NARROW returns ID and SHORT returns abbreviation, but only in preview.
-			val displayName = zone.getDisplayName(TextStyle.FULL, defaultLocale())
+			val displayName = zone.getDisplayName(TextStyle.FULL, defaultLocale)
 			val offset = zone.rules.getOffset(example)
 			Text(
 				text = "${offset} ${name}",

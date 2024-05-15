@@ -31,11 +31,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.component.theme.AppTheme
+import net.twisterrob.astro.compose.isLandscape
 import java.time.LocalTime
 
 @Composable
@@ -108,11 +108,6 @@ private val defaultDynamicTimePickerDisplayMode: DynamicTimePickerDisplayMode
 	} else {
 		DynamicTimePickerDisplayMode.Picker
 	}
-
-private val isLandscape: Boolean
-	@Composable
-	@ReadOnlyComposable
-	get() = with(LocalConfiguration.current) { screenHeightDp < screenWidthDp }
 
 @Composable
 private fun DisplayModeToggleButton(
