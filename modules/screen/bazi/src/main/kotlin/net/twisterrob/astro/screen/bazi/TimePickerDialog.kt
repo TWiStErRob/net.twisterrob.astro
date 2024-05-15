@@ -7,9 +7,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.component.theme.AppTheme
+import net.twisterrob.astro.compose.preview.PreviewOrientation
 import java.time.LocalTime
 import java.time.ZonedDateTime
 
@@ -42,6 +44,7 @@ internal fun TimePickerDialog(
 		}
 	) {
 		DynamicTimePicker(
+			modifier = Modifier.align(Alignment.CenterHorizontally),
 			state = pickerState,
 		)
 	}
@@ -51,7 +54,7 @@ internal fun TimePickerDialog(
 private val TimePickerState.selectedLocalTime: LocalTime
 	get() = LocalTime.of(this.hour, this.minute)
 
-@Preview
+@PreviewOrientation
 @Composable
 private fun Preview() {
 	AppTheme {

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.component.theme.AppTheme
+import net.twisterrob.astro.compose.preview.PreviewOrientation
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
@@ -96,7 +97,7 @@ private fun Preview() {
 	}
 }
 
-@Preview
+@PreviewOrientation
 @Composable
 private fun DatePickerPreview() {
 	AppTheme {
@@ -127,7 +128,7 @@ private fun DatePickerPreview() {
 	}
 }
 
-@Preview
+@PreviewOrientation
 @Composable
 private fun TimePickerPreview() {
 	AppTheme {
@@ -158,7 +159,7 @@ private fun TimePickerPreview() {
 	}
 }
 
-@Preview
+@PreviewOrientation
 @Composable
 private fun ZonePickerPreview() {
 	AppTheme {

@@ -5,6 +5,7 @@ package net.twisterrob.astro.screen.bazi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.DateRange
@@ -48,7 +49,8 @@ internal fun DynamicTimePicker(
 ) {
 	var displayModeState by rememberSaveable { mutableStateOf(displayMode) }
 	Column(
-		modifier = modifier,
+		modifier = modifier
+			.fillMaxWidth(),
 	) {
 		CompositionLocalProvider(
 			LocalContentColor provides AlertDialogDefaults.titleContentColor,
