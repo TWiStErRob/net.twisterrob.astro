@@ -7,6 +7,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.component.theme.AppTheme
 import java.time.LocalTime
@@ -26,12 +27,18 @@ internal fun TimePickerDialog(
 	)
 	DatePickerDialog(
 		confirmButton = {
-			TextButton({ onSelectTime(pickerState.selectedLocalTime) }) { Text("OK") }
+			TextButton({ onSelectTime(pickerState.selectedLocalTime) }) {
+				Text(stringResource(R.string.screen_bazi__time_picker_dialog_ok))
+			}
 		},
 		onDismissRequest = onHideTimePicker,
 		dismissButton = {
-			TextButton(onResetToNow) { Text("Now") }
-			TextButton(onHideTimePicker) { Text("Cancel") }
+			TextButton(onResetToNow) {
+				Text(stringResource(R.string.screen_bazi__time_picker_dialog_current))
+			}
+			TextButton(onHideTimePicker) {
+				Text(stringResource(R.string.screen_bazi__time_picker_dialog_cancel))
+			}
 		}
 	) {
 		DynamicTimePicker(

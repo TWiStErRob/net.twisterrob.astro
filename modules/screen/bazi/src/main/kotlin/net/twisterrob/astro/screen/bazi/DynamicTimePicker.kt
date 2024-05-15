@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import java.time.LocalTime
@@ -55,8 +56,8 @@ internal fun DynamicTimePicker(
 			)
 		) {
 			val title = when (displayModeState) {
-				DynamicTimePickerDisplayMode.Input -> "Enter time"
-				DynamicTimePickerDisplayMode.Picker -> "Select time"
+				DynamicTimePickerDisplayMode.Input -> stringResource(R.string.screen_bazi__time_picker_mode_input_title)
+				DynamicTimePickerDisplayMode.Picker -> stringResource(R.string.screen_bazi__time_picker_mode_picker_title)
 			}
 			Row {
 				Text(
@@ -122,14 +123,14 @@ private fun DisplayModeToggleButton(
 		IconButton(onClick = { onDisplayModeChange(DynamicTimePickerDisplayMode.Input) }, modifier = modifier) {
 			Icon(
 				imageVector = Filled.Edit,
-				contentDescription = "Switch to text input mode"
+				contentDescription = stringResource(R.string.screen_bazi__time_picker_mode_picker_to_input_cd)
 			)
 		}
 	} else {
 		IconButton(onClick = { onDisplayModeChange(DynamicTimePickerDisplayMode.Picker) }, modifier = modifier) {
 			Icon(
 				imageVector = Filled.DateRange,
-				contentDescription = "Switch to clock input mode"
+				contentDescription = stringResource(R.string.screen_bazi__time_picker_mode_input_to_picker_cd)
 			)
 		}
 	}

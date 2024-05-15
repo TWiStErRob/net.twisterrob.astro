@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,11 +41,17 @@ internal fun ZonePickerDialog(
 	AlertDialog(
 		onDismissRequest = onHideZonePicker,
 		confirmButton = {
-			TextButton({ onSelectZone(selected) }) { Text("OK") }
+			TextButton({ onSelectZone(selected) }) {
+				Text(stringResource(R.string.screen_bazi__zone_picker_dialog_ok))
+			}
 		},
 		dismissButton = {
-			TextButton(onResetToZone) { Text("Here") }
-			TextButton(onHideZonePicker) { Text("Cancel") }
+			TextButton(onResetToZone) {
+				Text(stringResource(R.string.screen_bazi__zone_picker_dialog_current))
+			}
+			TextButton(onHideZonePicker) {
+				Text(stringResource(R.string.screen_bazi__zone_picker_dialog_cancel))
+			}
 		},
 		text = {
 			ZoneList(
