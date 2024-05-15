@@ -13,13 +13,11 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
-import org.robolectric.annotation.Config
-import java.time.LocalDate
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @RunWith(AndroidJUnit4::class)
-@Config(qualifiers = "long") // DatePickerDialog seems to be too tall for default Robolectric screen size.
-class DatePickerDialogUiTest {
+class ZonePickerDialogUiTest {
 
 	@get:Rule
 	val compose = createComposeRule()
@@ -31,7 +29,7 @@ class DatePickerDialogUiTest {
 
 		compose.pressBack()
 
-		verify(mockListeners.onHideDatePicker).invoke()
+		verify(mockListeners.onHideZonePicker).invoke()
 		mockListeners.verifyNoMoreInteractions()
 	}
 
@@ -40,32 +38,32 @@ class DatePickerDialogUiTest {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners)
 
-		compose.onNodeWithText(string(R.string.screen_bazi__date_picker_dialog_cancel)).performClick()
+		compose.onNodeWithText(string(R.string.screen_bazi__zone_picker_dialog_cancel)).performClick()
 
-		verify(mockListeners.onHideDatePicker).invoke()
+		verify(mockListeners.onHideZonePicker).invoke()
 		mockListeners.verifyNoMoreInteractions()
 	}
 
 	@Test
-	fun `ok selects the date given`() {
+	fun `ok selects the zone given`() {
 		val mockListeners = TestListeners()
 		val state = ZonedDateTime.now()
 		compose.setContent(state = state, listeners = mockListeners)
 
-		compose.onNodeWithText(string(R.string.screen_bazi__date_picker_dialog_ok)).performClick()
+		compose.onNodeWithText(string(R.string.screen_bazi__zone_picker_dialog_ok)).performClick()
 
-		verify(mockListeners.onSelectDate).invoke(state.toLocalDate())
+		verify(mockListeners.onSelectZone).invoke(state.zone)
 		mockListeners.verifyNoMoreInteractions()
 	}
 
 	@Test
-	fun `now selects the current date`() {
+	fun `now selects the current zone`() {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners)
 
-		compose.onNodeWithText(string(R.string.screen_bazi__date_picker_dialog_current)).performClick()
+		compose.onNodeWithText(string(R.string.screen_bazi__zone_picker_dialog_current)).performClick()
 
-		verify(mockListeners.onResetToToday).invoke()
+		verify(mockListeners.onResetToZone).invoke()
 		mockListeners.verifyNoMoreInteractions()
 	}
 
@@ -74,25 +72,25 @@ class DatePickerDialogUiTest {
 		state: ZonedDateTime = ZonedDateTime.now(),
 	) {
 		setContent {
-			DatePickerDialog(
+			ZonePickerDialog(
 				state = state,
-				onSelectDate = listeners.onSelectDate,
-				onHideDatePicker = listeners.onHideDatePicker,
-				onResetToToday = listeners.onResetToToday,
+				onSelectZone = listeners.onSelectZone,
+				onHideZonePicker = listeners.onHideZonePicker,
+				onResetToZone = listeners.onResetToZone,
 			)
 		}
 	}
 
 	private class TestListeners(
-		val onSelectDate: (LocalDate) -> Unit = mock(),
-		val onHideDatePicker: () -> Unit = mock(),
-		val onResetToToday: () -> Unit = mock(),
+		val onSelectZone: (ZoneId) -> Unit = mock(),
+		val onHideZonePicker: () -> Unit = mock(),
+		val onResetToZone: () -> Unit = mock(),
 	) {
 		fun verifyNoMoreInteractions() {
 			verifyNoMoreInteractions(
-				onSelectDate,
-				onHideDatePicker,
-				onResetToToday,
+				onSelectZone,
+				onHideZonePicker,
+				onResetToZone,
 			)
 		}
 	}
