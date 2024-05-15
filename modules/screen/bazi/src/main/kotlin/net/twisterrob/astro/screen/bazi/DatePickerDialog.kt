@@ -60,7 +60,7 @@ private val DatePickerState.selectedLocalDate: LocalDate
 
 @Preview
 @Composable
-private fun DatePickerDialogPreview() {
+private fun Preview() {
 	AppTheme {
 		DatePickerDialog(
 			state = ZonedDateTime.now(),

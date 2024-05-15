@@ -133,7 +133,7 @@ private fun ZonePickerItem(
 
 @Preview
 @Composable
-private fun DatePickerDialogPreview() {
+private fun Preview() {
 	AppTheme {
 		ZonePickerDialog(
 			state = ZonedDateTime.now(),

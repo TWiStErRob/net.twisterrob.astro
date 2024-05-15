@@ -35,6 +35,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import net.twisterrob.astro.component.theme.AppTheme
 import java.time.LocalTime
 
 @Composable
@@ -138,40 +139,48 @@ private fun DisplayModeToggleButton(
 
 @Preview
 @Composable
-private fun DynamicTimePickerPickerPreview() {
-	DynamicTimePicker(
-		state = TimePickerState.now(),
-		displayMode = DynamicTimePickerDisplayMode.Picker,
-	)
+private fun PickerPreview() {
+	AppTheme {
+		DynamicTimePicker(
+			state = TimePickerState.now(),
+			displayMode = DynamicTimePickerDisplayMode.Picker,
+		)
+	}
 }
 
 @Preview
 @Composable
-private fun DynamicTimePickerPickerFixedPreview() {
-	DynamicTimePicker(
-		state = TimePickerState.now(),
-		displayMode = DynamicTimePickerDisplayMode.Picker,
-		showModeToggle = false,
-	)
+private fun PickerFixedPreview() {
+	AppTheme {
+		DynamicTimePicker(
+			state = TimePickerState.now(),
+			displayMode = DynamicTimePickerDisplayMode.Picker,
+			showModeToggle = false,
+		)
+	}
 }
 
 @Preview
 @Composable
-private fun DynamicTimePickerInputPreview() {
-	DynamicTimePicker(
-		state = TimePickerState.now(),
-		displayMode = DynamicTimePickerDisplayMode.Input,
-	)
+private fun InputPreview() {
+	AppTheme {
+		DynamicTimePicker(
+			state = TimePickerState.now(),
+			displayMode = DynamicTimePickerDisplayMode.Input,
+		)
+	}
 }
 
 @Preview
 @Composable
-private fun DynamicTimePickerInputFixedPreview() {
-	DynamicTimePicker(
-		state = TimePickerState.now(),
-		displayMode = DynamicTimePickerDisplayMode.Input,
-		showModeToggle = false,
-	)
+private fun InputFixedPreview() {
+	AppTheme {
+		DynamicTimePicker(
+			state = TimePickerState.now(),
+			displayMode = DynamicTimePickerDisplayMode.Input,
+			showModeToggle = false,
+		)
+	}
 }
 
 private fun TimePickerState.Companion.now(): TimePickerState {

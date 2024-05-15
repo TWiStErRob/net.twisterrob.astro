@@ -61,7 +61,7 @@ internal fun DateTimeDisplay(
 
 @Preview
 @Composable
-private fun DateTimeDisplayPreview() {
+private fun Preview() {
 	AppTheme {
 		DateTimeDisplay(
 			state = ZonedDateTime.now(),
@@ -75,7 +75,7 @@ private fun DateTimeDisplayPreview() {
 
 @Preview
 @Composable
-private fun DateTimeDisplayUTCPreview() {
+private fun UTCPreview() {
 	AppTheme {
 		DateTimeDisplay(
 			state = ZonedDateTime.now(ZoneId.of("Etc/UTC")),
@@ -89,7 +89,7 @@ private fun DateTimeDisplayUTCPreview() {
 
 @Preview
 @Composable
-private fun DateTimeDisplayHungarySummerPreview() {
+private fun HungarySummerPreview() {
 	AppTheme {
 		@Suppress("detekt.MagicNumber")
 		DateTimeDisplay(
@@ -104,7 +104,7 @@ private fun DateTimeDisplayHungarySummerPreview() {
 
 @Preview
 @Composable
-private fun DateTimeDisplayHungaryWinterPreview() {
+private fun HungaryWinterPreview() {
 	AppTheme {
 		@Suppress("detekt.MagicNumber")
 		DateTimeDisplay(
@@ -119,7 +119,7 @@ private fun DateTimeDisplayHungaryWinterPreview() {
 
 @Preview
 @Composable
-private fun DateTimeDisplayIndiaPreview() {
+private fun IndiaPreview() {
 	AppTheme {
 		DateTimeDisplay(
 			state = ZonedDateTime.now(ZoneId.of("Asia/Kolkata")),

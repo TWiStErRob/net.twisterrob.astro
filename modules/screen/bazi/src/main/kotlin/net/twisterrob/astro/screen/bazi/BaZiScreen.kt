@@ -92,19 +92,22 @@ private fun BaZiScreen(
 	Column(
 		modifier = modifier,
 	) {
-		DateTimeEditors(
+		DateTimeZonePickers(
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(4.dp),
 			state = state.dateTime,
+
 			onPickDate = onPickDate,
 			onHideDatePicker = onHideDatePicker,
 			onResetToToday = onResetToToday,
 			onSelectDate = onSelectDate,
+
 			onPickTime = onPickTime,
 			onHideTimePicker = onHideTimePicker,
 			onResetToNow = onResetToNow,
 			onSelectTime = onSelectTime,
+
 			onPickZone = onPickZone,
 			onSelectZone = onSelectZone,
 			onHideZonePicker = onHideZonePicker,
@@ -112,9 +115,10 @@ private fun BaZiScreen(
 			onPickOffset = onPickOffset,
 		)
 		BaZiChart(
-			bazi = state.bazi,
 			modifier = Modifier
 				.padding(top = 24.dp),
+			bazi = state.bazi,
+
 			onYearAdd = onYearAdd,
 			onYearSubtract = onYearSubtract,
 			onMonthAdd = onMonthAdd,
@@ -129,7 +133,7 @@ private fun BaZiScreen(
 
 @Preview
 @Composable
-private fun BaZiScreenPreview() {
+private fun Preview() {
 	AppTheme {
 		BaZiScreen(
 			state = BaZiState(

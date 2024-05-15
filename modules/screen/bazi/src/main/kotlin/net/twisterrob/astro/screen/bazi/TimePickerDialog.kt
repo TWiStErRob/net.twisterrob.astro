@@ -53,7 +53,7 @@ private val TimePickerState.selectedLocalTime: LocalTime
 
 @Preview
 @Composable
-private fun TimePickerDialogPreview() {
+private fun Preview() {
 	AppTheme {
 		TimePickerDialog(
 			state = ZonedDateTime.now(),

@@ -10,7 +10,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Composable
-internal fun DateTimeEditors(
+internal fun DateTimeZonePickers(
 	state: DateTimeState,
 
 	onPickDate: () -> Unit,
@@ -67,9 +67,9 @@ internal fun DateTimeEditors(
 
 @Preview
 @Composable
-private fun DateTimeDisplayPreview() {
+private fun Preview() {
 	AppTheme {
-		DateTimeEditors(
+		DateTimeZonePickers(
 			state = DateTimeState(
 				dateTime = ZonedDateTime.now(),
 				isPickingDate = false,
@@ -98,9 +98,9 @@ private fun DateTimeDisplayPreview() {
 
 @Preview
 @Composable
-private fun DateTimeDisplayDatePickerPreview() {
+private fun DatePickerPreview() {
 	AppTheme {
-		DateTimeEditors(
+		DateTimeZonePickers(
 			state = DateTimeState(
 				dateTime = ZonedDateTime.now(),
 				isPickingDate = true,
@@ -129,9 +129,9 @@ private fun DateTimeDisplayDatePickerPreview() {
 
 @Preview
 @Composable
-private fun DateTimeDisplayTimePickerPreview() {
+private fun TimePickerPreview() {
 	AppTheme {
-		DateTimeEditors(
+		DateTimeZonePickers(
 			state = DateTimeState(
 				dateTime = ZonedDateTime.now(),
 				isPickingDate = false,
@@ -160,9 +160,9 @@ private fun DateTimeDisplayTimePickerPreview() {
 
 @Preview
 @Composable
-private fun DateTimeDisplayZonePickerPreview() {
+private fun ZonePickerPreview() {
 	AppTheme {
-		DateTimeEditors(
+		DateTimeZonePickers(
 			state = DateTimeState(
 				dateTime = ZonedDateTime.now(),
 				isPickingDate = false,
