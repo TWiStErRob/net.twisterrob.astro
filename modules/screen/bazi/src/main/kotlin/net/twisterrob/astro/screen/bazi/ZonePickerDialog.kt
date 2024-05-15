@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,7 +34,7 @@ internal fun ZonePickerDialog(
 	onSelectZone: (ZoneId) -> Unit,
 	onHideZonePicker: () -> Unit,
 	onResetToZone: () -> Unit,
-	zones: List<String> = ZoneId.getAvailableZoneIds().sorted(),
+	zones: ZonesList = ZonesList(ZoneId.getAvailableZoneIds().sorted()),
 ) {
 	var selected by remember { mutableStateOf(state.zone) }
 	AlertDialog(
@@ -56,15 +57,18 @@ internal fun ZonePickerDialog(
 	)
 }
 
+@Immutable
+internal data class ZonesList(val items: List<String>)
+
 @Composable
 private fun ZoneList(
-	zones: List<String>,
+	zones: ZonesList,
 	selected: ZoneId,
 	onSelect: (ZoneId) -> Unit,
 	example: LocalDateTime,
 ) {
 	val listState = rememberLazyListState(
-		initialFirstVisibleItemIndex = (zones.indexOf(selected.id) - 2)
+		initialFirstVisibleItemIndex = (zones.items.indexOf(selected.id) - 2)
 			.coerceAtLeast(0),
 	)
 	LazyColumn(
@@ -72,7 +76,7 @@ private fun ZoneList(
 		verticalArrangement = Arrangement.spacedBy(8.dp),
 	) {
 		items(
-			items = zones,
+			items = zones.items,
 			key = { it },
 		) { zone ->
 			ZonePickerItem(
