@@ -1,15 +1,12 @@
-package net.twisterrob.astro.widget.bazi
+package net.twisterrob.astro.screen.bazi
 
-import androidx.compose.ui.test.hasAnyAncestor
-import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.isDialog
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import net.twisterrob.astro.screen.bazi.TimePickerDialog
 import net.twisterrob.astro.test.compose.pressBack
+import net.twisterrob.astro.test.compose.string
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -44,7 +41,7 @@ class TimePickerDialogUiTest {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners)
 
-		compose.onNode(hasAnyAncestor(isDialog()) and hasText("Cancel")).performClick()
+		compose.onNodeWithText(string(R.string.screen_bazi__time_picker_dialog_cancel)).performClick()
 
 		verify(mockListeners.onHideTimePicker).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -56,7 +53,7 @@ class TimePickerDialogUiTest {
 		val state = ZonedDateTime.now()
 		compose.setContent(state = state, listeners = mockListeners)
 
-		compose.onNodeWithText("OK").performClick()
+		compose.onNodeWithText(string(R.string.screen_bazi__time_picker_dialog_ok)).performClick()
 
 		val timeHourAndMinute = state.toLocalTime().truncatedTo(ChronoUnit.MINUTES)
 		verify(mockListeners.onSelectTime).invoke(timeHourAndMinute)
@@ -68,7 +65,7 @@ class TimePickerDialogUiTest {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners)
 
-		compose.onNodeWithText("Now").performClick()
+		compose.onNodeWithText(string(R.string.screen_bazi__time_picker_dialog_current)).performClick()
 
 		verify(mockListeners.onResetToNow).invoke()
 		mockListeners.verifyNoMoreInteractions()
@@ -87,18 +84,18 @@ class TimePickerDialogUiTest {
 			)
 		}
 	}
-}
 
-private class TestListeners(
-	val onSelectTime: (LocalTime) -> Unit = mock(),
-	val onHideTimePicker: () -> Unit = mock(),
-	val onResetToNow: () -> Unit = mock(),
-) {
-	fun verifyNoMoreInteractions() {
-		verifyNoMoreInteractions(
-			onSelectTime,
-			onHideTimePicker,
-			onResetToNow,
-		)
+	private class TestListeners(
+		val onSelectTime: (LocalTime) -> Unit = mock(),
+		val onHideTimePicker: () -> Unit = mock(),
+		val onResetToNow: () -> Unit = mock(),
+	) {
+		fun verifyNoMoreInteractions() {
+			verifyNoMoreInteractions(
+				onSelectTime,
+				onHideTimePicker,
+				onResetToNow,
+			)
+		}
 	}
 }
