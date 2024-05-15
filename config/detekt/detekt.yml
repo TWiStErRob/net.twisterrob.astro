@@ -24,18 +24,18 @@ complexity:
 
   StringLiteralDuplication:
     excludes: &testExcludes
-      - '**/test/**'
+      - '**/src/test/**'
       # Include testFixtures among default test folders.
-      - '**/testFixtures/**'
+      - '**/src/testFixtures/**'
       # Include sharedTest among default test folders.
-      - '**/sharedTest/**'
-      - '**/androidTest/**'
-      - '**/commonTest/**'
-      - '**/jvmTest/**'
-      - '**/androidUnitTest/**'
-      - '**/androidInstrumentedTest/**'
-      - '**/jsTest/**'
-      - '**/iosTest/**'
+      - '**/src/sharedTest/**'
+      - '**/src/androidTest/**'
+      - '**/src/commonTest/**'
+      - '**/src/jvmTest/**'
+      - '**/src/androidUnitTest/**'
+      - '**/src/androidInstrumentedTest/**'
+      - '**/src/jsTest/**'
+      - '**/src/iosTest/**'
 
   TooManyFunctions:
     excludes: *testExcludes
@@ -97,11 +97,9 @@ comments:
     excludes: *testExcludes
 
   UndocumentedPublicFunction:
-    # Include sharedTest among default test folders.
     excludes: *testExcludes
 
   UndocumentedPublicProperty:
-    # Include sharedTest among default test folders.
     excludes: *testExcludes
 
 

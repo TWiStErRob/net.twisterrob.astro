@@ -96,8 +96,6 @@ internal fun DynamicTimePicker(
 internal enum class DynamicTimePickerDisplayMode {
 	Input,
 	Picker,
-
-	;
 }
 
 private val defaultDynamicTimePickerDisplayMode: DynamicTimePickerDisplayMode

@@ -6,6 +6,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.os.ConfigurationCompat
 import java.util.Locale
 
+/**
+ * Get the default locale from the Android system.
+ */
 public val defaultLocale: Locale
 	@Composable
 	@ReadOnlyComposable
