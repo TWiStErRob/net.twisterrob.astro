@@ -1,17 +1,29 @@
 plugins {
-	id("net.twisterrob.astro.library")
+	id("net.twisterrob.astro.android-library")
 }
 
 dependencies { // testImplementation(projects.component.testBaseRobolectric)
-	api(projects.component.testBaseUnit)
+	api(projects.component.testBaseUnit) {
+		because("Robolectric is built for JVM unit testing.")
+	}
 
-	api(libs.test.robolectric) {
+	api(projects.component.testBaseCompose) {
+		because("Every/most Roboletric test should be testing Compose code.")
+	}
+
+	runtimeOnly(libs.test.robolectric) {
 		because("Robolectric is used for testing Android components and Composables.")
 	}
+	api(libs.test.robolectricAnnotations) {
+		// TODO figure out a sharedTest way of doing this.
+		because("Some tests might need @Config adjustments with increased screen size. " +
+				"Default is w320dp x h470dp, see https://robolectric.org/device-configuration/")
+	}
+
 	runtimeOnly(libs.test.jupiter.vintage) {
 		because("Robolectric does not support JUnit 5, so we need to opt in to running JUnit 4 tests.")
 	}
-
-	api(platform(libs.compose.bom))
-	api(libs.test.compose.junit)
 }
+
+// Robolectric and bouncyastle are warning, but this is a JVM testing AAR.
+android.lint.disable("InvalidPackage")

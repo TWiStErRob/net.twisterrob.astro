@@ -11,6 +11,12 @@ complexity:
 
 naming:
 
+# Not mergeable, defined in main config.
+#  FunctionMaxLength:
+#    ignoreAnnotated:
+#      - 'androidx.compose.ui.tooling.preview.Preview*'
+#      - 'net.twisterrob.astro.compose.preview.Preview*'
+
   FunctionNaming:
     ignoreAnnotated:
       - 'androidx.compose.runtime.Composable'
@@ -23,7 +29,8 @@ style:
 
   UnusedPrivateMember:
     ignoreAnnotated:
-      - 'androidx.compose.ui.tooling.preview.Preview'
+      - 'androidx.compose.ui.tooling.preview.Preview*'
+      - 'net.twisterrob.astro.compose.preview.Preview*'
 
 
 compose: # Kode

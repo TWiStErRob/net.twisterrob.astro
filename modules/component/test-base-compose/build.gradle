@@ -1,0 +1,14 @@
+plugins {
+	id("net.twisterrob.astro.android-library")
+}
+
+dependencies {
+	api(projects.component.testBaseUnit)
+	api(projects.component.compose)
+	api(platform(libs.compose.bom))
+	api(libs.test.compose.junit)
+
+	// Yes compose needs Espresso. See https://mfallahpour.medium.com/efb13066bb3d.
+	// But it's implementation, trying to abstract and hide it in JVM tests.
+	implementation(libs.test.androidx.espressoCore)
+}

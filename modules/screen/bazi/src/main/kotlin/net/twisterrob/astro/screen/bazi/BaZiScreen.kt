@@ -1,13 +1,11 @@
 package net.twisterrob.astro.screen.bazi
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -15,10 +13,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.widget.bazi.chart.BaZiChart
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 /**
  * Screen that displays the current BaZi.
@@ -32,7 +31,22 @@ public fun BaZiScreen(
 	BaZiScreen(
 		modifier = modifier,
 		state = state,
-		onRefresh = viewModel::refresh,
+		onPickDate = viewModel::pickDate,
+		onHideDatePicker = viewModel::hideDatePicker,
+		onResetToToday = viewModel::resetToToday,
+		onSelectDate = viewModel::selectDate,
+
+		onPickTime = viewModel::pickTime,
+		onHideTimePicker = viewModel::hideTimePicker,
+		onResetToNow = viewModel::resetToNow,
+		onSelectTime = viewModel::selectTime,
+
+		onPickZone = viewModel::pickZone,
+		onHideZonePicker = viewModel::hideZonePicker,
+		onResetToZone = viewModel::resetToZone,
+		onSelectZone = viewModel::selectZone,
+		onPickOffset = viewModel::pickZone,
+
 		onYearAdd = viewModel::increaseYear,
 		onYearSubtract = viewModel::decreaseYear,
 		onMonthAdd = viewModel::increaseMonth,
@@ -47,7 +61,23 @@ public fun BaZiScreen(
 @Composable
 private fun BaZiScreen(
 	state: BaZiState,
-	onRefresh: () -> Unit,
+
+	onPickDate: () -> Unit,
+	onHideDatePicker: () -> Unit,
+	onResetToToday: () -> Unit,
+	onSelectDate: (LocalDate) -> Unit,
+
+	onPickTime: () -> Unit,
+	onHideTimePicker: () -> Unit,
+	onResetToNow: () -> Unit,
+	onSelectTime: (LocalTime) -> Unit,
+
+	onPickZone: () -> Unit,
+	onHideZonePicker: () -> Unit,
+	onResetToZone: () -> Unit,
+	onSelectZone: (ZoneId) -> Unit,
+	onPickOffset: () -> Unit,
+
 	onYearAdd: () -> Unit,
 	onYearSubtract: () -> Unit,
 	onMonthAdd: () -> Unit,
@@ -56,22 +86,39 @@ private fun BaZiScreen(
 	onDaySubtract: () -> Unit,
 	onHourAdd: () -> Unit,
 	onHourSubtract: () -> Unit,
+
 	modifier: Modifier = Modifier,
 ) {
 	Column(
 		modifier = modifier,
 	) {
-		Text(
-			text = state.dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG)),
+		DateTimeZonePickers(
 			modifier = Modifier
-				.align(CenterHorizontally)
-				.clickable(onClick = onRefresh)
+				.fillMaxWidth()
 				.padding(4.dp),
+			state = state.dateTime,
+
+			onPickDate = onPickDate,
+			onHideDatePicker = onHideDatePicker,
+			onResetToToday = onResetToToday,
+			onSelectDate = onSelectDate,
+
+			onPickTime = onPickTime,
+			onHideTimePicker = onHideTimePicker,
+			onResetToNow = onResetToNow,
+			onSelectTime = onSelectTime,
+
+			onPickZone = onPickZone,
+			onSelectZone = onSelectZone,
+			onHideZonePicker = onHideZonePicker,
+			onResetToZone = onResetToZone,
+			onPickOffset = onPickOffset,
 		)
 		BaZiChart(
-			bazi = state.bazi,
 			modifier = Modifier
 				.padding(top = 24.dp),
+			bazi = state.bazi,
+
 			onYearAdd = onYearAdd,
 			onYearSubtract = onYearSubtract,
 			onMonthAdd = onMonthAdd,
@@ -86,14 +133,34 @@ private fun BaZiScreen(
 
 @Preview
 @Composable
-private fun BaZiScreenPreview() {
+private fun Preview() {
 	AppTheme {
 		BaZiScreen(
 			state = BaZiState(
-				dateTime = ZonedDateTime.now(),
 				bazi = SolarCalculator().calculate(LocalDateTime.now()),
+				dateTime = DateTimeState(
+					dateTime = ZonedDateTime.now(),
+					isPickingDate = false,
+					isPickingTime = false,
+					isPickingZone = false,
+				),
 			),
-			onRefresh = {},
+			onPickDate = {},
+			onHideDatePicker = {},
+			onResetToToday = {},
+			onSelectDate = {},
+
+			onPickTime = {},
+			onHideTimePicker = {},
+			onResetToNow = {},
+			onSelectTime = {},
+
+			onPickZone = {},
+			onHideZonePicker = {},
+			onResetToZone = {},
+			onSelectZone = {},
+			onPickOffset = {},
+
 			onYearAdd = {},
 			onYearSubtract = {},
 			onMonthAdd = {},
