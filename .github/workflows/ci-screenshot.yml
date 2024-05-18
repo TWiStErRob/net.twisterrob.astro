@@ -26,6 +26,8 @@ jobs:
 
       - name: "Set up Gradle."
         uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: false
 
       - name: "Record screenshots."
         shell: bash
@@ -73,6 +75,8 @@ jobs:
 
       - name: "Set up Gradle."
         uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: false
 
       - name: "Verify screenshots."
         shell: bash
