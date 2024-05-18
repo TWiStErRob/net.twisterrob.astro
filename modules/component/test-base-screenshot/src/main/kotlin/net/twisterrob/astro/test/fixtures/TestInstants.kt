@@ -17,6 +17,6 @@ public object TestInstants {
 	public val REPO: ZonedDateTime = ZonedDateTime.of(
 		LocalDate.of(2024, 4, 20),
 		LocalTime.of(14, 20, 31),
-		ZoneId.of("Europe/London")
+		ZoneId.of("Europe/London"),
 	)
 }
