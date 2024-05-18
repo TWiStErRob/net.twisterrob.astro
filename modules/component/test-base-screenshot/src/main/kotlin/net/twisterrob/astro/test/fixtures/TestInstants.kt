@@ -7,9 +7,9 @@ import java.time.ZonedDateTime
 
 public object TestInstants {
 
-	public val ROBI: ZonedDateTime = ZonedDateTime.of(
-		LocalDate.of(1986, 7, 1),
-		LocalTime.of(9, 40, 12, 123456789),
-		ZoneId.of("Europe/Budapest")
+	public val REPO: ZonedDateTime = ZonedDateTime.of(
+		LocalDate.of(2024, 4, 20),
+		LocalTime.of(14, 20, 31),
+		ZoneId.of("Europe/London")
 	)
 }
