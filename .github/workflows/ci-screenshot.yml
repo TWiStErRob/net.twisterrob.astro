@@ -39,6 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: 'Screenshot Golden Values'
+          if-no-files-found: error
           path: |
             modules/**/src/*/screenshotTest/reference/*.png
 
@@ -83,5 +84,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: 'Screenshot Test Results'
+          if-no-files-found: error
           path: |
             modules/**/build/reports/screenshotTest/preview/
