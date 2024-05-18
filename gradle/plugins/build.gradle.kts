@@ -7,6 +7,7 @@ dependencies {
 	api(libs.plugins.kotlin.asDependency())
 	api(libs.plugins.detekt.asDependency())
 	api(libs.plugins.android.asDependency())
+	api(libs.plugins.screenshot.asDependency())
 
 	// TODEL https://github.com/gradle/gradle/issues/15383
 	implementation(files(libs::class.java.superclass.protectionDomain.codeSource.location))
