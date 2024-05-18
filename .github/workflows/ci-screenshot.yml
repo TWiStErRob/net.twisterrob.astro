@@ -83,6 +83,7 @@ jobs:
           validateDebugScreenshotTest
 
       - name: "Upload 'Screenshot Test Results' artifact."
+        if: ${{ success() || failure() }}
         uses: actions/upload-artifact@v4
         with:
           name: 'Screenshot Test Results'
