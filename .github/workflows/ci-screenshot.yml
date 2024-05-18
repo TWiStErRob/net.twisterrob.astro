@@ -50,8 +50,6 @@ jobs:
       - name: "Set up Gradle."
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: gradle/actions/setup-gradle@v3
-        with:
-          cache-read-only: false
 
       - name: "Record screenshots."
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
@@ -121,8 +119,6 @@ jobs:
 
       - name: "Set up Gradle."
         uses: gradle/actions/setup-gradle@v3
-        with:
-          cache-read-only: false
 
       - name: "Verify screenshots."
         run: >
