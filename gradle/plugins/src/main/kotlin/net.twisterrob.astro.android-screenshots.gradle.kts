@@ -7,7 +7,12 @@
 
 @file:Suppress("detekt.MaxLineLength")
 
+import com.android.build.api.variant.HasHostTests
+import com.android.compose.screenshot.tasks.ScreenshotTestReportTask
 import net.twisterrob.astro.build.dsl.android
+import net.twisterrob.astro.build.dsl.androidComponents
+import org.gradle.api.internal.exceptions.MarkedVerificationException
+import org.gradle.internal.logging.ConsoleRenderer
 
 plugins {
 	id("com.android.compose.screenshot")
@@ -44,6 +49,44 @@ android {
 					// > https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#test_task_fail_on_no_test_executed
 					task.enabled = false
 				}
+			}
+		}
+	}
+}
+
+// REPORT Polyfill user friendly behavior:
+// No-one can read binary result files or wants to read XML for a stack trace of screenshot failures.
+// Instead, provide a clickable link to the HTML report which includes the visual diff.
+// The original failure looks like this (it'll still show up in the console):
+// > > Task :...:validateDebugScreenshotTest
+// >
+// > FAILURE: Build failed with an exception.
+// >
+// > * What went wrong:
+// > Execution failed for task ':...:validateDebugScreenshotTest'.
+// > > There were failing tests. See the results at: file:///.../build/test-results/validateDebugScreenshotTest/
+// This workaround adds an additional failure:
+// > Execution failed for task ':...:debugScreenshotReport'.
+// > > There were failing tests. See the report at: file:///.../build/reports/screenshotTest/preview/debug/index.html
+androidComponents.onVariants { variant ->
+	if (variant !is HasHostTests || !variant.debuggable) {
+		// The tasks we're looking for don't exist here (see PreviewScreenshotGradlePlugin), so just stop.
+		return@onVariants
+	}
+
+	val validateTaskName = "validate${variant.name.replaceFirstChar { it.uppercase() }}ScreenshotTest"
+	val validateTask = tasks.named(validateTaskName)
+	val reportTaskName = "${variant.name}ScreenshotReport"
+	val reportTask = tasks.named<ScreenshotTestReportTask>(reportTaskName)
+
+	reportTask.configure {
+		notCompatibleWithConfigurationCache("https://gradle-community.slack.com/archives/C013WEPGQF9/p1716070243386699")
+		doLast {
+			if (validateTask.get().state.failure != null) {
+				// Mimic what org.gradle.api.tasks.testing.AbstractTestTask.handleTestFailures does.
+				val report = this@configure.outputDir.file("index.html").get().asFile
+				val reportUrl = ConsoleRenderer().asClickableFileUrl(report)
+				throw MarkedVerificationException("There were failing tests. See the report at: ${reportUrl}")
 			}
 		}
 	}
