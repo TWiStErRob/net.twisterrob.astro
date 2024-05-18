@@ -61,8 +61,17 @@ jobs:
           --stacktrace
           updateDebugScreenshotTest
 
+      - name: "Upload 'Screenshot Record Results' artifact."
+        if: ${{ success() || failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'Screenshot Test Results'
+          if-no-files-found: error
+          path: |
+            modules/**/build/outputs/screenshotTest-results/preview/*/
+
       - name: "Upload 'Screenshot Golden Values' artifact."
-        if: ${{ github.event_name == 'pull_request' && (success() || failure()) }}
+        if: ${{ (success() || failure()) && github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v4
         with:
           name: 'Screenshot Golden Values'
@@ -130,3 +139,5 @@ jobs:
           if-no-files-found: error
           path: |
             modules/**/build/reports/screenshotTest/preview/
+            modules/**/build/outputs/screenshotTest-results/preview/*/
+            modules/**/build/test-results/validate*ScreenshotTest/
