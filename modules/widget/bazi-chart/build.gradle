@@ -1,14 +1,8 @@
 plugins {
 	id("net.twisterrob.astro.android-library")
-	id("com.android.compose.screenshot")
 }
 
 dependencies {
 	implementation(projects.component.theme)
 	implementation(projects.domain.baziModel)
-	screenshotTestImplementation(libs.compose.uiTooling)
-}
-
-android {
-	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }

@@ -1,3 +1,5 @@
+@file:Suppress("detekt.MaxLineLength")
+
 package net.twisterrob.astro.build
 
 import com.android.build.api.variant.HasUnitTestBuilder
@@ -10,10 +12,40 @@ import net.twisterrob.astro.build.testing.configureTestTask
 plugins {
 	id("com.android.base")
 }
+// REPORT Imperatively applying it, because putting it just above in the plugins block would fail with:
+// > > Task :plugins:generatePrecompiledScriptPluginAccessors FAILED
+// > 
+// > FAILURE: Build failed with an exception.
+// > 
+// > * Where:
+// > Precompiled script plugin 'gradle\plugins\src\main\kotlin\net\twisterrob\astro\build\android-base.gradle.kts' line: 1
+// > 
+// > * What went wrong:
+// > An exception occurred applying plugin request [id: 'com.android.compose.screenshot']
+// > > Failed to apply plugin 'com.android.compose.screenshot'.
+// >    > Extension of type 'AndroidComponentsExtension' does not exist. Currently registered extension types:
+// >      [ExtraPropertiesExtension, VersionCatalogsExtension, KotlinAndroidProjectExtension, KotlinTestsRegistry]
+//
+// Moving it outside to android-library.gradle.kts gets through that failure, but then it fails with:
+// >  > Task :plugins:generatePrecompiledScriptPluginAccessors FAILED
+// > 
+// > FAILURE: Build failed with an exception.
+// > 
+// > * Where:
+// > Precompiled script plugin 'gradle\plugins\src\main\kotlin\net.twisterrob.astro.android-library.gradle.kts' line: 1
+// > 
+// > * What went wrong:
+// > An exception occurred applying plugin request [id: 'com.android.compose.screenshot']
+// > > Failed to apply plugin 'com.android.compose.screenshot'.
+// >    > Please enable screenshotTest source set first to apply the screenshot test plugin.
+// >      Add "android.experimental.enableScreenshotTest=true" to gradle.properties
+// adding `android.experimental.enableScreenshotTest=true` to gradle/plugins/gradle.properties does not help.
+apply(plugin = "com.android.compose.screenshot")
 
 dependencies {
 	"testImplementation"(project(":component:test-base-robolectric"))
 	"androidTestImplementation"(project(":component:test-base-instrumentation"))
+	"screenshotTestImplementation"(project(":component:test-base-screenshot"))
 }
 
 androidComponents {
@@ -25,6 +57,8 @@ androidComponents {
 android {
 	defaultConfig {
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+		@Suppress("UnstableApiUsage")
+		experimentalProperties["android.experimental.enableScreenshotTest"] = true
 	}
 	sourceSets {
 		named("test") {
@@ -42,10 +76,11 @@ android {
 	testOptions {
 		unitTests {
 			isIncludeAndroidResources = true
-			@Suppress("detekt.MaxLineLength")
 			all { task ->
 				if (task.name.endsWith("ScreenshotTest")) {
-					// Disabling the test task, because it would trigger the following warnings:
+					// REPORT Disabling the test task.
+					// It's not actually needed for screenshot testing (validateDebugScreenshotTest is a Test task).
+					// Disabling it because it would trigger the following warnings:
 					// > > Task :*:testReleaseScreenshotTest
 					//
 					// > The automatic loading of test framework implementation dependencies has been deprecated.
