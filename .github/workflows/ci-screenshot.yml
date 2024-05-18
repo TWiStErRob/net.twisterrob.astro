@@ -62,6 +62,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: 'Screenshot Golden Values'
+          # The recorded Golden Values are rooted at `modules/` because of the first `**` in the path.
+          path: modules
 
       - name: "Set up Java."
         uses: actions/setup-java@v4
