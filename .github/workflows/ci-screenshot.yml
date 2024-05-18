@@ -63,7 +63,7 @@ jobs:
         if: ${{ success() || failure() }}
         uses: actions/upload-artifact@v4
         with:
-          name: 'Screenshot Test Results'
+          name: 'Screenshot Record Results'
           if-no-files-found: error
           path: |
             modules/**/build/outputs/screenshotTest-results/preview/*/
