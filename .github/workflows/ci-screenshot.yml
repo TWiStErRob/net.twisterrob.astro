@@ -61,7 +61,7 @@ jobs:
           updateDebugScreenshotTest
 
       - name: "Upload 'Screenshot Record Results' artifact."
-        if: ${{ success() || failure() }}
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && (success() || failure()) }}
         uses: actions/upload-artifact@v4
         with:
           name: 'Screenshot Record Results'
@@ -70,7 +70,7 @@ jobs:
             modules/**/build/outputs/screenshotTest-results/preview/*/
 
       - name: "Upload 'Screenshot Golden Values' artifact."
-        if: ${{ (success() || failure()) && github.event_name == 'pull_request' }}
+        if: ${{ github.event_name == 'pull_request' && (success() || failure()) }}
         uses: actions/upload-artifact@v4
         with:
           name: 'Screenshot Golden Values'
