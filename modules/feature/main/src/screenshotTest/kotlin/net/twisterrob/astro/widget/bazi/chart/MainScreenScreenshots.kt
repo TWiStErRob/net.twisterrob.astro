@@ -13,7 +13,7 @@ class MainScreenScreenshots {
 	@Preview
 	@Composable
 	private fun Default() {
-		viewModel<BaZiViewModel>().select(TestInstants.ROBI)
+		viewModel<BaZiViewModel>().select(TestInstants.REPO)
 		AppTheme {
 			MainScreen()
 		}
