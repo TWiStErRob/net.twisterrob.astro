@@ -9,35 +9,9 @@
 
 import net.twisterrob.astro.build.dsl.android
 
-// REPORT Imperatively applying it, because putting it just above in the plugins block would fail with:
-// > > Task :plugins:generatePrecompiledScriptPluginAccessors FAILED
-// > 
-// > FAILURE: Build failed with an exception.
-// > 
-// > * Where:
-// > Precompiled script plugin 'gradle\plugins\src\main\kotlin\net\twisterrob\astro\build\android-base.gradle.kts' line: 1
-// > 
-// > * What went wrong:
-// > An exception occurred applying plugin request [id: 'com.android.compose.screenshot']
-// > > Failed to apply plugin 'com.android.compose.screenshot'.
-// >    > Extension of type 'AndroidComponentsExtension' does not exist. Currently registered extension types:
-// >      [ExtraPropertiesExtension, VersionCatalogsExtension, KotlinAndroidProjectExtension, KotlinTestsRegistry]
-//
-// Moving it outside to android-library.gradle.kts gets through that failure, but then it fails with:
-// >  > Task :plugins:generatePrecompiledScriptPluginAccessors FAILED
-// > 
-// > FAILURE: Build failed with an exception.
-// > 
-// > * Where:
-// > Precompiled script plugin 'gradle\plugins\src\main\kotlin\net.twisterrob.astro.android-library.gradle.kts' line: 1
-// > 
-// > * What went wrong:
-// > An exception occurred applying plugin request [id: 'com.android.compose.screenshot']
-// > > Failed to apply plugin 'com.android.compose.screenshot'.
-// >    > Please enable screenshotTest source set first to apply the screenshot test plugin.
-// >      Add "android.experimental.enableScreenshotTest=true" to gradle.properties
-// adding `android.experimental.enableScreenshotTest=true` to gradle/plugins/gradle.properties does not help.
-apply(plugin = "com.android.compose.screenshot")
+plugins {
+	id("com.android.compose.screenshot")
+}
 
 dependencies {
 	"screenshotTestImplementation"(project(":component:test-base-screenshot"))
