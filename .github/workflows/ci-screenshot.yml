@@ -15,21 +15,42 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
 
+      - name: "Calculate relevant SHA."
+        id: params
+        env:
+          SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
+        run: |
+          echo "sha=${SHA}" >> "${GITHUB_OUTPUT}"
+
+      - name: "Load cached golden values."
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          key: golden-values-${{ steps.params.outputs.sha }}
+          path: '**'
+        # If exists (steps.cache.outputs.cache-hit == 'true'), then skip recording steps.
+
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.params.outputs.sha }}
 
       - name: "Set up Java."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: actions/setup-java@v4
         with:
           java-version-file: .java-version
           distribution: temurin
 
       - name: "Set up Gradle."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: gradle/actions/setup-gradle@v3
         with:
           cache-read-only: false
 
       - name: "Record screenshots."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         shell: bash
         run: >
           ./gradlew
@@ -38,10 +59,19 @@ jobs:
           updateDebugScreenshotTest
 
       - name: "Upload 'Screenshot Golden Values' artifact."
+        if: ${{ github.event_name == 'pull_request' && (success() || failure()) }}
         uses: actions/upload-artifact@v4
         with:
           name: 'Screenshot Golden Values'
           if-no-files-found: error
+          path: |
+            modules/**/src/*/screenshotTest/reference/*.png
+
+      - name: "Store golden values to cache."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          key: ${{ steps.cache.outputs.cache-primary-key }}
           path: |
             modules/**/src/*/screenshotTest/reference/*.png
 
