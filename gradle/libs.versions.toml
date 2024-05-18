@@ -5,7 +5,7 @@ java-target = "17"
 android-compileSdk = "34"
 android-minSdk = "34"
 android-targetSdk = "34"
-agp = "8.4.0"
+agp = "8.5.0-beta02"
 kotlin = "1.9.24"
 kotlin-composeCompiler = "1.5.14"
 
@@ -21,6 +21,7 @@ mockito-kotlin = "5.3.1"
 robolectric = "4.12.2"
 
 compose-bom = "2024.05.00"
+compose-screenshot = "0.0.1-alpha01"
 androidx-activityCompose = "1.9.0"
 androidx-core = "1.13.1"
 androidx-espresso = "3.5.1"
@@ -74,3 +75,4 @@ test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.re
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 android = { id = "com.android.application", version.ref = "agp" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "compose-screenshot"}
