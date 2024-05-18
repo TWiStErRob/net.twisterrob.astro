@@ -118,6 +118,9 @@ public class BaZiViewModel : ViewModel() {
 		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingZone = false)) }
 	}
 
+	/**
+	 * Allow screenshot tests to set "now" to a specific instant, so that rendering is consistent.
+	 */
 	@VisibleForTesting(otherwise = VisibleForTesting.NONE)
 	public fun select(dateTime: ZonedDateTime) {
 		updateDateTime { _ -> dateTime }
