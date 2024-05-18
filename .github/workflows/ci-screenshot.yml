@@ -22,7 +22,7 @@ jobs:
       - name: "Calculate relevant SHA."
         id: params
         env:
-          SHA: '42162c51f6fb2f4e919e802a0e41e827210ebe98'
+          SHA: ${{ github.event.pull_request.base.sha || github.event.after }}
         run: |
           echo "sha=${SHA}" >> "${GITHUB_OUTPUT}"
 
@@ -85,6 +85,7 @@ jobs:
           key: ${{ steps.cache.outputs.cache-primary-key }}
           path: |
             modules/**/src/*/screenshotTest/reference/*.png
+
 
   verify:
     name: "🔍 Verify"
