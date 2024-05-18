@@ -86,7 +86,7 @@ jobs:
             modules/**/src/*/screenshotTest/reference/*.png
 
   verify:
-    name: "⚖ Verify"
+    name: "🔍 Verify"
     needs:
       - record
     timeout-minutes: 10
