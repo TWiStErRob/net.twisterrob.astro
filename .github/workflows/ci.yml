@@ -25,7 +25,6 @@ jobs:
     needs:
       - validate
     uses: ./.github/workflows/ci-build.yml
-    secrets: inherit
     permissions:
       contents: read
       security-events: write
@@ -33,9 +32,19 @@ jobs:
 
   instrumentation:
     name: "🧪 Instrumentation Tests on" # / API ${{ matrix.api }} will be appended by used workflow.
-    needs: validate
+    needs:
+      - validate
     uses: ./.github/workflows/ci-instrumentation.yml
     permissions:
       contents: read
       checks: write
       statuses: write
+
+  screenshot:
+    name: "📷 Screenshot Tests"
+    if: ${{ github.event_name == 'pull_request' }}
+    needs:
+      - validate
+    uses: ./.github/workflows/ci-screenshot.yml
+    permissions:
+      contents: read
