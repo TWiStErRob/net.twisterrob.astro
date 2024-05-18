@@ -28,6 +28,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: "Record screenshots."
+        shell: bash
         run: >
           ./gradlew
           --continue
@@ -59,6 +60,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: "Verify screenshots."
+        shell: bash
         run: >
           ./gradlew
           --continue
