@@ -31,7 +31,8 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           key: golden-values-${{ steps.params.outputs.sha }}
-          path: '**'
+          path: |
+            modules/**/src/*/screenshotTest/reference/*.png
         # If exists (steps.cache.outputs.cache-hit == 'true'), then skip recording steps.
 
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
