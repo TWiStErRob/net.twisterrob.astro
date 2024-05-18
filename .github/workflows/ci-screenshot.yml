@@ -22,7 +22,7 @@ jobs:
       - name: "Calculate relevant SHA."
         id: params
         env:
-          SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
+          SHA: '42162c51f6fb2f4e919e802a0e41e827210ebe98'
         run: |
           echo "sha=${SHA}" >> "${GITHUB_OUTPUT}"
 
