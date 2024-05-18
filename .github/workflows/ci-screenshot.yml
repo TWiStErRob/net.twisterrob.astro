@@ -35,6 +35,13 @@ jobs:
           --stacktrace
           updateDebugScreenshotTest
 
+      - name: "Upload 'Screenshot Golden Values' artifact."
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'Screenshot Golden Values'
+          path: |
+            modules/**/src/*/screenshotTest/reference/*.png
+
   verify:
     name: "⚖ Verify"
     needs:
@@ -49,6 +56,11 @@ jobs:
 
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
         uses: actions/checkout@v4
+
+      - name: "Download 'Screenshot Golden Values' artifact."
+        uses: actions/download-artifact@v4
+        with:
+          name: 'Screenshot Golden Values'
 
       - name: "Set up Java."
         uses: actions/setup-java@v4
@@ -66,3 +78,10 @@ jobs:
           --continue
           --stacktrace
           validateDebugScreenshotTest
+
+      - name: "Upload 'Screenshot Test Results' artifact."
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'Screenshot Test Results'
+          path: |
+            modules/**/build/reports/screenshotTest/preview/
