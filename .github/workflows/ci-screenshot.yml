@@ -1,0 +1,146 @@
+name: "📷 Screenshot Tests"
+
+on:
+  workflow_call:
+
+jobs:
+
+  record:
+    name: "📸 Record"
+    timeout-minutes: 10
+
+    permissions:
+      # actions/checkout
+      contents: read
+
+    defaults:
+      run:
+        shell: bash
+
+    runs-on: ubuntu-24.04
+    steps:
+
+      - name: "Calculate relevant SHA."
+        id: params
+        env:
+          SHA: ${{ github.event.pull_request.base.sha || github.event.after }}
+        # language=bash
+        run: |
+          echo "sha=${SHA}" >> "${GITHUB_OUTPUT}"
+
+      - name: "Load cached golden values."
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          key: golden-values-${{ steps.params.outputs.sha }}
+          path: |
+            modules/**/src/*/screenshotTest/reference/*.png
+        # If exists (steps.cache.outputs.cache-hit == 'true'), then skip recording steps.
+
+      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.params.outputs.sha }}
+
+      - name: "Set up Java."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        uses: actions/setup-java@v4
+        with:
+          java-version-file: .java-version
+          distribution: temurin
+
+      - name: "Set up Gradle."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: "Record screenshots."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        # language=bash
+        run: >
+          ./gradlew
+          --continue
+          --stacktrace
+          updateDebugScreenshotTest
+
+      - name: "Upload 'Screenshot Record Results' artifact."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && (success() || failure()) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'Screenshot Record Results'
+          if-no-files-found: error
+          path: |
+            modules/**/build/outputs/screenshotTest-results/preview/*/
+
+      - name: "Upload 'Screenshot Golden Values' artifact."
+        if: ${{ github.event_name == 'pull_request' && (success() || failure()) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'Screenshot Golden Values'
+          if-no-files-found: error
+          path: |
+            modules/**/src/*/screenshotTest/reference/*.png
+
+      - name: "Store golden values to cache."
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+          path: |
+            modules/**/src/*/screenshotTest/reference/*.png
+
+
+  verify:
+    name: "🔍 Verify"
+    needs:
+      - record
+    timeout-minutes: 10
+
+    permissions:
+      # actions/checkout
+      contents: read
+
+    defaults:
+      run:
+        shell: bash
+
+    runs-on: ubuntu-24.04
+    steps:
+
+      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+        uses: actions/checkout@v4
+
+      - name: "Download 'Screenshot Golden Values' artifact."
+        uses: actions/download-artifact@v4
+        with:
+          name: 'Screenshot Golden Values'
+          # The recorded Golden Values are rooted at `modules/` because of the first `**` in the path.
+          path: modules
+
+      - name: "Set up Java."
+        uses: actions/setup-java@v4
+        with:
+          java-version-file: .java-version
+          distribution: temurin
+
+      - name: "Set up Gradle."
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: "Verify screenshots."
+        # language=bash
+        run: >
+          ./gradlew
+          --continue
+          --stacktrace
+          validateDebugScreenshotTest
+
+      - name: "Upload 'Screenshot Test Results' artifact."
+        if: ${{ success() || failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'Screenshot Test Results'
+          if-no-files-found: error
+          path: |
+            modules/**/build/reports/screenshotTest/preview/
+            modules/**/build/outputs/screenshotTest-results/preview/*/
+            modules/**/build/test-results/validate*ScreenshotTest/
