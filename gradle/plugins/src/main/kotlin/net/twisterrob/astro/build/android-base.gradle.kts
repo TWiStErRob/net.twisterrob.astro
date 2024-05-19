@@ -23,9 +23,9 @@ android {
 		.replace(":", "_")
 		.plus("__")
 
-	compileSdk = libs.versions.android.compileSdk.get().toInt()
+	compileSdk = libs.versions.android.compileSdk.map(String::toInt).get()
 	defaultConfig {
-		minSdk = libs.versions.android.minSdk.get().toInt()
+		minSdk = libs.versions.android.minSdk.map(String::toInt).get()
 
 		vectorDrawables {
 			useSupportLibrary = true

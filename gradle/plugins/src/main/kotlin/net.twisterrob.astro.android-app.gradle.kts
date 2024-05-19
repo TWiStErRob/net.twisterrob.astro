@@ -7,7 +7,7 @@ plugins {
 
 android {
 	defaultConfig {
-		targetSdk = libs.versions.android.targetSdk.get().toInt()
+		targetSdk = libs.versions.android.targetSdk.map(String::toInt).get()
 	}
 	buildTypes {
 		debug {

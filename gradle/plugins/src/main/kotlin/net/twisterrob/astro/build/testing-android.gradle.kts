@@ -64,7 +64,7 @@ android {
 			}
 		}
 		managedDevices {
-			val minSdk = libs.versions.android.minSdk.get().toInt()
+			val minSdk = libs.versions.android.minSdk.map(String::toInt).get()
 			localDevices {
 				// ./gradlew pixel7ProApi34DebugAndroidTest
 				create("pixel7ProApi${minSdk}") {
