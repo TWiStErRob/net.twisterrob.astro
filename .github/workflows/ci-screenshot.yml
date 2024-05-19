@@ -10,6 +10,7 @@ jobs:
     timeout-minutes: 10
 
     permissions:
+      # actions/checkout
       contents: read
 
     defaults:
@@ -23,6 +24,7 @@ jobs:
         id: params
         env:
           SHA: ${{ github.event.pull_request.base.sha || github.event.after }}
+        # language=bash
         run: |
           echo "sha=${SHA}" >> "${GITHUB_OUTPUT}"
 
@@ -54,6 +56,7 @@ jobs:
 
       - name: "Record screenshots."
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        # language=bash
         run: >
           ./gradlew
           --continue
@@ -94,6 +97,7 @@ jobs:
     timeout-minutes: 10
 
     permissions:
+      # actions/checkout
       contents: read
 
     defaults:
@@ -123,6 +127,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: "Verify screenshots."
+        # language=bash
         run: >
           ./gradlew
           --continue
