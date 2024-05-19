@@ -92,6 +92,7 @@ jobs:
 
   verify:
     name: "🔍 Verify"
+    if: ${{ github.event_name == 'pull_request' }}
     needs:
       - record
     timeout-minutes: 10

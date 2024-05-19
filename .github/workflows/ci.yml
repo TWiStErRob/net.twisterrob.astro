@@ -42,7 +42,6 @@ jobs:
 
   screenshot:
     name: "📷 Screenshot Tests"
-    if: ${{ github.event_name == 'pull_request' }}
     needs:
       - validate
     uses: ./.github/workflows/ci-screenshot.yml
