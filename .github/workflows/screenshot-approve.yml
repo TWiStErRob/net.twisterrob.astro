@@ -1,0 +1,67 @@
+name: "Screenshot Tests Review"
+
+on:
+  # To work around https://github.com/github-community/community/discussions/19069, allow manual click.
+  workflow_dispatch:
+
+jobs:
+
+  approve:
+    name: "Approve Screenshot Test Results"
+    timeout-minutes: 1
+
+    permissions:
+      # read: rest.checks.listForRef
+      # write: rest.checks.update
+      checks: write
+      # rest.repos.createCommitStatus
+      statuses: write
+
+    runs-on: ubuntu-24.04
+    steps:
+
+      - name: "Update '🔔 Test: Screenshot Results' check run."
+        uses: actions/github-script@v7
+        env:
+          ref: ${{ github.ref }}
+          user: ${{ github.actor }}
+        with:
+          # language=javascript
+          script: |
+            // https://github.com/actions/toolkit/blob/main/packages/core/README.md
+
+            // https://docs.github.com/en/rest/checks/runs#list-check-runs-for-a-git-reference
+            const checks = await github.rest.checks.listForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: process.env.ref,
+                check_name: "🔔 Test: Screenshot Results",
+            });
+            if (checks.data.total_count !== 1) {
+                console.log(checks);
+                core.setFailed(`There were ${checks.data.total_count} checks found, see logs.`);
+                return;
+            }
+            const check = checks.data.check_runs[0];
+            console.log(`Found check run: ${check.url}`);
+            if (check.conclusion !== "failure") {
+                console.log(checks);
+                core.warning(`Unsupported conclusion: ${check.conclusion}, maybe it was already approved?`);
+            }
+            // https://docs.github.com/en/rest/checks/runs#update-a-check-run
+            await github.rest.checks.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                check_run_id: check.id,
+                conclusion: "success",
+            });
+            // https://docs.github.com/en/rest/commits/statuses#create-a-commit-status
+            await github.rest.repos.createCommitStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                sha: context.sha,
+                context: 'CI / Test: Screenshot Results Review',
+                description: `${process.env.user} approved.`,
+                state: "success",
+                target_url: check.html_url,
+            });
