@@ -204,7 +204,7 @@ jobs:
         env:
           FILES: |
             **/build/reports/screenshotTest/preview/*/index.html
-          IDENTIFIER: >
+          IDENTIFIER: >-
             ${{ github.ref }}@${{ github.sha }}
             (${{ github.event.pull_request.head.ref }}@${{ github.event.pull_request.head.sha }})
         uses: actions/github-script@v7
