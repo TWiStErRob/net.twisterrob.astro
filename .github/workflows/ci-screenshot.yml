@@ -96,6 +96,9 @@ jobs:
       - record
     timeout-minutes: 10
 
+    outputs:
+      results: ${{ steps.results.outputs.json }}
+
     permissions:
       # actions/checkout
       contents: read
@@ -199,6 +202,7 @@ jobs:
           echo "${XML}" > "modules/screen/bazi/build/test-results/validateDebugScreenshotTest/TEST-BaZiScreenScreenshots.xml"
 
       - name: "Publish '🔔 Test: Screenshot Results' check run."
+        id: results
         if: ${{ success() || failure() }}
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
@@ -208,3 +212,145 @@ jobs:
           action_fail_on_inconclusive: true
           test_changes_limit: 0
           junit_files: modules/**/build/test-results/validate*ScreenshotTest/TEST-*.xml
+
+
+  report:
+    name: "Deploy Report to GitHub Pages"
+    needs:
+      - verify
+    timeout-minutes: 5
+
+    environment:
+      # Ideally this would deploy to separate GitHub Pages environments,
+      # but for now that is not possible, the below works, but still ends up at the same endpoint URL:
+      #name: screenshots-${{ github.ref_name }}
+      # See https://github.com/orgs/community/discussions/47867
+      # State in 2024 May:
+      #  * amazing news: https://github.com/github/pages-gem/issues/724#issuecomment-1081294321
+      #  * bad news: https://github.com/github/pages-gem/issues/724#issuecomment-1226497590
+      name: screenshots
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      # actions/deploy-pages
+      pages: write
+      # actions/deploy-pages
+      id-token: write
+
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        shell: bash
+    steps:
+
+      - name: "Echo results"
+        env:
+          JSON: ${{ needs.verify.outputs.results }}
+        run: echo "${JSON}"
+      
+      #      - name: "Download 'Screenshot Test Results' artifact."
+      #        uses: actions/download-artifact@v4
+      #        with:
+      #          name: 'Screenshot Test Results'
+      #          path: modules
+
+      - name: "Download 'Screenshot Record Results' artifact."
+        env:
+          ZIP: |
+            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
+            KfvFbfL0oJ61X25GHf1ZHqJ9bT7sreNTe+sY99Z/UEsHCIUZeRulAgAAfAkAAFBLAwQUAAgACABp
+            Q7NYGLRExC4CAAAFBwAARAAAAHNjcmVlbi9iYXppL2J1aWxkL3JlcG9ydHMvc2NyZWVuc2hvdFRl
+            c3QvcHJldmlldy9kZWJ1Zy9jc3Mvc3R5bGUuY3NzrVTbjtowEH3nKyxFlUCKI3PZFYS3vvSlT/2D
+            8YVgrbEj22HZrfrvtYkDSWBRu1qMIl/mzJwZj0/mmsMB7Bv6PUHhF6aV1NibukRLUp+2/V1qvDeH
+            Eq3OB38mk6wDe6BKJBfUWC4sZkYpqJ0oUTcbQXiyPwrrJQOFQclKlyjEPlsW1ArgzDYH6nLUXyFI
+            0ODZ2BJlzySOFiX1znw3p2TxKrnfl2g+v+RSA+dSV22K86fxdpfj9cSLk++4MaG9sMNA9aB0JUo8
+            Kiu7DCmwl8qaRvMSKakFWFxZ4DI4m+IN4aLKka0oTEmO2n9BnmZoXp9y5C1oV4MNtnFjlt94+Dzy
+            o9irT8f+d2TfYhkh2W4Rx3CxWY+9xZ0HqWQA8L/pfzGVRxSSs+2oLbCT7+GhxCY9f/LhtJ1/xaJt
+            TRZihjYOF1YLG1s69enOaN9RWZBv2+vmq5DV3pfhbSt+VxLWnSLwxoKXRo/e3+LpKhmMCed+gReB
+            QFKDH6EM9UA/SuSMCi9oEahnnMTRBsYH846TxsSSN64t3LYvPncOxB6OMqpFY9WUObfEtRR4XhAq
+            PCyLvWezG4KjJFZjQVRiF4qyvJfbo9quY23jRST7cx3OsxtlI2RNSKsoXB6vgH6oC3isNrjzQinf
+            ULodyfM4QLEDqRorIp9uekOIPgfA+kLoChkwusA/pCQYBw53KfVCNKoIz+vlp3RdHTudbktPbqyU
+            TIYqrLDzbypUXBst7rZturm/UEsHCBi0RMQuAgAABQcAAFBLAwQUAAgACABpQ7NY+/owxO4CAADO
+            CQAAQQAAAHNjcmVlbi9iYXppL2J1aWxkL3JlcG9ydHMvc2NyZWVuc2hvdFRlc3QvcHJldmlldy9k
+            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
+            rIHuErO3ECT2wjkmU2GX1V3p82YbYJC5+jFHWjFleN6ojOpNymG5n2IHPERzLUOanazQsOq8OYiG
+            +jSSaO7xfQ30ZrlkJyes3aZmp20KtM+RefU0obfA5ppAzhJ4e0jDToau2KSvij7KgZD0uPN3Pzor
+            l1LDbjw4QjqMOgBx+gdQSwcIIQF4Ik4DAAB1CwAAUEsBAi0DFAAIAAgAaUOzWDldyNPkAgAAbwgA
+            ADwAAAAAAAAAAAAgAKSBAAAAAHNjcmVlbi9iYXppL2J1aWxkL3JlcG9ydHMvc2NyZWVuc2hvdFRl
+            c3QvcHJldmlldy9kZWJ1Zy8uaHRtbFBLAQItAxQACAAIAGlDs1iFGXkbpQIAAHwJAABJAAAAAAAA
+            AAAAIACkgU4DAABzY3JlZW4vYmF6aS9idWlsZC9yZXBvcnRzL3NjcmVlbnNob3RUZXN0L3ByZXZp
+            ZXcvZGVidWcvY3NzL2Jhc2Utc3R5bGUuY3NzUEsBAi0DFAAIAAgAaUOzWBi0RMQuAgAABQcAAEQA
+            AAAAAAAAAAAgAKSBagYAAHNjcmVlbi9iYXppL2J1aWxkL3JlcG9ydHMvc2NyZWVuc2hvdFRlc3Qv
+            cHJldmlldy9kZWJ1Zy9jc3Mvc3R5bGUuY3NzUEsBAi0DFAAIAAgAaUOzWPv6MMTuAgAAzgkAAEEA
+            AAAAAAAAAAAgAKSBCgkAAHNjcmVlbi9iYXppL2J1aWxkL3JlcG9ydHMvc2NyZWVuc2hvdFRlc3Qv
+            cHJldmlldy9kZWJ1Zy9pbmRleC5odG1sUEsBAi0DFAAIAAgAaUOzWCEBeCJOAwAAdQsAAEMAAAAA
+            AAAAAAAgAKSBZwwAAHNjcmVlbi9iYXppL2J1aWxkL3JlcG9ydHMvc2NyZWVuc2hvdFRlc3QvcHJl
+            dmlldy9kZWJ1Zy9qcy9yZXBvcnQuanNQSwUGAAAAAAUABQAzAgAAJhAAAAAA
+        run: |
+          echo "${ZIP}" | base64 -d > screenshot.zip
+          mkdir -p "modules/"
+          unzip screenshot.zip -d modules
+
+      - name: "Upload 'github-pages' artifact."
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: |
+            modules/**/build/reports/screenshotTest/preview/
+
+      - name: "Deploy to GitHub Pages"
+        id: deployment
+        uses: actions/deploy-pages@v4
