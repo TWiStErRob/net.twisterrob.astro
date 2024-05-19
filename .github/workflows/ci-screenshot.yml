@@ -99,6 +99,8 @@ jobs:
     permissions:
       # actions/checkout
       contents: read
+      # EnricoMi/publish-unit-test-result-action
+      checks: write
 
     defaults:
       run:
