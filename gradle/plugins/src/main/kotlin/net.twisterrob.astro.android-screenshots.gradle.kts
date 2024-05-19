@@ -9,9 +9,11 @@
 
 import com.android.build.api.variant.HasHostTests
 import com.android.compose.screenshot.tasks.PreviewDiscoveryTask
+import com.android.compose.screenshot.tasks.PreviewScreenshotValidationTask
 import com.android.compose.screenshot.tasks.ScreenshotTestReportTask
 import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.androidComponents
+import net.twisterrob.astro.build.dsl.isCI
 import org.gradle.api.internal.exceptions.MarkedVerificationException
 import org.gradle.internal.logging.ConsoleRenderer
 import org.gradle.kotlin.dsl.support.serviceOf
@@ -26,6 +28,12 @@ plugins {
 
 dependencies {
 	"screenshotTestImplementation"(project(":component:test-base-screenshot"))
+}
+
+tasks.withType<PreviewScreenshotValidationTask>().configureEach {
+	// On CI we want it to "just pass", even if there's a failure.
+	// The CI will detect problems based on the JUnit XML report.
+	ignoreFailures = isCI.get()
 }
 
 android {

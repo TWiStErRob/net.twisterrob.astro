@@ -144,3 +144,14 @@ jobs:
             modules/**/build/reports/screenshotTest/preview/
             modules/**/build/outputs/screenshotTest-results/preview/*/
             modules/**/build/test-results/validate*ScreenshotTest/
+
+      - name: "Publish '🔔 Screenshot Test Results' check run."
+        if: ${{ success() || failure() }}
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          check_name: '🔔 Screenshot Test Results'
+          comment_mode: off
+          report_individual_runs: true
+          action_fail_on_inconclusive: true
+          test_changes_limit: 0
+          junit_files: modules/**/build/test-results/validate*ScreenshotTest/TEST-*.xml
