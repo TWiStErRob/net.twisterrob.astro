@@ -106,8 +106,7 @@ androidComponents.onVariants { variant ->
 	val taskStateService = project.gradle.sharedServices
 		.registerIfAbsent("taskState", TaskStateService::class.java) { }
 	serviceOf<BuildEventsListenerRegistry>().onTaskCompletion(taskStateService)
-
-  val validateTaskPath = "${project.path}:validate${variant.name.replaceFirstChar { it.uppercase() }}ScreenshotTest"
+        val validateTaskPath = "${project.path}:validate${variant.name.replaceFirstChar { it.uppercase() }}ScreenshotTest"
 	val reportTaskName = "${variant.name}ScreenshotReport"
 	val reportTask = tasks.named<ScreenshotTestReportTask>(reportTaskName)
 
