@@ -109,43 +109,94 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
 
-      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
-        uses: actions/checkout@v4
+#      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+#        uses: actions/checkout@v4
+#
+#      - name: "Download 'Screenshot Golden Values' artifact."
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: 'Screenshot Golden Values'
+#          # The recorded Golden Values are rooted at `modules/` because of the first `**` in the path.
+#          path: modules
+#
+#      - name: "Set up Java."
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version-file: .java-version
+#          distribution: temurin
+#
+#      - name: "Set up Gradle."
+#        uses: gradle/actions/setup-gradle@v3
+#
+#      - name: "Verify screenshots."
+#        # language=bash
+#        run: >
+#          ./gradlew
+#          --continue
+#          --stacktrace
+#          validateDebugScreenshotTest
+#
+#      - name: "Upload 'Screenshot Test Results' artifact."
+#        if: ${{ success() || failure() }}
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: 'Screenshot Test Results'
+#          if-no-files-found: error
+#          path: |
+#            modules/**/build/reports/screenshotTest/preview/
+#            modules/**/build/outputs/screenshotTest-results/preview/*/
+#            modules/**/build/test-results/validate*ScreenshotTest/
 
-      - name: "Download 'Screenshot Golden Values' artifact."
-        uses: actions/download-artifact@v4
-        with:
-          name: 'Screenshot Golden Values'
-          # The recorded Golden Values are rooted at `modules/` because of the first `**` in the path.
-          path: modules
-
-      - name: "Set up Java."
-        uses: actions/setup-java@v4
-        with:
-          java-version-file: .java-version
-          distribution: temurin
-
-      - name: "Set up Gradle."
-        uses: gradle/actions/setup-gradle@v3
-
-      - name: "Verify screenshots."
-        # language=bash
-        run: >
-          ./gradlew
-          --continue
-          --stacktrace
-          validateDebugScreenshotTest
-
-      - name: "Upload 'Screenshot Test Results' artifact."
-        if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: 'Screenshot Test Results'
-          if-no-files-found: error
-          path: |
-            modules/**/build/reports/screenshotTest/preview/
-            modules/**/build/outputs/screenshotTest-results/preview/*/
-            modules/**/build/test-results/validate*ScreenshotTest/
+      - name: "Hardcoded fast failure"
+        env:
+          # language=xml
+          XML: |
+            <?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="BaZiScreenScreenshots" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-05-19T08:27:16" hostname="fv-az1928-635" time="0.875">
+                <properties/>
+                <testcase name="Default" classname="BaZiScreenScreenshots" time="0.875">
+                    <failure message="java.lang.AssertionError: FAILED" type="java.lang.AssertionError">java.lang.AssertionError: FAILED
+                        at com.android.tools.screenshot.PreviewScreenshotTestEngine.reportResult(PreviewScreenshotTestEngine.kt:230)
+                        at com.android.tools.screenshot.PreviewScreenshotTestEngine.execute(PreviewScreenshotTestEngine.kt:111)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+                        at org.junit.platform.launcher@1.9.2/org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+                        at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:119)
+                        at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:94)
+                        at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:89)
+                        at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+                        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+                        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+                        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                        at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+                        at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+                        at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+                        at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+                        at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+                        at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+                        at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+                        at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+                        at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+                        at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+                        at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+                        at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+                        at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+                        at gradle.worker/worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+                        at gradle.worker/worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+                    </failure>
+                </testcase>
+                <system-out><![CDATA[]]></system-out>
+                <system-err><![CDATA[]]></system-err>
+            </testsuite>
+        run: |
+          mkdir -p "modules/screen/bazi/build/test-results/validateDebugScreenshotTest"
+          echo "${XML}" > "modules/screen/bazi/build/test-results/validateDebugScreenshotTest/TEST-BaZiScreenScreenshots.xml"
 
       - name: "Publish '🔔 Test: Screenshot Results' check run."
         if: ${{ success() || failure() }}
