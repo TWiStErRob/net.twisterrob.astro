@@ -1,4 +1,4 @@
-name: "Screenshot Tests Review"
+name: "Approve Screenshot Changes"
 
 on:
   # To work around https://github.com/github-community/community/discussions/19069, allow manual click.

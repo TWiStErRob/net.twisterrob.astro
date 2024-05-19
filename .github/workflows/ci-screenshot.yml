@@ -92,9 +92,13 @@ jobs:
 
   verify:
     name: "🔍 Verify"
+    if: ${{ github.event_name == 'pull_request' }}
     needs:
       - record
     timeout-minutes: 10
+
+    outputs:
+      result: ${{ fromJSON(steps.results.outputs.json).conclusion }}
 
     permissions:
       # actions/checkout
@@ -148,6 +152,7 @@ jobs:
             modules/**/build/test-results/validate*ScreenshotTest/
 
       - name: "Publish '🔔 Test: Screenshot Results' check run."
+        id: results
         if: ${{ success() || failure() }}
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
@@ -157,3 +162,86 @@ jobs:
           action_fail_on_inconclusive: true
           test_changes_limit: 0
           junit_files: modules/**/build/test-results/validate*ScreenshotTest/TEST-*.xml
+
+
+  report:
+    name: "Deploy Failure Report to GitHub Pages"
+    if: ${{ needs.verify.outputs.result != 'success' }}
+    needs:
+      - verify
+    timeout-minutes: 5
+
+    environment:
+      # Ideally this would deploy to separate GitHub Pages environments,
+      # but for now that is not possible, the below works, but still ends up at the same endpoint URL:
+      #name: screenshots-${{ github.ref_name }}
+      # See https://github.com/orgs/community/discussions/47867
+      # State in 2024 May:
+      #  * amazing news: https://github.com/github/pages-gem/issues/724#issuecomment-1081294321
+      #  * bad news: https://github.com/github/pages-gem/issues/724#issuecomment-1226497590
+      name: screenshots
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      # actions/deploy-pages
+      pages: write
+      # actions/deploy-pages
+      id-token: write
+
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        shell: bash
+    steps:
+      
+      - name: "Download 'Screenshot Test Results' artifact."
+        uses: actions/download-artifact@v4
+        with:
+          name: 'Screenshot Test Results'
+          path: modules
+
+      - name: "Generate index.html contents."
+        id: contents
+        env:
+          FILES: |
+            **/build/reports/screenshotTest/preview/*/index.html
+          IDENTIFIER: >-
+            ${{ github.ref }}@${{ github.sha }}
+            (${{ github.event.pull_request.head.ref }}@${{ github.event.pull_request.head.sha }})
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          # language=javascript
+          script: |
+            const path = require("node:path");
+            const files = process.env.FILES;
+            const rootDir = process.env.GITHUB_WORKSPACE;
+            const identifier = process.env.IDENTIFIER;
+            const globOpts = {
+                followSymbolicLinks: false,
+                cwd: rootDir,
+            };
+            const globber = await glob.create(files, globOpts);
+            const result = [];
+            for await (const file of globber.globGenerator()) {
+                result.push(path.relative(rootDir, file));
+            }
+            const heading = `<h1>Screenshot Test Reports</h1><p>${identifier}</p>`;
+            const links = result.map(path => `<a href="${path}">${path}</a><br />`);
+            return [heading, ...links].join("\n");
+
+      - name: "Write 'index.html' file."
+        env:
+          INDEX_HTML: ${{ steps.contents.outputs.result }}
+        # language=bash
+        run: |
+          echo "${INDEX_HTML}" > index.html
+
+      - name: "Upload 'github-pages' artifact."
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+
+      - name: "Deploy to GitHub Pages"
+        id: deployment
+        uses: actions/deploy-pages@v4
