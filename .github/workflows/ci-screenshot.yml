@@ -336,6 +336,7 @@ jobs:
             cHJldmlldy9kZWJ1Zy9pbmRleC5odG1sUEsBAi0DFAAIAAgAaUOzWCEBeCJOAwAAdQsAAEMAAAAA
             AAAAAAAgAKSBZwwAAHNjcmVlbi9iYXppL2J1aWxkL3JlcG9ydHMvc2NyZWVuc2hvdFRlc3QvcHJl
             dmlldy9kZWJ1Zy9qcy9yZXBvcnQuanNQSwUGAAAAAAUABQAzAgAAJhAAAAAA
+        # language=bash
         run: |
           echo "${ZIP}" | base64 -d > screenshot.zip
           mkdir -p "modules/"
@@ -349,6 +350,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           result-encoding: string
+          # language=javascript
           script: |
             const files = process.env.FILES;
             const globOpts = {
@@ -367,6 +369,7 @@ jobs:
       - name: "Write 'index.html' file."
         env:
           INDEX_HTML: ${{ steps.results.outputs.result }}
+        # language=bash
         run: |
           echo "${INDEX_HTML}" > index.html
 
