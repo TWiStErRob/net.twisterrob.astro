@@ -348,6 +348,9 @@ jobs:
         env:
           FILES: |
             **/build/reports/screenshotTest/preview/*/index.html
+          IDENTIFIER: >
+            ${{ github.ref }}@${{ github.sha }}
+            (${{ github.event.pull_request.head.ref }}@${{ github.event.pull_request.head.sha }})
         uses: actions/github-script@v7
         with:
           result-encoding: string
@@ -356,6 +359,7 @@ jobs:
             const path = require("node:path");
             const files = process.env.FILES;
             const rootDir = process.env.GITHUB_WORKSPACE;
+            const identifier = process.env.IDENTIFIER;
             const globOpts = {
                 followSymbolicLinks: false,
                 cwd: rootDir,
@@ -365,9 +369,9 @@ jobs:
             for await (const file of globber.globGenerator()) {
                 result.push(path.relative(rootDir, file));
             }
-            return result
-                .map(path => `<a href="${path}">${path}</a><br />`)
-                .join("\n");
+            const heading = `<h1>Screenshot Test Reports for ${identifier}</h1>`;
+            const links = result.map(path => `<a href="${path}">${path}</a><br />`);
+            return [heading, ...links].join("\n");
 
       - name: "Write 'index.html' file."
         env:
