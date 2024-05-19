@@ -8,6 +8,7 @@
 @file:Suppress("detekt.MaxLineLength")
 
 import com.android.build.api.variant.HasHostTests
+import com.android.compose.screenshot.tasks.PreviewDiscoveryTask
 import com.android.compose.screenshot.tasks.ScreenshotTestReportTask
 import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.androidComponents
@@ -52,6 +53,29 @@ android {
 			}
 		}
 	}
+}
+
+// REPORT Each discovery task reports a big wall of warning. Not suppressible in any way.
+// > > Task :...:debugPreviewDiscovery
+// > WARNING: A terminally deprecated method in java.lang.System has been called
+// > WARNING: System::setSecurityManager has been called by com.android.tools.rendering.security.RenderSecurityManager
+// > (file:/${GRADLE_USER_HOME}/caches/modules-2/files-2.1/com.android.tools.compose/compose-preview-renderer/0.0.1-alpha01/{hash}/compose-preview-renderer-0.0.1-alpha01.jar)
+// > WARNING: Please consider reporting this to the maintainers of com.android.tools.rendering.security.RenderSecurityManager
+// > WARNING: System::setSecurityManager will be removed in a future release
+tasks.withType<PreviewDiscoveryTask>().configureEach {
+	// Not possible... it runs straight in Gradle process.
+	// javaLauncher = project.javaToolchains.launcherFor { ... }
+}
+
+// REPORT Preview discovery is not cacheable, it reruns every time inputs change.
+// Caching disabled for task ':...:debugPreviewDiscovery' because:
+// Gradle does not know how file
+// 'build\outputs\screenshotTest-results\preview\debug\results\TEST-results.xml'
+// was created (output property 'resultsDir').
+// Task output caching requires exclusive access to output paths to guarantee correctness
+// (i.e. multiple tasks are not allowed to produce output in the same location).
+tasks.withType<PreviewDiscoveryTask>().configureEach {
+	// Adding @CacheableTask / `outputs.cacheIf { true }` is not enough.
 }
 
 // REPORT Polyfill user friendly behavior:
