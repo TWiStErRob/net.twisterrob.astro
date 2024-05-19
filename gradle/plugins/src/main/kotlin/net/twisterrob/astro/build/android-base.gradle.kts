@@ -6,6 +6,7 @@ import net.twisterrob.astro.build.dsl.libs
 plugins {
 	id("com.android.base")
 	id("org.jetbrains.kotlin.android")
+	id("org.jetbrains.kotlin.plugin.compose")
 	id("net.twisterrob.astro.build.kotlin")
 	id("net.twisterrob.astro.build.testing-android")
 	id("net.twisterrob.astro.build.detekt")
@@ -33,9 +34,6 @@ android {
 	}
 	buildFeatures {
 		compose = true
-	}
-	composeOptions {
-		kotlinCompilerExtensionVersion = libs.versions.kotlin.composeCompiler.get()
 	}
 	packaging {
 		resources {
