@@ -99,6 +99,8 @@ jobs:
     permissions:
       # actions/checkout
       contents: read
+      # EnricoMi/publish-unit-test-result-action
+      checks: write
 
     defaults:
       run:
@@ -144,3 +146,14 @@ jobs:
             modules/**/build/reports/screenshotTest/preview/
             modules/**/build/outputs/screenshotTest-results/preview/*/
             modules/**/build/test-results/validate*ScreenshotTest/
+
+      - name: "Publish '🔔 Test: Screenshot Results' check run."
+        if: ${{ success() || failure() }}
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          check_name: '🔔 Test: Screenshot Results'
+          comment_mode: off
+          report_individual_runs: true
+          action_fail_on_inconclusive: true
+          test_changes_limit: 0
+          junit_files: modules/**/build/test-results/validate*ScreenshotTest/TEST-*.xml

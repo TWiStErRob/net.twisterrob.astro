@@ -48,3 +48,4 @@ jobs:
     uses: ./.github/workflows/ci-screenshot.yml
     permissions:
       contents: read
+      checks: write
