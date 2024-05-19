@@ -43,6 +43,10 @@ android {
 		unitTests {
 			isIncludeAndroidResources = true
 			all { task ->
+				if (task.name.endsWith("ScreenshotTest")) {
+					// Handled by net.twisterrob.astro.android-screenshots.gradle.kts
+					return@all
+				}
 				configureTestTask(task)
 				// Workaround for this warning/error in modules without any test sources:
 				// > > Task :component:compose:testDebugUnitTest

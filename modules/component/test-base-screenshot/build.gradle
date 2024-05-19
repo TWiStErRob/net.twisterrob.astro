@@ -1,0 +1,8 @@
+plugins {
+	id("net.twisterrob.astro.library")
+}
+
+dependencies { // screenshotTestImplementation(projects.component.testBaseScreenshot)
+	api(platform(libs.compose.bom))
+	api(libs.compose.uiTooling)
+}

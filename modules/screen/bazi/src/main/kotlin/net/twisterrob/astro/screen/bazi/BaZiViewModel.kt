@@ -1,5 +1,6 @@
 package net.twisterrob.astro.screen.bazi
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -115,6 +116,14 @@ public class BaZiViewModel : ViewModel() {
 
 	internal fun hideZonePicker() {
 		_uiState.update { it.copy(dateTime = it.dateTime.copy(isPickingZone = false)) }
+	}
+
+	/**
+	 * Allow screenshot tests to set "now" to a specific instant, so that rendering is consistent.
+	 */
+	@VisibleForTesting(otherwise = VisibleForTesting.NONE)
+	public fun select(dateTime: ZonedDateTime) {
+		updateDateTime { _ -> dateTime }
 	}
 
 	internal fun selectDate(date: LocalDate) {
