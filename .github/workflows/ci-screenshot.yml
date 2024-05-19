@@ -344,6 +344,7 @@ jobs:
           rm screenshot.zip
 
       - name: "Generate index.html contents."
+        id: contents
         env:
           FILES: |
             **/build/reports/screenshotTest/preview/*/index.html
@@ -352,15 +353,17 @@ jobs:
           result-encoding: string
           # language=javascript
           script: |
+            const path = require("node:path");
             const files = process.env.FILES;
+            const rootDir = process.env.GITHUB_WORKSPACE;
             const globOpts = {
                 followSymbolicLinks: false,
-                cwd: process.env.GITHUB_WORKSPACE,
+                cwd: rootDir,
             };
             const globber = await glob.create(files, globOpts);
             const result = [];
             for await (const file of globber.globGenerator()) {
-                result.push(file);
+                result.push(path.relative(rootDir, file));
             }
             return result
                 .map(path => `<a href="${path}">${path}</a><br />`)
@@ -368,7 +371,7 @@ jobs:
 
       - name: "Write 'index.html' file."
         env:
-          INDEX_HTML: ${{ steps.results.outputs.result }}
+          INDEX_HTML: ${{ steps.contents.outputs.result }}
         # language=bash
         run: |
           echo "${INDEX_HTML}" > index.html
