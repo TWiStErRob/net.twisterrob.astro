@@ -97,7 +97,7 @@ jobs:
     timeout-minutes: 10
 
     outputs:
-      results: ${{ steps.results.outputs.json }}
+      result: ${{ fromJSON(steps.results.outputs.json).conclusion }}
 
     permissions:
       # actions/checkout
@@ -216,6 +216,7 @@ jobs:
 
   report:
     name: "Deploy Report to GitHub Pages"
+    if: ${{ needs.verify.outputs.result != 'success' }}
     needs:
       - verify
     timeout-minutes: 5
@@ -242,11 +243,6 @@ jobs:
       run:
         shell: bash
     steps:
-
-      - name: "Echo results"
-        env:
-          JSON: ${{ needs.verify.outputs.results }}
-        run: echo "${JSON}"
       
       #      - name: "Download 'Screenshot Test Results' artifact."
       #        uses: actions/download-artifact@v4
@@ -344,12 +340,12 @@ jobs:
           echo "${ZIP}" | base64 -d > screenshot.zip
           mkdir -p "modules/"
           unzip screenshot.zip -d modules
+          rm screenshot.zip
 
       - name: "Upload 'github-pages' artifact."
         uses: actions/upload-pages-artifact@v3
         with:
-          path: |
-            modules/**/build/reports/screenshotTest/preview/
+          path: ./
 
       - name: "Deploy to GitHub Pages"
         id: deployment
