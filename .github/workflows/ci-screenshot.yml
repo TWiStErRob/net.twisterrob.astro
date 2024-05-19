@@ -165,7 +165,7 @@ jobs:
 
 
   report:
-    name: "Deploy Report to GitHub Pages"
+    name: "Deploy Failure Report to GitHub Pages"
     if: ${{ needs.verify.outputs.result != 'success' }}
     needs:
       - verify
