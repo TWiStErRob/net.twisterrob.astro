@@ -14,6 +14,11 @@ import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.androidComponents
 import org.gradle.api.internal.exceptions.MarkedVerificationException
 import org.gradle.internal.logging.ConsoleRenderer
+import org.gradle.kotlin.dsl.support.serviceOf
+import org.gradle.tooling.events.FinishEvent
+import org.gradle.tooling.events.OperationCompletionListener
+import org.gradle.tooling.events.task.TaskFailureResult
+import org.gradle.tooling.events.task.TaskFinishEvent
 
 plugins {
 	id("com.android.compose.screenshot")
@@ -98,20 +103,38 @@ androidComponents.onVariants { variant ->
 		return@onVariants
 	}
 
-	val validateTaskName = "validate${variant.name.replaceFirstChar { it.uppercase() }}ScreenshotTest"
-	val validateTask = tasks.named(validateTaskName)
+	val taskStateService = project.gradle.sharedServices
+		.registerIfAbsent("taskState", TaskStateService::class.java) { }
+	serviceOf<BuildEventsListenerRegistry>().onTaskCompletion(taskStateService)
+	val validateTaskPath = "${project.path}:validate${variant.name.replaceFirstChar { it.uppercase() }}ScreenshotTest"
 	val reportTaskName = "${variant.name}ScreenshotReport"
 	val reportTask = tasks.named<ScreenshotTestReportTask>(reportTaskName)
 
 	reportTask.configure {
-		notCompatibleWithConfigurationCache("https://gradle-community.slack.com/archives/C013WEPGQF9/p1716070243386699")
+		usesService(taskStateService)
 		doLast {
-			if (validateTask.get().state.failure != null) {
+			val isValidateFailed = taskStateService.get().isFailed(validateTaskPath)
+			if (isValidateFailed) {
 				// Mimic what org.gradle.api.tasks.testing.AbstractTestTask.handleTestFailures does.
 				val report = this@configure.outputDir.file("index.html").get().asFile
 				val reportUrl = ConsoleRenderer().asClickableFileUrl(report)
 				throw MarkedVerificationException("There were failing tests. See the report at: ${reportUrl}")
 			}
+		}
+	}
+}
+
+abstract class TaskStateService : BuildService<BuildServiceParameters.None>, OperationCompletionListener {
+	private val state: MutableMap<String, TaskFinishEvent> = mutableMapOf()
+
+	fun isFailed(taskPath: String): Boolean {
+		val state = state[taskPath] ?: error("Task ${taskPath} is not complete yet.")
+		return state.result is TaskFailureResult
+	}
+
+	override fun onFinish(event: FinishEvent) {
+		if (event is TaskFinishEvent) {
+			state[event.descriptor.taskPath] = event
 		}
 	}
 }
