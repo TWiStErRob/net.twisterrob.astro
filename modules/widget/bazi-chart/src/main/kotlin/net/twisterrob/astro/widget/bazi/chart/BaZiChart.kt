@@ -123,9 +123,9 @@ private fun Pillar(
 		) {
 			onSubtract?.let { onSubtract ->
 				SmallButton(
+					onClick = onSubtract,
 					icon = Icons.Filled.RemoveCircleOutline,
 					cd = R.string.widget_bazi_chart__pillar_title_minus,
-					onClick = onSubtract,
 				)
 			}
 			Text(
@@ -134,9 +134,9 @@ private fun Pillar(
 			)
 			onAdd?.let { onAdd ->
 				SmallButton(
+					onClick = onAdd,
 					icon = Icons.Filled.AddCircleOutline,
 					cd = R.string.widget_bazi_chart__pillar_title_plus,
-					onClick = onAdd,
 				)
 			}
 		}
