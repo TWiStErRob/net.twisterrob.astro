@@ -158,6 +158,7 @@ jobs:
         with:
           check_name: '🔔 Test: Screenshot Results'
           comment_mode: off
+          check_run_annotations: none
           report_individual_runs: true
           test_changes_limit: 0
           action_fail_on_inconclusive: true
