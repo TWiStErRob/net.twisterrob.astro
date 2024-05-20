@@ -17,7 +17,7 @@ dependencies {
 
 kotlin {
 	explicitApi = ExplicitApiMode.Strict
-	jvmToolchain(libs.versions.java.toolchain.get().toInt())
+	jvmToolchain(libs.versions.java.toolchain.map(String::toInt).get())
 }
 
 // TODO kotlin.target.compilerOptions { ... }

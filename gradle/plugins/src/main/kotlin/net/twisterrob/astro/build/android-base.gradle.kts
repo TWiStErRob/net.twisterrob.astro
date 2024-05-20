@@ -6,6 +6,7 @@ import net.twisterrob.astro.build.dsl.libs
 plugins {
 	id("com.android.base")
 	id("org.jetbrains.kotlin.android")
+	id("org.jetbrains.kotlin.plugin.compose")
 	id("net.twisterrob.astro.build.kotlin")
 	id("net.twisterrob.astro.build.testing-android")
 	id("net.twisterrob.astro.build.detekt")
@@ -23,9 +24,9 @@ android {
 		.replace(":", "_")
 		.plus("__")
 
-	compileSdk = libs.versions.android.compileSdk.get().toInt()
+	compileSdk = libs.versions.android.compileSdk.map(String::toInt).get()
 	defaultConfig {
-		minSdk = libs.versions.android.minSdk.get().toInt()
+		minSdk = libs.versions.android.minSdk.map(String::toInt).get()
 
 		vectorDrawables {
 			useSupportLibrary = true
@@ -33,9 +34,6 @@ android {
 	}
 	buildFeatures {
 		compose = true
-	}
-	composeOptions {
-		kotlinCompilerExtensionVersion = libs.versions.kotlin.composeCompiler.get()
 	}
 	packaging {
 		resources {
