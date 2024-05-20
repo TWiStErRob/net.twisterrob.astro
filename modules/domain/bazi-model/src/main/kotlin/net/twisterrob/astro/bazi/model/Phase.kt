@@ -12,7 +12,7 @@ import net.twisterrob.astro.bazi.model.Phase.Planet.Venus
  * https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)
  */
 @Suppress(
-	"UNINITIALIZED_ENUM_ENTRY", "SelfReferenceConstructorParameter",
+	"ConstructorParameterNaming",
 	"detekt.MagicNumber",
 )
 public enum class Phase(
@@ -28,14 +28,18 @@ public enum class Phase(
 	public val planet: Planet,
 
 	/**
-	 * Inter-livening (相生): Generating / Producing / Enhancing / Strengthening / Nurturing / Supporting.
+	 * Workaround for `UNINITIALIZED_ENUM_ENTRY` Kotlin compiler error.
+	 *
+	 * @see livening
 	 */
-	public val livening: Phase,
+	private val _livening: () -> Phase,
 
 	/**
-	 * Inter-conquering (相剋): Overcoming / Controlling / Weakening / Restraining / Reducing / Attacking.
+	 * Workaround for `UNINITIALIZED_ENUM_ENTRY` Kotlin compiler error.
+	 *
+	 * @see conquering
 	 */
-	public val conquering: Phase,
+	private val _conquering: () -> Phase,
 ) {
 
 	/**
@@ -44,8 +48,8 @@ public enum class Phase(
 	Mu(
 		order = 1,
 		planet = Jupiter,
-		livening = Huo, // Used to generate Fire.
-		conquering = Tu, // Wood grows on Earth and held it with its roots.
+		_livening = { Huo }, // Used to generate Fire.
+		_conquering = { Tu }, // Wood grows on Earth and held it with its roots.
 	),
 
 	/**
@@ -54,8 +58,8 @@ public enum class Phase(
 	Huo(
 		order = 2,
 		planet = Mars,
-		livening = Tu, // Produces ashes that is returned to the Earth.
-		conquering = Jin, // Fire will melt the Metal.
+		_livening = { Tu }, // Produces ashes that is returned to the Earth.
+		_conquering = { Jin }, // Fire will melt the Metal.
 	),
 
 	/**
@@ -64,8 +68,8 @@ public enum class Phase(
 	Tu(
 		order = 3,
 		planet = Saturn,
-		livening = Jin, // From the Earth, mines enable us to retrieve Metal.
-		conquering = Shui, // Earth absorbs the Water and thus stops the water flow.
+		_livening = { Jin }, // From the Earth, mines enable us to retrieve Metal.
+		_conquering = { Shui }, // Earth absorbs the Water and thus stops the water flow.
 	),
 
 	/**
@@ -74,8 +78,8 @@ public enum class Phase(
 	Jin(
 		order = 4,
 		planet = Venus,
-		livening = Shui, // Melts down to produce Water.
-		conquering = Mu, // Metal tools are used to cut Wood.
+		_livening = { Shui }, // Melts down to produce Water.
+		_conquering = { Mu }, // Metal tools are used to cut Wood.
 	),
 
 	/**
@@ -84,11 +88,21 @@ public enum class Phase(
 	Shui(
 		order = 5,
 		planet = Mercury,
-		livening = Mu, // Provides water for the Wood.
-		conquering = Huo, // Water is used to put out Fire.
+		_livening = { Mu }, // Provides water for the Wood.
+		_conquering = { Huo }, // Water is used to put out Fire.
 	),
 
 	;
+
+	/**
+	 * Inter-livening (相生): Generating / Producing / Enhancing / Strengthening / Nurturing / Supporting.
+	 */
+	public val livening: Phase get() = _livening()
+
+	/**
+	 * Inter-conquering (相剋): Overcoming / Controlling / Weakening / Restraining / Reducing / Attacking.
+	 */
+	public val conquering: Phase get() = _conquering()
 
 	public companion object;
 

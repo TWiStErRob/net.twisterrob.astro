@@ -12,6 +12,9 @@
 /modules/*/*/*/build/
 /modules/**/src/*/screenshotTest/reference/
 
+# Kotlin
+.kotlin/
+
 # Android
 local.properties
 
