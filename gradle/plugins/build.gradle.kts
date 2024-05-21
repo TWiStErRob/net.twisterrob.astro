@@ -26,3 +26,13 @@ idea {
 		)
 	}
 }
+
+gradlePlugin {
+	plugins {
+		// https://issuetracker.google.com/issues/341233001
+		create("workaround341233001") {
+			id = "org.jetbrains.kotlin.plugin.compose"
+			implementationClass = "net.twisterrob.astro.build.FilteredComposeCompilerGradleSubplugin"
+		}
+	}
+}
