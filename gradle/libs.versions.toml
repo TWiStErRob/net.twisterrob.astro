@@ -5,7 +5,7 @@ java-target = "17"
 android-compileSdk = "34"
 android-minSdk = "34"
 android-targetSdk = "34"
-agp = "8.5.0-rc01"
+agp = "8.5.0-rc02"
 kotlin = "2.0.0"
 
 detekt = "1.23.6"
