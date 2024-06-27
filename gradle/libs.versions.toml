@@ -24,7 +24,7 @@ compose-screenshot = "0.0.1-alpha01"
 androidx-activityCompose = "1.9.0"
 androidx-core = "1.13.1"
 androidx-espresso = "3.6.1"
-androidx-espressoJunit = "1.2.0"
+androidx-espressoJunit = "1.2.1"
 androidx-lifecycleRuntime = "2.8.2"
 androidx-viewmodelCompose = "2.8.2"
 
