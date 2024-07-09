@@ -16,7 +16,7 @@ junit = "4.13.2"
 junit-jupiter = "5.10.3"
 kotest = "5.9.1"
 mockito = "5.12.0"
-mockito-kotlin = "5.3.1"
+mockito-kotlin = "5.4.0"
 robolectric = "4.13"
 
 compose-bom = "2024.06.00"
