@@ -3,4 +3,12 @@
 	extends: [
 		"local>TWiStErRob/renovate-config",
 	],
+	packageRules: [
+		{
+			matchPackageNames: [
+				"io.nlopez.compose.rules:detekt",
+			],
+			automerge: true,
+		},
+	],
 }
