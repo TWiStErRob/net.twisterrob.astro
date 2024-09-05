@@ -21,12 +21,12 @@ robolectric = "4.13"
 
 compose-bom = "2024.08.00"
 compose-screenshot = "0.0.1-alpha02"
-androidx-activityCompose = "1.9.1"
+androidx-activityCompose = "1.9.2"
 androidx-core = "1.13.1"
 androidx-espresso = "3.6.1"
 androidx-espressoJunit = "1.2.1"
-androidx-lifecycleRuntime = "2.8.4"
-androidx-viewmodelCompose = "2.8.4"
+androidx-lifecycleRuntime = "2.8.5"
+androidx-viewmodelCompose = "2.8.5"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
