@@ -106,11 +106,12 @@ public fun BaZiChart(
 @Composable
 private fun Pillar(
 	title: String,
-	top: @Composable () -> Unit,
-	bottom: @Composable () -> Unit,
 	onAdd: (() -> Unit)?,
 	onSubtract: (() -> Unit)?,
 	modifier: Modifier = Modifier,
+	// TODEL These shouldn't have default parameters, workaround for https://github.com/mrmans0n/compose-rules/issues/333
+	top: @Composable () -> Unit = {},
+	bottom: @Composable () -> Unit = {},
 ) {
 	Column(
 		modifier = modifier
