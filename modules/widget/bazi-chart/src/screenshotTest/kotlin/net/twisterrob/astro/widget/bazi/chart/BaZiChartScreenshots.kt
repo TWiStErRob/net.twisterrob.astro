@@ -1,4 +1,4 @@
-//package net.twisterrob.astro.widget.bazi.chart
+package net.twisterrob.astro.widget.bazi.chart
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -6,7 +6,6 @@ import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
 import net.twisterrob.astro.component.theme.AppTheme
-import net.twisterrob.astro.widget.bazi.chart.BaZiChart
 
 class BaZiChartScreenshots {
 
