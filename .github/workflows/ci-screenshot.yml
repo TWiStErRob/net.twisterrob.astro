@@ -34,7 +34,7 @@ jobs:
         with:
           key: golden-values-${{ steps.params.outputs.sha }}
           path: |
-            modules/**/src/*/screenshotTest/reference/*.png
+            modules/**/src/*/screenshotTest/reference/**/*.png
         # If exists (steps.cache.outputs.cache-hit == 'true'), then skip recording steps.
 
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
@@ -79,7 +79,7 @@ jobs:
           name: 'Screenshot Golden Values'
           if-no-files-found: error
           path: |
-            modules/**/src/*/screenshotTest/reference/*.png
+            modules/**/src/*/screenshotTest/reference/**/*.png
 
       - name: "Store golden values to cache."
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
@@ -87,7 +87,7 @@ jobs:
         with:
           key: ${{ steps.cache.outputs.cache-primary-key }}
           path: |
-            modules/**/src/*/screenshotTest/reference/*.png
+            modules/**/src/*/screenshotTest/reference/**/*.png
 
 
   verify:
