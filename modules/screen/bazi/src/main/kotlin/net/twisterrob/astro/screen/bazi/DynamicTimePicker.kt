@@ -137,7 +137,7 @@ private fun DisplayModeToggleButton(
 private fun PickerPreview() {
 	AppTheme {
 		DynamicTimePicker(
-			state = TimePickerState.now(),
+			state = now(),
 			displayMode = DynamicTimePickerDisplayMode.Picker,
 		)
 	}
@@ -148,7 +148,7 @@ private fun PickerPreview() {
 private fun PickerFixedPreview() {
 	AppTheme {
 		DynamicTimePicker(
-			state = TimePickerState.now(),
+			state = now(),
 			displayMode = DynamicTimePickerDisplayMode.Picker,
 			showModeToggle = false,
 		)
@@ -160,7 +160,7 @@ private fun PickerFixedPreview() {
 private fun InputPreview() {
 	AppTheme {
 		DynamicTimePicker(
-			state = TimePickerState.now(),
+			state = now(),
 			displayMode = DynamicTimePickerDisplayMode.Input,
 		)
 	}
@@ -171,14 +171,14 @@ private fun InputPreview() {
 private fun InputFixedPreview() {
 	AppTheme {
 		DynamicTimePicker(
-			state = TimePickerState.now(),
+			state = now(),
 			displayMode = DynamicTimePickerDisplayMode.Input,
 			showModeToggle = false,
 		)
 	}
 }
 
-private fun TimePickerState.Companion.now(): TimePickerState {
+private fun now(): TimePickerState {
 	val time = LocalTime.now()
 	return TimePickerState(
 		initialHour = time.hour,
