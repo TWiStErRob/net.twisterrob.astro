@@ -12,11 +12,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircleOutline
 import androidx.compose.material.icons.filled.RemoveCircleOutline
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
+import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +31,7 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
@@ -151,9 +151,8 @@ private fun SmallButton(
 	@StringRes cd: Int,
 	onClick: () -> Unit,
 ) {
-	@OptIn(ExperimentalMaterial3Api::class)
 	CompositionLocalProvider(
-		LocalMinimumInteractiveComponentEnforcement provides false
+		LocalMinimumInteractiveComponentSize provides Dp.Unspecified
 	) {
 		val interactionSource = remember { MutableInteractionSource() }
 		IconButton(
