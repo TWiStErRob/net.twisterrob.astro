@@ -36,6 +36,9 @@ public data class BaZi(
 	 */
 	public val selfElement: HeavenlyStem = day.heavenlyStem
 
+	/**
+	 * Placeholder to be able to create static extensions.
+	 */
 	public companion object;
 
 	/**
@@ -62,6 +65,9 @@ public data class BaZi(
 		override fun toString(): String =
 			"${heavenlyStem} ${earthlyBranch}"
 
+		/**
+		 * Placeholder to be able to create static extensions.
+		 */
 		public companion object {
 
 			/**

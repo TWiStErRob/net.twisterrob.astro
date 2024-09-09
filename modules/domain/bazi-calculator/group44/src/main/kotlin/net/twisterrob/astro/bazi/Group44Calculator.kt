@@ -113,7 +113,7 @@ public class Group44Calculator : BaZiCalculator {
 		return BaZi.Pillar(HeavenlyStem.at(adjusted), hourlyBranch)
 	}
 
-	public companion object {
+	private companion object {
 
 		/**
 		 * 12 Earthly Branches for month, starting with [EarthlyBranch.Yin] ([Zodiac.Tiger]).

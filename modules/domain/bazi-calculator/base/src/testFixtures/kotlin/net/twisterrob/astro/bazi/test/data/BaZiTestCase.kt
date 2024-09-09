@@ -97,13 +97,13 @@ class BaZiTestCase(
 				"Solar year transitions" to SOLAR_YEAR_TRANSITIONS,
 			)
 				.flatMap { (name, cases) ->
-					cases.map {
+					cases.map { case ->
 						BaZiTestCase(
-							name = "${name}: ${it.name}",
-							sources = it.sources,
-							dateTime = it.dateTime,
-							location = it.location,
-							bazi = it.bazi,
+							name = "${name}: ${case.name}",
+							sources = case.sources,
+							dateTime = case.dateTime,
+							location = case.location,
+							bazi = case.bazi,
 						)
 					}
 				}

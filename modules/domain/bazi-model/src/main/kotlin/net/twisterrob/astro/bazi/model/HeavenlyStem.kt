@@ -124,6 +124,9 @@ public enum class HeavenlyStem(
 
 	;
 
+	/**
+	 * Placeholder to be able to create static extensions.
+	 */
 	public companion object {
 
 		/**
