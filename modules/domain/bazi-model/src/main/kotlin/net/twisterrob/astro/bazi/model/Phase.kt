@@ -104,20 +104,46 @@ public enum class Phase(
 	 */
 	public val conquering: Phase get() = _conquering()
 
+	/**
+	 * Placeholder to be able to create static extensions.
+	 */
 	public companion object;
 
 	/**
-	 * Planets in the Solar System.
+	 * Celestial bodies. Planets in the Solar System.
 	 */
 	public enum class Planet {
+
+		/**
+		 * @see Phase.Jin
+		 */
 		Venus,
+
+		/**
+		 * @see Phase.Mu
+		 */
 		Jupiter,
+
+		/**
+		 * @see Phase.Huo
+		 */
 		Mars,
+
+		/**
+		 * @see Phase.Shui
+		 */
 		Mercury,
+
+		/**
+		 * @see Phase.Tu
+		 */
 		Saturn,
 
 		;
 
+		/**
+		 * Placeholder to be able to create static extensions.
+		 */
 		public companion object;
 	}
 }

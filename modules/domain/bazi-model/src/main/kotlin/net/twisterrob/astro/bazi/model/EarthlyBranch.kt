@@ -144,6 +144,9 @@ public enum class EarthlyBranch(
 
 	;
 
+	/**
+	 * Placeholder to be able to create static extensions.
+	 */
 	public companion object {
 
 		/**
