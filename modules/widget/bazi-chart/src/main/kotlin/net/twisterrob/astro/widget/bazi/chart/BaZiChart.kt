@@ -2,6 +2,7 @@
 
 package net.twisterrob.astro.widget.bazi.chart
 
+import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -41,6 +42,7 @@ import net.twisterrob.astro.component.theme.AppTheme
 /**
  * Widget to render a basic BaZi chart.
  */
+@Suppress("detekt.LongMethod")
 @Composable
 public fun BaZiChart(
 	bazi: BaZi,
@@ -67,52 +69,72 @@ public fun BaZiChart(
 		if (hour != null) {
 			Pillar(
 				modifier = space25percent,
-				title = stringResource(R.string.widget_bazi_chart__pillar_title_hour),
 				pillar = hour,
-				onAdd = onHourAdd,
-				onSubtract = onHourSubtract,
+				header = {
+					Row {
+						Adjuster(
+							title = stringResource(R.string.widget_bazi_chart__pillar_title_hour),
+							onAdd = onHourAdd,
+							onSubtract = onHourSubtract,
+						)
+					}
+				},
 			)
 		} else {
 			Pillar(
 				modifier = space25percent,
-				title = stringResource(R.string.widget_bazi_chart__pillar_title_hour),
 				top = { MissingHourPillarStem() },
 				bottom = { MissingHourPillarBranch() },
-				onAdd = null,
-				onSubtract = null,
+				header = {
+					Adjuster(
+						title = stringResource(R.string.widget_bazi_chart__pillar_title_hour),
+						onAdd = null,
+						onSubtract = null,
+					)
+				},
 			)
 		}
 		Pillar(
 			modifier = space25percent,
-			title = stringResource(R.string.widget_bazi_chart__pillar_title_day),
 			pillar = bazi.day,
-			onAdd = onDayAdd,
-			onSubtract = onDaySubtract,
+			header = {
+				Adjuster(
+					title = stringResource(R.string.widget_bazi_chart__pillar_title_day),
+					onAdd = onDayAdd,
+					onSubtract = onDaySubtract,
+				)
+			},
 		)
 		Pillar(
 			modifier = space25percent,
-			title = stringResource(R.string.widget_bazi_chart__pillar_title_month),
 			pillar = bazi.month,
-			onAdd = onMonthAdd,
-			onSubtract = onMonthSubtract,
+			header = {
+				Adjuster(
+					title = stringResource(R.string.widget_bazi_chart__pillar_title_month),
+					onAdd = onMonthAdd,
+					onSubtract = onMonthSubtract,
+				)
+			},
 		)
 		Pillar(
 			modifier = space25percent,
-			title = stringResource(R.string.widget_bazi_chart__pillar_title_year),
 			pillar = bazi.year,
-			onAdd = onYearAdd,
-			onSubtract = onYearSubtract,
+			header = {
+				Adjuster(
+					title = stringResource(R.string.widget_bazi_chart__pillar_title_year),
+					onAdd = onYearAdd,
+					onSubtract = onYearSubtract,
+				)
+			},
 		)
 	}
 }
 
 @Composable
 private fun Pillar(
-	title: String,
-	onAdd: (() -> Unit)?,
-	onSubtract: (() -> Unit)?,
 	modifier: Modifier = Modifier,
 	// TODEL These shouldn't have default parameters, workaround for https://github.com/mrmans0n/compose-rules/issues/333
+	header: @Composable () -> Unit = {},
 	top: @Composable () -> Unit = {},
 	bottom: @Composable () -> Unit = {},
 ) {
@@ -121,29 +143,40 @@ private fun Pillar(
 			.semantics { isTraversalGroup = true },
 		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
-		Column(
-			horizontalAlignment = Alignment.CenterHorizontally,
-			verticalArrangement = Arrangement.spacedBy(4.dp),
-		) {
-			SmallButton(
-				icon = Icons.Filled.AddCircleOutline,
-				cd = R.string.widget_bazi_chart__pillar_title_plus,
-				onClick = onAdd ?: {},
-				enabled = onAdd != null,
-			)
-			Text(
-				text = title,
-				style = MaterialTheme.typography.labelMedium,
-			)
-			SmallButton(
-				icon = Icons.Filled.RemoveCircleOutline,
-				cd = R.string.widget_bazi_chart__pillar_title_minus,
-				onClick = onSubtract ?: {},
-				enabled = onAdd != null,
-			)
-		}
+		header()
 		top()
 		bottom()
+	}
+}
+
+@Composable
+private fun Adjuster(
+	title: String,
+	onAdd: (() -> Unit)?,
+	onSubtract: (() -> Unit)?,
+) {
+	Column(
+		modifier = Modifier
+			.semantics { isTraversalGroup = true },
+		horizontalAlignment = Alignment.CenterHorizontally,
+		verticalArrangement = Arrangement.spacedBy(4.dp),
+	) {
+		SmallButton(
+			icon = Icons.Filled.AddCircleOutline,
+			cd = R.string.widget_bazi_chart__pillar_title_plus,
+			onClick = onAdd ?: {},
+			enabled = onAdd != null,
+		)
+		Text(
+			text = title,
+			style = MaterialTheme.typography.labelMedium,
+		)
+		SmallButton(
+			icon = Icons.Filled.RemoveCircleOutline,
+			cd = R.string.widget_bazi_chart__pillar_title_minus,
+			onClick = onSubtract ?: {},
+			enabled = onAdd != null,
+		)
 	}
 }
 
@@ -176,17 +209,14 @@ private fun SmallButton(
 
 @Composable
 private fun Pillar(
-	title: String,
 	pillar: BaZi.Pillar,
-	onAdd: () -> Unit,
-	onSubtract: () -> Unit,
 	modifier: Modifier = Modifier,
+	@SuppressLint("ComposableLambdaParameterNaming")
+	header: @Composable () -> Unit,
 ) {
 	Pillar(
 		modifier = modifier,
-		title = title,
-		onAdd = onAdd,
-		onSubtract = onSubtract,
+		header = header,
 		top = {
 			Character(
 				symbol = pillar.heavenlyStem.symbol,
