@@ -117,28 +117,24 @@ private fun Pillar(
 			.semantics { isTraversalGroup = true },
 		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
-		Row(
-			verticalAlignment = Alignment.CenterVertically,
-			horizontalArrangement = Arrangement.spacedBy(4.dp),
+		Column(
+			horizontalAlignment = Alignment.CenterHorizontally,
+			verticalArrangement = Arrangement.spacedBy(4.dp),
 		) {
-			onSubtract?.let { onSubtract ->
-				SmallButton(
-					icon = Icons.Filled.RemoveCircleOutline,
-					cd = R.string.widget_bazi_chart__pillar_title_minus,
-					onClick = onSubtract,
-				)
-			}
+			SmallButton(
+				icon = Icons.Filled.AddCircleOutline,
+				cd = R.string.widget_bazi_chart__pillar_title_plus,
+				onClick = onAdd ?: {},
+			)
 			Text(
 				text = title,
 				style = MaterialTheme.typography.labelMedium,
 			)
-			onAdd?.let { onAdd ->
-				SmallButton(
-					icon = Icons.Filled.AddCircleOutline,
-					cd = R.string.widget_bazi_chart__pillar_title_plus,
-					onClick = onAdd,
-				)
-			}
+			SmallButton(
+				icon = Icons.Filled.RemoveCircleOutline,
+				cd = R.string.widget_bazi_chart__pillar_title_minus,
+				onClick = onSubtract ?: {},
+			)
 		}
 		top()
 		bottom()
