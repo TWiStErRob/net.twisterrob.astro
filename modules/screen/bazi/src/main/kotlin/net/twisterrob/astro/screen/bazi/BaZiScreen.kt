@@ -55,6 +55,8 @@ public fun BaZiScreen(
 		onDaySubtract = viewModel::decreaseDay,
 		onHourAdd = viewModel::increaseHour,
 		onHourSubtract = viewModel::decreaseHour,
+		onMinuteAdd = viewModel::increaseMinute,
+		onMinuteSubtract = viewModel::decreaseMinute,
 	)
 }
 
@@ -86,6 +88,8 @@ private fun BaZiScreen(
 	onDaySubtract: () -> Unit,
 	onHourAdd: () -> Unit,
 	onHourSubtract: () -> Unit,
+	onMinuteAdd: () -> Unit,
+	onMinuteSubtract: () -> Unit,
 
 	modifier: Modifier = Modifier,
 ) {
@@ -127,6 +131,8 @@ private fun BaZiScreen(
 			onDaySubtract = onDaySubtract,
 			onHourAdd = onHourAdd,
 			onHourSubtract = onHourSubtract,
+			onMinuteAdd = onMinuteAdd,
+			onMinuteSubtract = onMinuteSubtract,
 		)
 	}
 }
@@ -169,6 +175,8 @@ private fun Preview() {
 			onDaySubtract = {},
 			onHourAdd = {},
 			onHourSubtract = {},
+			onMinuteAdd = {},
+			onMinuteSubtract = {},
 		)
 	}
 }

@@ -52,6 +52,10 @@ public fun BaZiChart(
 	onDaySubtract: () -> Unit,
 	onHourAdd: () -> Unit,
 	onHourSubtract: () -> Unit,
+	@Suppress("UNUSED_PARAMETER")
+	onMinuteAdd: () -> Unit,
+	@Suppress("UNUSED_PARAMETER")
+	onMinuteSubtract: () -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 	Row(
@@ -342,6 +346,8 @@ private fun BaZiChartFullPreview() {
 			onDaySubtract = {},
 			onHourAdd = {},
 			onHourSubtract = {},
+			onMinuteAdd = {},
+			onMinuteSubtract = {},
 		)
 	}
 }
@@ -365,6 +371,8 @@ private fun BaZiChartHourlessPreview() {
 			onDaySubtract = {},
 			onHourAdd = {},
 			onHourSubtract = {},
+			onMinuteAdd = {},
+			onMinuteSubtract = {},
 		)
 	}
 }
