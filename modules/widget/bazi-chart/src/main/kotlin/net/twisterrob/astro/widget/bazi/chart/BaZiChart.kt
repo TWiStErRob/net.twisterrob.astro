@@ -125,6 +125,7 @@ private fun Pillar(
 				icon = Icons.Filled.AddCircleOutline,
 				cd = R.string.widget_bazi_chart__pillar_title_plus,
 				onClick = onAdd ?: {},
+				enabled = onAdd != null,
 			)
 			Text(
 				text = title,
@@ -134,6 +135,7 @@ private fun Pillar(
 				icon = Icons.Filled.RemoveCircleOutline,
 				cd = R.string.widget_bazi_chart__pillar_title_minus,
 				onClick = onSubtract ?: {},
+				enabled = onAdd != null,
 			)
 		}
 		top()
@@ -146,6 +148,7 @@ private fun SmallButton(
 	icon: ImageVector,
 	@StringRes cd: Int,
 	onClick: () -> Unit,
+	enabled: Boolean = true,
 ) {
 	CompositionLocalProvider(
 		LocalMinimumInteractiveComponentSize provides Dp.Unspecified
@@ -154,9 +157,10 @@ private fun SmallButton(
 		IconButton(
 			modifier = Modifier
 				.repeatingClickable(interactionSource, true, onClick = onClick)
-				.size(16.dp),
+				.size(32.dp),
 			interactionSource = interactionSource,
 			onClick = {},
+			enabled = enabled,
 		) {
 			Icon(
 				imageVector = icon,
