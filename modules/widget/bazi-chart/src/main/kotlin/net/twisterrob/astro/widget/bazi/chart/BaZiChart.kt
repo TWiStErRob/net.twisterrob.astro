@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -116,7 +115,7 @@ private fun Pillar(
 	Column(
 		modifier = modifier
 			.semantics { isTraversalGroup = true },
-		horizontalAlignment = CenterHorizontally,
+		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
 		Row(
 			verticalAlignment = Alignment.CenterVertically,
@@ -211,7 +210,7 @@ private fun Character(
 ) {
 	Column(
 		modifier = modifier,
-		horizontalAlignment = CenterHorizontally,
+		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
 		CharacterSymbol(
 			symbol = symbol,
