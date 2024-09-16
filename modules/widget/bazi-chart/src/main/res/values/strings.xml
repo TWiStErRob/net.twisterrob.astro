@@ -5,6 +5,7 @@
 	<string name="widget_bazi_chart__pillar_title_month">Month</string>
 	<string name="widget_bazi_chart__pillar_title_day">Day</string>
 	<string name="widget_bazi_chart__pillar_title_hour">Hour</string>
+	<string name="widget_bazi_chart__pillar_title_minute">Minute</string>
 
 	<string name="widget_bazi_chart__pillar_title_plus">add</string>
 	<string name="widget_bazi_chart__pillar_title_minus">subtract</string>

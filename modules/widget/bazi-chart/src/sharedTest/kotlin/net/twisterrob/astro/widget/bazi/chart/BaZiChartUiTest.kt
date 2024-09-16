@@ -1,6 +1,7 @@
 package net.twisterrob.astro.widget.bazi.chart
 
 import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.filterToOne
 import androidx.compose.ui.test.hasAnySibling
 import androidx.compose.ui.test.hasText
@@ -175,7 +176,7 @@ class BaZiChartUiTest {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
 
-		compose.onPillarAction("Hour", "add").assertDoesNotExist()
+		compose.onPillarAction("Hour", "add").assertIsNotEnabled()
 
 		mockListeners.verifyNoMoreInteractions()
 	}
@@ -185,14 +186,14 @@ class BaZiChartUiTest {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
 
-		compose.onPillarAction("Hour", "subtract").assertDoesNotExist()
+		compose.onPillarAction("Hour", "subtract").assertIsNotEnabled()
 
 		mockListeners.verifyNoMoreInteractions()
 	}
 
 
 	@Test
-	fun `hourless minute add is not clickable`() {
+	fun `hourless minute add is not visible`() {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
 
@@ -202,7 +203,7 @@ class BaZiChartUiTest {
 	}
 
 	@Test
-	fun `hourless minute subtract is not clickable`() {
+	fun `hourless minute subtract is not visible`() {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
 

@@ -54,9 +54,7 @@ public fun BaZiChart(
 	onDaySubtract: () -> Unit,
 	onHourAdd: () -> Unit,
 	onHourSubtract: () -> Unit,
-	@Suppress("UNUSED_PARAMETER")
 	onMinuteAdd: () -> Unit,
-	@Suppress("UNUSED_PARAMETER")
 	onMinuteSubtract: () -> Unit,
 	modifier: Modifier = Modifier,
 ) {
@@ -76,6 +74,12 @@ public fun BaZiChart(
 							title = stringResource(R.string.widget_bazi_chart__pillar_title_hour),
 							onAdd = onHourAdd,
 							onSubtract = onHourSubtract,
+						)
+						Text(" ")
+						Adjuster(
+							title = stringResource(R.string.widget_bazi_chart__pillar_title_minute),
+							onAdd = onMinuteAdd,
+							onSubtract = onMinuteSubtract,
 						)
 					}
 				},
