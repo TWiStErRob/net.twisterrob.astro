@@ -3,6 +3,8 @@ package net.twisterrob.astro.screen.bazi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -98,8 +100,10 @@ private fun BaZiScreen(
 
 	modifier: Modifier = Modifier,
 ) {
+	val scrollState = rememberScrollState()
 	Column(
-		modifier = modifier,
+		modifier = modifier
+			.verticalScroll(state = scrollState),
 	) {
 		DateTimeZonePickers(
 			modifier = Modifier
