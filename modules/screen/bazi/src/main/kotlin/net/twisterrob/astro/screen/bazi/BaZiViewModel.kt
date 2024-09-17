@@ -22,18 +22,16 @@ import java.time.temporal.TemporalAmount
  */
 @Suppress("detekt.TooManyFunctions")
 public class BaZiViewModel : ViewModel() {
-	private val _uiState = MutableStateFlow(run {
-		val dateTime = ZonedDateTime.now()
-		BaZiState(
-			bazi = bazi(dateTime),
-			dateTime = DateTimeState(
-				dateTime = dateTime,
+	private val _uiState = MutableStateFlow(
+		adjustDateTimeState(
+			DateTimeState(
+				dateTime = ZonedDateTime.now(),
 				isPickingDate = false,
 				isPickingTime = false,
 				isPickingZone = false,
 			),
-		)
-	})
+		) { it }
+	)
 	internal val uiState: StateFlow<BaZiState> = _uiState.asStateFlow()
 
 	//@formatter:off
@@ -51,29 +49,32 @@ public class BaZiViewModel : ViewModel() {
 
 	private fun updateDateTime(amount: TemporalAmount) {
 		updateDateTime { current ->
-			current
-				.plus(amount)
-				// Reset time to a half an hour to make it easier to understand
-				// as the sexagenary hours are changing on the hour.
-				.with(ChronoField.MINUTE_OF_HOUR, @Suppress("detekt.MagicNumber") 30)
-				.with(ChronoField.SECOND_OF_MINUTE, 0)
-				.with(ChronoField.NANO_OF_SECOND, 0)
+			current.plus(amount)
 		}
 	}
 
 	private fun updateDateTime(adjuster: (ZonedDateTime) -> ZonedDateTime) {
 		_uiState.update { state ->
-			val dateTime = adjuster(state.dateTime.dateTime)
-			BaZiState(
-				bazi = bazi(dateTime),
-				dateTime = state.dateTime.copy(
-					dateTime = dateTime,
-					isPickingDate = false,
-					isPickingTime = false,
-					isPickingZone = false,
-				),
-			)
+			adjustDateTimeState(state.dateTime, adjuster)
 		}
+	}
+
+	private fun adjustDateTimeState(
+		dateTimeState: DateTimeState,
+		adjuster: (ZonedDateTime) -> ZonedDateTime,
+	): BaZiState {
+		val dateTime = adjuster(dateTimeState.dateTime)
+			.with(ChronoField.SECOND_OF_MINUTE, 0)
+			.with(ChronoField.NANO_OF_SECOND, 0)
+		return BaZiState(
+			bazi = bazi(dateTime),
+			dateTime = dateTimeState.copy(
+				dateTime = dateTime,
+				isPickingDate = false,
+				isPickingTime = false,
+				isPickingZone = false,
+			),
+		)
 	}
 
 	private fun bazi(dateTime: ZonedDateTime): BaZi {
