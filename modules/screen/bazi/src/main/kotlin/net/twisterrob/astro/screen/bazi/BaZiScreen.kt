@@ -31,6 +31,9 @@ public fun BaZiScreen(
 	BaZiScreen(
 		modifier = modifier,
 		state = state,
+
+		onReset = viewModel::reset,
+
 		onPickDate = viewModel::pickDate,
 		onHideDatePicker = viewModel::hideDatePicker,
 		onResetToToday = viewModel::resetToToday,
@@ -63,6 +66,8 @@ public fun BaZiScreen(
 @Composable
 private fun BaZiScreen(
 	state: BaZiState,
+
+	onReset: () -> Unit,
 
 	onPickDate: () -> Unit,
 	onHideDatePicker: () -> Unit,
@@ -101,6 +106,8 @@ private fun BaZiScreen(
 				.fillMaxWidth()
 				.padding(4.dp),
 			state = state.dateTime,
+
+			onReset = onReset,
 
 			onPickDate = onPickDate,
 			onHideDatePicker = onHideDatePicker,
@@ -151,6 +158,8 @@ private fun Preview() {
 					isPickingZone = false,
 				),
 			),
+			onReset = {},
+
 			onPickDate = {},
 			onHideDatePicker = {},
 			onResetToToday = {},

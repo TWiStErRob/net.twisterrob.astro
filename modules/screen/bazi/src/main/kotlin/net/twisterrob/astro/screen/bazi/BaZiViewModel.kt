@@ -83,6 +83,10 @@ public class BaZiViewModel : ViewModel() {
 		return SolarCalculator().calculate(localTime)
 	}
 
+	internal fun reset() {
+		select(ZonedDateTime.now())
+	}
+
 	internal fun resetToToday() {
 		selectDate(LocalDate.now())
 	}
@@ -122,7 +126,7 @@ public class BaZiViewModel : ViewModel() {
 	/**
 	 * Allow screenshot tests to set "now" to a specific instant, so that rendering is consistent.
 	 */
-	@VisibleForTesting(otherwise = VisibleForTesting.NONE)
+	@VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 	public fun select(dateTime: ZonedDateTime) {
 		updateDateTime { _ -> dateTime }
 	}
