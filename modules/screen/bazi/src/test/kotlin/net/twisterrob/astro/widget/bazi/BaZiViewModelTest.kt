@@ -294,7 +294,8 @@ class BaZiViewModelTest {
 			val updated = subject.uiState.value
 
 			val expected = current.dateTime.dateTime
-				.withHour(now.hour - 1) // Hack
+				.withHour(now.hour)
+				.minusHours(1) // Hack
 				.withMinute(now.minute)
 				.withSecond(0)
 				.withNano(0)
@@ -556,15 +557,14 @@ class BaZiViewModelTest {
 		@Test
 		fun `selecting a zone changes zone and finishes picking`() {
 			val current = subject.uiState.value
-			val newZone = ZoneId.of("Europe/Budapest")
+			val newZone = ZoneId.of("Asia/Kolkata")
 
 			subject.selectZone(newZone)
 
 			val updated = subject.uiState.value
 
 			val expected = current.dateTime.dateTime
-				.withZoneSameInstant(newZone)
-				.minusHours(1) // Hack
+				.withZoneSameLocal(newZone)
 			assertEquals(expected, updated.dateTime.dateTime)
 			assertNotSame(current.bazi, updated.bazi) // Cannot predict if it will actually change.
 			assertDefaultValues(updated)
