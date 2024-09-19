@@ -19,14 +19,14 @@ mockito = "5.13.0"
 mockito-kotlin = "5.4.0"
 robolectric = "4.13"
 
-compose-bom = "2024.09.01"
+compose-bom = "2024.09.02"
 compose-screenshot = "0.0.1-alpha07"
 androidx-activityCompose = "1.9.2"
 androidx-core = "1.13.1"
 androidx-espresso = "3.6.1"
 androidx-espressoJunit = "1.2.1"
-androidx-lifecycleRuntime = "2.8.5"
-androidx-viewmodelCompose = "2.8.5"
+androidx-lifecycleRuntime = "2.8.6"
+androidx-viewmodelCompose = "2.8.6"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
