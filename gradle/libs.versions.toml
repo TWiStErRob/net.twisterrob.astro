@@ -15,7 +15,7 @@ detekt-twitter = "0.4.12"
 junit = "4.13.2"
 junit-jupiter = "5.11.1"
 kotest = "5.9.1"
-mockito = "5.14.0"
+mockito = "5.14.1"
 mockito-kotlin = "5.4.0"
 robolectric = "4.13"
 
