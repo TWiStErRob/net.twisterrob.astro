@@ -10,7 +10,7 @@ kotlin = "2.0.20"
 
 detekt = "1.23.7"
 detekt-kode = "1.4.0"
-detekt-twitter = "0.4.12"
+detekt-twitter = "0.4.14"
 
 junit = "4.13.2"
 junit-jupiter = "5.11.1"
