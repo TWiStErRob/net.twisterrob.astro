@@ -13,7 +13,7 @@ detekt-kode = "1.4.0"
 detekt-twitter = "0.4.15"
 
 junit = "4.13.2"
-junit-jupiter = "5.11.1"
+junit-jupiter = "5.11.2"
 kotest = "5.9.1"
 mockito = "5.14.1"
 mockito-kotlin = "5.4.0"
