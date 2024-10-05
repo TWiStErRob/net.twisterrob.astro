@@ -8,7 +8,6 @@
 @file:Suppress("detekt.MaxLineLength")
 
 import com.android.build.api.variant.HasHostTests
-import com.android.compose.screenshot.tasks.PreviewDiscoveryTask
 import com.android.compose.screenshot.tasks.PreviewScreenshotValidationTask
 import com.android.compose.screenshot.tasks.ScreenshotTestReportTask
 import net.twisterrob.astro.build.dsl.android
