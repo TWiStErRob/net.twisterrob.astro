@@ -19,7 +19,7 @@ mockito = "5.14.2"
 mockito-kotlin = "5.4.0"
 robolectric = "4.13"
 
-compose-bom = "2024.10.00"
+compose-bom = "2024.10.01"
 compose-screenshot = "0.0.1-alpha07"
 androidx-activityCompose = "1.9.3"
 androidx-core = "1.15.0"
