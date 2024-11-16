@@ -17,7 +17,7 @@ junit-jupiter = "5.11.3"
 kotest = "5.9.1"
 mockito = "5.14.2"
 mockito-kotlin = "5.4.0"
-robolectric = "4.13"
+robolectric = "4.14"
 
 compose-bom = "2024.11.00"
 compose-screenshot = "0.0.1-alpha07"
