@@ -26,3 +26,9 @@ idea {
 		)
 	}
 }
+
+kotlin {
+	compilerOptions {
+		allWarningsAsErrors = true
+	}
+}
