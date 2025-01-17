@@ -14,4 +14,7 @@ android {
 			applicationIdSuffix = ".debug"
 		}
 	}
+	packaging {
+		jniLibs.keepDebugSymbols.add("**/libandroidx.graphics.path.so")
+	}
 }
