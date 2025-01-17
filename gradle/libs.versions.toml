@@ -21,7 +21,7 @@ robolectric = "4.14.1"
 
 compose-bom = "2025.01.00"
 compose-screenshot = "0.0.1-alpha08"
-androidx-activityCompose = "1.9.3"
+androidx-activityCompose = "1.10.0"
 androidx-core = "1.15.0"
 androidx-espresso = "3.6.1"
 androidx-espressoJunit = "1.2.1"
