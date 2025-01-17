@@ -15,6 +15,7 @@ android {
 		}
 	}
 	packaging {
+		// TODEL workaround for https://issuetracker.google.com/issues/353554169
 		jniLibs.keepDebugSymbols.add("**/libandroidx.graphics.path.so")
 	}
 }
