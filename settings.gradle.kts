@@ -1,6 +1,8 @@
 import net.twisterrob.gradle.doNotNagAbout
+import net.twisterrob.gradle.isDoNotNagAboutDiagnosticsEnabled
 import net.twisterrob.gradle.settings.enableFeaturePreviewQuietly
 
+isDoNotNagAboutDiagnosticsEnabled = true
 // TODEL https://github.com/gradle/gradle/issues/18971
 rootProject.name = "net-twisterrob-astro"
 
