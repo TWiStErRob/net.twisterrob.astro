@@ -77,7 +77,7 @@ android {
 			groups {
 				// ./gradlew defaultGroupDebugAndroidTest
 				create("default") {
-					targetDevices.add(devices["pixel7ProApi${minSdk}"])
+					targetDevices.add(localDevices["pixel7ProApi${minSdk}"])
 				}
 			}
 		}
