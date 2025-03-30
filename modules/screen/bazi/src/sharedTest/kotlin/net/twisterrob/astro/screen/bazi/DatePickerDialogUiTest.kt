@@ -7,6 +7,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import net.twisterrob.astro.test.compose.pressBack
 import net.twisterrob.astro.test.compose.string
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,6 +26,7 @@ class DatePickerDialogUiTest {
 	val compose = createComposeRule()
 
 	@Test
+	@Ignore("https://issuetracker.google.com/issues/371512565")
 	fun `back button hides the picker`() {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners)
