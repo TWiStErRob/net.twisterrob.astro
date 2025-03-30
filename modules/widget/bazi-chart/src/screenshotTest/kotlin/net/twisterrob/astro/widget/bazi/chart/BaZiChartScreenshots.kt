@@ -7,7 +7,7 @@ import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
 import net.twisterrob.astro.component.theme.AppTheme
 
-class BaZiChartScreenshots {
+public class BaZiChartScreenshots {
 
 	@Preview
 	@Composable

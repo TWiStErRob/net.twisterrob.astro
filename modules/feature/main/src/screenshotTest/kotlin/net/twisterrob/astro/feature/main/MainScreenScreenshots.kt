@@ -7,7 +7,7 @@ import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.screen.bazi.BaZiViewModel
 import net.twisterrob.astro.test.fixtures.TestInstants
 
-class MainScreenScreenshots {
+public class MainScreenScreenshots {
 
 	@Preview
 	@Composable
