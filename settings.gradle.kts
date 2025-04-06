@@ -2,7 +2,6 @@ import net.twisterrob.gradle.doNotNagAbout
 import net.twisterrob.gradle.isDoNotNagAboutDiagnosticsEnabled
 import net.twisterrob.gradle.settings.enableFeaturePreviewQuietly
 
-isDoNotNagAboutDiagnosticsEnabled = true
 // TODEL https://github.com/gradle/gradle/issues/18971
 rootProject.name = "net-twisterrob-astro"
 
@@ -17,6 +16,7 @@ pluginManagement {
 
 plugins {
 	id("net.twisterrob.gradle.plugin.settings") version "0.17"
+	id("net.twisterrob.gradle.plugin.nagging") version "0.17"
 	id("org.gradle.toolchains.foojay-resolver-convention") version ("0.9.0")
 }
 
