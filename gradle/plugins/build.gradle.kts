@@ -32,16 +32,3 @@ kotlin {
 		allWarningsAsErrors = true
 	}
 }
-
-gradlePlugin {
-	plugins {
-		create("app") {
-			id = "net.twisterrob.astro.android-app"
-			implementationClass = "net.twisterrob.astro.AppPlugin"
-		}
-		create("lib") {
-			id = "net.twisterrob.astro.android-library"
-			implementationClass = "net.twisterrob.astro.LibPlugin"
-		}
-	}
-}
