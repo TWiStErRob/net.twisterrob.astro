@@ -1,5 +1,5 @@
 plugins {
-	// TODO try to lower this to .library.
+	// TODO try to lower this to .library. https://issuetracker.google.com/issues/413413558
 	// Had to increase because of this change during androidx.compose:compose-bom:2025.04.00 
 	//|         +--- androidx.compose.ui:ui-tooling-data:1.7.8
 	//|         |    \--- androidx.compose.ui:ui-tooling-data-jvmstubs:1.7.8
