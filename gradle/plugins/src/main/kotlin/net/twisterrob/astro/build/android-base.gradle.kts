@@ -38,6 +38,7 @@ android {
 	packaging {
 		resources {
 			excludes += "/META-INF/{LICENSE.md,LICENSE-notice.md}"
+			excludes += "/META-INF/versions/*/OSGI-INF/MANIFEST.MF"
 		}
 	}
 	lint {
