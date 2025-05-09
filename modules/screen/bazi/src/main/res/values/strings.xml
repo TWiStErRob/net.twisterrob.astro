@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="DuplicateStrings">
 
+	<string name="screen_bazi__picker_reset_cd">Reset to now</string>
+
 	<string name="screen_bazi__date_picker_dialog_ok">@android:string/ok</string>
 	<string name="screen_bazi__date_picker_dialog_cancel">@android:string/cancel</string>
 	<string name="screen_bazi__date_picker_dialog_current">Today</string>

@@ -3,6 +3,8 @@ package net.twisterrob.astro.screen.bazi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -31,6 +33,9 @@ public fun BaZiScreen(
 	BaZiScreen(
 		modifier = modifier,
 		state = state,
+
+		onReset = viewModel::reset,
+
 		onPickDate = viewModel::pickDate,
 		onHideDatePicker = viewModel::hideDatePicker,
 		onResetToToday = viewModel::resetToToday,
@@ -55,12 +60,16 @@ public fun BaZiScreen(
 		onDaySubtract = viewModel::decreaseDay,
 		onHourAdd = viewModel::increaseHour,
 		onHourSubtract = viewModel::decreaseHour,
+		onMinuteAdd = viewModel::increaseMinute,
+		onMinuteSubtract = viewModel::decreaseMinute,
 	)
 }
 
 @Composable
 private fun BaZiScreen(
 	state: BaZiState,
+
+	onReset: () -> Unit,
 
 	onPickDate: () -> Unit,
 	onHideDatePicker: () -> Unit,
@@ -86,17 +95,23 @@ private fun BaZiScreen(
 	onDaySubtract: () -> Unit,
 	onHourAdd: () -> Unit,
 	onHourSubtract: () -> Unit,
+	onMinuteAdd: () -> Unit,
+	onMinuteSubtract: () -> Unit,
 
 	modifier: Modifier = Modifier,
 ) {
+	val scrollState = rememberScrollState()
 	Column(
-		modifier = modifier,
+		modifier = modifier
+			.verticalScroll(state = scrollState),
 	) {
 		DateTimeZonePickers(
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(4.dp),
 			state = state.dateTime,
+
+			onReset = onReset,
 
 			onPickDate = onPickDate,
 			onHideDatePicker = onHideDatePicker,
@@ -127,6 +142,8 @@ private fun BaZiScreen(
 			onDaySubtract = onDaySubtract,
 			onHourAdd = onHourAdd,
 			onHourSubtract = onHourSubtract,
+			onMinuteAdd = onMinuteAdd,
+			onMinuteSubtract = onMinuteSubtract,
 		)
 	}
 }
@@ -145,6 +162,8 @@ private fun Preview() {
 					isPickingZone = false,
 				),
 			),
+			onReset = {},
+
 			onPickDate = {},
 			onHideDatePicker = {},
 			onResetToToday = {},
@@ -169,6 +188,8 @@ private fun Preview() {
 			onDaySubtract = {},
 			onHourAdd = {},
 			onHourSubtract = {},
+			onMinuteAdd = {},
+			onMinuteSubtract = {},
 		)
 	}
 }
