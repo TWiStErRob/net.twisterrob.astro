@@ -15,5 +15,7 @@ plugins.withId("com.android.lint") {
 private fun Lint.configure() {
 	warningsAsErrors = true
 	checkAllWarnings = true
+	val cleanPath = project.path.substring(1).replace(':', '+')
+	baseline = rootProject.file("config/lint/baseline/${cleanPath}.xml")
 	lintConfig = rootProject.file("config/lint/lint.xml")
 }
