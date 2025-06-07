@@ -62,6 +62,15 @@ jobs:
           --continue
           --stacktrace
           updateDebugScreenshotTest
+          
+      - name: "Migration"
+        run: |
+          mkdir -p modules/feature/main/src/screenshotTestDebug
+          mv modules/feature/main/src/debug/screenshotTest/reference modules/feature/main/src/screenshotTestDebug/reference
+          mkdir -p modules/screen/bazi/src/screenshotTestDebug
+          mv modules/screen/bazi/src/debug/screenshotTest/reference modules/screen/bazi/src/screenshotTestDebug/reference
+          mkdir -p modules/widget/bazi-chart/src/screenshotTestDebug
+          mv modules/widget/bazi-chart/src/debug/screenshotTest/reference modules/widget/bazi-chart/src/screenshotTestDebug/reference
 
       - name: "Upload 'Screenshot Record Results' artifact."
         if: ${{ steps.cache.outputs.cache-hit != 'true' && (success() || failure()) }}
