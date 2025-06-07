@@ -31,7 +31,6 @@ android {
 
 	testOptions {
 		unitTests {
-			isIncludeAndroidResources = true
 			all { task ->
 				if (task.name.endsWith("ScreenshotTest")) {
 					// REPORT Disabling the test task, in case someone explicitly executes it.
