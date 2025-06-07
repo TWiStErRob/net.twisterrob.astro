@@ -119,3 +119,14 @@ doNotNagAbout(
 			"https://docs.gradle.org/${gradleVersion}/userguide/upgrading_version_8.html#null-attribute-lookup",
 	"at com.android.build.gradle.internal.ide.dependencies.ArtifactUtils.isAndroidProjectDependency(ArtifactUtils.kt:539)",
 )
+
+// TODEL Gradle 8.5 vs AGP 8.10.1 https://issuetracker.google.com/issues/316308499
+@Suppress("detekt.MaxLineLength")
+doNotNagAbout(
+	"The StartParameter.isConfigurationCacheRequested property has been deprecated. " +
+			"This is scheduled to be removed in Gradle 10.0. " +
+			"Please use 'configurationCache.requested' property on 'BuildFeatures' service instead. " +
+			"Consult the upgrading guide for further information: " +
+			"https://docs.gradle.org/${gradleVersion}/userguide/upgrading_version_8.html#deprecated_startparameter_is_configuration_cache_requested",
+	"at com.android.build.gradle.internal.attribution.BuildAnalyzerConfiguratorService\$initBuildAnalyzerService$1.execute(BuildAnalyzerConfiguratorService.kt:133)",
+)
