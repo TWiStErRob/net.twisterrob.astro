@@ -34,7 +34,7 @@ android {
 			isIncludeAndroidResources = true
 			all { task ->
 				if (task.name.endsWith("ScreenshotTest")) {
-					// REPORT Disabling the test task.
+					// REPORT Disabling the test task, in case someone explicitly executes it.
 					// It's not actually needed for screenshot testing (validateDebugScreenshotTest is a Test task).
 					// Disabling it because it would trigger the following warnings:
 					// > > Task :*:testReleaseScreenshotTest
@@ -50,6 +50,14 @@ android {
 					// > There are test sources present but no test was executed. Please check your test configuration.
 					// > Consult the upgrading guide for further information:
 					// > https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#test_task_fail_on_no_test_executed
+
+					// Gradle 9:
+					// > There are test sources present and no filters are applied, 
+					// > but the test task did not discover any tests to execute. 
+					// > This is likely due to a misconfiguration. 
+					// > Please check your test configuration. 
+					// > If this is not a misconfiguration, 
+					// > this error can be disabled by setting the 'failOnNoDiscoveredTests' property to false.
 					task.enabled = false
 				}
 			}
