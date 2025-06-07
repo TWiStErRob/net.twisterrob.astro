@@ -25,5 +25,5 @@ dependencies { // testImplementation(projects.component.testBaseRobolectric)
 	}
 }
 
-// Robolectric and bouncyastle are warning, but this is a JVM testing AAR.
+// Robolectric and bouncycastle are warning, but this is a JVM testing AAR.
 android.lint.disable("InvalidPackage")
