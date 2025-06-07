@@ -49,6 +49,7 @@ compose-uiGraphics = { module = "androidx.compose.ui:ui-graphics" }
 compose-uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-uiTooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-screenshotValidationApi = { module = "com.android.tools.screenshot:screenshot-validation-api", version.ref = "compose-screenshot"}
 
 test-junit = { module = "junit:junit", version.ref = "junit" }
 test-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }

@@ -2,6 +2,7 @@ package net.twisterrob.astro.widget.bazi.chart
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.android.tools.screenshot.PreviewTest
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
@@ -10,6 +11,7 @@ import net.twisterrob.astro.component.theme.AppTheme
 public class BaZiChartScreenshots {
 
 	@Preview
+	@PreviewTest
 	@Composable
 	private fun Full() {
 		AppTheme {
@@ -33,6 +35,7 @@ public class BaZiChartScreenshots {
 	}
 
 	@Preview
+	@PreviewTest
 	@Composable
 	private fun Hourless() {
 		AppTheme {

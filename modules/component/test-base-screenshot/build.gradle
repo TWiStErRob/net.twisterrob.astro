@@ -5,4 +5,5 @@ plugins {
 dependencies { // screenshotTestImplementation(projects.component.testBaseScreenshot)
 	api(platform(libs.compose.bom))
 	api(libs.compose.uiTooling)
+	api(libs.compose.screenshotValidationApi)
 }
