@@ -12,3 +12,6 @@ dependencies {
 	// But it's implementation, trying to abstract and hide it in JVM tests.
 	implementation(libs.test.androidx.espressoCore)
 }
+
+// Bytebuddy via mockito is warning, but this is a JVM testing AAR.
+android.lint.disable("InvalidPackage")
