@@ -28,3 +28,6 @@ dependencies { // androidTestImplementation(projects.component.testBaseInstrumen
 		because("Choice of mocking library for this project.")
 	}
 }
+
+// Bytebuddy via mockito is warning, but we depend on mockito-android.
+android.lint.disable("InvalidPackage")
