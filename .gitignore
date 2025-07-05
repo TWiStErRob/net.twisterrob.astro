@@ -10,7 +10,7 @@
 /modules/*/build/
 /modules/*/*/build/
 /modules/*/*/*/build/
-/modules/**/src/*/screenshotTest/reference/
+/modules/**/src/screenshotTest*/reference/
 
 # Kotlin
 .kotlin/

@@ -20,7 +20,7 @@ mockito-kotlin = "5.4.0"
 robolectric = "4.15.1"
 
 compose-bom = "2025.06.01"
-compose-screenshot = "0.0.1-alpha09"
+compose-screenshot = "0.0.1-alpha10"
 androidx-activityCompose = "1.10.1"
 androidx-core = "1.16.0"
 androidx-espresso = "3.6.1"
@@ -49,6 +49,7 @@ compose-uiGraphics = { module = "androidx.compose.ui:ui-graphics" }
 compose-uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-uiTooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-screenshotValidationApi = { module = "com.android.tools.screenshot:screenshot-validation-api", version.ref = "compose-screenshot"}
 
 test-junit = { module = "junit:junit", version.ref = "junit" }
 test-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
