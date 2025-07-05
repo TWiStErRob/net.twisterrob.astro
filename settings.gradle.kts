@@ -16,7 +16,7 @@ pluginManagement {
 plugins {
 	id("net.twisterrob.gradle.plugin.settings") version "0.18"
 	id("net.twisterrob.gradle.plugin.nagging") version "0.18"
-	id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
+	id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 @Suppress("UnstableApiUsage")
@@ -79,9 +79,9 @@ val gradleVersion = GradleVersion.current().version
 // See also https://github.com/gradle/gradle/issues/32422
 @Suppress("MaxLineLength")
 doNotNagAbout(
-	"Declaring an 'is-' property with a Boolean type has been deprecated. " +
-			"Starting with Gradle 9.0, this property will be ignored by Gradle. " +
-			"The combination of method name and return type is not consistent with Java Bean property rules and will become unsupported in future versions of Groovy. " +
+	"Declaring 'crunchPngs' as a property using an 'is-' method with a Boolean type on com.android.build.gradle.internal.dsl.BuildType\$AgpDecorated has been deprecated. " +
+			"Starting with Gradle 10.0, this property will no longer be treated like a property. " +
+			"The combination of method name and return type is not consistent with Java Bean property rules. " +
 			"Add a method named 'getCrunchPngs' with the same behavior and mark the old one with @Deprecated, " +
 			"or change the type of 'com.android.build.gradle.internal.dsl.BuildType\$AgpDecorated.isCrunchPngs' (and the setter) to 'boolean'. " +
 			"Consult the upgrading guide for further information: " +
@@ -89,9 +89,9 @@ doNotNagAbout(
 )
 @Suppress("MaxLineLength")
 doNotNagAbout(
-	"Declaring an 'is-' property with a Boolean type has been deprecated. " +
-			"Starting with Gradle 9.0, this property will be ignored by Gradle. " +
-			"The combination of method name and return type is not consistent with Java Bean property rules and will become unsupported in future versions of Groovy. " +
+	"Declaring 'useProguard' as a property using an 'is-' method with a Boolean type on com.android.build.gradle.internal.dsl.BuildType has been deprecated. " +
+			"Starting with Gradle 10.0, this property will no longer be treated like a property. " +
+			"The combination of method name and return type is not consistent with Java Bean property rules. " +
 			"Add a method named 'getUseProguard' with the same behavior and mark the old one with @Deprecated, " +
 			"or change the type of 'com.android.build.gradle.internal.dsl.BuildType.isUseProguard' (and the setter) to 'boolean'. " +
 			"Consult the upgrading guide for further information: " +
@@ -99,9 +99,9 @@ doNotNagAbout(
 )
 @Suppress("MaxLineLength")
 doNotNagAbout(
-	"Declaring an 'is-' property with a Boolean type has been deprecated. " +
-			"Starting with Gradle 9.0, this property will be ignored by Gradle. " +
-			"The combination of method name and return type is not consistent with Java Bean property rules and will become unsupported in future versions of Groovy. " +
+	"Declaring 'wearAppUnbundled' as a property using an 'is-' method with a Boolean type on com.android.build.api.variant.impl.ApplicationVariantImpl has been deprecated. " +
+			"Starting with Gradle 10.0, this property will no longer be treated like a property. " +
+			"The combination of method name and return type is not consistent with Java Bean property rules. " +
 			"Add a method named 'getWearAppUnbundled' with the same behavior and mark the old one with @Deprecated, " +
 			"or change the type of 'com.android.build.api.variant.impl.ApplicationVariantImpl.isWearAppUnbundled' (and the setter) to 'boolean'. " +
 			"Consult the upgrading guide for further information: " +

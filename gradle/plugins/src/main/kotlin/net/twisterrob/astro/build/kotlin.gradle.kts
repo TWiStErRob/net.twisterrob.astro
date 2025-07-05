@@ -26,6 +26,6 @@ tasks.withType<KotlinCompile>().configureEach {
 		allWarningsAsErrors = true
 		verbose = true
 		freeCompilerArgs.add("-opt-in=kotlin.ExperimentalStdlibApi")
-		freeCompilerArgs.add("-Xcontext-receivers")
+		freeCompilerArgs.add("-Xcontext-parameters")
 	}
 }
