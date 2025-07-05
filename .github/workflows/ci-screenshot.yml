@@ -64,6 +64,8 @@ jobs:
           updateDebugScreenshotTest
           
       - name: "Migration"
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        # language=bash
         run: |
           mkdir -p modules/feature/main/src/screenshotTestDebug
           mv modules/feature/main/src/debug/screenshotTest/reference modules/feature/main/src/screenshotTestDebug/reference
