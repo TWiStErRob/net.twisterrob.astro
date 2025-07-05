@@ -31,8 +31,6 @@ android {
 
 	testOptions {
 		unitTests {
-			// Required to make sure that fonts are rendered correctly in screenshot tests.
-			isIncludeAndroidResources = true
 			all { task ->
 				if (task.name.endsWith("ScreenshotTest")) {
 					// REPORT Disabling the test task, in case someone explicitly executes it.
