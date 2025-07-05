@@ -127,7 +127,7 @@ doNotNagAbout(
 @Suppress("detekt.MaxLineLength")
 doNotNagAbout(
 	"The StartParameter.isConfigurationCacheRequested property has been deprecated. " +
-			"This is scheduled to be removed in Gradle 10.0. " +
+			"This is scheduled to be removed in Gradle 10. " +
 			"Please use 'configurationCache.requested' property on 'BuildFeatures' service instead. " +
 			"Consult the upgrading guide for further information: " +
 			"https://docs.gradle.org/${gradleVersion}/userguide/upgrading_version_8.html#deprecated_startparameter_is_configuration_cache_requested",
