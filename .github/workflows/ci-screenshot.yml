@@ -64,6 +64,7 @@ jobs:
           updateDebugScreenshotTest
 
       - name: "Upload 'Screenshot Record Working Directory' artifact."
+        if: ${{ success() || failure() }}
         uses: actions/upload-artifact@v4
         with:
           name: 'Screenshot Record Working Directory'
