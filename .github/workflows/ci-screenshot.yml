@@ -62,6 +62,7 @@ jobs:
           --continue
           --stacktrace
           updateDebugScreenshotTest
+          --rerun
 
       - name: "Upload 'Screenshot Record Working Directory' artifact."
         if: ${{ success() || failure() }}
