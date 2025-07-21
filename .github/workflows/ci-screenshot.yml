@@ -64,14 +64,6 @@ jobs:
           updateDebugScreenshotTest
           --rerun
 
-      - name: "Upload 'Screenshot Record Working Directory' artifact."
-        if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: 'Screenshot Record Working Directory'
-          if-no-files-found: error
-          path: ./
-
       - name: "Upload 'Screenshot Record Results' artifact."
         if: ${{ steps.cache.outputs.cache-hit != 'true' && (success() || failure()) }}
         uses: actions/upload-artifact@v4
