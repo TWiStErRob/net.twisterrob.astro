@@ -62,7 +62,6 @@ jobs:
           --continue
           --stacktrace
           updateDebugScreenshotTest
-          --rerun
 
       - name: "Upload 'Screenshot Record Results' artifact."
         if: ${{ steps.cache.outputs.cache-hit != 'true' && (success() || failure()) }}
