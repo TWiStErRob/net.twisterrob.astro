@@ -5,8 +5,17 @@
 	],
 	packageRules: [
 		{
+			description: "Auto-merge pre-stable dependencies if the CI passes.",
 			matchPackageNames: [
 				"io.nlopez.compose.rules:detekt",
+				"com.android.tools.screenshot:screenshot-validation-api",
+			],
+			automerge: true,
+		},
+		{
+			description: "Auto-merge pre-stable plugins if the CI passes.",
+			matchDepNames: [
+				"com.android.compose.screenshot",
 			],
 			automerge: true,
 		},
