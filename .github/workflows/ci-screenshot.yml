@@ -39,7 +39,7 @@ jobs:
 
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ steps.params.outputs.sha }}
 
@@ -114,7 +114,7 @@ jobs:
     steps:
 
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Download 'Screenshot Golden Values' artifact."
         uses: actions/download-artifact@v5
