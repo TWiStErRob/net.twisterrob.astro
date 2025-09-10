@@ -209,7 +209,7 @@ jobs:
           IDENTIFIER: >-
             ${{ github.ref }}@${{ github.sha }}
             (${{ github.event.pull_request.head.ref }}@${{ github.event.pull_request.head.sha }})
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           result-encoding: string
           # language=javascript
@@ -239,7 +239,7 @@ jobs:
           echo "${INDEX_HTML}" > index.html
 
       - name: "Upload 'github-pages' artifact."
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./
 
