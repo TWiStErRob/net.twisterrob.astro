@@ -209,7 +209,7 @@ jobs:
           IDENTIFIER: >-
             ${{ github.ref }}@${{ github.sha }}
             (${{ github.event.pull_request.head.ref }}@${{ github.event.pull_request.head.sha }})
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           result-encoding: string
           # language=javascript
