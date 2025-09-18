@@ -1,23 +1,3 @@
-/**
- * Pentagon Layout
- * * Five circles arranged at the corners of a pentagon.
- * * Circles positioned slightly outside the pentagon’s corners (on a larger orbit).
- *
- * Circle Properties
- * * Colors (clockwise from top/North): Yellow, Gray, Blue, Green, Red.
- * * Circles are clickable, supporting multiple active circles simultaneously.
- * * Clicking a circle triggers visual feedback: glow/expansion; clicking again deactivates it.
- *
- * Connecting Lines
- * * Lines connect adjacent circles.
- * * Lines display gradients blending the colors of connected circles.
- * * Active lines animate with a flowing gradient and subtle pulsing effect.
- *
- * Interactions & Animations
- * * Multiple circles can be active at the same time.
- * * Each active circle independently animates its connected lines.
- * * Visual feedback includes circle glow, scaling, and animated flowing lines.
- */
 package net.twisterrob.astro.widget.wuxing.cycle
 
 import androidx.compose.foundation.layout.Box
