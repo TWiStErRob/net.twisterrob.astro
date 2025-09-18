@@ -1,6 +1,7 @@
 package net.twisterrob.astro.widget.bazi.chart
 
 import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.filterToOne
 import androidx.compose.ui.test.hasAnySibling
 import androidx.compose.ui.test.hasText
@@ -149,11 +150,33 @@ class BaZiChartUiTest {
 	}
 
 	@Test
+	fun `minute add is clickable`() {
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
+
+		compose.onPillarAction("Minute", "add").performClick()
+
+		verify(mockListeners.onMinuteAdd).invoke()
+		mockListeners.verifyNoMoreInteractions()
+	}
+
+	@Test
+	fun `minute subtract is clickable`() {
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners)
+
+		compose.onPillarAction("Minute", "subtract").performClick()
+
+		verify(mockListeners.onMinuteSubtract).invoke()
+		mockListeners.verifyNoMoreInteractions()
+	}
+
+	@Test
 	fun `hourless hour add is not clickable`() {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
 
-		compose.onPillarAction("Hour", "add").assertDoesNotExist()
+		compose.onPillarAction("Hour", "add").assertIsNotEnabled()
 
 		mockListeners.verifyNoMoreInteractions()
 	}
@@ -163,7 +186,28 @@ class BaZiChartUiTest {
 		val mockListeners = TestListeners()
 		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
 
-		compose.onPillarAction("Hour", "subtract").assertDoesNotExist()
+		compose.onPillarAction("Hour", "subtract").assertIsNotEnabled()
+
+		mockListeners.verifyNoMoreInteractions()
+	}
+
+
+	@Test
+	fun `hourless minute add is not visible`() {
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
+
+		compose.onPillarAction("Minute", "add").assertDoesNotExist()
+
+		mockListeners.verifyNoMoreInteractions()
+	}
+
+	@Test
+	fun `hourless minute subtract is not visible`() {
+		val mockListeners = TestListeners()
+		compose.setContent(listeners = mockListeners, bazi = fixtHourlessBazi)
+
+		compose.onPillarAction("Minute", "subtract").assertDoesNotExist()
 
 		mockListeners.verifyNoMoreInteractions()
 	}
@@ -183,6 +227,8 @@ class BaZiChartUiTest {
 				onDaySubtract = listeners.onDaySubtract,
 				onHourAdd = listeners.onHourAdd,
 				onHourSubtract = listeners.onHourSubtract,
+				onMinuteAdd = listeners.onMinuteAdd,
+				onMinuteSubtract = listeners.onMinuteSubtract,
 			)
 		}
 	}
@@ -198,6 +244,8 @@ private class TestListeners(
 	val onDaySubtract: () -> Unit = mock(),
 	val onHourAdd: () -> Unit = mock(),
 	val onHourSubtract: () -> Unit = mock(),
+	val onMinuteAdd: () -> Unit = mock(),
+	val onMinuteSubtract: () -> Unit = mock(),
 ) {
 	fun verifyNoMoreInteractions() {
 		verifyNoMoreInteractions(
@@ -209,6 +257,8 @@ private class TestListeners(
 			onDaySubtract,
 			onHourAdd,
 			onHourSubtract,
+			onMinuteAdd,
+			onMinuteSubtract,
 		)
 	}
 }
