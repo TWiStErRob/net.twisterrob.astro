@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -13,6 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.widget.bazi.chart.BaZiChart
+import net.twisterrob.astro.widget.wuxing.cycle.WuXingCycle
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -127,6 +129,13 @@ private fun BaZiScreen(
 			onDaySubtract = onDaySubtract,
 			onHourAdd = onHourAdd,
 			onHourSubtract = onHourSubtract,
+		)
+		WuXingCycle(
+			modifier = Modifier
+				.align(alignment = Alignment.CenterHorizontally),
+			size = 150.dp,
+			circleRadius = 50.dp,
+			onItemClick = {},
 		)
 	}
 }
