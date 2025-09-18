@@ -84,7 +84,7 @@ internal fun pentagramPoints(size: Dp, outset: Dp): List<Offset> {
 @Composable
 private fun DestructiveCyclePreview() {
 	CycleLines(
-		phases = phases,
+		phases = Phase.entries,
 		active = setOf(Phase.Shui),
 		next = Phase::conquering,
 		size = 200.dp,
@@ -95,7 +95,7 @@ private fun DestructiveCyclePreview() {
 @Composable
 private fun GenerativeCyclePreview() {
 	CycleLines(
-		phases = phases,
+		phases = Phase.entries,
 		active = setOf(Phase.Shui),
 		next = Phase::livening,
 		size = 200.dp,
@@ -106,8 +106,8 @@ private fun GenerativeCyclePreview() {
 @Composable
 private fun GenerativeCycleAllSelectedPreview() {
 	CycleLines(
-		phases = phases,
-		active = phases.toSet(),
+		phases = Phase.entries,
+		active = Phase.entries.toSet(),
 		next = Phase::livening,
 		size = 200.dp,
 	)
@@ -117,7 +117,7 @@ private fun GenerativeCycleAllSelectedPreview() {
 @Composable
 private fun GenerativeCycleNoSelectedPreview() {
 	CycleLines(
-		phases = phases,
+		phases = Phase.entries,
 		active = emptySet(),
 		next = Phase::livening,
 		size = 200.dp,

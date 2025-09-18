@@ -133,6 +133,7 @@ private fun BaZiScreen(
 		WuXingCycle(
 			modifier = Modifier
 				.align(alignment = Alignment.CenterHorizontally),
+			phase = state.bazi.selfElement.phase,
 			size = 150.dp,
 			circleRadius = 50.dp,
 			onItemClick = {},

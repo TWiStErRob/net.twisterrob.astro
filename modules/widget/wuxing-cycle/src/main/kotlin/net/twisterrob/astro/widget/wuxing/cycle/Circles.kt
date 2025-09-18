@@ -55,7 +55,7 @@ public fun Circles(
 @Composable
 private fun CirclesPreview() {
 	Circles(
-		phases = phases,
+		phases = Phase.entries,
 		active = mutableSetOf(),
 		size = 300.dp,
 		circleRadius = 50.dp,

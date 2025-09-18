@@ -28,18 +28,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.Phase
 
 @Composable
 public fun WuXingCycle(
+	phase: Phase,
 	size: Dp,
 	circleRadius: Dp,
 	onItemClick: (Phase) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 	val active = remember { mutableStateSetOf<Phase>() }
+	val phases = generateSequence(phase) { it.livening }
+		.take(Phase.entries.size)
+		.toList()
 	Box(
 		modifier = modifier
 			.size(size + circleRadius * 3),
@@ -70,8 +75,11 @@ public fun WuXingCycle(
 
 @Preview(showBackground = true)
 @Composable
-private fun WuXingCyclePreview() {
+private fun WuXingCyclePreview(
+	@PreviewParameter(PhaseProvider::class) phase: Phase,
+) {
 	WuXingCycle(
+		phase = phase,
 		size = 300.dp,
 		circleRadius = 50.dp,
 		onItemClick = {},

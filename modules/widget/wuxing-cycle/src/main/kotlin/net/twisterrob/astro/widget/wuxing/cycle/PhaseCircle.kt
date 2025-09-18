@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.Phase
@@ -49,11 +48,6 @@ internal fun PhaseCircle(
 			fontSize = with(LocalDensity.current) { (radius / 2).toSp() },
 		)
 	}
-}
-
-private class PhaseProvider : PreviewParameterProvider<Phase> {
-	override val values: Sequence<Phase>
-		get() = Phase.entries.asSequence()
 }
 
 @Preview(showBackground = true)

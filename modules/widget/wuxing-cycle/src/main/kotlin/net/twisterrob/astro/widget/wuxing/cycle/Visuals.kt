@@ -3,8 +3,6 @@ package net.twisterrob.astro.widget.wuxing.cycle
 import androidx.compose.ui.graphics.Color
 import net.twisterrob.astro.bazi.model.Phase
 
-internal val phases = listOf(Phase.Tu, Phase.Jin, Phase.Shui, Phase.Mu, Phase.Huo)
-
 internal val Phase.label: String
 	get() = when (this) {
 		Phase.Mu -> "木" // "Wood"
