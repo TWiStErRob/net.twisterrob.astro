@@ -10,6 +10,7 @@ plugins {
 	id("net.twisterrob.astro.build.kotlin")
 	id("net.twisterrob.astro.build.testing-android")
 	id("net.twisterrob.astro.build.detekt")
+	id("net.twisterrob.astro.build.lint")
 }
 
 android {
@@ -38,11 +39,7 @@ android {
 	packaging {
 		resources {
 			excludes += "/META-INF/{LICENSE.md,LICENSE-notice.md}"
+			excludes += "/META-INF/versions/*/OSGI-INF/MANIFEST.MF"
 		}
-	}
-	lint {
-		warningsAsErrors = true
-		checkAllWarnings = true
-		lintConfig = rootProject.file("config/lint/lint.xml")
 	}
 }

@@ -7,20 +7,10 @@
 
 @file:Suppress("detekt.MaxLineLength")
 
-import com.android.build.api.variant.HasHostTests
-import com.android.compose.screenshot.tasks.PreviewDiscoveryTask
+import com.android.compose.screenshot.tasks.PreviewScreenshotUpdateTask
 import com.android.compose.screenshot.tasks.PreviewScreenshotValidationTask
-import com.android.compose.screenshot.tasks.ScreenshotTestReportTask
 import net.twisterrob.astro.build.dsl.android
-import net.twisterrob.astro.build.dsl.androidComponents
 import net.twisterrob.astro.build.dsl.isCI
-import org.gradle.api.internal.exceptions.MarkedVerificationException
-import org.gradle.internal.logging.ConsoleRenderer
-import org.gradle.kotlin.dsl.support.serviceOf
-import org.gradle.tooling.events.FinishEvent
-import org.gradle.tooling.events.OperationCompletionListener
-import org.gradle.tooling.events.task.TaskFailureResult
-import org.gradle.tooling.events.task.TaskFinishEvent
 
 plugins {
 	id("com.android.compose.screenshot")
@@ -36,16 +26,21 @@ tasks.withType<PreviewScreenshotValidationTask>().configureEach {
 	ignoreFailures = isCI.get()
 }
 
+// TODEL https://issuetracker.google.com/issues/433076233
+tasks.withType<PreviewScreenshotUpdateTask>().configureEach {
+	// Reverse @org.gradle.api.tasks.CacheableTask on this task, so Gradle doesn't do FROM-CACHE on it.
+	outputs.doNotCacheIf("https://issuetracker.google.com/issues/433076233") { true }
+}
+
 android {
 	@Suppress("UnstableApiUsage")
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
 	testOptions {
 		unitTests {
-			isIncludeAndroidResources = true
 			all { task ->
 				if (task.name.endsWith("ScreenshotTest")) {
-					// REPORT Disabling the test task.
+					// REPORT Disabling the test task, in case someone explicitly executes it.
 					// It's not actually needed for screenshot testing (validateDebugScreenshotTest is a Test task).
 					// Disabling it because it would trigger the following warnings:
 					// > > Task :*:testReleaseScreenshotTest
@@ -61,88 +56,17 @@ android {
 					// > There are test sources present but no test was executed. Please check your test configuration.
 					// > Consult the upgrading guide for further information:
 					// > https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#test_task_fail_on_no_test_executed
+
+					// Gradle 9:
+					// > There are test sources present and no filters are applied, 
+					// > but the test task did not discover any tests to execute. 
+					// > This is likely due to a misconfiguration. 
+					// > Please check your test configuration. 
+					// > If this is not a misconfiguration, 
+					// > this error can be disabled by setting the 'failOnNoDiscoveredTests' property to false.
 					task.enabled = false
 				}
 			}
-		}
-	}
-}
-
-// REPORT Each discovery task reports a big wall of warning. Not suppressible in any way.
-// > > Task :...:debugPreviewDiscovery
-// > WARNING: A terminally deprecated method in java.lang.System has been called
-// > WARNING: System::setSecurityManager has been called by com.android.tools.rendering.security.RenderSecurityManager
-// > (file:/${GRADLE_USER_HOME}/caches/modules-2/files-2.1/com.android.tools.compose/compose-preview-renderer/0.0.1-alpha01/{hash}/compose-preview-renderer-0.0.1-alpha01.jar)
-// > WARNING: Please consider reporting this to the maintainers of com.android.tools.rendering.security.RenderSecurityManager
-// > WARNING: System::setSecurityManager will be removed in a future release
-tasks.withType<PreviewDiscoveryTask>().configureEach {
-	// Not possible... it runs straight in Gradle process.
-	// javaLauncher = project.javaToolchains.launcherFor { ... }
-}
-
-// REPORT Preview discovery is not cacheable, it reruns every time inputs change.
-// Caching disabled for task ':...:debugPreviewDiscovery' because:
-// Gradle does not know how file
-// 'build\outputs\screenshotTest-results\preview\debug\results\TEST-results.xml'
-// was created (output property 'resultsDir').
-// Task output caching requires exclusive access to output paths to guarantee correctness
-// (i.e. multiple tasks are not allowed to produce output in the same location).
-tasks.withType<PreviewDiscoveryTask>().configureEach {
-	// Adding @CacheableTask / `outputs.cacheIf { true }` is not enough.
-}
-
-// REPORT Polyfill user friendly behavior:
-// No-one can read binary result files or wants to read XML for a stack trace of screenshot failures.
-// Instead, provide a clickable link to the HTML report which includes the visual diff.
-// The original failure looks like this (it'll still show up in the console):
-// > > Task :...:validateDebugScreenshotTest
-// >
-// > FAILURE: Build failed with an exception.
-// >
-// > * What went wrong:
-// > Execution failed for task ':...:validateDebugScreenshotTest'.
-// > > There were failing tests. See the results at: file:///.../build/test-results/validateDebugScreenshotTest/
-// This workaround adds an additional failure:
-// > Execution failed for task ':...:debugScreenshotReport'.
-// > > There were failing tests. See the report at: file:///.../build/reports/screenshotTest/preview/debug/index.html
-androidComponents.onVariants { variant ->
-	if (variant !is HasHostTests || !variant.debuggable) {
-		// The tasks we're looking for don't exist here (see PreviewScreenshotGradlePlugin), so just stop.
-		return@onVariants
-	}
-
-	val taskStateService = project.gradle.sharedServices
-		.registerIfAbsent("taskState", TaskStateService::class.java) { }
-	serviceOf<BuildEventsListenerRegistry>().onTaskCompletion(taskStateService)
-	val validateTaskPath = "${project.path}:validate${variant.name.replaceFirstChar { it.uppercase() }}ScreenshotTest"
-	val reportTaskName = "${variant.name}ScreenshotReport"
-	val reportTask = tasks.named<ScreenshotTestReportTask>(reportTaskName)
-
-	reportTask.configure {
-		usesService(taskStateService)
-		doLast {
-			val isValidateFailed = taskStateService.get().isFailed(validateTaskPath)
-			if (isValidateFailed) {
-				// Mimic what org.gradle.api.tasks.testing.AbstractTestTask.handleTestFailures does.
-				val report = this@configure.outputDir.file("index.html").get().asFile
-				val reportUrl = ConsoleRenderer().asClickableFileUrl(report)
-				throw MarkedVerificationException("There were failing tests. See the report at: ${reportUrl}")
-			}
-		}
-	}
-}
-
-abstract class TaskStateService : BuildService<BuildServiceParameters.None>, OperationCompletionListener {
-	private val state: MutableMap<String, TaskFinishEvent> = mutableMapOf()
-
-	fun isFailed(taskPath: String): Boolean {
-		val state = state[taskPath] ?: error("Task ${taskPath} is not complete yet.")
-		return state.result is TaskFailureResult
-	}
-
-	override fun onFinish(event: FinishEvent) {
-		if (event is TaskFinishEvent) {
-			state[event.descriptor.taskPath] = event
 		}
 	}
 }

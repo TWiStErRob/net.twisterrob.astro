@@ -34,18 +34,18 @@ jobs:
         with:
           key: golden-values-${{ steps.params.outputs.sha }}
           path: |
-            modules/**/src/*/screenshotTest/reference/**/*.png
+            modules/**/src/screenshotTest*/reference/**/*.png
         # If exists (steps.cache.outputs.cache-hit == 'true'), then skip recording steps.
 
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ steps.params.outputs.sha }}
 
       - name: "Set up Java."
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version-file: .java-version
           distribution: temurin
@@ -79,7 +79,7 @@ jobs:
           name: 'Screenshot Golden Values'
           if-no-files-found: error
           path: |
-            modules/**/src/*/screenshotTest/reference/**/*.png
+            modules/**/src/screenshotTest*/reference/**/*.png
 
       - name: "Store golden values to cache."
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
@@ -87,7 +87,7 @@ jobs:
         with:
           key: ${{ steps.cache.outputs.cache-primary-key }}
           path: |
-            modules/**/src/*/screenshotTest/reference/**/*.png
+            modules/**/src/screenshotTest*/reference/**/*.png
 
 
   verify:
@@ -114,17 +114,17 @@ jobs:
     steps:
 
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Download 'Screenshot Golden Values' artifact."
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: 'Screenshot Golden Values'
           # The recorded Golden Values are rooted at `modules/` because of the first `**` in the path.
           path: modules
 
       - name: "Set up Java."
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version-file: .java-version
           distribution: temurin
@@ -162,7 +162,7 @@ jobs:
           report_individual_runs: true
           test_changes_limit: 0
           action_fail_on_inconclusive: true
-          junit_files: modules/**/build/test-results/validate*ScreenshotTest/TEST-*.xml
+          files: modules/**/build/test-results/validate*ScreenshotTest/TEST-*.xml
 
 
   report:
@@ -196,7 +196,7 @@ jobs:
     steps:
       
       - name: "Download 'Screenshot Test Results' artifact."
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: 'Screenshot Test Results'
           path: modules
@@ -209,7 +209,7 @@ jobs:
           IDENTIFIER: >-
             ${{ github.ref }}@${{ github.sha }}
             (${{ github.event.pull_request.head.ref }}@${{ github.event.pull_request.head.sha }})
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           result-encoding: string
           # language=javascript
@@ -239,7 +239,7 @@ jobs:
           echo "${INDEX_HTML}" > index.html
 
       - name: "Upload 'github-pages' artifact."
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./
 

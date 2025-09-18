@@ -15,4 +15,8 @@ internal fun Project.configureTestTask(task: Test) {
 	task.ignoreFailures = isCI.get()
 	task.useJUnitPlatform()
 	task.systemProperties(junitPlatformProperties())
+	// Hide (https://stackoverflow.com/a/79098701/253468)
+	// > Java HotSpot(TM) 64-Bit Server VM warning:
+	// > Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+	task.jvmArgs("-Xshare:off")
 }
