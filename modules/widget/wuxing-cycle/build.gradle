@@ -5,6 +5,5 @@ plugins {
 
 dependencies {
 	implementation(projects.component.theme)
-	implementation(projects.screen.bazi)
-	implementation(projects.widget.wuxingCycle)
+	api(projects.domain.baziModel)
 }

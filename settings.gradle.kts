@@ -66,6 +66,7 @@ include(":screen:bazi")
 includeGroup(":widget")
 include(":widget:greeting")
 include(":widget:bazi-chart")
+include(":widget:wuxing-cycle")
 
 fun includeGroup(path: String) {
 	include(path)
