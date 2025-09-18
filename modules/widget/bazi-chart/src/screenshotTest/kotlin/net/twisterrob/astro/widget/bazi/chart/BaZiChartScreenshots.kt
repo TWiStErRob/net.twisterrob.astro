@@ -30,6 +30,8 @@ public class BaZiChartScreenshots {
 				onDaySubtract = {},
 				onHourAdd = {},
 				onHourSubtract = {},
+				onMinuteAdd = {},
+				onMinuteSubtract = {},
 			)
 		}
 	}
@@ -54,6 +56,8 @@ public class BaZiChartScreenshots {
 				onDaySubtract = {},
 				onHourAdd = {},
 				onHourSubtract = {},
+				onMinuteAdd = {},
+				onMinuteSubtract = {},
 			)
 		}
 	}
