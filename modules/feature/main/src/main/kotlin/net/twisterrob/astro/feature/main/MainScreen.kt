@@ -44,6 +44,7 @@ internal fun MainScreen() {
 				modifier = Modifier
 					.align(alignment = Alignment.CenterHorizontally),
 				size = 150.dp,
+				circleRadius = 50.dp,
 				onItemClick = {},
 			)
 		}

@@ -34,10 +34,10 @@ import net.twisterrob.astro.bazi.model.Phase
 
 @Composable
 public fun WuXingCycle(
+	size: Dp,
+	circleRadius: Dp,
 	onItemClick: (Phase) -> Unit,
 	modifier: Modifier = Modifier,
-	circleRadius: Dp = 50.dp,
-	size: Dp = 300.dp,
 ) {
 	val active = remember { mutableStateSetOf<Phase>() }
 	Box(
@@ -72,6 +72,8 @@ public fun WuXingCycle(
 @Composable
 private fun WuXingCyclePreview() {
 	WuXingCycle(
+		size = 300.dp,
+		circleRadius = 50.dp,
 		onItemClick = {},
 	)
 }
