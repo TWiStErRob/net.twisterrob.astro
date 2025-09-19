@@ -26,9 +26,11 @@ public fun WuXingCycle(
 	modifier: Modifier = Modifier,
 ) {
 	val active = remember { mutableStateSetOf<Phase>() }
+	@Suppress("UnnecessaryLet") // Readability.
 	val phases = generateSequence(phase) { it.livening }
 		.take(Phase.entries.size)
 		.toList()
+		.let(::PhaseList)
 	BoxWithConstraints(
 		modifier = modifier.fillMaxSize(),
 		contentAlignment = Alignment.Center,
@@ -45,12 +47,12 @@ public fun WuXingCycle(
 		) {
 			CycleLines(
 				phases = phases,
-				active = active,
+				active = PhaseList(active.toList()),
 				next = Phase::conquering,
 			)
 			CycleLines(
 				phases = phases,
-				active = active,
+				active = PhaseList(active.toList()),
 				next = Phase::livening,
 			)
 		}

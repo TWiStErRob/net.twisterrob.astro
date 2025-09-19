@@ -20,12 +20,12 @@ import net.twisterrob.astro.bazi.model.Phase
 
 @Composable
 internal fun CycleLines(
-	phases: List<Phase>,
-	active: Set<Phase>,
+	phases: PhaseList,
+	active: PhaseList,
 	next: Phase.() -> Phase,
 ) {
-	require(phases.size == Phase.entries.size) { "All phases must be covered." }
-	require(phases.distinct() == phases) { "Phases must be unique." }
+	require(phases.items.size == Phase.entries.size) { "All phases must be covered." }
+	require(phases.items.distinct() == phases.items) { "Phases must be unique." }
 
 	BoxWithConstraints(
 		modifier = Modifier,
@@ -40,13 +40,13 @@ internal fun CycleLines(
 				.size(size),
 		) {
 			val positionsPx = positions.map { it.toPx() }
-			for (phase in phases) {
+			for (phase in phases.items) {
 				val startPhase = phase
 				val endPhase = phase.next()
-				val isActive = startPhase in active || endPhase in active
+				val isActive = startPhase in active.items || endPhase in active.items
 
-				val start = positionsPx[phases.indexOf(startPhase)]
-				val end = positionsPx[phases.indexOf(endPhase)]
+				val start = positionsPx[phases.items.indexOf(startPhase)]
+				val end = positionsPx[phases.items.indexOf(endPhase)]
 				val stroke = if (isActive) thick else thin
 				val brush = Brush.linearGradient(
 					colors = listOf(
@@ -79,8 +79,8 @@ private fun DpOffset.toPx(): Offset = with(density) { Offset(x.toPx(), y.toPx())
 @Composable
 private fun DestructiveCyclePreview() {
 	CycleLines(
-		phases = Phase.entries,
-		active = setOf(Phase.Shui),
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(Phase.Shui),
 		next = Phase::conquering,
 	)
 }
@@ -89,8 +89,8 @@ private fun DestructiveCyclePreview() {
 @Composable
 private fun GenerativeCyclePreview() {
 	CycleLines(
-		phases = Phase.entries,
-		active = setOf(Phase.Shui),
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(Phase.Shui),
 		next = Phase::livening,
 	)
 }
@@ -99,8 +99,8 @@ private fun GenerativeCyclePreview() {
 @Composable
 private fun GenerativeCycleAllSelectedPreview() {
 	CycleLines(
-		phases = Phase.entries,
-		active = Phase.entries.toSet(),
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(Phase.entries),
 		next = Phase::livening,
 	)
 }
@@ -109,8 +109,8 @@ private fun GenerativeCycleAllSelectedPreview() {
 @Composable
 private fun GenerativeCycleNoSelectedPreview() {
 	CycleLines(
-		phases = Phase.entries,
-		active = emptySet(),
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(),
 		next = Phase::livening,
 	)
 }
@@ -119,8 +119,8 @@ private fun GenerativeCycleNoSelectedPreview() {
 @Composable
 private fun LandscapePreview() {
 	CycleLines(
-		phases = Phase.entries,
-		active = emptySet(),
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(),
 		next = Phase::livening,
 	)
 }
@@ -129,8 +129,8 @@ private fun LandscapePreview() {
 @Composable
 private fun PortraitPreview() {
 	CycleLines(
-		phases = Phase.entries,
-		active = emptySet(),
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(),
 		next = Phase::livening,
 	)
 }

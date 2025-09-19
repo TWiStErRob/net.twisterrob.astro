@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateSetOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateSet
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -14,21 +17,21 @@ import net.twisterrob.astro.bazi.model.Phase
 
 @Composable
 internal fun Circles(
-	phases: List<Phase>,
-	active: MutableSet<Phase>,
+	phases: PhaseList,
+	active: SnapshotStateSet<Phase>,
 	circleRadius: Dp,
 	onSelect: (Phase) -> Unit,
 	onDeselect: (Phase) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
-	require(phases.size == Phase.entries.size) { "All phases must be covered." }
+	require(phases.items.size == Phase.entries.size) { "All phases must be covered." }
 	BoxWithConstraints(
 		modifier = modifier,
 		contentAlignment = Alignment.Center,
 	) {
 		val size = min(maxWidth, maxHeight) - circleRadius
 		val circlePositions = pentagonPoints(size)
-		phases.forEachIndexed { index, phase ->
+		phases.items.forEachIndexed { index, phase ->
 			val pos = circlePositions[index]
 			PhaseCircle(
 				phase = phase,
@@ -55,8 +58,8 @@ internal fun Circles(
 private fun CirclesPreview() {
 	Circles(
 		modifier = Modifier.fillMaxSize(),
-		phases = Phase.entries,
-		active = mutableSetOf(),
+		phases = PhaseList(Phase.entries),
+		active = remember { mutableStateSetOf() },
 		circleRadius = 50.dp,
 		onSelect = {},
 		onDeselect = {},
