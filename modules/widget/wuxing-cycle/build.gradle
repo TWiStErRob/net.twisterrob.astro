@@ -5,7 +5,5 @@ plugins {
 
 dependencies {
 	implementation(projects.component.theme)
-	implementation(projects.widget.baziChart)
-	implementation(projects.widget.wuxingCycle)
-	implementation(projects.domain.baziCalculator.solar)
+	api(projects.domain.baziModel)
 }

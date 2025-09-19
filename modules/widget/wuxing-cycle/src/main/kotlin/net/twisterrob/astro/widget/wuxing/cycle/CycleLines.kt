@@ -1,0 +1,136 @@
+package net.twisterrob.astro.widget.wuxing.cycle
+
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
+import androidx.compose.ui.unit.min
+import net.twisterrob.astro.bazi.model.Phase
+
+@Composable
+internal fun CycleLines(
+	phases: PhaseList,
+	active: PhaseList,
+	next: Phase.() -> Phase,
+) {
+	require(phases.items.size == Phase.entries.size) { "All phases must be covered." }
+	require(phases.items.distinct() == phases.items) { "Phases must be unique." }
+
+	BoxWithConstraints(
+		modifier = Modifier,
+		contentAlignment = Alignment.Center,
+	) {
+		val thick = 16.dp
+		val thin = 8.dp
+		val size = min(maxWidth, maxHeight) - max(thin, thick)
+		val positions: List<DpOffset> = pentagonPoints(size)
+		Canvas(
+			modifier = Modifier
+				.size(size),
+		) {
+			val positionsPx = positions.map { it.toPx() }
+			for (phase in phases.items) {
+				val startPhase = phase
+				val endPhase = phase.next()
+				val isActive = startPhase in active.items || endPhase in active.items
+
+				val start = positionsPx[phases.items.indexOf(startPhase)]
+				val end = positionsPx[phases.items.indexOf(endPhase)]
+				val stroke = if (isActive) thick else thin
+				val brush = Brush.linearGradient(
+					colors = listOf(
+						startPhase.color,
+						endPhase.color,
+					),
+					start = start,
+					end = end,
+					tileMode = TileMode.Clamp,
+				)
+
+				drawLine(
+					brush = brush,
+					start = start,
+					end = end,
+					strokeWidth = stroke.toPx(),
+					cap = StrokeCap.Round
+				)
+			}
+		}
+	}
+}
+
+
+@Stable
+context(density: androidx.compose.ui.unit.Density)
+private fun DpOffset.toPx(): Offset = with(density) { Offset(x.toPx(), y.toPx()) }
+
+@Preview(widthDp = 200, heightDp = 200)
+@Composable
+private fun DestructiveCyclePreview() {
+	CycleLines(
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(Phase.Shui),
+		next = Phase::conquering,
+	)
+}
+
+@Preview(widthDp = 200, heightDp = 200)
+@Composable
+private fun GenerativeCyclePreview() {
+	CycleLines(
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(Phase.Shui),
+		next = Phase::livening,
+	)
+}
+
+@Preview(widthDp = 200, heightDp = 200)
+@Composable
+private fun GenerativeCycleAllSelectedPreview() {
+	CycleLines(
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(Phase.entries),
+		next = Phase::livening,
+	)
+}
+
+@Preview(widthDp = 200, heightDp = 200)
+@Composable
+private fun GenerativeCycleNoSelectedPreview() {
+	CycleLines(
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(),
+		next = Phase::livening,
+	)
+}
+
+@Preview(widthDp = 400, heightDp = 200)
+@Composable
+private fun LandscapePreview() {
+	CycleLines(
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(),
+		next = Phase::livening,
+	)
+}
+
+@Preview(widthDp = 200, heightDp = 400)
+@Composable
+private fun PortraitPreview() {
+	CycleLines(
+		phases = PhaseList(Phase.entries),
+		active = PhaseList(),
+		next = Phase::livening,
+	)
+}

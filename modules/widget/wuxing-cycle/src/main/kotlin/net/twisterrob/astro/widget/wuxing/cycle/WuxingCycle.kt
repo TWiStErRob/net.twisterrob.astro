@@ -1,0 +1,82 @@
+package net.twisterrob.astro.widget.wuxing.cycle
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateSetOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.min
+import net.twisterrob.astro.bazi.model.Phase
+
+/**
+ * Widget to render a the Wuxing cycle.
+ *
+ * A pentagram/pentagon with lines representing constructive and destructive relationships between [Phase]s.
+ *
+ * See https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)
+ */
+@Composable
+public fun WuxingCycle(
+	phase: Phase,
+	onSelect: (Phase) -> Unit,
+	onDeselect: (Phase) -> Unit,
+	modifier: Modifier = Modifier,
+) {
+	val active = remember { mutableStateSetOf<Phase>() }
+	@Suppress("UnnecessaryLet") // Readability.
+	val phases = generateSequence(phase) { it.livening }
+		.take(Phase.entries.size)
+		.toList()
+		.let(::PhaseList)
+	BoxWithConstraints(
+		modifier = modifier.fillMaxSize(),
+		contentAlignment = Alignment.Center,
+	) {
+		val size = min(maxWidth, maxHeight)
+		// Just a guess, arbitrary ratio based on size.
+		val circleRadius = size / @Suppress("detekt.MagicNumber") 5
+		// 0 = inside, circleRadius = outside
+		val circleOffsetRatio = @Suppress("detekt.MagicNumber") 0.5f
+		Box(
+			modifier = Modifier
+				.padding(circleRadius * circleOffsetRatio),
+			contentAlignment = Alignment.Center,
+		) {
+			CycleLines(
+				phases = phases,
+				active = PhaseList(active.toList()),
+				next = Phase::conquering,
+			)
+			CycleLines(
+				phases = phases,
+				active = PhaseList(active.toList()),
+				next = Phase::livening,
+			)
+		}
+		Circles(
+			phases = phases,
+			active = active,
+			circleRadius = circleRadius,
+			onSelect = onSelect,
+			onDeselect = onDeselect,
+		)
+	}
+}
+
+@Preview
+@Composable
+private fun WuxingCyclePreview(
+	@PreviewParameter(PhaseProvider::class) phase: Phase,
+) {
+	WuxingCycle(
+		phase = phase,
+		onSelect = {},
+		onDeselect = {},
+	)
+}
