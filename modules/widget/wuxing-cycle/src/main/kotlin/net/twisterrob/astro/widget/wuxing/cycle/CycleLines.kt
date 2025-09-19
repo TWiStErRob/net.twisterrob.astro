@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
@@ -73,7 +72,7 @@ internal fun CycleLines(
 
 
 @Stable
-context(density: Density)
+context(density: androidx.compose.ui.unit.Density)
 private fun DpOffset.toPx(): Offset = with(density) { Offset(x.toPx(), y.toPx()) }
 
 @Preview(widthDp = 200, heightDp = 200)

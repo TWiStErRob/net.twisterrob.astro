@@ -152,7 +152,8 @@ private fun BaZiScreen(
 				.padding(16.dp)
 				.align(alignment = Alignment.CenterHorizontally),
 			phase = state.bazi.selfElement.phase,
-			onItemClick = {},
+			onSelect = {},
+			onDeselect = {},
 		)
 	}
 }

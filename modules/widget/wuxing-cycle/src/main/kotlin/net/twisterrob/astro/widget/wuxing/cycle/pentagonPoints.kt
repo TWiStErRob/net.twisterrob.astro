@@ -26,7 +26,7 @@ internal fun pentagonPoints(size: Dp): List<DpOffset> = pentagonPointsMath(size)
  * This 5-point shape where each point touches a side of the square,
  * is not a regular pentagon or pentagram, but very closely resembles one.
  */
-@Suppress("detekt.MagicNumber")
+@Suppress("detekt.MagicNumber", "detekt.UnusedPrivateMember")
 @Composable
 private fun pentagonPointsNumeric(size: Dp): List<DpOffset> {
 	val y = size * 0.391642f       // the height of the cross-line
@@ -49,7 +49,7 @@ private fun pentagonPointsNumeric(size: Dp): List<DpOffset> {
 @Composable
 private fun pentagonPointsMath(size: Dp): List<DpOffset> {
 	val π = PI.toFloat()
-	val (center, radius) = maximallyInscribedPentagonCircumCircle(size)
+	val (center, radius) = maxInscribedPentaCircumCircle(size)
 
 	val pentagonVertices = 5
 	// 360° (2π) full circle divided into 5 is 72° each
@@ -72,7 +72,7 @@ private fun pentagonPointsMath(size: Dp): List<DpOffset> {
  * Example numbers and calculations validated against https://www.omnicalculator.com/math/pentagon
  */
 @Suppress("LocalVariableName", "NonAsciiCharacters", "detekt.VariableNaming", "detekt.MagicNumber")
-private fun maximallyInscribedPentagonCircumCircle(size: Dp): Pair<DpOffset, Dp> {
+private fun maxInscribedPentaCircumCircle(size: Dp): Pair<DpOffset, Dp> {
 	val π = PI.toFloat()
 	val φ = (1 + sqrt(5f)) / 2 // φ = (1 + √5) / 2 = 1.6180339
 	// Using the input size as the width of the pentagon, which gives us the widest possible pentagon.
@@ -92,9 +92,9 @@ private fun maximallyInscribedPentagonCircumCircle(size: Dp): Pair<DpOffset, Dp>
 	val cx = d / 2f
 	// To get the vertical center, we can use R as the base, because the top vertex is at 0 height.
 	// The remaining space is the difference between the bound's height and the pentagon height.
-	val leftOver = (size - h)
+	val leftOver = size - h
 	// We split the remaining space equally above and below the pentagon to get perfect center.
 	val cy = R + leftOver / 2
 	val center = DpOffset(cx, cy)
-	return Pair(center, R)
+	return center to R
 }

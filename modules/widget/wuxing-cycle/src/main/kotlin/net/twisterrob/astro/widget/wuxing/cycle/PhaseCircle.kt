@@ -22,6 +22,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.Phase
 
+private const val NormalScale = 1f
+private const val ActiveScale = 1.2f
+
 @Composable
 internal fun PhaseCircle(
 	phase: Phase,
@@ -30,13 +33,14 @@ internal fun PhaseCircle(
 	onClick: () -> Unit,
 	modifier: Modifier = Modifier,
 ) {
-	val scale by animateFloatAsState(if (isActive) 1.2f else 1f)
+	val scale by animateFloatAsState(if (isActive) ActiveScale else NormalScale)
 
+	val elevation = if (isActive) radius / @Suppress("detekt.MagicNumber") 3 else 0.dp
 	Box(
 		modifier = modifier
 			.size(radius)
 			.scale(scale)
-			.shadow(if (isActive) radius / 3 else 0.dp, shape = CircleShape, clip = false)
+			.shadow(elevation, shape = CircleShape, clip = false)
 			.clip(CircleShape)
 			.background(phase.color, shape = CircleShape)
 			.clickable { onClick() },

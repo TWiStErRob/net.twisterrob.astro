@@ -13,11 +13,12 @@ import androidx.compose.ui.unit.min
 import net.twisterrob.astro.bazi.model.Phase
 
 @Composable
-public fun Circles(
+internal fun Circles(
 	phases: List<Phase>,
 	active: MutableSet<Phase>,
 	circleRadius: Dp,
-	onItemClick: (Phase) -> Unit,
+	onSelect: (Phase) -> Unit,
+	onDeselect: (Phase) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 	require(phases.size == Phase.entries.size) { "All phases must be covered." }
@@ -38,9 +39,10 @@ public fun Circles(
 				onClick = {
 					if (phase in active) {
 						active.remove(phase)
+						onDeselect(phase)
 					} else {
 						active.add(phase)
-						onItemClick(phase)
+						onSelect(phase)
 					}
 				},
 			)
@@ -56,6 +58,7 @@ private fun CirclesPreview() {
 		phases = Phase.entries,
 		active = mutableSetOf(),
 		circleRadius = 50.dp,
-		onItemClick = { /* click preview */ },
+		onSelect = {},
+		onDeselect = {},
 	)
 }

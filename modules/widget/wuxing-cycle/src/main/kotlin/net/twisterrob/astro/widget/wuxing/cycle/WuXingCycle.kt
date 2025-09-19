@@ -14,10 +14,15 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.min
 import net.twisterrob.astro.bazi.model.Phase
 
+/**
+ * Widget to render a the WuXing cycle.
+ * A pentagram/pentagon with lines representing constructive and destructive relationships between [Phase]s.
+ */
 @Composable
 public fun WuXingCycle(
 	phase: Phase,
-	onItemClick: (Phase) -> Unit,
+	onSelect: (Phase) -> Unit,
+	onDeselect: (Phase) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 	val active = remember { mutableStateSetOf<Phase>() }
@@ -53,7 +58,8 @@ public fun WuXingCycle(
 			phases = phases,
 			active = active,
 			circleRadius = circleRadius,
-			onItemClick = onItemClick,
+			onSelect = onSelect,
+			onDeselect = onDeselect,
 		)
 	}
 }
@@ -65,6 +71,7 @@ private fun WuXingCyclePreview(
 ) {
 	WuXingCycle(
 		phase = phase,
-		onItemClick = {},
+		onSelect = {},
+		onDeselect = {},
 	)
 }
