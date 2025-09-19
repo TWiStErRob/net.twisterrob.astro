@@ -16,7 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import net.twisterrob.astro.bazi.SolarCalculator
 import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.widget.bazi.chart.BaZiChart
-import net.twisterrob.astro.widget.wuxing.cycle.WuXingCycle
+import net.twisterrob.astro.widget.wuxing.cycle.WuxingCycle
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -147,7 +147,7 @@ private fun BaZiScreen(
 			onMinuteAdd = onMinuteAdd,
 			onMinuteSubtract = onMinuteSubtract,
 		)
-		WuXingCycle(
+		WuxingCycle(
 			modifier = Modifier
 				.padding(16.dp)
 				.align(alignment = Alignment.CenterHorizontally),

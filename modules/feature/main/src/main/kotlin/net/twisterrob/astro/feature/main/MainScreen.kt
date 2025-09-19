@@ -1,6 +1,5 @@
 package net.twisterrob.astro.feature.main
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -33,11 +32,7 @@ internal fun MainScreen() {
 		},
 		modifier = Modifier.fillMaxSize(),
 	) { innerPadding ->
-		Column(
-			modifier = Modifier.padding(innerPadding)
-		) {
-			BaZiScreen()
-		}
+		BaZiScreen(Modifier.padding(innerPadding))
 	}
 }
 

@@ -50,8 +50,8 @@ internal fun CycleLines(
 				val stroke = if (isActive) thick else thin
 				val brush = Brush.linearGradient(
 					colors = listOf(
-						startPhase.color.copy(alpha = .3f),
-						endPhase.color.copy(alpha = .3f)
+						startPhase.color,
+						endPhase.color,
 					),
 					start = start,
 					end = end,

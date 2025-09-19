@@ -5,16 +5,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.android.tools.screenshot.PreviewTest
 import net.twisterrob.astro.bazi.model.Phase
 import net.twisterrob.astro.component.theme.AppTheme
-import net.twisterrob.astro.widget.wuxing.cycle.WuXingCycle
+import net.twisterrob.astro.widget.wuxing.cycle.WuxingCycle
 
-public class WuXingCycleScreenshots {
+public class WuxingCycleScreenshots {
 
 	@Preview
 	@PreviewTest
 	@Composable
 	private fun EarthCycle() {
 		AppTheme {
-			WuXingCycle(
+			WuxingCycle(
 				phase = Phase.Tu,
 				onSelect = {},
 				onDeselect = {},
