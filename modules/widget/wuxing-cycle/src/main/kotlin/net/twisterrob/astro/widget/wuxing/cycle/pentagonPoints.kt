@@ -3,18 +3,51 @@ package net.twisterrob.astro.widget.wuxing.cycle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.dp
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 import kotlin.math.tan
 
+@Composable
+internal fun pentagonPoints(size: Dp): List<DpOffset> = pentagonPointsMath(size)
+
+/**
+ * Perfect equilateral pentagon inscribed in a square:
+ * 5 points on a bounding box square of [size].
+ * * the first one touching the top
+ * * the second one touching the right side
+ * * the third one touching the bottom, and near the bottom right corner
+ * * the fourth one touching the bottom, and near the bottom left corner
+ * * the fifth one touching the left side
+ * Plus a constraint that each side of the shape are of equal length.
+ *
+ * This 5-point shape where each point touches a side of the square,
+ * is not a regular pentagon or pentagram, but very closely resembles one.
+ */
+@Suppress("detekt.MagicNumber")
+@Composable
+private fun pentagonPointsNumeric(size: Dp): List<DpOffset> {
+	val y = size * 0.391642f       // the height of the cross-line
+	val xLeft = size * 0.182438f
+	val xRight = size * 0.817562f
+
+	return listOf(
+		DpOffset(size / 2f, 0.dp), // top-center
+		DpOffset(size, y),         // top-right
+		DpOffset(xRight, size),    // bottom-right
+		DpOffset(xLeft, size),     // bottom-left
+		DpOffset(0.dp, y)          // top-left
+	)
+}
+
 /**
  * Convex equilateral (regular) pentagon maximally inscribed in a square with sides [size] without rotation.
  */
 @Suppress("LocalVariableName", "NonAsciiCharacters", "detekt.VariableNaming", "detekt.MagicNumber")
 @Composable
-internal fun pentagonPoints(size: Dp): List<DpOffset> {
+private fun pentagonPointsMath(size: Dp): List<DpOffset> {
 	val π = PI.toFloat()
 	val (center, radius) = maximallyInscribedPentagonCircumCircle(size)
 
