@@ -18,7 +18,7 @@ import net.twisterrob.astro.bazi.model.Phase
  * Widget to render a the Wuxing cycle.
  *
  * A pentagram/pentagon with lines representing constructive and destructive relationships between [Phase]s.
- * 
+ *
  * See https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)
  */
 @Composable
