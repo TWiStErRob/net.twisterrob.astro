@@ -31,10 +31,11 @@ public fun WuXingCycle(
 		val size = min(maxWidth, maxHeight)
 		// Just a guess, arbitrary ratio based on size.
 		val circleRadius = size / @Suppress("detekt.MagicNumber") 5
+		// 0 = inside, circleRadius = outside
+		val circleOffsetRatio = @Suppress("detekt.MagicNumber") 0.5f
 		Box(
 			modifier = Modifier
-				// Offset of the circle compared to the pentagon/pentagram.
-				.padding(circleRadius), // 0 = inside, radius = outside
+				.padding(circleRadius * circleOffsetRatio),
 			contentAlignment = Alignment.Center,
 		) {
 			CycleLines(

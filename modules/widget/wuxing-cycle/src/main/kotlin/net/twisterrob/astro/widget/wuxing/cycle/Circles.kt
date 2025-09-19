@@ -26,7 +26,7 @@ public fun Circles(
 		contentAlignment = Alignment.Center,
 	) {
 		val size = min(maxWidth, maxHeight) - circleRadius
-		val circlePositions = pentagramPoints(size)
+		val circlePositions = pentagonPoints(size)
 		phases.forEachIndexed { index, phase ->
 			val pos = circlePositions[index]
 			PhaseCircle(
