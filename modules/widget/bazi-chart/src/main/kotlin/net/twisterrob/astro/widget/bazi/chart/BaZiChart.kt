@@ -21,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -309,9 +310,13 @@ private fun DisabledContentText(content: @Composable () -> Unit) {
 }
 
 private val HeavenlyStem.label: String
+	@Composable
+	@ReadOnlyComposable
 	get() = "${polarity.label} ${phase.label}"
 
 private val EarthlyBranch.label: String
+	@Composable
+	@ReadOnlyComposable
 	get() = "${zodiac.label}\n${zodiac.charge.label}"
 
 @Preview
