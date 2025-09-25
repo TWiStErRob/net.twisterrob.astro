@@ -7,21 +7,29 @@ import androidx.compose.material3.TimeInput
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerDialog
 import androidx.compose.material3.TimePickerDialogDefaults
+import androidx.compose.material3.TimePickerDialogDefaults.MinHeightForTimePicker
 import androidx.compose.material3.TimePickerDisplayMode
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.compose.preview.PreviewOrientation
 import java.time.LocalTime
 import java.time.ZonedDateTime
 
+/**
+ * See TimePickerSamples.kt in androidx.compose.material3:material3-android/material3-1.4.0-samples-sources.jar
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TimePickerDialog(
@@ -38,21 +46,28 @@ internal fun TimePickerDialog(
 	var displayModeState by rememberSaveable(stateSaver = TimePickerDisplayModeSaver) {
 		mutableStateOf(displayMode)
 	}
+	if (!hasEnoughSpace()) {
+		// Force Input mode if there is not enough space to show the Picker.
+		displayModeState = TimePickerDisplayMode.Input
+	}
+
 	TimePickerDialog(
 		title = {
 			TimePickerDialogDefaults.Title(displayMode)
 		},
 		modeToggleButton = {
-			TimePickerDialogDefaults.DisplayModeToggle(
-				displayMode = displayModeState,
-				onDisplayModeChange = {
-					displayModeState = when (displayModeState) {
-						TimePickerDisplayMode.Input -> TimePickerDisplayMode.Picker
-						TimePickerDisplayMode.Picker -> TimePickerDisplayMode.Input
-						else -> error("Unsupported mode $displayModeState")
-					}
-				},
-			)
+			if (!hasEnoughSpace()) {
+				TimePickerDialogDefaults.DisplayModeToggle(
+					displayMode = displayModeState,
+					onDisplayModeChange = {
+						displayModeState = when (displayModeState) {
+							TimePickerDisplayMode.Input -> TimePickerDisplayMode.Picker
+							TimePickerDisplayMode.Picker -> TimePickerDisplayMode.Input
+							else -> error("Unsupported mode $displayModeState")
+						}
+					},
+				)
+			}
 		},
 		confirmButton = {
 			TextButton({ onSelectTime(pickerState.selectedLocalTime) }) {
@@ -74,6 +89,14 @@ internal fun TimePickerDialog(
 			TimePickerDisplayMode.Picker -> TimePicker(pickerState)
 		}
 	}
+}
+
+@Composable
+@ReadOnlyComposable
+private fun hasEnoughSpace(): Boolean {
+	val minHeight = with(LocalDensity.current) { MinHeightForTimePicker.toPx() }
+	val windowHeight = LocalWindowInfo.current.containerSize.height
+	return minHeight <= windowHeight
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -111,9 +134,37 @@ private fun PickerPreview() {
 	}
 }
 
+@Preview(heightDp = 250)
+@Composable
+private fun PickerFixedPreview() {
+	AppTheme {
+		TimePickerDialog(
+			state = ZonedDateTime.now(),
+			onSelectTime = {},
+			onHideTimePicker = {},
+			onResetToNow = {},
+			displayMode = TimePickerDisplayMode.Picker,
+		)
+	}
+}
+
 @PreviewOrientation
 @Composable
 private fun InputPreview() {
+	AppTheme {
+		TimePickerDialog(
+			state = ZonedDateTime.now(),
+			onSelectTime = {},
+			onHideTimePicker = {},
+			onResetToNow = {},
+			displayMode = TimePickerDisplayMode.Input,
+		)
+	}
+}
+
+@Preview(heightDp = 250)
+@Composable
+private fun InputFixedPreview() {
 	AppTheme {
 		TimePickerDialog(
 			state = ZonedDateTime.now(),
