@@ -37,7 +37,7 @@ import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
 import net.twisterrob.astro.component.data.color
-import net.twisterrob.astro.component.data.label
+import net.twisterrob.astro.component.data.symbol
 import net.twisterrob.astro.component.theme.AppTheme
 
 /**
@@ -307,38 +307,8 @@ private fun DisabledContentText(content: @Composable () -> Unit) {
 	}
 }
 
-private val EarthlyBranch.symbol: String
-	get() = when (this) {
-		EarthlyBranch.Zi -> "子"
-		EarthlyBranch.Chou -> "丑"
-		EarthlyBranch.Yin -> "寅"
-		EarthlyBranch.Mao -> "卯"
-		EarthlyBranch.Chen -> "辰"
-		EarthlyBranch.Si -> "巳"
-		EarthlyBranch.Wu -> "午"
-		EarthlyBranch.Wei -> "未"
-		EarthlyBranch.Shen -> "申"
-		EarthlyBranch.You -> "酉"
-		EarthlyBranch.Xu -> "戌"
-		EarthlyBranch.Hai -> "亥"
-	}
-
-private val HeavenlyStem.symbol: String
-	get() = when (this) {
-		HeavenlyStem.Jia -> "甲"
-		HeavenlyStem.Yi -> "乙"
-		HeavenlyStem.Bing -> "丙"
-		HeavenlyStem.Ding -> "丁"
-		HeavenlyStem.Wu -> "戊"
-		HeavenlyStem.Ji -> "己"
-		HeavenlyStem.Geng -> "庚"
-		HeavenlyStem.Xin -> "辛"
-		HeavenlyStem.Ren -> "壬"
-		HeavenlyStem.Gui -> "癸"
-	}
-
 private val HeavenlyStem.label: String
-	get() = "${polarity.name} ${phase.label}"
+	get() = "${polarity.name} ${phase.symbol}"
 
 private val EarthlyBranch.label: String
 	get() = "${zodiac.name}\n${zodiac.charge.label}"

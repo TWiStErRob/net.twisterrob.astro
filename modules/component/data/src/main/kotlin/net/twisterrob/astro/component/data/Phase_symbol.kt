@@ -2,7 +2,7 @@ package net.twisterrob.astro.component.data
 
 import net.twisterrob.astro.bazi.model.Phase
 
-public val Phase.label: String
+public val Phase.symbol: String
 	get() = when (this) {
 		Phase.Mu -> "木" // "Wood"
 		Phase.Huo -> "火" // "Fire"
