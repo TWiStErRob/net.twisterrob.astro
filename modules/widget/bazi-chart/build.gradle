@@ -5,5 +5,6 @@ plugins {
 
 dependencies {
 	implementation(projects.component.theme)
+	implementation(projects.component.data)
 	implementation(projects.domain.baziModel)
 }
