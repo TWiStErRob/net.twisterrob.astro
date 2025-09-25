@@ -11,11 +11,11 @@
 	<string name="widget_bazi_chart__pillar_title_minus">subtract</string>
 
 	<!-- &#8194; is en-space, needs to be quoted, because Android ignores it otherwise. -->
-	<string name="widget_bazi_chart__pillar_unknown_hour_stem_symbol" translatable="false" tools:ignore="DuplicateStrings">"&#8194;？"</string>
+	<string name="widget_bazi_chart__pillar_unknown_hour_stem_symbol" translatable="false">"&#8194;？"</string>
 	<string name="widget_bazi_chart__pillar_unknown_hour_stem_label" tools:ignore="DuplicateStrings">Unknown</string>
 
 	<!-- &#8194; is en-space, needs to be because Android ignores it otherwise. -->
-	<string name="widget_bazi_chart__pillar_unknown_hour_branch_symbol" translatable="false" tools:ignore="DuplicateStrings">"&#8194;？"</string>
+	<string name="widget_bazi_chart__pillar_unknown_hour_branch_symbol" translatable="false">"&#8194;？"</string>
 	<string name="widget_bazi_chart__pillar_unknown_hour_branch_label" tools:ignore="DuplicateStrings">Unknown</string>
 
 </resources>
