@@ -37,6 +37,7 @@ import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
 import net.twisterrob.astro.component.data.color
+import net.twisterrob.astro.component.data.label
 import net.twisterrob.astro.component.data.symbol
 import net.twisterrob.astro.component.theme.AppTheme
 
@@ -308,7 +309,7 @@ private fun DisabledContentText(content: @Composable () -> Unit) {
 }
 
 private val HeavenlyStem.label: String
-	get() = "${polarity.name} ${phase.symbol}"
+	get() = "${polarity.name} ${phase.label}"
 
 private val EarthlyBranch.label: String
 	get() = "${zodiac.name}\n${zodiac.charge.label}"
