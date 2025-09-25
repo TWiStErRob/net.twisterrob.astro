@@ -4,14 +4,14 @@ import net.twisterrob.astro.bazi.model.HeavenlyStem
 
 public val HeavenlyStem.symbol: String
 	get() = when (this) {
-		HeavenlyStem.Jia -> "甲"
-		HeavenlyStem.Yi -> "乙"
-		HeavenlyStem.Bing -> "丙"
-		HeavenlyStem.Ding -> "丁"
-		HeavenlyStem.Wu -> "戊"
-		HeavenlyStem.Ji -> "己"
-		HeavenlyStem.Geng -> "庚"
-		HeavenlyStem.Xin -> "辛"
-		HeavenlyStem.Ren -> "壬"
-		HeavenlyStem.Gui -> "癸"
+		HeavenlyStem.Jia -> "甲" // Yang Wood
+		HeavenlyStem.Yi -> "乙" // Yin Wood
+		HeavenlyStem.Bing -> "丙" // Yang Fire
+		HeavenlyStem.Ding -> "丁" // Yin Fire
+		HeavenlyStem.Wu -> "戊" // Yang Earth
+		HeavenlyStem.Ji -> "己" // Yin Earth
+		HeavenlyStem.Geng -> "庚" // Yang Metal
+		HeavenlyStem.Xin -> "辛" // Yin Metal
+		HeavenlyStem.Ren -> "壬" // Yang Water
+		HeavenlyStem.Gui -> "癸" // Yin Water
 	}

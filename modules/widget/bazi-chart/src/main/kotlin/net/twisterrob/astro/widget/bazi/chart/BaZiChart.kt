@@ -309,10 +309,10 @@ private fun DisabledContentText(content: @Composable () -> Unit) {
 }
 
 private val HeavenlyStem.label: String
-	get() = "${polarity.name} ${phase.label}"
+	get() = "${polarity.label} ${phase.label}"
 
 private val EarthlyBranch.label: String
-	get() = "${zodiac.name}\n${zodiac.charge.label}"
+	get() = "${zodiac.label}\n${zodiac.charge.label}"
 
 @Preview
 @Composable
