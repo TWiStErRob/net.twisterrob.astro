@@ -6,11 +6,14 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimeInput
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerDialog
+import androidx.compose.material3.TimePickerDialogDefaults
+import androidx.compose.material3.TimePickerDisplayMode
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
@@ -18,11 +21,6 @@ import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.compose.preview.PreviewOrientation
 import java.time.LocalTime
 import java.time.ZonedDateTime
-
-internal enum class TimePickerDisplayMode {
-	Input,
-	Picker,
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,22 +35,23 @@ internal fun TimePickerDialog(
 		initialHour = state.hour,
 		initialMinute = state.minute,
 	)
-	var displayModeState by rememberSaveable { mutableStateOf(displayMode) }
+	var displayModeState by rememberSaveable(stateSaver = TimePickerDisplayModeSaver) {
+		mutableStateOf(displayMode)
+	}
 	TimePickerDialog(
 		title = {
-			Text(
-				text = stringResource(
-					when (displayModeState) {
-						TimePickerDisplayMode.Input -> R.string.screen_bazi__time_picker_mode_input_title
-						TimePickerDisplayMode.Picker -> R.string.screen_bazi__time_picker_mode_picker_title
-					}
-				)
-			)
+			TimePickerDialogDefaults.Title(displayMode)
 		},
 		modeToggleButton = {
-			DisplayModeToggleButton(
+			TimePickerDialogDefaults.DisplayModeToggle(
 				displayMode = displayModeState,
-				onDisplayModeChange = { displayModeState = it },
+				onDisplayModeChange = {
+					displayModeState = when (displayModeState) {
+						TimePickerDisplayMode.Input -> TimePickerDisplayMode.Picker
+						TimePickerDisplayMode.Picker -> TimePickerDisplayMode.Input
+						else -> error("Unsupported mode $displayModeState")
+					}
+				},
 			)
 		},
 		confirmButton = {
@@ -80,6 +79,23 @@ internal fun TimePickerDialog(
 @OptIn(ExperimentalMaterial3Api::class)
 private val TimePickerState.selectedLocalTime: LocalTime
 	get() = LocalTime.of(this.hour, this.minute)
+
+private val TimePickerDisplayModeSaver: Saver<TimePickerDisplayMode, String> = Saver(
+	save = { mode ->
+		when (mode) {
+			TimePickerDisplayMode.Input -> "Input"
+			TimePickerDisplayMode.Picker -> "Picker"
+			else -> null // Unsupported mode.
+		}
+	},
+	restore = { value ->
+		when (value) {
+			"Input" -> TimePickerDisplayMode.Input
+			"Picker" -> TimePickerDisplayMode.Picker
+			else -> null // Unsupported mode.
+		}
+	},
+)
 
 @PreviewOrientation
 @Composable
