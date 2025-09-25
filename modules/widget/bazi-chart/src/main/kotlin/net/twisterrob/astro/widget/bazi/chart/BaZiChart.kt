@@ -36,7 +36,8 @@ import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
-import net.twisterrob.astro.bazi.model.Phase
+import net.twisterrob.astro.component.data.color
+import net.twisterrob.astro.component.data.label
 import net.twisterrob.astro.component.theme.AppTheme
 
 /**
@@ -341,25 +342,6 @@ private val HeavenlyStem.label: String
 
 private val EarthlyBranch.label: String
 	get() = "${zodiac.name}\n${zodiac.charge.label}"
-
-private val Phase.label: String
-	get() = when (this) {
-		Phase.Mu -> "Wood"
-		Phase.Huo -> "Fire"
-		Phase.Tu -> "Earth"
-		Phase.Jin -> "Metal"
-		Phase.Shui -> "Water"
-	}
-
-private val Phase.color: Color
-	@Suppress("detekt.MagicNumber")
-	get() = when (this) {
-		Phase.Mu -> Color(0xFF90EE90)
-		Phase.Huo -> Color(0xFFF08080)
-		Phase.Tu -> Color(0xFFDEB887)
-		Phase.Jin -> Color(0xFFB0B0B0)
-		Phase.Shui -> Color(0xFF87CEFA)
-	}
 
 @Preview
 @Composable

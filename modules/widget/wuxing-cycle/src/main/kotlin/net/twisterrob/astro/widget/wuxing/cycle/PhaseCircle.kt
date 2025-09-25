@@ -21,6 +21,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.Phase
+import net.twisterrob.astro.component.data.color
+import net.twisterrob.astro.component.data.label
 
 private const val NormalScale = 1f
 private const val ActiveScale = 1.2f
