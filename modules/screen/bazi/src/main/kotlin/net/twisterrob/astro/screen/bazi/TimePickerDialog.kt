@@ -1,20 +1,38 @@
 package net.twisterrob.astro.screen.bazi
 
-import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TimeInput
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TimePickerDialog
+import androidx.compose.material3.TimePickerDialogDefaults
+import androidx.compose.material3.TimePickerDialogDefaults.MinHeightForTimePicker
+import androidx.compose.material3.TimePickerDisplayMode
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import net.twisterrob.astro.component.theme.AppTheme
 import net.twisterrob.astro.compose.preview.PreviewOrientation
 import java.time.LocalTime
 import java.time.ZonedDateTime
 
+/**
+ * Time picker dialog allowing to select/enter a time (hour, minute).
+ *
+ * See https://developer.android.com/develop/ui/compose/components/time-pickers-dialogs
+ * See TimePickerSamples.kt in androidx.compose.material3:material3-android/material3-1.4.0-samples-sources.jar
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TimePickerDialog(
@@ -22,18 +40,43 @@ internal fun TimePickerDialog(
 	onSelectTime: (LocalTime) -> Unit,
 	onHideTimePicker: () -> Unit,
 	onResetToNow: () -> Unit,
+	displayMode: TimePickerDisplayMode = TimePickerDisplayMode.Picker,
 ) {
 	val pickerState = rememberTimePickerState(
 		initialHour = state.hour,
 		initialMinute = state.minute,
 	)
-	DatePickerDialog(
+	var displayModeState by rememberSaveable(stateSaver = TimePickerDisplayModeSaver) {
+		mutableStateOf(displayMode)
+	}
+	if (!hasEnoughSpace()) {
+		// Force Input mode if there is not enough space to show the Picker.
+		displayModeState = TimePickerDisplayMode.Input
+	}
+
+	TimePickerDialog(
+		title = {
+			TimePickerDialogDefaults.Title(displayMode)
+		},
+		modeToggleButton = {
+			if (!hasEnoughSpace()) {
+				TimePickerDialogDefaults.DisplayModeToggle(
+					displayMode = displayModeState,
+					onDisplayModeChange = {
+						displayModeState = when (displayModeState) {
+							TimePickerDisplayMode.Input -> TimePickerDisplayMode.Picker
+							TimePickerDisplayMode.Picker -> TimePickerDisplayMode.Input
+							else -> error("Unsupported mode $displayModeState")
+						}
+					},
+				)
+			}
+		},
 		confirmButton = {
 			TextButton({ onSelectTime(pickerState.selectedLocalTime) }) {
 				Text(stringResource(R.string.screen_bazi__time_picker_dialog_ok))
 			}
 		},
-		onDismissRequest = onHideTimePicker,
 		dismissButton = {
 			TextButton(onResetToNow) {
 				Text(stringResource(R.string.screen_bazi__time_picker_dialog_current))
@@ -41,28 +84,97 @@ internal fun TimePickerDialog(
 			TextButton(onHideTimePicker) {
 				Text(stringResource(R.string.screen_bazi__time_picker_dialog_cancel))
 			}
-		}
+		},
+		onDismissRequest = onHideTimePicker,
 	) {
-		DynamicTimePicker(
-			modifier = Modifier.align(Alignment.CenterHorizontally),
-			state = pickerState,
-		)
+		when (displayModeState) {
+			TimePickerDisplayMode.Input -> TimeInput(pickerState)
+			TimePickerDisplayMode.Picker -> TimePicker(pickerState)
+		}
 	}
+}
+
+@Composable
+@ReadOnlyComposable
+private fun hasEnoughSpace(): Boolean {
+	val minHeight = with(LocalDensity.current) { MinHeightForTimePicker.toPx() }
+	val windowHeight = LocalWindowInfo.current.containerSize.height
+	return minHeight <= windowHeight
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 private val TimePickerState.selectedLocalTime: LocalTime
 	get() = LocalTime.of(this.hour, this.minute)
 
+private val TimePickerDisplayModeSaver: Saver<TimePickerDisplayMode, String> = Saver(
+	save = { mode ->
+		when (mode) {
+			TimePickerDisplayMode.Input -> "Input"
+			TimePickerDisplayMode.Picker -> "Picker"
+			else -> null // Unsupported mode.
+		}
+	},
+	restore = { value ->
+		when (value) {
+			"Input" -> TimePickerDisplayMode.Input
+			"Picker" -> TimePickerDisplayMode.Picker
+			else -> null // Unsupported mode.
+		}
+	},
+)
+
 @PreviewOrientation
 @Composable
-private fun Preview() {
+private fun PickerPreview() {
 	AppTheme {
 		TimePickerDialog(
 			state = ZonedDateTime.now(),
+			onSelectTime = {},
 			onHideTimePicker = {},
 			onResetToNow = {},
+			displayMode = TimePickerDisplayMode.Picker,
+		)
+	}
+}
+
+@Preview(heightDp = 250)
+@Composable
+private fun PickerFixedPreview() {
+	AppTheme {
+		TimePickerDialog(
+			state = ZonedDateTime.now(),
 			onSelectTime = {},
+			onHideTimePicker = {},
+			onResetToNow = {},
+			displayMode = TimePickerDisplayMode.Picker,
+		)
+	}
+}
+
+@PreviewOrientation
+@Composable
+private fun InputPreview() {
+	AppTheme {
+		TimePickerDialog(
+			state = ZonedDateTime.now(),
+			onSelectTime = {},
+			onHideTimePicker = {},
+			onResetToNow = {},
+			displayMode = TimePickerDisplayMode.Input,
+		)
+	}
+}
+
+@Preview(heightDp = 250)
+@Composable
+private fun InputFixedPreview() {
+	AppTheme {
+		TimePickerDialog(
+			state = ZonedDateTime.now(),
+			onSelectTime = {},
+			onHideTimePicker = {},
+			onResetToNow = {},
+			displayMode = TimePickerDisplayMode.Input,
 		)
 	}
 }
