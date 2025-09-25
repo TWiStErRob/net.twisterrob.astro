@@ -96,11 +96,16 @@ public enum class Phase(
 
 	/**
 	 * Inter-livening (相生): Generating / Producing / Enhancing / Strengthening / Nurturing / Supporting.
+	 * @see Phase.generativeCycle
+	 * @see Phase.reverseGenerativeCycle
 	 */
 	public val livening: Phase get() = _livening()
 
 	/**
 	 * Inter-conquering (相剋): Overcoming / Controlling / Weakening / Restraining / Reducing / Attacking.
+	 * @see Phase.destructiveCycle
+	 * @see Phase.reverseDestructiveCycle
+	 * @see Phase.excessiveDestructiveCycle
 	 */
 	public val conquering: Phase get() = _conquering()
 
@@ -147,3 +152,90 @@ public enum class Phase(
 		public companion object;
 	}
 }
+
+/**
+ * Inter-promoting / generative cycle (相生)
+ *  * [Wood][Phase.Mu] feeds [Fire][Phase.Huo] as fuel
+ *  * [Fire][Phase.Huo] produces [Earth][Phase.Tu]
+ *    (ash, lava)
+ *  * [Earth][Phase.Tu] bears [Metal][Phase.Jin]
+ *    (geological processes produce minerals)
+ *  * [Metal][Phase.Jin] collects, filters and purifies [Water][Phase.Shui]
+ *    (water vapor condenses on metal)
+ *  * [Water][Phase.Shui] nourishes [Wood][Phase.Mu]
+ *    (water leads to growth of flowers, plants and other changes in nature)
+ *
+ * https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)#Inter-promoting
+ * @see Phase.livening
+ */
+public val Phase.generativeCycle: List<Phase>
+	get() = generateSequence(this) { it.livening }
+		.take(Phase.entries.size)
+		.toList()
+
+/**
+ * Weakening / reverse generative cycle (相洩/相泄)
+ *  * [Wood][Phase.Mu] depletes [Water][Phase.Shui]
+ *  * [Water][Phase.Shui] rusts [Metal][Phase.Jin]
+ *  * [Metal][Phase.Jin] impoverishes [Earth][Phase.Tu]
+ *    (erosion, destructive mining of minerals)
+ *  * [Earth][Phase.Tu] smothers [Fire][Phase.Huo]
+ *  * [Fire][Phase.Huo] burns [Wood][Phase.Mu]
+ *    (forest fires)
+ *
+ * https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)#Weakening
+ * @see Phase.livening
+ */
+public val Phase.reverseGenerativeCycle: List<Phase>
+	get() = generativeCycle.reversed()
+
+/**
+ * Inter-regulating / destructive cycle (相克)
+ *  * [Wood][Phase.Mu] grasps (or stabilizes) [Earth][Phase.Tu]
+ *    (roots of trees can prevent soil erosion)
+ *  * [Earth][Phase.Tu] contains (or directs) [Water][Phase.Shui]
+ *    (dams or river banks)
+ *  * [Water][Phase.Shui] dampens (or regulates) [Fire][Phase.Huo]
+ *  * [Fire][Phase.Huo] melts (or refines or shapes) [Metal][Phase.Jin]
+ *  * [Metal][Phase.Jin] chops (or carves) [Wood][Phase.Mu]
+ *
+ * https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)#Inter-regulating
+ * @see Phase.conquering
+ */
+public val Phase.destructiveCycle: List<Phase>
+	get() = generateSequence(this) { it.conquering }
+		.take(Phase.entries.size)
+		.toList()
+
+/**
+ * Counteracting  / reverse or deficient generative cycle (相侮/相耗)
+ *  * [Wood][Phase.Mu] dulls [Metal][Phase.Jin]
+ *  * [Metal][Phase.Jin] de-energizes [Fire][Phase.Huo]
+ *    (conducting heat away)
+ *  * [Fire][Phase.Huo] evaporates [Water][Phase.Shui]
+ *  * [Water][Phase.Shui] muddies (or destabilizes) [Earth][Phase.Tu]
+ *  * [Earth][Phase.Tu] rots [Wood][Phase.Mu]
+ *    (buried wood rots)
+ *
+ * https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)#Counteracting
+ * @see Phase.conquering
+ */
+public val Phase.reverseDestructiveCycle: List<Phase>
+	get() = destructiveCycle.reversed()
+
+/**
+ * Overacting / excessive destructive cycle (相乘)
+ *  * [Wood][Phase.Mu] depletes [Earth][Phase.Tu]
+ *    (depletion of nutrients in soil, over-farming, overcultivation)
+ *  * [Earth][Phase.Tu] obstructs [Water][Phase.Shui]
+ *    (over-damming)
+ *  * [Water][Phase.Shui] extinguishes [Fire][Phase.Huo]
+ *  * [Fire][Phase.Huo] melts [Metal][Phase.Jin]
+ *    (affecting its integrity)
+ *  * [Metal][Phase.Jin] makes [Wood][Phase.Mu] rigid to easily snap.
+ *
+ * https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)#Overacting
+ * @see Phase.conquering
+ */
+public val Phase.excessiveDestructiveCycle: List<Phase>
+	get() = destructiveCycle
