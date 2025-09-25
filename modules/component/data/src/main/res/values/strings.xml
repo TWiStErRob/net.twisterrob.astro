@@ -1,0 +1,25 @@
+<resources>
+
+	<string name="component_data__polarity_yin">Yin</string>
+	<string name="component_data__polarity_yang">Yang</string>
+
+	<string name="component_data__phase_wood">Wood</string>
+	<string name="component_data__phase_fire">Fire</string>
+	<string name="component_data__phase_earth">Earth</string>
+	<string name="component_data__phase_metal">Metal</string>
+	<string name="component_data__phase_water">Water</string>
+
+	<string name="component_data__zodiac_rat">Rat</string>
+	<string name="component_data__zodiac_ox">Ox</string>
+	<string name="component_data__zodiac_tiger">Tiger</string>
+	<string name="component_data__zodiac_rabbit">Rabbit</string>
+	<string name="component_data__zodiac_dragon">Dragon</string>
+	<string name="component_data__zodiac_snake">Snake</string>
+	<string name="component_data__zodiac_horse">Horse</string>
+	<string name="component_data__zodiac_goat">Goat</string>
+	<string name="component_data__zodiac_monkey">Monkey</string>
+	<string name="component_data__zodiac_rooster">Rooster</string>
+	<string name="component_data__zodiac_dog">Dog</string>
+	<string name="component_data__zodiac_pig">Pig</string>
+
+</resources>

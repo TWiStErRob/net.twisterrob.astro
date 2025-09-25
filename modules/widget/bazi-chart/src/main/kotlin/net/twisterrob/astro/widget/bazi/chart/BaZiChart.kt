@@ -21,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +37,9 @@ import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.bazi.model.BaZi
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 import net.twisterrob.astro.bazi.model.HeavenlyStem
-import net.twisterrob.astro.bazi.model.Phase
+import net.twisterrob.astro.component.data.color
+import net.twisterrob.astro.component.data.label
+import net.twisterrob.astro.component.data.symbol
 import net.twisterrob.astro.component.theme.AppTheme
 
 /**
@@ -306,60 +309,15 @@ private fun DisabledContentText(content: @Composable () -> Unit) {
 	}
 }
 
-private val EarthlyBranch.symbol: String
-	get() = when (this) {
-		EarthlyBranch.Zi -> "子"
-		EarthlyBranch.Chou -> "丑"
-		EarthlyBranch.Yin -> "寅"
-		EarthlyBranch.Mao -> "卯"
-		EarthlyBranch.Chen -> "辰"
-		EarthlyBranch.Si -> "巳"
-		EarthlyBranch.Wu -> "午"
-		EarthlyBranch.Wei -> "未"
-		EarthlyBranch.Shen -> "申"
-		EarthlyBranch.You -> "酉"
-		EarthlyBranch.Xu -> "戌"
-		EarthlyBranch.Hai -> "亥"
-	}
-
-private val HeavenlyStem.symbol: String
-	get() = when (this) {
-		HeavenlyStem.Jia -> "甲"
-		HeavenlyStem.Yi -> "乙"
-		HeavenlyStem.Bing -> "丙"
-		HeavenlyStem.Ding -> "丁"
-		HeavenlyStem.Wu -> "戊"
-		HeavenlyStem.Ji -> "己"
-		HeavenlyStem.Geng -> "庚"
-		HeavenlyStem.Xin -> "辛"
-		HeavenlyStem.Ren -> "壬"
-		HeavenlyStem.Gui -> "癸"
-	}
-
 private val HeavenlyStem.label: String
-	get() = "${polarity.name} ${phase.label}"
+	@Composable
+	@ReadOnlyComposable
+	get() = "${polarity.label} ${phase.label}"
 
 private val EarthlyBranch.label: String
-	get() = "${zodiac.name}\n${zodiac.charge.label}"
-
-private val Phase.label: String
-	get() = when (this) {
-		Phase.Mu -> "Wood"
-		Phase.Huo -> "Fire"
-		Phase.Tu -> "Earth"
-		Phase.Jin -> "Metal"
-		Phase.Shui -> "Water"
-	}
-
-private val Phase.color: Color
-	@Suppress("detekt.MagicNumber")
-	get() = when (this) {
-		Phase.Mu -> Color(0xFF90EE90)
-		Phase.Huo -> Color(0xFFF08080)
-		Phase.Tu -> Color(0xFFDEB887)
-		Phase.Jin -> Color(0xFFB0B0B0)
-		Phase.Shui -> Color(0xFF87CEFA)
-	}
+	@Composable
+	@ReadOnlyComposable
+	get() = "${zodiac.label}\n${zodiac.charge.label}"
 
 @Preview
 @Composable

@@ -8,8 +8,8 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import net.twisterrob.astro.bazi.model.Phase
+import net.twisterrob.astro.component.data.symbol
 import net.twisterrob.astro.widget.wuxing.cycle.WuxingCycle
-import net.twisterrob.astro.widget.wuxing.cycle.label
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -96,4 +96,4 @@ private class TestListeners(
 }
 
 private fun ComposeContentTestRule.onPhaseAction(phase: Phase): SemanticsNodeInteraction =
-	onNodeWithText(phase.label)
+	onNodeWithText(phase.symbol)

@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.min
 import net.twisterrob.astro.bazi.model.Phase
+import net.twisterrob.astro.bazi.model.generativeCycle
 
 /**
  * Widget to render a the Wuxing cycle.
@@ -29,11 +30,7 @@ public fun WuxingCycle(
 	modifier: Modifier = Modifier,
 ) {
 	val active = remember { mutableStateSetOf<Phase>() }
-	@Suppress("UnnecessaryLet") // Readability.
-	val phases = generateSequence(phase) { it.livening }
-		.take(Phase.entries.size)
-		.toList()
-		.let(::PhaseList)
+	val phases = PhaseList(phase.generativeCycle)
 	BoxWithConstraints(
 		modifier = modifier.fillMaxSize(),
 		contentAlignment = Alignment.Center,

@@ -1,0 +1,8 @@
+plugins {
+	id("net.twisterrob.astro.android-library")
+}
+
+dependencies {
+	api(projects.component.compose)
+	implementation(projects.domain.baziModel)
+}
