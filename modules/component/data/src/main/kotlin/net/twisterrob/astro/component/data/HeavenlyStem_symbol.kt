@@ -2,6 +2,9 @@ package net.twisterrob.astro.component.data
 
 import net.twisterrob.astro.bazi.model.HeavenlyStem
 
+/**
+ * Traditional Chinese character for [HeavenlyStem]s.
+ */
 public val HeavenlyStem.symbol: String
 	get() = when (this) {
 		HeavenlyStem.Jia -> "甲" // Yang Wood

@@ -3,6 +3,9 @@ package net.twisterrob.astro.component.data
 import androidx.compose.ui.graphics.Color
 import net.twisterrob.astro.bazi.model.Phase
 
+/**
+ * Color associated with Wuxing [Phase]s.
+ */
 public val Phase.color: Color
 	@Suppress("detekt.MagicNumber")
 	get() = when (this) {

@@ -2,6 +2,9 @@ package net.twisterrob.astro.component.data
 
 import net.twisterrob.astro.bazi.model.Phase
 
+/**
+ * Traditional Chinese character for Wuxing [Phase]s.
+ */
 public val Phase.symbol: String
 	get() = when (this) {
 		Phase.Mu -> "木" // Wood

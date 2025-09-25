@@ -2,6 +2,9 @@ package net.twisterrob.astro.component.data
 
 import net.twisterrob.astro.bazi.model.EarthlyBranch
 
+/**
+ * Traditional Chinese character for [EarthlyBranch]es.
+ */
 public val EarthlyBranch.symbol: String
 	get() = when (this) {
 		EarthlyBranch.Zi -> "子" // Rat
