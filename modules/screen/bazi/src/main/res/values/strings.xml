@@ -15,9 +15,4 @@
 	<string name="screen_bazi__zone_picker_dialog_cancel">@android:string/cancel</string>
 	<string name="screen_bazi__zone_picker_dialog_current">Here</string>
 
-	<string name="screen_bazi__time_picker_mode_input_title">Enter time</string>
-	<string name="screen_bazi__time_picker_mode_input_to_picker_cd">Switch to clock input mode</string>
-	<string name="screen_bazi__time_picker_mode_picker_title">Select time</string>
-	<string name="screen_bazi__time_picker_mode_picker_to_input_cd">Switch to text input mode</string>
-
 </resources>

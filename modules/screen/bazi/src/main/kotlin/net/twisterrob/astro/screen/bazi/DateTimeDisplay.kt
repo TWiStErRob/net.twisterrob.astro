@@ -11,11 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.twisterrob.astro.component.theme.AppTheme
+import net.twisterrob.astro.compose.ComposeDateTimeFormatter
 import java.time.LocalDate
 import java.time.Month
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle.LONG
 import java.time.format.FormatStyle.MEDIUM
 
@@ -35,27 +35,27 @@ internal fun DateTimeDisplay(
 	) {
 		Row {
 			Text(
-				text = state.format(DateTimeFormatter.ofLocalizedDate(LONG)),
+				text = state.format(ComposeDateTimeFormatter.ofLocalizedDate(LONG)),
 				modifier = Modifier
 					.clickable(onClick = onPickDate)
 			)
 		}
 		Row {
 			Text(
-				text = state.format(DateTimeFormatter.ofLocalizedTime(MEDIUM)),
+				text = state.format(ComposeDateTimeFormatter.ofLocalizedTime(MEDIUM)),
 				modifier = Modifier
 					.clickable(onClick = onPickTime)
 			)
 			Text(text = " ")
 			Text(
-				text = state.format(DateTimeFormatter.ofPattern("ZZZZZ (zzz)")),
+				text = state.format(ComposeDateTimeFormatter.ofPattern("ZZZZZ (zzz)")),
 				modifier = Modifier
 					.clickable(onClick = onPickOffset)
 			)
 		}
 		Row {
 			Text(
-				text = state.format(DateTimeFormatter.ofPattern("VV zzzz")),
+				text = state.format(ComposeDateTimeFormatter.ofPattern("VV zzzz")),
 				modifier = Modifier
 					.clickable(onClick = onPickZone)
 			)
@@ -92,6 +92,7 @@ private fun UTCPreview() {
 }
 
 @Preview
+@Preview(locale = "hu")
 @Composable
 private fun HungarySummerPreview() {
 	AppTheme {
@@ -107,6 +108,7 @@ private fun HungarySummerPreview() {
 }
 
 @Preview
+@Preview(locale = "hu")
 @Composable
 private fun HungaryWinterPreview() {
 	AppTheme {
