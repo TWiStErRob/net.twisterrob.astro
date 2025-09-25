@@ -20,7 +20,7 @@ public class MainScreenScreenshots {
 		}
 	}
 
-	@Preview(locale = "hu-HU")
+	@Preview(locale = "hu")
 	@PreviewTest
 	@Composable
 	private fun Hungarian() {
