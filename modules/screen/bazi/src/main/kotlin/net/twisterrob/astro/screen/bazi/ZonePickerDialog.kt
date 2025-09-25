@@ -30,6 +30,9 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.TextStyle
 
+/**
+ * Time zone picker dialog allowing to select/enter a named time zone.
+ */
 @Composable
 internal fun ZonePickerDialog(
 	state: ZonedDateTime,
