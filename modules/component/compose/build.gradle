@@ -11,6 +11,7 @@ dependencies {
 	api(libs.compose.uiGraphics)
 	api(libs.compose.uiToolingPreview)
 	api(libs.compose.material3)
+	api(libs.compose.materialIcons)
 
 	debugImplementation(libs.compose.uiTooling)
 	debugImplementation(libs.compose.uiTestManifest)

@@ -1,12 +1,8 @@
-@file:SuppressLint("UnsafeOptInUsageError") // REPORT false positive, only name matches.
-
 package net.twisterrob.astro.screen.bazi
 
-import android.annotation.SuppressLint
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -19,7 +15,6 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DatePickerDialog(
 	state: ZonedDateTime,
@@ -50,7 +45,6 @@ internal fun DatePickerDialog(
 	}
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 private val DatePickerState.selectedLocalDate: LocalDate
 	get() {
 		// Strange representation of a "date", so convert it back to an actual date.
