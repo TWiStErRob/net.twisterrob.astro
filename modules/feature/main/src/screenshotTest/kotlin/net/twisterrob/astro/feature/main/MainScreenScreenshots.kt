@@ -19,4 +19,14 @@ public class MainScreenScreenshots {
 			MainScreen()
 		}
 	}
+
+	@Preview(locale = "hu-HU")
+	@PreviewTest
+	@Composable
+	private fun Hungarian() {
+		viewModel<BaZiViewModel>().select(TestInstants.REPO)
+		AppTheme {
+			MainScreen()
+		}
+	}
 }
