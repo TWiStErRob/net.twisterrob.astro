@@ -20,7 +20,7 @@ public val isLandscape: Boolean
 
 @Preview("phone is portrait", device = Devices.PHONE)
 @Preview("foldable is portrait", device = Devices.FOLDABLE)
-@Preview("table is landscape", device = Devices.TABLET)
+@Preview("tablet is landscape", device = Devices.TABLET)
 @Preview("desktop is landscape", device = Devices.DESKTOP)
 @Composable
 private fun IsLandscapePreview() {
