@@ -28,6 +28,9 @@ import java.time.LocalTime
 import java.time.ZonedDateTime
 
 /**
+ * Time picker dialog allowing to select/enter a time (hour, minute).
+ *
+ * See https://developer.android.com/develop/ui/compose/components/time-pickers-dialogs
  * See TimePickerSamples.kt in androidx.compose.material3:material3-android/material3-1.4.0-samples-sources.jar
  */
 @OptIn(ExperimentalMaterial3Api::class)
