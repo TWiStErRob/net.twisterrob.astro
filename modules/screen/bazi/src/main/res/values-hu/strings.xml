@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="screen_bazi__picker_reset_cd">visszaállítás mostra</string>
+
+	<string name="screen_bazi__date_picker_dialog_current">ma</string>
+
+	<string name="screen_bazi__time_picker_dialog_current">most</string>
+
+	<string name="screen_bazi__zone_picker_dialog_current">helyben</string>
+
+</resources>
