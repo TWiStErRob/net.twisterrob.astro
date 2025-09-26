@@ -9,9 +9,4 @@
 
 	<string name="screen_bazi__zone_picker_dialog_current">helyben</string>
 
-	<string name="screen_bazi__time_picker_mode_input_title">idő megadása</string>
-	<string name="screen_bazi__time_picker_mode_input_to_picker_cd">váltás óra beviteli módra</string>
-	<string name="screen_bazi__time_picker_mode_picker_title">idő kiválasztása</string>
-	<string name="screen_bazi__time_picker_mode_picker_to_input_cd">váltás szöveges beviteli módra</string>
-
 </resources>
