@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+	<string name="widget_bazi_chart__pillar_title_year">év</string>
+	<string name="widget_bazi_chart__pillar_title_month">hónap</string>
+	<string name="widget_bazi_chart__pillar_title_day">nap</string>
+	<string name="widget_bazi_chart__pillar_title_hour">óra</string>
+	<string name="widget_bazi_chart__pillar_title_minute">perc</string>
+
+	<string name="widget_bazi_chart__pillar_title_plus">hozzáad</string>
+	<string name="widget_bazi_chart__pillar_title_minus">kivon</string>
+
+	<string name="widget_bazi_chart__pillar_unknown_hour_stem_label" tools:ignore="DuplicateStrings">ismeretlen</string>
+
+	<string name="widget_bazi_chart__pillar_unknown_hour_branch_label" tools:ignore="DuplicateStrings">ismeretlen</string>
+
+</resources>
