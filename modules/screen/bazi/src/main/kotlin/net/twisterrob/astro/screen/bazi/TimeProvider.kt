@@ -5,9 +5,9 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-public interface TimeProvider {
-	public val zoned: ZonedDateTime
-	public val date: LocalDate
-	public val time: LocalTime
-	public val zone: ZoneId
+internal interface TimeProvider {
+	val zoned: ZonedDateTime
+	val date: LocalDate
+	val time: LocalTime
+	val zone: ZoneId
 }

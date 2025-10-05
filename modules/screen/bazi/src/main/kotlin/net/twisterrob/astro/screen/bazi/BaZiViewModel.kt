@@ -21,7 +21,7 @@ import java.time.temporal.TemporalAmount
  * [ViewModel] for [BaZiScreen].
  */
 @Suppress("detekt.TooManyFunctions")
-public class BaZiViewModel @JvmOverloads constructor(
+internal class BaZiViewModel @JvmOverloads constructor(
 	private val timeProvider: TimeProvider = CurrentTimeProvider,
 ) : ViewModel() {
 	private val _uiState = MutableStateFlow(
