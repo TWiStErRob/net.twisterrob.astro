@@ -60,10 +60,7 @@ test-compose-junit = { module = "androidx.compose.ui:ui-test-junit4" }
 test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-espressoJunit" }
 test-androidx-espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
 
-test-jupiter-bom = { module = "org.junit:junit-bom", version.ref = "junit-jupiter" }
-test-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
-test-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
-test-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+test-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 test-jupiter-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 test-jupiter-vintage = { module = "org.junit.vintage:junit-vintage-engine" }
 

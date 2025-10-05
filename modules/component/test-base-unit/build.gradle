@@ -3,17 +3,8 @@ plugins {
 }
 
 dependencies {
-	api(platform(libs.test.jupiter.bom)) {
-		because("Platform, Jupiter, and Vintage versions should match.")
-	}
-	api(libs.test.jupiter.api) {
-		because("Provides JUnit 5 @Test annotation for tests.")
-	}
-	api(libs.test.jupiter.params) {
-		because("Provides JUnit 5 @ParameterizedTest annotation for tests.")
-	}
-	runtimeOnly(libs.test.jupiter.engine) {
-		because("JUnit 5 engine is needed explicitly to run tests in Gradle.")
+	api(libs.test.jupiter) {
+		because("Provides JUnit 5 @Test, @ParameterizedTest, engine and BOM for tests.")
 	}
 	runtimeOnly(libs.test.jupiter.launcher) {
 		because("JUnit 5 launcher is needed explicitly to run tests in Gradle.")
