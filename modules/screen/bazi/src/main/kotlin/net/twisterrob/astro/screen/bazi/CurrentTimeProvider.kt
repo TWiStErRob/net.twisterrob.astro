@@ -5,9 +5,9 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-public interface CurrentTimeProvider {
-	public val zoned: ZonedDateTime get() = ZonedDateTime.now()
-	public val date: LocalDate get() = LocalDate.now()
-	public val time: LocalTime get() = LocalTime.now()
-	public val zone: ZoneId get() = ZoneId.systemDefault()
+internal object CurrentTimeProvider : TimeProvider {
+	override val zoned: ZonedDateTime get() = ZonedDateTime.now()
+	override val date: LocalDate get() = LocalDate.now()
+	override val time: LocalTime get() = LocalTime.now()
+	override val zone: ZoneId get() = ZoneId.systemDefault()
 }

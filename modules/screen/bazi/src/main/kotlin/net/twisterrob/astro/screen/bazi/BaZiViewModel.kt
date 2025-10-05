@@ -22,12 +22,12 @@ import java.time.temporal.TemporalAmount
  */
 @Suppress("detekt.TooManyFunctions")
 public class BaZiViewModel @JvmOverloads constructor(
-	private val currentTimeProvider: CurrentTimeProvider = object : CurrentTimeProvider {},
+	private val timeProvider: TimeProvider = CurrentTimeProvider,
 ) : ViewModel() {
 	private val _uiState = MutableStateFlow(
 		adjustDateTimeState(
 			DateTimeState(
-				dateTime = currentTimeProvider.zoned,
+				dateTime = timeProvider.zoned,
 				isPickingDate = false,
 				isPickingTime = false,
 				isPickingZone = false,
@@ -87,19 +87,19 @@ public class BaZiViewModel @JvmOverloads constructor(
 	}
 
 	internal fun reset() {
-		select(currentTimeProvider.zoned)
+		select(timeProvider.zoned)
 	}
 
 	internal fun resetToToday() {
-		selectDate(currentTimeProvider.date)
+		selectDate(timeProvider.date)
 	}
 
 	internal fun resetToNow() {
-		selectTime(currentTimeProvider.time)
+		selectTime(timeProvider.time)
 	}
 
 	internal fun resetToZone() {
-		selectZone(currentTimeProvider.zone)
+		selectZone(timeProvider.zone)
 	}
 
 	internal fun pickDate() {
