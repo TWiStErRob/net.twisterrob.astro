@@ -7,6 +7,11 @@ pluginManager.withPlugin("org.gradle.java-test-fixtures") {
 	dependencies {
 		"testFixturesImplementation"(project(":component:test-base-fixtures"))
 	}
+	configurations {
+		named("testFixturesCompileClasspath") {
+			shouldResolveConsistentlyWith(named("testRuntimeClasspath").get())
+		}
+	}
 }
 
 pluginManager.withPlugin("com.android.library") {
