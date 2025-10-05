@@ -10,10 +10,20 @@ import net.twisterrob.astro.test.fixtures.TestInstants
 
 public class MainScreenScreenshots {
 
-	@Preview
+	@Preview(locale = "en") // REPORT have to explicitly specify a locale, otherwise it may inherit "previous test's" Locale.
 	@PreviewTest
 	@Composable
 	private fun Default() {
+		viewModel<BaZiViewModel>().select(TestInstants.REPO)
+		AppTheme {
+			MainScreen()
+		}
+	}
+
+	@Preview(locale = "hu")
+	@PreviewTest
+	@Composable
+	private fun Hungarian() {
 		viewModel<BaZiViewModel>().select(TestInstants.REPO)
 		AppTheme {
 			MainScreen()
