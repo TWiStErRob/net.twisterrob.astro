@@ -36,7 +36,7 @@ public class BaZiViewModel : ViewModel() {
 
 	//@formatter:off
 	internal fun increaseYear() { updateDateTime(Period.ofYears(+1)) }
-	internal fun decreaseYear() { updateDateTime(Period.ofYears( -1)) }
+	internal fun decreaseYear() { updateDateTime(Period.ofYears(-1)) }
 	internal fun increaseMonth() { updateDateTime(Period.ofMonths(+1)) }
 	internal fun decreaseMonth() { updateDateTime(Period.ofMonths(-1)) }
 	internal fun increaseDay() { updateDateTime(Period.ofDays(+1)) }
