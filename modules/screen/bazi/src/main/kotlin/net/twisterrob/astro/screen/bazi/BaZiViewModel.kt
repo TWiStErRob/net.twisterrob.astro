@@ -21,11 +21,13 @@ import java.time.temporal.TemporalAmount
  * [ViewModel] for [BaZiScreen].
  */
 @Suppress("detekt.TooManyFunctions")
-public class BaZiViewModel : ViewModel() {
+public class BaZiViewModel @JvmOverloads constructor(
+	private val currentTimeProvider: CurrentTimeProvider = object : CurrentTimeProvider {},
+) : ViewModel() {
 	private val _uiState = MutableStateFlow(
 		adjustDateTimeState(
 			DateTimeState(
-				dateTime = ZonedDateTime.now(),
+				dateTime = currentTimeProvider.zoned,
 				isPickingDate = false,
 				isPickingTime = false,
 				isPickingZone = false,
@@ -84,19 +86,19 @@ public class BaZiViewModel : ViewModel() {
 	}
 
 	internal fun reset() {
-		select(ZonedDateTime.now())
+		select(currentTimeProvider.zoned)
 	}
 
 	internal fun resetToToday() {
-		selectDate(LocalDate.now())
+		selectDate(currentTimeProvider.date)
 	}
 
 	internal fun resetToNow() {
-		selectTime(LocalTime.now())
+		selectTime(currentTimeProvider.time)
 	}
 
 	internal fun resetToZone() {
-		selectZone(ZoneId.systemDefault())
+		selectZone(currentTimeProvider.zone)
 	}
 
 	internal fun pickDate() {

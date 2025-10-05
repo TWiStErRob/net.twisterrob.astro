@@ -16,7 +16,8 @@ import java.time.ZonedDateTime
 
 class BaZiViewModelTest {
 
-	private val subject = BaZiViewModel()
+	private val currentTimeProvider = MutableTimeProvider()
+	private val subject = BaZiViewModel(currentTimeProvider)
 
 	@Test
 	fun `initial state`() {
