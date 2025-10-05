@@ -5,9 +5,27 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-internal interface TimeProvider {
-	val zoned: ZonedDateTime
-	val date: LocalDate
-	val time: LocalTime
-	val zone: ZoneId
+/**
+ * Abstraction over the current time to allow faking it in tests.
+ */
+public interface TimeProvider {
+	/**
+	 * The current date and time including the time zone.
+	 */
+	public val zoned: ZonedDateTime
+
+	/**
+	 * The current date in the current time zone.
+	 */
+	public val date: LocalDate
+
+	/**
+	 * The current time in the current time zone.
+	 */
+	public val time: LocalTime
+
+	/**
+	 * The current time zone.
+	 */
+	public val zone: ZoneId
 }
