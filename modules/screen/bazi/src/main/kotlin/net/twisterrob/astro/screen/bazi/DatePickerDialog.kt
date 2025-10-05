@@ -28,7 +28,10 @@ internal fun DatePickerDialog(
 	onResetToToday: () -> Unit,
 ) {
 	val pickerState = rememberDatePickerState(
-		initialSelectedDateMillis = state.toInstant().toEpochMilli()
+		initialSelectedDateMillis = state
+			.withZoneSameLocal(ZoneOffset.UTC)
+			.toInstant()
+			.toEpochMilli(),
 	)
 	DatePickerDialog(
 		confirmButton = {
