@@ -306,10 +306,11 @@ class BaZiViewModelTest {
 			val updated = subject.uiState.value
 
 			val expected = current.dateTime.dateTime
-				.withHour(1 - 1) // Hack
+				.withHour(1)
+				.minusHours(1) // Hack
 				.withMinute(23)
 			assertEquals(expected, updated.dateTime.dateTime)
-			assertNotSame(current.bazi, updated.bazi) // Cannot predict if it will actually change.
+			assertNotEquals(current.bazi, updated.bazi)
 			assertDefaultValues(updated)
 		}
 
@@ -619,19 +620,17 @@ class BaZiViewModelTest {
 	}
 
 	companion object {
-		private fun fakeCurrentTime(): ZonedDateTime {
-			val newDate = LocalDate.of(2013, Month.JUNE, 27)
-			val newTime = LocalTime.of(12, 34, 56, 7_008_009)
-			val newInstant = ZonedDateTime.of(newDate, newTime, ZoneId.of("Asia/Kolkata"))
-			return newInstant
-		}
+		private fun fakeCurrentTime(): ZonedDateTime = ZonedDateTime.of(
+			LocalDate.of(2013, Month.JUNE, 27),
+			LocalTime.of(12, 34, 56, 7_008_009),
+			ZoneId.of("Asia/Kolkata"),
+		)
 
-		private fun aSpecificInstant(): ZonedDateTime {
-			val newDate = LocalDate.of(2017, Month.OCTOBER, 6)
-			val newTime = LocalTime.of(1, 23, 45, 1_234_567)
-			val newInstant = ZonedDateTime.of(newDate, newTime, ZoneId.of("US/Pacific"))
-			return newInstant
-		}
+		private fun aSpecificInstant(): ZonedDateTime = ZonedDateTime.of(
+			LocalDate.of(2017, Month.OCTOBER, 6),
+			LocalTime.of(1, 23, 45, 1_234_567),
+			ZoneId.of("US/Pacific")
+		)
 
 		private fun assertDefaultValues(updated: BaZiState) {
 			assertEquals(0, updated.dateTime.dateTime.second)
