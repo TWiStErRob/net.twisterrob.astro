@@ -1,9 +1,11 @@
 plugins {
-	id("net.twisterrob.astro.android-library")
+	id("net.twisterrob.astro.library")
 }
 
 dependencies {
-	api(platform(libs.compose.bom))
+	// Required due to `kotlin.stdlib.default.dependency=false`.
+	api(libs.kotlin.stdlib)
+	compileOnlyApi(platform(libs.compose.bom))
 	// TODEL required due to https://issuetracker.google.com/issues/349673453
-	api(libs.compose.runtime)
+	compileOnlyApi(libs.compose.runtime)
 }
