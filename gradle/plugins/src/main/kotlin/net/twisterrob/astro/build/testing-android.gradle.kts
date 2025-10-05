@@ -15,10 +15,7 @@ plugins {
 dependencies {
 	"testImplementation"(project(":component:test-base-robolectric"))
 	"androidTestImplementation"(project(":component:test-base-instrumentation"))
-	// Required due to `kotlin.stdlib.default.dependency=false`.
-	"testFixturesImplementation"(libs.kotlin.stdlib)
-	// TODEL required due to https://issuetracker.google.com/issues/349673453
-	"testFixturesImplementation"(libs.compose.runtime)
+	"testFixtureImplementation"(project(":component:test-base-fixtures"))
 }
 
 androidComponents {
