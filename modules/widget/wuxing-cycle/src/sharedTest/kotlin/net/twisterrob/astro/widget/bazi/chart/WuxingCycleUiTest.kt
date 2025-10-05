@@ -80,6 +80,7 @@ class WuxingCycleUiTest {
 				onDeselect = listeners.onDeselect,
 			)
 		}
+		listeners.verifyNoMoreInteractions()
 	}
 }
 

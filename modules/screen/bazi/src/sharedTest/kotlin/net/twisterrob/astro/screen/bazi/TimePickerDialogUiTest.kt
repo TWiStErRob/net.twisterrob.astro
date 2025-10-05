@@ -85,6 +85,7 @@ class TimePickerDialogUiTest {
 				onResetToNow = listeners.onResetToNow,
 			)
 		}
+		listeners.verifyNoMoreInteractions()
 	}
 
 	private class TestListeners(

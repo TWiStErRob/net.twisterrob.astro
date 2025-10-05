@@ -81,6 +81,7 @@ class ZonePickerDialogUiTest {
 				onResetToZone = listeners.onResetToZone,
 			)
 		}
+		listeners.verifyNoMoreInteractions()
 	}
 
 	private class TestListeners(
