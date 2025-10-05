@@ -79,7 +79,8 @@ public class BaZiViewModel @JvmOverloads constructor(
 		)
 	}
 
-	private fun bazi(dateTime: ZonedDateTime): BaZi {
+	@VisibleForTesting
+	internal fun bazi(dateTime: ZonedDateTime): BaZi {
 		// Hack to adjust for GMT+1 / DST, will fix when TZ handling is implemented.
 		val localTime = dateTime.toLocalDateTime().minusHours(1)
 		return SolarCalculator().calculate(localTime)

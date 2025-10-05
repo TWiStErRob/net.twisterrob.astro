@@ -16,8 +16,37 @@ import java.time.ZonedDateTime
 
 class BaZiViewModelTest {
 
-	private val currentTimeProvider = MutableTimeProvider()
+	private val currentTimeProvider = FixedTimeProvider(at = fakeCurrentTime())
 	private val subject = BaZiViewModel(currentTimeProvider)
+
+	@Test
+	fun `test instants are very different`() {
+		val instant1 = fakeCurrentTime()
+		val instant2 = aSpecificInstant()
+
+		assertNotEquals(instant1, instant2)
+		assertNotEquals(instant1.zone, instant2.zone)
+		assertNotEquals(instant1.year, instant2.year)
+		assertNotEquals(instant1.monthValue, instant2.monthValue)
+		assertNotEquals(instant1.dayOfMonth, instant2.dayOfMonth)
+		assertNotEquals(instant1.hour, instant2.hour)
+		assertNotEquals(instant1.minute, instant2.minute)
+		assertNotEquals(instant1.second, instant2.second)
+		assertNotEquals(instant1.nano / 1_000_000, instant2.nano / 1_000_000)
+		assertNotEquals(instant1.nano, instant2.nano)
+
+		val bazi1 = subject.bazi(instant1)
+		val bazi2 = subject.bazi(instant2)
+		assertNotEquals(bazi1, bazi2)
+		assertNotEquals(bazi1.year.heavenlyStem, bazi2.year.heavenlyStem)
+		assertNotEquals(bazi1.year.earthlyBranch, bazi2.year.earthlyBranch)
+		assertNotEquals(bazi1.month.heavenlyStem, bazi2.month.heavenlyStem)
+		assertNotEquals(bazi1.month.earthlyBranch, bazi2.month.earthlyBranch)
+		assertNotEquals(bazi1.day.heavenlyStem, bazi2.day.heavenlyStem)
+		assertNotEquals(bazi1.day.earthlyBranch, bazi2.day.earthlyBranch)
+		assertNotEquals(bazi1.hour?.heavenlyStem, bazi2.hour?.heavenlyStem)
+		assertNotEquals(bazi1.hour?.earthlyBranch, bazi2.hour?.earthlyBranch)
+	}
 
 	@Test
 	fun `initial state`() {
@@ -277,8 +306,8 @@ class BaZiViewModelTest {
 			val updated = subject.uiState.value
 
 			val expected = current.dateTime.dateTime
-				.withHour(12 - 1) // Hack
-				.withMinute(34)
+				.withHour(1 - 1) // Hack
+				.withMinute(23)
 			assertEquals(expected, updated.dateTime.dateTime)
 			assertNotSame(current.bazi, updated.bazi) // Cannot predict if it will actually change.
 			assertDefaultValues(updated)
@@ -289,7 +318,7 @@ class BaZiViewModelTest {
 			subject.select(aSpecificInstant())
 			val current = subject.uiState.value
 
-			val now = LocalTime.now()
+			val now = fakeCurrentTime()
 			subject.resetToNow()
 
 			val updated = subject.uiState.value
@@ -422,11 +451,11 @@ class BaZiViewModelTest {
 			val updated = subject.uiState.value
 
 			val expected = current.dateTime.dateTime
-				.withYear(2013)
-				.withMonth(Month.JUNE.value)
-				.withDayOfMonth(27)
+				.withYear(2017)
+				.withMonth(Month.OCTOBER.value)
+				.withDayOfMonth(6)
 			assertEquals(expected, updated.dateTime.dateTime)
-			assertNotSame(current.bazi, updated.bazi) // Cannot predict if it will actually change.
+			assertNotEquals(current.bazi, updated.bazi)
 			assertDefaultValues(updated)
 		}
 
@@ -435,7 +464,7 @@ class BaZiViewModelTest {
 			subject.select(aSpecificInstant())
 			val current = subject.uiState.value
 
-			val now = LocalDate.now()
+			val now = fakeCurrentTime()
 			subject.resetToToday()
 
 			val updated = subject.uiState.value
@@ -558,7 +587,7 @@ class BaZiViewModelTest {
 		@Test
 		fun `selecting a zone changes zone and finishes picking`() {
 			val current = subject.uiState.value
-			val newZone = ZoneId.of("Asia/Kolkata")
+			val newZone = aSpecificInstant().zone
 
 			subject.selectZone(newZone)
 
@@ -585,15 +614,22 @@ class BaZiViewModelTest {
 			.withSecond(0)
 			.withNano(0)
 		assertEquals(expected, updated.dateTime.dateTime)
-		assertNotSame(current.bazi, updated.bazi) // Cannot predict if it will actually change.
+		assertNotEquals(current.bazi, updated.bazi)
 		assertDefaultValues(updated)
 	}
 
 	companion object {
-		private fun aSpecificInstant(): ZonedDateTime {
+		private fun fakeCurrentTime(): ZonedDateTime {
 			val newDate = LocalDate.of(2013, Month.JUNE, 27)
 			val newTime = LocalTime.of(12, 34, 56, 7_008_009)
 			val newInstant = ZonedDateTime.of(newDate, newTime, ZoneId.of("Asia/Kolkata"))
+			return newInstant
+		}
+
+		private fun aSpecificInstant(): ZonedDateTime {
+			val newDate = LocalDate.of(2017, Month.OCTOBER, 6)
+			val newTime = LocalTime.of(1, 23, 45, 1_234_567)
+			val newInstant = ZonedDateTime.of(newDate, newTime, ZoneId.of("US/Pacific"))
 			return newInstant
 		}
 
