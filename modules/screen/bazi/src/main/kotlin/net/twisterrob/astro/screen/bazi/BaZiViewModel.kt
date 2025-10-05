@@ -21,11 +21,13 @@ import java.time.temporal.TemporalAmount
  * [ViewModel] for [BaZiScreen].
  */
 @Suppress("detekt.TooManyFunctions")
-public class BaZiViewModel : ViewModel() {
+public class BaZiViewModel @JvmOverloads constructor(
+	private val timeProvider: TimeProvider = CurrentTimeProvider,
+) : ViewModel() {
 	private val _uiState = MutableStateFlow(
 		adjustDateTimeState(
 			DateTimeState(
-				dateTime = ZonedDateTime.now(),
+				dateTime = timeProvider.zoned,
 				isPickingDate = false,
 				isPickingTime = false,
 				isPickingZone = false,
@@ -36,7 +38,7 @@ public class BaZiViewModel : ViewModel() {
 
 	//@formatter:off
 	internal fun increaseYear() { updateDateTime(Period.ofYears(+1)) }
-	internal fun decreaseYear() { updateDateTime(Period.ofYears( -1)) }
+	internal fun decreaseYear() { updateDateTime(Period.ofYears(-1)) }
 	internal fun increaseMonth() { updateDateTime(Period.ofMonths(+1)) }
 	internal fun decreaseMonth() { updateDateTime(Period.ofMonths(-1)) }
 	internal fun increaseDay() { updateDateTime(Period.ofDays(+1)) }
@@ -77,26 +79,27 @@ public class BaZiViewModel : ViewModel() {
 		)
 	}
 
-	private fun bazi(dateTime: ZonedDateTime): BaZi {
+	@VisibleForTesting
+	internal fun bazi(dateTime: ZonedDateTime): BaZi {
 		// Hack to adjust for GMT+1 / DST, will fix when TZ handling is implemented.
 		val localTime = dateTime.toLocalDateTime().minusHours(1)
 		return SolarCalculator().calculate(localTime)
 	}
 
 	internal fun reset() {
-		select(ZonedDateTime.now())
+		select(timeProvider.zoned)
 	}
 
 	internal fun resetToToday() {
-		selectDate(LocalDate.now())
+		selectDate(timeProvider.date)
 	}
 
 	internal fun resetToNow() {
-		selectTime(LocalTime.now())
+		selectTime(timeProvider.time)
 	}
 
 	internal fun resetToZone() {
-		selectZone(ZoneId.systemDefault())
+		selectZone(timeProvider.zone)
 	}
 
 	internal fun pickDate() {
