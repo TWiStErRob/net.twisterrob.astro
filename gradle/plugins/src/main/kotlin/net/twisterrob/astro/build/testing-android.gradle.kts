@@ -9,6 +9,7 @@ import net.twisterrob.astro.build.testing.configureTestTask
 
 plugins {
 	id("com.android.base")
+	id("net.twisterrob.astro.build.testing-fixtures")
 }
 
 dependencies {

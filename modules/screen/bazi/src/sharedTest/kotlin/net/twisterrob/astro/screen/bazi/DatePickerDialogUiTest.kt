@@ -83,6 +83,7 @@ class DatePickerDialogUiTest {
 				onResetToToday = listeners.onResetToToday,
 			)
 		}
+		listeners.verifyNoMoreInteractions()
 	}
 
 	private class TestListeners(

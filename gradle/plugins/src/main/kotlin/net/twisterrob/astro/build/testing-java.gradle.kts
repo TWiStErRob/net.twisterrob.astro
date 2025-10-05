@@ -6,6 +6,7 @@ import net.twisterrob.astro.build.testing.configureTestTask
 plugins {
 	id("org.gradle.java")
 	id("org.gradle.java-test-fixtures")
+	id("net.twisterrob.astro.build.testing-fixtures")
 }
 
 @Suppress("UnstableApiUsage")
@@ -19,8 +20,4 @@ testing.suites.withType<JvmTestSuite>().configureEach {
 	targets.configureEach {
 		testTask.configure { configureTestTask(this) }
 	}
-}
-
-dependencies {
-	testFixturesImplementation(project(":component:test-base-unit"))
 }

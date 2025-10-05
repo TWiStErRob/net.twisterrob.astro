@@ -12,6 +12,7 @@ plugins {
 }
 
 dependencies {
+	// Required due to `kotlin.stdlib.default.dependency=false`.
 	"implementation"(libs.kotlin.stdlib)
 }
 

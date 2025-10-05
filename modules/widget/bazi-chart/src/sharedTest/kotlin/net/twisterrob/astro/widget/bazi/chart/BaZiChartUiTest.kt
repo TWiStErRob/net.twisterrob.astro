@@ -231,6 +231,7 @@ class BaZiChartUiTest {
 				onMinuteSubtract = listeners.onMinuteSubtract,
 			)
 		}
+		listeners.verifyNoMoreInteractions()
 	}
 }
 
