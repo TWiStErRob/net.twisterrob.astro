@@ -1,6 +1,5 @@
 package net.twisterrob.astro.build
 
-import com.android.build.api.dsl.TestedExtension
 import com.android.build.api.variant.HasUnitTestBuilder
 import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.androidComponents
@@ -10,12 +9,12 @@ import net.twisterrob.astro.build.testing.configureTestTask
 
 plugins {
 	id("com.android.base")
+	id("net.twisterrob.astro.build.testing-fixtures")
 }
 
 dependencies {
 	"testImplementation"(project(":component:test-base-robolectric"))
 	"androidTestImplementation"(project(":component:test-base-instrumentation"))
-	"testFixtureImplementation"(project(":component:test-base-fixtures"))
 }
 
 androidComponents {
@@ -39,10 +38,6 @@ android {
 				kotlin.srcDir("src/sharedTest/kotlin")
 			}
 		}
-	}
-	@Suppress("UnstableApiUsage")
-	(this as TestedExtension).testFixtures {
-		enable = true
 	}
 	@Suppress("UnstableApiUsage")
 	testOptions {

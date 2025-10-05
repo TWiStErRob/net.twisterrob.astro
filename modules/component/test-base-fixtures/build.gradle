@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-	compileOnlyApi(platform(libs.compose.bom))
+	api(platform(libs.compose.bom))
 	// TODEL required due to https://issuetracker.google.com/issues/349673453
-	runtimeOnly(libs.compose.runtime)
+	api(libs.compose.runtime)
 }

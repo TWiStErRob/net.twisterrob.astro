@@ -1,6 +1,5 @@
 package net.twisterrob.astro.build
 
-import net.twisterrob.astro.build.dsl.androidComponents
 import net.twisterrob.astro.build.dsl.kotlin
 import net.twisterrob.astro.build.dsl.libs
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
@@ -15,15 +14,6 @@ plugins {
 dependencies {
 	// Required due to `kotlin.stdlib.default.dependency=false`.
 	"implementation"(libs.kotlin.stdlib)
-}
-
-pluginManager.withPlugin("com.android.library") {
-	androidComponents.finalizeDsl {
-		dependencies {
-			// Required due to `kotlin.stdlib.default.dependency=false`.
-			"testFixturesImplementation"(libs.kotlin.stdlib)
-		}
-	}
 }
 
 kotlin {
