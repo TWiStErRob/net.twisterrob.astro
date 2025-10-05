@@ -284,7 +284,7 @@ class BaZiViewModelTest {
 		}
 
 		@Test
-		fun `resetting date to now`() {
+		fun `resetting time to now`() {
 			subject.select(aSpecificInstant())
 			val current = subject.uiState.value
 
