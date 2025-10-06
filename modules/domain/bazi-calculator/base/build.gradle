@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
 	api(projects.domain.baziModel)
-	testFixturesImplementation(libs.test.jupiter.api)
+	testFixturesImplementation(libs.test.jupiter)
 	testFixturesImplementation(libs.test.kotest.assertions)
 }
