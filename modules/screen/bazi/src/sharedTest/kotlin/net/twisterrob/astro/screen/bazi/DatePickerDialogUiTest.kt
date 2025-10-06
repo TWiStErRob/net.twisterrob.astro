@@ -16,6 +16,8 @@ import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 import org.robolectric.annotation.Config
 import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @RunWith(AndroidJUnit4::class)
@@ -57,6 +59,23 @@ class DatePickerDialogUiTest {
 		compose.onNodeWithText(string(R.string.screen_bazi__date_picker_dialog_ok)).performClick()
 
 		verify(mockListeners.onSelectDate).invoke(state.toLocalDate())
+		mockListeners.verifyNoMoreInteractions()
+	}
+
+	@Suppress("detekt.MagicNumber")
+	@Test
+	fun `ok selects the date given right past midnight`() {
+		val mockListeners = TestListeners()
+		val state = ZonedDateTime.of(
+			LocalDate.of(2025, 10, 6),
+			LocalTime.of(0, 30),
+			ZoneId.of("Europe/London"),
+		)
+		compose.setContent(state = state, listeners = mockListeners)
+
+		compose.onNodeWithText(string(R.string.screen_bazi__date_picker_dialog_ok)).performClick()
+
+		verify(mockListeners.onSelectDate).invoke(LocalDate.of(2025, 10, 6))
 		mockListeners.verifyNoMoreInteractions()
 	}
 
