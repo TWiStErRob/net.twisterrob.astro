@@ -11,6 +11,8 @@ import com.android.compose.screenshot.tasks.PreviewScreenshotUpdateTask
 import com.android.compose.screenshot.tasks.PreviewScreenshotValidationTask
 import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.isCI
+import net.twisterrob.astro.build.dsl.javaToolchains
+import net.twisterrob.astro.build.dsl.libs
 
 plugins {
 	id("com.android.compose.screenshot")
@@ -24,12 +26,18 @@ tasks.withType<PreviewScreenshotValidationTask>().configureEach {
 	// On CI we want it to "just pass", even if there's a failure.
 	// The CI will detect problems based on the JUnit XML report.
 	ignoreFailures = isCI.get()
+	javaLauncher = javaToolchains.launcherFor {
+		languageVersion = libs.versions.java.toolchainScreenshotTest.map(JavaLanguageVersion::of)
+	}
 }
 
 // TODEL https://issuetracker.google.com/issues/433076233
 tasks.withType<PreviewScreenshotUpdateTask>().configureEach {
 	// Reverse @org.gradle.api.tasks.CacheableTask on this task, so Gradle doesn't do FROM-CACHE on it.
 	outputs.doNotCacheIf("https://issuetracker.google.com/issues/433076233") { true }
+	javaLauncher = javaToolchains.launcherFor {
+		languageVersion = libs.versions.java.toolchainScreenshotTest.map(JavaLanguageVersion::of)
+	}
 }
 
 android {

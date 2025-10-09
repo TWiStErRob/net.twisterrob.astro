@@ -10,7 +10,7 @@ import org.gradle.kotlin.dsl.assign
 
 internal fun Project.configureTestTask(task: Test) {
 	task.javaLauncher = javaToolchains.launcherFor {
-		languageVersion = libs.versions.java.toolchainTest.map(JavaLanguageVersion::of)
+		languageVersion = libs.versions.java.toolchainHostTest.map(JavaLanguageVersion::of)
 	}
 	task.ignoreFailures = isCI.get()
 	task.useJUnitPlatform()

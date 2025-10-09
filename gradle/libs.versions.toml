@@ -1,6 +1,7 @@
 [versions]
 java-toolchain = "25"
-java-toolchainTest = "25"
+java-toolchainHostTest = "25"
+java-toolchainScreenshotTest = "23"
 java-target = "21"
 android-compileSdk = "36"
 android-minSdk = "34"
