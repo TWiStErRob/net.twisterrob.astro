@@ -11,11 +11,11 @@ import com.android.compose.screenshot.tasks.PreviewScreenshotUpdateTask
 import com.android.compose.screenshot.tasks.PreviewScreenshotValidationTask
 import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.isCI
-import net.twisterrob.astro.build.dsl.javaToolchains
 import net.twisterrob.astro.build.dsl.libs
 
 plugins {
 	id("com.android.compose.screenshot")
+	id("org.gradle.jvm-toolchains")
 }
 
 dependencies {
