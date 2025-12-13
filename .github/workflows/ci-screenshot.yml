@@ -65,7 +65,7 @@ jobs:
 
       - name: "Upload 'Screenshot Record Results' artifact."
         if: ${{ steps.cache.outputs.cache-hit != 'true' && (success() || failure()) }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: 'Screenshot Record Results'
           if-no-files-found: error
@@ -74,7 +74,7 @@ jobs:
 
       - name: "Upload 'Screenshot Golden Values' artifact."
         if: ${{ github.event_name == 'pull_request' && (success() || failure()) }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: 'Screenshot Golden Values'
           if-no-files-found: error
@@ -117,7 +117,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: "Download 'Screenshot Golden Values' artifact."
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: 'Screenshot Golden Values'
           # The recorded Golden Values are rooted at `modules/` because of the first `**` in the path.
@@ -142,7 +142,7 @@ jobs:
 
       - name: "Upload 'Screenshot Test Results' artifact."
         if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: 'Screenshot Test Results'
           if-no-files-found: error
@@ -196,7 +196,7 @@ jobs:
     steps:
       
       - name: "Download 'Screenshot Test Results' artifact."
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: 'Screenshot Test Results'
           path: modules
