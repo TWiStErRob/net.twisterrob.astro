@@ -34,10 +34,34 @@ style:
 
 
 compose: # Kode
+  ReusedModifierInstance:
+    # Enable default-disabled rule.
+    active: true
+  UnnecessaryEventHandlerParameter:
+    # Enable default-disabled rule.
+    active: true
   ComposableEventParameterNaming:
     # Enable default-disabled rule.
     active: true
+  ComposableParametersOrdering:
+    # Enable default-disabled rule.
+    active: true
+  ModifierHeightWithText:
+    # Enable default-disabled rule.
+    active: true
+  ModifierDefaultValue:
+    # Enable default-disabled rule.
+    active: true
+  MissingModifierDefaultValue:
+    # Enable default-disabled rule.
+    active: true
+  PublicComposablePreview:
+    # Enable default-disabled rule.
+    active: true
   TopLevelComposableFunctions:
+    # Enable default-disabled rule.
+    active: true
+  ComposableFunctionName:
     # Enable default-disabled rule.
     active: true
   ConditionCouldBeLifted:
@@ -46,9 +70,51 @@ compose: # Kode
 
 
 Compose: # Twitter (io.nlopez.compose.rules:detekt)
+  CompositionLocalAllowlist:
+    # Enable default-disabled rule.
+    active: true
+  ContentEmitterReturningValues:
+    # Enable default-disabled rule.
+    active: true
   Material2:
     # Enable default-disabled rule.
     active: true
+  ModifierComposable:
+    # Enable default-disabled rule.
+    active: true
+  ModifierMissing:
+    # Enable default-disabled rule.
+    active: true
+  ModifierReused:
+    # Enable default-disabled rule.
+    active: true
+  ModifierWithoutDefault:
+    # Enable default-disabled rule.
+    active: true
+  MultipleContentEmitters:
+    # Enable default-disabled rule.
+    active: true
+  MutableParameters:
+    # Enable default-disabled rule.
+    active: true
+  ParameterOrder:
+    # Enable default-disabled rule.
+    active: true
+  PreviewNaming:
+    # Enable default-disabled rule.
+    active: true
+  PreviewPublic:
+    # Enable default-disabled rule.
+    active: true
+  RememberMissing:
+    # Enable default-disabled rule.
+    active: true
   UnstableCollections:
+    # Enable default-disabled rule.
+    active: true
+  ViewModelForwarding:
+    # Enable default-disabled rule.
+    active: true
+  ViewModelInjection:
     # Enable default-disabled rule.
     active: true
