@@ -34,7 +34,13 @@ style:
 
 
 compose: # Kode (ru.kode:detekt-rules-compose)
+  ComposableEventParameterNaming:
+    # Enable default-disabled rule.
+    active: true
   TopLevelComposableFunctions:
+    # Enable default-disabled rule.
+    active: true
+  ConditionCouldBeLifted:
     # Enable default-disabled rule.
     active: true
 
