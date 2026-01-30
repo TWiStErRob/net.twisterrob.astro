@@ -33,7 +33,7 @@ style:
       - 'net.twisterrob.astro.compose.preview.Preview*'
 
 
-compose: # Kode
+compose: # Kode (ru.kode:detekt-rules-compose)
   ComposableEventParameterNaming:
     # Enable default-disabled rule.
     active: true
@@ -45,8 +45,11 @@ compose: # Kode
     active: true
 
 
-Compose: # Twitter (io.nlopez.compose.rules:detekt)
+Compose: # Twitter/nlopez (io.nlopez.compose.rules:detekt)
   Material2:
+    # Enable default-disabled rule.
+    active: true
+  PreviewNaming:
     # Enable default-disabled rule.
     active: true
   UnstableCollections:
