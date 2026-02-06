@@ -21,13 +21,13 @@ android {
 	}
 	sourceSets {
 		named("test") {
-			kotlin.srcDir("src/sharedTest/kotlin")
+			kotlin.directories.add("src/sharedTest/kotlin")
 		}
 		if (!isIdeaSync) {
 			// Only attach the source folder not during sync,
 			// because Android Studio is not capable of handling the same test in multiple sourceSets.
 			named("androidTest") {
-				kotlin.srcDir("src/sharedTest/kotlin")
+				kotlin.directories.add("src/sharedTest/kotlin")
 			}
 		}
 	}
