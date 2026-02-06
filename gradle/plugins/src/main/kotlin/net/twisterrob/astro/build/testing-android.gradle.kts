@@ -1,8 +1,6 @@
 package net.twisterrob.astro.build
 
-import com.android.build.api.variant.HasUnitTestBuilder
 import net.twisterrob.astro.build.dsl.android
-import net.twisterrob.astro.build.dsl.androidComponents
 import net.twisterrob.astro.build.dsl.isIdeaSync
 import net.twisterrob.astro.build.dsl.libs
 import net.twisterrob.astro.build.testing.configureTestTask
@@ -15,12 +13,6 @@ plugins {
 dependencies {
 	"testImplementation"(project(":component:test-base-robolectric"))
 	"androidTestImplementation"(project(":component:test-base-instrumentation"))
-}
-
-androidComponents {
-	beforeVariants { variantBuilder ->
-		(variantBuilder as HasUnitTestBuilder).enableUnitTest = variantBuilder.buildType == "debug"
-	}
 }
 
 android {
