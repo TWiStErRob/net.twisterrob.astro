@@ -26,17 +26,17 @@ android {
 		.plus("__")
 
 	compileSdk = libs.versions.android.compileSdk.map(String::toInt).get()
-	defaultConfig {
+	defaultConfig.apply {
 		minSdk = libs.versions.android.minSdk.map(String::toInt).get()
 
 		vectorDrawables {
 			useSupportLibrary = true
 		}
 	}
-	buildFeatures {
+	buildFeatures.apply {
 		compose = true
 	}
-	packaging {
+	packaging.apply {
 		resources {
 			excludes += "/META-INF/{LICENSE.md,LICENSE-notice.md}"
 			excludes += "/META-INF/versions/*/OSGI-INF/MANIFEST.MF"

@@ -44,7 +44,7 @@ android {
 	@Suppress("UnstableApiUsage")
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
-	testOptions {
+	testOptions.apply {
 		unitTests {
 			all { task ->
 				if (task.name.endsWith("ScreenshotTest")) {

@@ -24,7 +24,7 @@ androidComponents {
 }
 
 android {
-	defaultConfig {
+	defaultConfig.apply {
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
 	sourceSets {
@@ -40,7 +40,7 @@ android {
 		}
 	}
 	@Suppress("UnstableApiUsage")
-	testOptions {
+	testOptions.apply {
 		unitTests {
 			isIncludeAndroidResources = true
 			all { task ->

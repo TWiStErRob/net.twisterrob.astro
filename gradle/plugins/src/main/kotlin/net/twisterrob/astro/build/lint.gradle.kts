@@ -5,11 +5,11 @@ import net.twisterrob.astro.build.dsl.android
 import net.twisterrob.astro.build.dsl.lint
 
 plugins.withId("com.android.base") {
-	android.lint(Lint::configure)
+	android.lint.apply(Lint::configure)
 }
 
 plugins.withId("com.android.lint") {
-	lint(Lint::configure)
+	lint.apply(Lint::configure)
 }
 
 private fun Lint.configure() {
