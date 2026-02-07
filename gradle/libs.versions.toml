@@ -1,14 +1,7 @@
 [versions]
 java-toolchain = "25"
 java-toolchainHostTest = "25"
-# Java 24+ removed the Security Manager.
-# https://docs.oracle.com/en/java/javase/24/security/security-manager-is-permanently-disabled.html
-# > Error occurred during initialization of VM
-# > java.lang.Error:
-# > A command line option has attempted to allow or enable the Security Manager.
-# > Enabling a Security Manager is not supported.
-# >     at java.lang.System.initPhase3(java.base@25/System.java:1969)
-java-toolchainScreenshotTest = "23"
+java-toolchainScreenshotTest = "25"
 java-target = "21"
 android-compileSdk = "36"
 android-minSdk = "34"
