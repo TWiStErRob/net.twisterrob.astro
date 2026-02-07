@@ -9,7 +9,7 @@ android-targetSdk = "36"
 agp = "9.0.0"
 kotlin = "2.3.10"
 
-detekt = "1.23.8"
+detekt = "2.0.0-alpha.2"
 detekt-kode = "1.4.0"
 detekt-twitter = "0.5.6"
 
