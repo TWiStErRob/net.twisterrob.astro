@@ -26,18 +26,29 @@ tasks.withType<PreviewScreenshotValidationTask>().configureEach {
 	// On CI we want it to "just pass", even if there's a failure.
 	// The CI will detect problems based on the JUnit XML report.
 	ignoreFailures = isCI.get()
-	javaLauncher = javaToolchains.launcherFor {
-		languageVersion = libs.versions.java.toolchainScreenshotTest.map(JavaLanguageVersion::of)
-	}
 }
 
-// TODEL https://issuetracker.google.com/issues/433076233
-tasks.withType<PreviewScreenshotUpdateTask>().configureEach {
-	// Reverse @org.gradle.api.tasks.CacheableTask on this task, so Gradle doesn't do FROM-CACHE on it.
-	outputs.doNotCacheIf("https://issuetracker.google.com/issues/433076233") { true }
+tasks.withType<Test>().configureEach {
+	if (this !is PreviewScreenshotValidationTask && this !is PreviewScreenshotUpdateTask) {
+		return@configureEach
+	}
 	javaLauncher = javaToolchains.launcherFor {
 		languageVersion = libs.versions.java.toolchainScreenshotTest.map(JavaLanguageVersion::of)
 	}
+	// TODEL https://issuetracker.google.com/issues/482314257
+	// > A restricted method in java.lang.System has been called
+	// > java.lang.System::load has been called by com.android.layoutlib.bridge.Bridge in an unnamed module
+	// > (file:/${GRADLE_USER_HOME}/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib/16.1.0-jdk17/76fd67db45d54e91c0a424445a1e4e8f6270a7b5/layoutlib-16.1.0-jdk17.jar)
+	// > Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+	// > Restricted methods will be blocked in a future release unless native access is enabled
+	jvmArgs("--enable-native-access=ALL-UNNAMED")
+	// TODEL https://issuetracker.google.com/issues/482343977
+	// > A terminally deprecated method in sun.misc.Unsafe has been called
+	// > sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+	// > (file:/${GRADLE_USER_HOME}/caches/modules-2/files-2.1/com.android.tools.compose/compose-preview-renderer/0.0.1-alpha13/5d804413a73f74cdb6204ff0937bcf713231aca5/compose-preview-renderer-0.0.1-alpha13.jar)
+	// > Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+	// > sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+	jvmArgs("--sun-misc-unsafe-memory-access=allow")
 }
 
 android {

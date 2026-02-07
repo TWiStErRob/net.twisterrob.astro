@@ -87,20 +87,3 @@ doNotNagAbout(
 			"https://docs.gradle.org/${gradleVersion}/userguide/upgrading_version_9.html#reporting_extension_file",
 	"at io.gitlab.arturbosch.detekt.DetektPlugin.apply(DetektPlugin.kt:28)",
 )
-
-// TODEL Gradle 9.1 vs com.android.compose.screenshot 0.0.1-alpha11 https://issuetracker.google.com/issues/444260626
-@Suppress("detekt.MaxLineLength")
-doNotNagAbout(
-	Regex(
-		"Declaring dependencies using multi-string notation has been deprecated. ".escape() +
-				"This will fail with an error in Gradle 10. ".escape() +
-				"Please use single-string notation instead: ".escape() +
-				"\"${"com.android.tools.layoutlib:layoutlib-runtime:".escape()}\\d+\\.\\d+\\.\\d+${"\". ".escape()}" +
-				"Consult the upgrading guide for further information: ".escape() +
-				"https://docs.gradle.org/${gradleVersion}/userguide/upgrading_version_9.html#dependency_multi_string_notation".escape() +
-				".*",
-	),
-	//"at com.android.compose.screenshot.layoutlibExtractor.LayoutlibDataFromMaven\$Companion.create(LayoutlibDataFromMaven.kt:52)",
-)
-
-private fun String.escape(): String = Regex.escape(this)
