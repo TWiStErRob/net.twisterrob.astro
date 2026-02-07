@@ -31,7 +31,7 @@ androidx-viewmodelCompose = "2.10.0"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
-detekt-rules-libraries = { module = "io.gitlab.arturbosch.detekt:detekt-rules-libraries", version.ref = "detekt" }
+detekt-rules-libraries = { module = "dev.detekt:detekt-rules-libraries", version.ref = "detekt" }
 detekt-rules-composeTwitter = { module = "io.nlopez.compose.rules:detekt", version.ref = "detekt-twitter" }
 detekt-rules-composeKode = { module = "ru.kode:detekt-rules-compose", version.ref = "detekt-kode" }
 
@@ -73,6 +73,6 @@ test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.re
 [plugins]
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 android = { id = "com.android.application", version.ref = "agp" }
 screenshot = { id = "com.android.compose.screenshot", version.ref = "compose-screenshot"}
