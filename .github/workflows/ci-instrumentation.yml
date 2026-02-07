@@ -17,7 +17,6 @@ jobs:
         --stacktrace
         --scan
         connectedCheck
-        mergeAndroidReports
 
     permissions:
       contents: read

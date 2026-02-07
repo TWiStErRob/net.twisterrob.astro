@@ -40,27 +40,24 @@ kotlin {
 pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
 	java {
 		// > Execution failed for task ':<net.twisterrob.astro.library>:compileKotlin'.
-		// > > Inconsistent JVM Target Compatibility Between Java and Kotlin Tasks
-		// >    Inconsistent JVM Target Compatibility Between Java and Kotlin Tasks
-		// >      Inconsistent JVM-target compatibility detected for tasks 'compileJava' (25) and 'compileKotlin' (22).
+		// > Inconsistent JVM Target Compatibility Between Java and Kotlin Tasks
+		// > Inconsistent JVM-target compatibility detected for tasks 'compileJava' (25) and 'compileKotlin' (21).
 		sourceCompatibility = libs.versions.java.target.map(JavaVersion::toVersion).get()
 		targetCompatibility = libs.versions.java.target.map(JavaVersion::toVersion).get()
 	}
 	tasks.withType<JavaCompile>().configureEach {
-      // https://cs.android.com/android-studio/platform/tools/base/+/mirror-goog-studio-main:build-system/gradle-core/src/main/java/com/android/build/gradle/tasks/JavaCompileUtils.kt;l=411
+		// https://cs.android.com/android-studio/platform/tools/base/+/mirror-goog-studio-main:build-system/gradle-core/src/main/java/com/android/build/gradle/tasks/JavaCompileUtils.kt;l=357
 		//options.release = libs.versions.java.target.map(String::toInt)
 	}
 }
 
 pluginManager.withPlugin("com.android.base") {
 	android {
-		compileOptions {
-			// JVM test fixtures don't use target version properly from kotlin {},
-			// so we need to configure them manually for Android.
-			// > > Could not create task ':<net.twisterrob.astro.android-library>:compileDebugTestFixturesKotlin'.
-			// >   > Unknown Kotlin JVM target: 25,
-			// >     available targets are 1.8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
-			// >     Prefer configuring 'jvmTarget' value via 'compilerOptions' DSL: https://kotl.in/compiler-options-dsl
+		compileOptions.apply {
+			// > Execution failed for task ':<net.twisterrob.astro.android-library>:compileDebugKotlin'.
+			// > Inconsistent JVM targets between Java and Kotlin compile tasks: 25 and 21.
+			// > To fix this issue, use the same JVM target for both tasks.
+			// > For more details, see https://issuetracker.google.com/408242956.
 			sourceCompatibility = libs.versions.java.target.map(JavaVersion::toVersion).get()
 			targetCompatibility = libs.versions.java.target.map(JavaVersion::toVersion).get()
 		}

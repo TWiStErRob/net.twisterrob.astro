@@ -1,8 +1,6 @@
 package net.twisterrob.astro.build
 
-import com.android.build.api.variant.HasUnitTestBuilder
 import net.twisterrob.astro.build.dsl.android
-import net.twisterrob.astro.build.dsl.androidComponents
 import net.twisterrob.astro.build.dsl.isIdeaSync
 import net.twisterrob.astro.build.dsl.libs
 import net.twisterrob.astro.build.testing.configureTestTask
@@ -17,30 +15,24 @@ dependencies {
 	"androidTestImplementation"(project(":component:test-base-instrumentation"))
 }
 
-androidComponents {
-	beforeVariants { variantBuilder ->
-		(variantBuilder as HasUnitTestBuilder).enableUnitTest = variantBuilder.buildType == "debug"
-	}
-}
-
 android {
-	defaultConfig {
+	defaultConfig.apply {
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
 	sourceSets {
 		named("test") {
-			kotlin.srcDir("src/sharedTest/kotlin")
+			kotlin.directories.add("src/sharedTest/kotlin")
 		}
 		if (!isIdeaSync) {
 			// Only attach the source folder not during sync,
 			// because Android Studio is not capable of handling the same test in multiple sourceSets.
 			named("androidTest") {
-				kotlin.srcDir("src/sharedTest/kotlin")
+				kotlin.directories.add("src/sharedTest/kotlin")
 			}
 		}
 	}
 	@Suppress("UnstableApiUsage")
-	testOptions {
+	testOptions.apply {
 		unitTests {
 			isIncludeAndroidResources = true
 			all { task ->
