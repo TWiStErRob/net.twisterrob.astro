@@ -75,10 +75,6 @@ style:
     ignoreAnnotated:
       - 'org.junit.jupiter.api.Nested'
 
-  RedundantVisibilityModifierRule:
-    # It's not redundant with Kotlin's strict explicit API mode.
-    active: false
-
   UseDataClass:
     # Would conflict with libraries:ForbiddenPublicDataClass.
     active: false
