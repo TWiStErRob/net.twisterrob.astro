@@ -31,10 +31,7 @@ tasks.withType<PreviewScreenshotValidationTask>().configureEach {
 	}
 }
 
-// TODEL https://issuetracker.google.com/issues/433076233
 tasks.withType<PreviewScreenshotUpdateTask>().configureEach {
-	// Reverse @org.gradle.api.tasks.CacheableTask on this task, so Gradle doesn't do FROM-CACHE on it.
-	outputs.doNotCacheIf("https://issuetracker.google.com/issues/433076233") { true }
 	javaLauncher = javaToolchains.launcherFor {
 		languageVersion = libs.versions.java.toolchainScreenshotTest.map(JavaLanguageVersion::of)
 	}
