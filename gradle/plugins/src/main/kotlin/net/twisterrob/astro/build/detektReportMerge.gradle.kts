@@ -1,7 +1,7 @@
 package net.twisterrob.astro.build
 
-import io.gitlab.arturbosch.detekt.Detekt
-import io.gitlab.arturbosch.detekt.report.ReportMergeTask
+import dev.detekt.gradle.Detekt
+import dev.detekt.gradle.report.ReportMergeTask
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.withType
 
@@ -11,7 +11,7 @@ val detektReportMergeSarif: TaskProvider<ReportMergeTask> = tasks
 	}
 
 subprojects {
-	plugins.withId("io.gitlab.arturbosch.detekt") {
+	plugins.withId("dev.detekt") {
 
 		tasks.named("check").configure {
 			dependsOn(tasks.withType<Detekt>())
@@ -26,7 +26,7 @@ subprojects {
 			finalizedBy(detektReportMergeSarif)
 		}
 		detektReportMergeSarif.configure {
-			input.from(tasks.withType<Detekt>().map { it.sarifReportFile })
+			input.from(tasks.withType<Detekt>().map { it.reports.sarif.outputLocation })
 		}
 	}
 }
