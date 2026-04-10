@@ -21,7 +21,7 @@ jobs:
     steps:
 
       - name: "Update '🔔 Test: Screenshot Results' check run."
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           ref: ${{ github.ref }}
           user: ${{ github.actor }}
