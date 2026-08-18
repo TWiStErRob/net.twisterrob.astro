@@ -1,17 +1,17 @@
 package net.twisterrob.astro.build
 
 import dev.detekt.gradle.Detekt
-import dev.detekt.gradle.extensions.DetektExtension
 import net.twisterrob.astro.build.dsl.isCI
 import net.twisterrob.astro.build.dsl.libs
-import org.gradle.kotlin.dsl.configure
 
-pluginManager.apply("dev.detekt")
+plugins {
+	id("dev.detekt")
+}
 
-extensions.configure<DetektExtension> {
+detekt {
 	ignoreFailures = isCI.get()
 	allRules = true
-	basePath.set(rootProject.layout.projectDirectory)
+	basePath = rootProject.projectDir.absolutePath
 
 	parallel = true
 	config.from(rootProject.file("config/detekt/detekt.yml"))
@@ -24,8 +24,8 @@ extensions.configure<DetektExtension> {
 		jvmTarget = libs.versions.java.target.get()
 		reports {
 			html.required.set(true) // human
-			checkstyle.required.set(true) // checkstyle
-			markdown.required.set(true) // console
+			xml.required.set(true) // checkstyle
+			txt.required.set(true) // console
 			// https://sarifweb.azurewebsites.net
 			sarif.required.set(true) // Github Code Scanning
 		}
@@ -33,7 +33,7 @@ extensions.configure<DetektExtension> {
 }
 
 dependencies {
-	add("detektPlugins", libs.detekt.rules.libraries)
-	add("detektPlugins", libs.detekt.rules.composeTwitter)
-	add("detektPlugins", libs.detekt.rules.composeKode)
+	detektPlugins(libs.detekt.rules.libraries)
+	detektPlugins(libs.detekt.rules.composeTwitter)
+	detektPlugins(libs.detekt.rules.composeKode)
 }
