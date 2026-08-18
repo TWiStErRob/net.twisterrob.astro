@@ -28,7 +28,9 @@ naming:
 style:
 
   UnusedPrivateFunction:
-    allowedNames: '.*Preview'
+    ignoreAnnotated:
+      - 'androidx.compose.ui.tooling.preview.Preview'
+      - 'net.twisterrob.astro.compose.preview.Preview*'
 
 
 compose: # Kode (ru.kode:detekt-rules-compose)
