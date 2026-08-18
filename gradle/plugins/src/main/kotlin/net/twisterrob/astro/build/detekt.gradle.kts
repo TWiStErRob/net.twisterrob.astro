@@ -1,11 +1,11 @@
 package net.twisterrob.astro.build
 
-import io.gitlab.arturbosch.detekt.Detekt
+import dev.detekt.gradle.Detekt
 import net.twisterrob.astro.build.dsl.isCI
 import net.twisterrob.astro.build.dsl.libs
 
 plugins {
-	id("io.gitlab.arturbosch.detekt")
+	id("dev.detekt")
 }
 
 detekt {
