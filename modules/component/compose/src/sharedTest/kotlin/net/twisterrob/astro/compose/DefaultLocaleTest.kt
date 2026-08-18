@@ -4,7 +4,7 @@ import android.content.res.Configuration
 import android.os.LocaleList
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
@@ -28,12 +28,13 @@ class DefaultLocaleTest {
 
 	@Test
 	fun defaultLocale_noLocale() {
+		val expectedLocale = Locale.getDefault()
 		composeTestRule.setContent {
 			CompositionLocalProvider(
 				LocalConfiguration provides Configuration()
 			) {
 				val locale = defaultLocale
-				assertEquals(Locale.getDefault(), locale)
+				assertEquals(expectedLocale, locale)
 			}
 		}
 	}
