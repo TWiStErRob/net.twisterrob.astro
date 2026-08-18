@@ -12,7 +12,7 @@ public class BaZiScreenScreenshots {
 	@Preview
 	@PreviewTest
 	@Composable
-	private fun Default() {
+	private fun DefaultPreview() {
 		viewModel<BaZiViewModel>().select(TestInstants.REPO)
 		AppTheme {
 			BaZiScreen()

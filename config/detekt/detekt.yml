@@ -36,6 +36,7 @@ complexity:
       - '**/src/androidInstrumentedTest/**'
       - '**/src/jsTest/**'
       - '**/src/iosTest/**'
+      - '**/src/screenshotTest/**/*Screenshots.kt'
 
   TooManyFunctions:
     excludes: *testExcludes

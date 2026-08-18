@@ -13,7 +13,7 @@ public class MainScreenScreenshots {
 	@Preview(locale = "en") // REPORT have to explicitly specify a locale, otherwise it may inherit "previous test's" Locale.
 	@PreviewTest
 	@Composable
-	private fun Default() {
+	private fun DefaultPreview() {
 		viewModel<BaZiViewModel>().select(TestInstants.REPO)
 		AppTheme {
 			MainScreen()
@@ -23,7 +23,7 @@ public class MainScreenScreenshots {
 	@Preview(locale = "hu")
 	@PreviewTest
 	@Composable
-	private fun Hungarian() {
+	private fun HungarianPreview() {
 		viewModel<BaZiViewModel>().select(TestInstants.REPO)
 		AppTheme {
 			MainScreen()

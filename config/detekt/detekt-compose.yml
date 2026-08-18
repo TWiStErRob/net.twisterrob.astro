@@ -24,6 +24,13 @@ naming:
   TopLevelPropertyNaming:
     constantPattern: '[A-Z][A-Za-z0-9]*'
 
+
+style:
+
+  UnusedPrivateFunction:
+    allowedNames: '.*Preview'
+
+
 compose: # Kode (ru.kode:detekt-rules-compose)
   ComposableEventParameterNaming:
     # Enable default-disabled rule.
