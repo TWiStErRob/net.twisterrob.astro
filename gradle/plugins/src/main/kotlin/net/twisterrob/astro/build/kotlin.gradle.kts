@@ -33,7 +33,6 @@ kotlin {
 		// freeCompilerArgs.add(jvmTarget.map { "-Xjdk-release=${it.target}" })
 		allWarningsAsErrors = true
 		freeCompilerArgs.add("-opt-in=kotlin.ExperimentalStdlibApi")
-		freeCompilerArgs.add("-Xcontext-parameters")
 	}
 }
 
