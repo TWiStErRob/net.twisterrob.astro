@@ -33,4 +33,19 @@ internal fun Project.configureTestTask(task: Test) {
 	// > WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
 	// > WARNING: Restricted methods will be blocked in a future release unless native access is enabled
 	task.jvmArgs("--enable-native-access=ALL-UNNAMED")
+
+	// https://robolectric.org/getting-started/#running-with-java-17-and-higher
+	// > java.lang.RuntimeException: Failed to interact with raw FileDescriptor internals; perhaps JRE has changed?
+	// > at org.robolectric.interceptors.AndroidInterceptors$FileDescriptorInterceptor.setInt(AndroidInterceptors.java:88)
+	// > at com.android.internal.os.ApplicationSharedMemory.create(ApplicationSharedMemory.java:106)
+	// > at org.robolectric.android.internal.AndroidTestEnvironment.setUpApplicationState(AndroidTestEnvironment.java:245)
+	// > at org.robolectric.RobolectricTestRunner.beforeTest(RobolectricTestRunner.java:327)
+    // > Caused by: java.lang.IllegalAccessException: class org.robolectric.interceptors.AndroidInterceptors$FileDescriptorInterceptor
+	// > cannot access class jdk.internal.access.SharedSecrets (in module java.base)
+	// > because module java.base does not export jdk.internal.access to unnamed module @21dfe62d
+	// > at org.robolectric.interceptors.AndroidInterceptors$FileDescriptorInterceptor.setInt(AndroidInterceptors.java:83)
+	// > at com.android.internal.os.ApplicationSharedMemory.$$robo$$com_android_internal_os_ApplicationSharedMemory$create(ApplicationSharedMemory.java:106)
+	// > at com.android.internal.os.ApplicationSharedMemory.create(ApplicationSharedMemory.java)
+	// > ... 14 more
+	task.jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
 }
