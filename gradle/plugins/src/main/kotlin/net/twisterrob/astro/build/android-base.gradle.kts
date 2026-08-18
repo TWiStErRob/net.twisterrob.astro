@@ -8,9 +8,10 @@ plugins {
 	id("org.jetbrains.kotlin.plugin.compose")
 	id("net.twisterrob.astro.build.kotlin")
 	id("net.twisterrob.astro.build.testing-android")
-	id("net.twisterrob.astro.build.detekt")
 	id("net.twisterrob.astro.build.lint")
 }
+
+apply(plugin = "net.twisterrob.astro.build.detekt")
 
 android {
 	val subPackage = project.path

@@ -27,7 +27,7 @@ naming:
 
 style:
 
-  UnusedPrivateMember:
+  UnusedPrivateFunction:
     ignoreAnnotated:
       - 'androidx.compose.ui.tooling.preview.Preview*'
       - 'net.twisterrob.astro.compose.preview.Preview*'
@@ -52,6 +52,8 @@ Compose: # Twitter/nlopez (io.nlopez.compose.rules:detekt)
   PreviewNaming:
     # Enable default-disabled rule.
     active: true
+    ignoreAnnotated:
+      - 'com.android.tools.screenshot.PreviewTest'
   UnstableCollections:
     # Enable default-disabled rule.
     active: true
