@@ -24,8 +24,8 @@ detekt {
 		jvmTarget = libs.versions.java.target.get()
 		reports {
 			html.required = true // human
-			xml.required = true // checkstyle
-			txt.required = true // console
+			checkstyle.required = true // XML
+			markdown.required = true // console
 			// https://sarifweb.azurewebsites.net
 			sarif.required = true // Github Code Scanning
 		}
