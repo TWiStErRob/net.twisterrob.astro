@@ -24,15 +24,6 @@ naming:
   TopLevelPropertyNaming:
     constantPattern: '[A-Z][A-Za-z0-9]*'
 
-
-style:
-
-  UnusedPrivateMember:
-    ignoreAnnotated:
-      - 'androidx.compose.ui.tooling.preview.Preview*'
-      - 'net.twisterrob.astro.compose.preview.Preview*'
-
-
 compose: # Kode (ru.kode:detekt-rules-compose)
   ComposableEventParameterNaming:
     # Enable default-disabled rule.

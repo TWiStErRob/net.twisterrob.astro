@@ -26,7 +26,7 @@ subprojects {
 			finalizedBy(detektReportMergeSarif)
 		}
 		detektReportMergeSarif.configure {
-			input.from(tasks.withType<Detekt>().map { it.sarifReportFile })
+			input.from(tasks.withType<Detekt>().map { it.reports.sarif.outputLocation })
 		}
 	}
 }
