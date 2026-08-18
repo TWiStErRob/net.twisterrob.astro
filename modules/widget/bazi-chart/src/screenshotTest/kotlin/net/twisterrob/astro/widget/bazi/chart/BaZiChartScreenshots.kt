@@ -13,7 +13,7 @@ public class BaZiChartScreenshots {
 	@Preview
 	@PreviewTest
 	@Composable
-	private fun FullPreview() {
+	private fun Full() {
 		AppTheme {
 			BaZiChart(
 				bazi = BaZi(
@@ -39,7 +39,7 @@ public class BaZiChartScreenshots {
 	@Preview
 	@PreviewTest
 	@Composable
-	private fun HourlessPreview() {
+	private fun Hourless() {
 		AppTheme {
 			BaZiChart(
 				bazi = BaZi(

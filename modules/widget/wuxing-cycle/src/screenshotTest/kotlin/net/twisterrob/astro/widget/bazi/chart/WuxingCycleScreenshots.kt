@@ -12,7 +12,7 @@ public class WuxingCycleScreenshots {
 	@Preview
 	@PreviewTest
 	@Composable
-	private fun EarthCyclePreview() {
+	private fun EarthCycle() {
 		AppTheme {
 			WuxingCycle(
 				phase = Phase.Tu,
