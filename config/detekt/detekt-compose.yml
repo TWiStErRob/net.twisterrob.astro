@@ -29,7 +29,7 @@ style:
 
   UnusedPrivateFunction:
     ignoreAnnotated:
-      - 'androidx.compose.ui.tooling.preview.Preview'
+      - 'androidx.compose.ui.tooling.preview.Preview*'
       - 'net.twisterrob.astro.compose.preview.Preview*'
 
 
