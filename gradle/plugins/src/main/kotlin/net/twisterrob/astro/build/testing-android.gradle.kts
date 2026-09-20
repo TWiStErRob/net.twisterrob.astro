@@ -18,6 +18,9 @@ dependencies {
 android {
 	defaultConfig.apply {
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+		// TODEL https://issuetracker.google.com/issues/563732801
+		// AGP 9.3 to 9.4 upgrade turned IGNORED <skipped /> into ABORTED <failure></failure> for "back button hides the picker" tests.
+		testInstrumentationRunnerArguments["notAnnotation"] = "org.junit.Ignore"
 	}
 	sourceSets {
 		named("test") {
