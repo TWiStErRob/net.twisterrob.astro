@@ -17,7 +17,7 @@ jobs:
       run:
         shell: bash
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
 
       - name: "Calculate relevant SHA."
@@ -110,7 +110,7 @@ jobs:
       run:
         shell: bash
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
 
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
@@ -189,7 +189,7 @@ jobs:
       # actions/deploy-pages
       id-token: write
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     defaults:
       run:
         shell: bash
