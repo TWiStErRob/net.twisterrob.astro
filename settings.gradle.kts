@@ -1,3 +1,4 @@
+import net.twisterrob.gradle.doNotNagAbout
 import net.twisterrob.gradle.settings.enableFeaturePreviewQuietly
 
 // TODEL https://github.com/gradle/gradle/issues/18971
@@ -73,3 +74,14 @@ fun includeGroup(path: String) {
 	val module = project(path)
 	module.projectDir = file("modules").resolve(module.projectDir.relativeTo(settings.rootDir))
 }
+
+val gradleVersion: String = GradleVersion.current().version
+
+// TODEL detekt 2.0.0-alpha.6 vs Gradle 9.7.0 https://github.com/detekt/detekt/issues/9742
+doNotNagAbout(
+	"Querying the output of an artifact transform from a task action without declaring it as a task input has been deprecated. " +
+		"This is scheduled to be removed in Gradle 10. " +
+		"Declare the files or artifacts produced by the configuration using the transform as a task input to properly wire it into the execution plan. " +
+		"Consult the upgrading guide for further information: " +
+		"https://docs.gradle.org/${gradleVersion}/userguide/upgrading_version_9.html#undeclared_artifact_transform_input"
+)
