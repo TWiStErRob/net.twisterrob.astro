@@ -17,7 +17,7 @@ jobs:
       # rest.repos.createCommitStatus
       statuses: write
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
 
       - name: "Update '🔔 Test: Screenshot Results' check run."
