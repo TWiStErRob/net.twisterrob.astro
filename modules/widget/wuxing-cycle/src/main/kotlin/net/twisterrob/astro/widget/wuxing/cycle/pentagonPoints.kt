@@ -26,7 +26,7 @@ internal fun pentagonPoints(size: Dp): List<DpOffset> = pentagonPointsMath(size)
  * This 5-point shape where each point touches a side of the square,
  * is not a regular pentagon or pentagram, but very closely resembles one.
  */
-@Suppress("detekt.MagicNumber", "detekt.UnusedPrivateMember")
+@Suppress("detekt.MagicNumber", "detekt.UnusedPrivateFunction")
 @Composable
 private fun pentagonPointsNumeric(size: Dp): List<DpOffset> {
 	val y = size * 0.391642f       // the height of the cross-line
