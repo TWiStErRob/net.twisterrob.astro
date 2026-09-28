@@ -10,7 +10,7 @@ agp = "9.4.1"
 kotlin = "2.4.20"
 
 detekt = "2.0.0-alpha.6"
-detekt-kode = "1.4.0"
+detekt-kode = "2.0.0"
 detekt-twitter = "0.6.7"
 
 junit = "4.13.2"
