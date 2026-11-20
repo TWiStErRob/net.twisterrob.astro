@@ -26,8 +26,8 @@ androidx-activityCompose = "1.13.0"
 androidx-core = "1.19.1"
 androidx-espresso = "3.7.0"
 androidx-espressoJunit = "1.3.0"
-androidx-lifecycleRuntime = "2.11.0"
-androidx-viewmodelCompose = "2.11.0"
+androidx-lifecycleRuntime = "2.11.1"
+androidx-viewmodelCompose = "2.11.1"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
